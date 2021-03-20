@@ -15,11 +15,10 @@ namespace CC.Yi.BLL
         {
             CurrentDal = cd;
         }
-        //public abstract void SetCurrentDal();
-        //public BaseBll()//基类的构造方法
-        //{
-        //    SetCurrentDal();//该方法由子类去实现
-        //}
+        public IQueryable<T> GetAllEntities() 
+        {
+            return CurrentDal.GetAllEntities();
+        }
 
         public IQueryable<T> GetEntities(Expression<Func<T, bool>> whereLambda)
         {

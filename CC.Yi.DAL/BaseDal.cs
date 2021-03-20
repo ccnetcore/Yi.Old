@@ -19,7 +19,13 @@ namespace CC.Yi.DAL
             return Db.Set<T>().Where(whereLambda).AsQueryable();
         }
 
-        public int GetCount(Expression<Func<T, bool>> whereLambda) //统计数量
+        public IQueryable<T> GetAllEntities()
+        {
+            return Db.Set<T>().AsQueryable();
+        }
+
+
+        public int GetCount(Expression<Func<T, bool>> whereLambda)
         {
             return Db.Set<T>().Where(whereLambda).Count();
         }
