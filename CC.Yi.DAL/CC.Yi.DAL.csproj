@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CC.Yi.IDAL\CC.Yi.IDAL.csproj" />
+    <ProjectReference Include="..\CC.Yi.Model\CC.Yi.Model.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="T4DAL.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>T4DAL.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="T4DAL.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>T4DAL.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+</Project>
