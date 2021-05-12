@@ -3,13 +3,15 @@ using CC.Yi.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
 
 namespace CC.Yi.DAL
 {
     public partial class studentDal : BaseDal<student>, IstudentDal
     {
-        public studentDal(DataContext _Db) : base(_Db)
+        public studentDal(DataContext _Db):base(_Db)
         {
+            Db = _Db;
         }
     }
 }

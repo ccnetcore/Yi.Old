@@ -2,7 +2,7 @@
 
 namespace CC.Yi.API.Migrations
 {
-    public partial class yi1 : Migration
+    public partial class y1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -10,9 +10,9 @@ namespace CC.Yi.API.Migrations
                 name: "student",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    name = table.Column<int>(type: "int", nullable: false)
+                    id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    name = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {

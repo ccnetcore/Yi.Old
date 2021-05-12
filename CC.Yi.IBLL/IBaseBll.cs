@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Autofac.Extras.DynamicProxy;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -11,6 +12,7 @@ namespace CC.Yi.IBLL
         //得到全部实体
         #endregion
         IQueryable<T> GetAllEntities();
+
         #region
         //通过表达式得到实体
         #endregion
@@ -37,9 +39,19 @@ namespace CC.Yi.IBLL
         T Add(T entity);
 
         #region
+        //添加多个实体
+        #endregion
+        bool Add(IEnumerable<T> entities);
+
+        #region
         //更新实体
         #endregion
         bool Update(T entity);
+
+        #region
+        //更新实体部分属性
+        #endregion
+        bool Update(T entity, params string[] propertyNames);
 
         #region
         //删除实体
@@ -54,6 +66,11 @@ namespace CC.Yi.IBLL
         #region
         //通过id列表删除多个实体
         #endregion
-        int DeleteList(List<int> ids);
+        bool Delete(IEnumerable<int> ids);
+
+        #region
+        //通过表达式删除实体
+        #endregion
+        bool Delete(Expression<Func<T, bool>> where);
     }
 }

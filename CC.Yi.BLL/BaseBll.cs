@@ -1,6 +1,7 @@
-﻿using CC.Yi.DALFactory;
-using CC.Yi.IBLL;
+﻿using CC.Yi.IBLL;
 using CC.Yi.IDAL;
+using CC.Yi.Model;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,13 @@ namespace CC.Yi.BLL
     public class BaseBll<T> : IBaseBll<T> where T : class, new()
     {
         public IBaseDal<T> CurrentDal;
-        public BaseBll(IBaseDal<T> cd)
+        public DbContext DbSession;
+        public BaseBll(IBaseDal<T> cd, DataContext _Db)
         {
             CurrentDal = cd;
+            DbSession = _Db;
         }
+   
         public IQueryable<T> GetAllEntities() 
         {
             return CurrentDal.GetAllEntities();
@@ -49,9 +53,21 @@ namespace CC.Yi.BLL
             return entity;
         }
 
+        public bool Add(IEnumerable<T> entities)
+        {
+            CurrentDal.AddRange(entities);
+            return DbSession.SaveChanges() > 0;
+        }
+
         public bool Update(T entity)
         {
             CurrentDal.Update(entity);
+            return DbSession.SaveChanges() > 0;
+        }
+
+        public bool Update(T entity, params string[] propertyNames)
+        {
+            CurrentDal.Update(entity,propertyNames);
             return DbSession.SaveChanges() > 0;
         }
 
@@ -60,26 +76,30 @@ namespace CC.Yi.BLL
             CurrentDal.Delete(entity);
             return DbSession.SaveChanges() > 0;
         }
-        public IDbSession DbSession
-        {
-            get
-            {
-                return DbSessionFactory.GetCurrentDbSession();
-            }
-        }
         public bool Delete(int id)
         {
             CurrentDal.Detete(id);
             return DbSession.SaveChanges() > 0;
         }
 
-        public int DeleteList(List<int> ids)
+        public bool Delete(IEnumerable<int> ids)
         {
             foreach (var id in ids)
             {
                 CurrentDal.Detete(id);
             }
-            return DbSession.SaveChanges();//这里把SaveChanges方法提到了循环体外，自然就与数据库交互一次
+            return DbSession.SaveChanges()>0;
+        }
+        public bool Delete(Expression<Func<T, bool>> where)
+        {
+            IQueryable<T> entities =  CurrentDal.GetEntities(where);
+            if (entities != null)
+            {
+                CurrentDal.DeteteRange(entities);
+
+                return DbSession.SaveChanges()>0;
+            }
+            return false;
         }
 
     }

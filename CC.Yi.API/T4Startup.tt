@@ -13,31 +13,28 @@
             sr.Close();
             string[] ModelData= txt.Split(',');
  #>
+using Autofac;
+using Autofac.Extras.DynamicProxy;
+using CC.Yi.BLL;
+using CC.Yi.Common.Castle;
 using CC.Yi.DAL;
+using CC.Yi.IBLL;
 using CC.Yi.IDAL;
 using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
 
-namespace CC.Yi.DALFactory
+
+namespace CC.Yi.API
 {
-    public partial class StaticDalFactory
+    public partial class Startup
     {
-<#    foreach(string k in ModelData){
- #>
-        public static I<#=k #>Dal Get<#=k #>Dal()
+        //动态 面向AOP思想的依赖注入 Autofac
+        public void ConfigureContainer(ContainerBuilder builder)
         {
-            I<#=k #>Dal Data = CallContext.GetData("<#=k #>Dal") as I<#=k #>Dal;
-            if (Data == null)
-            {
-                Data = new <#=k #>Dal(DbSessionFactory.GetCurrentDbSession().GetDbContent());
-                CallContext.SetData("<#=k #>Dal", Data);
-            }
-            return Data;
-        }
-
+            builder.RegisterType(typeof(CustomAutofacAop));
+            builder.RegisterGeneric(typeof(BaseDal<>)).As(typeof(IBaseDal<>));
+<#    foreach(string k in ModelData){#>
+            builder.RegisterType<<#=k #>Bll>().As<I<#=k #>Bll>().EnableInterfaceInterceptors();//表示注入前后要执行Castle，AOP
 <#    } #>
+        }
     }
 }

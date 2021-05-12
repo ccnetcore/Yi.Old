@@ -21,6 +21,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace CC.Yi.BLL
 {
@@ -28,9 +29,10 @@ namespace CC.Yi.BLL
  #>
     public partial class <#=k #>Bll : BaseBll<<#=k #>>, I<#=k #>Bll
         {
-            public <#=k #>Bll(IBaseDal<<#=k #>> cd):base(cd)
+            public <#=k #>Bll(IBaseDal<<#=k #>> cd,DataContext _Db):base(cd,_Db)
             {
                 CurrentDal = cd;
+                DbSession = _Db;
             }
         }
 <#    } #>
