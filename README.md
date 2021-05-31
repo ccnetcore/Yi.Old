@@ -1,19 +1,22 @@
 # CC.Yi
 
 #### 介绍
-基于.NET5的MVC三层架构的框架--Yi意框架（意义是为了开发更简易）
+基于.NET5的WebAPI三层架构的框架--Yi意框架（意义是为了开发更简易）
 
-第一版开发完成时间：2021/3/19 （请记住，这是一个值得纪念的日子）
+第一版开发完成时间：2021/3/19 （请记住，这是一个值得纪念的日子）,因此曾经的版本已经停止维护，更名为CC.Yi.Old，由一定学习研究价值，使用框架请使用新版CC.Yi项目
 
-为了更简易的开发，我们在2021/3/27 加入了vue分支（我们将持续更新）
-
+为了更简易的开发,我们即将加入Vue分支（我们将持续更新）
 
 #### 软件架构
-架构：.NET5 +mysql+sql server（后期我们将集成数据+前端Vue，让开发更加简易！）
+架构：.NET5(.NetCore 5)
 
-操作系统：Windows，Linux
+支持的关系型数据库：mysql、sql server、sqlite
 
-扩展：EFcore，Autofac，Identity，Castle，Redis，Swagger，T4 ，Nlog（后期我们会添加更多）
+支持的非关系型数据库：redis
+
+操作系统：Windows、Linux
+
+扩展：EFcore、Autofac、Identity、Castle、Swagger、T4、Nlog（后期我们会添加更多）
 
 封装：Json处理模块，滑动验证码模块，base64图片处理模块（后期我们会添加更多）
 
