@@ -1,0 +1,40 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.IO" #>
+<#@ output extension=".cs" #>
+<#
+    string solutionsPath = Host.ResolveAssemblyReference("$(SolutionDir)");//获取解决方案路径
+            string txt;
+            StreamReader sr = new StreamReader(solutionsPath+@"\T4Model\T4Model.txt");
+            txt=sr.ReadToEnd();
+            sr.Close();
+            string[] ModelData= txt.Split(',');
+ #>
+using Autofac;
+using Autofac.Extras.DynamicProxy;
+using CC.Yi.BLL;
+using CC.Yi.Common.Castle;
+using CC.Yi.DAL;
+using CC.Yi.IBLL;
+using CC.Yi.IDAL;
+using System;
+
+
+namespace CC.Yi.API
+{
+    public partial class Startup
+    {
+        //动态 面向AOP思想的依赖注入 Autofac
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            builder.RegisterType(typeof(CustomAutofacAop));
+            builder.RegisterGeneric(typeof(BaseDal<>)).As(typeof(IBaseDal<>));
+<#    foreach(string k in ModelData){#>
+            builder.RegisterType<<#=k #>Bll>().As<I<#=k #>Bll>().EnableInterfaceInterceptors();//表示注入前后要执行Castle，AOP
+<#    } #>
+        }
+    }
+}
