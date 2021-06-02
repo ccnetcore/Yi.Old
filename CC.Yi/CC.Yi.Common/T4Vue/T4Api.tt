@@ -1,0 +1,58 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.IO" #>
+<#@ output extension=".vue" #>
+<#
+    string solutionsPath = Host.ResolveAssemblyReference("$(SolutionDir)");//获取解决方案路径
+            List<string> ModelData=new List<string>();
+            StreamReader sr = new StreamReader(solutionsPath+@"\T4Model\T4Vue.txt");
+             string p;
+          while((p =sr.ReadLine())!=null)
+            {
+                 ModelData.Add(p);
+            }
+            sr.Close();
+    string Model= ModelData[0];
+    string BModel=Model.Substring(0,1).ToUpper()+Model.Substring(1); 
+    string[] Data=ModelData[1].Split(',');
+    string[] Name=ModelData[2].Split(',');
+    string[] Default=ModelData[3].Split(',');
+ #>
+
+
+
+/*
+import myaxios from '@/utils/myaxios'
+export default {
+    get<#=BModel#>s() {
+        return myaxios({
+            url: '/<#=BModel#>/get<#=BModel#>s',
+            method: 'get'
+        })
+    },
+    add<#=BModel#>(<#=Model#>) {
+        return myaxios({
+            url: '/<#=BModel#>/add<#=BModel#>',
+            method: 'post',
+            data: <#=Model#>
+        })
+    },
+    update<#=BModel#>(<#=BModel#>) {
+        return myaxios({
+            url: '/<#=BModel#>/Update<#=BModel#>',
+            method: 'post',
+            data: <#=BModel#>
+        })
+    },
+    del<#=BModel#>List(Ids) {
+        return myaxios({
+            url: '/<#=BModel#>/Del<#=BModel#>List',
+            method: 'post',
+            data: Ids
+        })
+    },
+}
+*/

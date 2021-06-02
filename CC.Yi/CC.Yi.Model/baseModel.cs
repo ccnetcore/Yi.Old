@@ -6,12 +6,11 @@ using System.Text;
 
 namespace CC.Yi.Model
 {
-    public class prop
+    public class baseModel
     {
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
-        public string name { get; set; }
-        public student student { get; set; }
+        public int is_delete { get; set; }
     }
 }

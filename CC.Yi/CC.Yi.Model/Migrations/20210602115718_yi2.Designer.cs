@@ -5,22 +5,25 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace CC.Yi.API.Migrations
+namespace CC.Yi.Model.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210413063257_y1")]
-    partial class y1
+    [Migration("20210602115718_yi2")]
+    partial class yi2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "5.0.5");
+                .HasAnnotation("ProductVersion", "5.0.6");
 
             modelBuilder.Entity("CC.Yi.Model.student", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("is_delete")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("name")

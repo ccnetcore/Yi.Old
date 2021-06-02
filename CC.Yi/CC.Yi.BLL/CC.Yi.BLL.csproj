@@ -7,6 +7,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CC.Yi.IBLL\CC.Yi.IBLL.csproj" />
     <ProjectReference Include="..\CC.Yi.IDAL\CC.Yi.IDAL.csproj" />
+    <ProjectReference Include="..\CC.Yi.ViewModel\CC.Yi.ViewModel.csproj" />
   </ItemGroup>
 
   <ItemGroup>

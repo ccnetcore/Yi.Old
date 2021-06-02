@@ -18,7 +18,6 @@ namespace CC.Yi.API
             builder.RegisterType(typeof(CustomAutofacAop));
             builder.RegisterGeneric(typeof(BaseDal<>)).As(typeof(IBaseDal<>));
             builder.RegisterType<studentBll>().As<IstudentBll>().EnableInterfaceInterceptors();//表示注入前后要执行Castle，AOP
-            builder.RegisterType<propBll>().As<IpropBll>().EnableInterfaceInterceptors();//表示注入前后要执行Castle，AOP
         }
     }
 }

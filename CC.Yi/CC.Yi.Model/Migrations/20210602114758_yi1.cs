@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace CC.Yi.API.Migrations
+namespace CC.Yi.Model.Migrations
 {
-    public partial class y1 : Migration
+    public partial class yi1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

@@ -8,7 +8,4 @@ namespace CC.Yi.IDAL
     public partial interface IstudentDal:IBaseDal<student>
     {
     }
-    public partial interface IpropDal:IBaseDal<prop>
-    {
-    }
 }

@@ -3,6 +3,7 @@ using Autofac.Extras.DynamicProxy;
 using CC.Yi.API.Extension;
 using CC.Yi.BLL;
 using CC.Yi.Common.Castle;
+using CC.Yi.Common.Json;
 using CC.Yi.Common.Jwt;
 using CC.Yi.DAL;
 using CC.Yi.IBLL;
@@ -11,6 +12,7 @@ using CC.Yi.Model;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -44,60 +46,65 @@ namespace CC.Yi.API
             services.AddAuthorization(options =>
             {
                 //配置基于策略的验证
-                options.AddPolicy("myadmin", policy =>
-                    policy.RequireRole("admin"));
+                options.AddPolicy("myadmin", policy =>policy.RequireRole("admin"));
+
             });
 
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                   .AddJwtBearer(options => {
+                   .AddJwtBearer(options =>
+                   {
                        options.TokenValidationParameters = new TokenValidationParameters
                        {
                            ValidateIssuer = true,//是否验证Issuer
                            ValidateAudience = true,//是否验证Audience
                            ValidateLifetime = true,//是否验证失效时间
-                           ClockSkew = TimeSpan.FromSeconds(30),
+                           ClockSkew = TimeSpan.FromDays(1),
+
+
                            ValidateIssuerSigningKey = true,//是否验证SecurityKey
                            ValidAudience = JwtConst.Domain,//Audience
                            ValidIssuer = JwtConst.Domain,//Issuer，这两项和前面签发jwt的设置一致
                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtConst.SecurityKey))//拿到SecurityKey
                        };
                    });
-            services.AddControllers();
-            services.AddSwaggerService();
-            services.AddSession();
+
+            //注入上下文对象
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             //配置过滤器
-            Action<MvcOptions> filters = new Action<MvcOptions>(r => {
+            Action<MvcOptions> filters = new Action<MvcOptions>(r =>
+            {
                 //r.Filters.Add(typeof(DbContextFilter));
             });
-            services.AddMvc(filters);
+
+            services.AddControllers(filters).AddJsonOptions(options => {
+
+                options.JsonSerializerOptions.Converters.Add(new DatetimeJsonConverter());
+                options.JsonSerializerOptions.Converters.Add(new TimeSpanJsonConverter());
+
+            });
+            services.AddSwaggerService();
+
+
+            //配置数据库连接
             string connection1 = Configuration["ConnectionStringBySQL"];
             string connection2 = Configuration["ConnectionStringByMySQL"];
             string connection3 = Configuration["ConnectionStringBySQLite"];
+            string connection4 = Configuration["ConnectionStringByOracle"];
+
+            //var serverVersion = new MySqlServerVersion(new Version(8, 0, 21));//mysql版本
+
             services.AddDbContext<DataContext>(options =>
             {
-                options.UseSqlite(connection3, b => b.MigrationsAssembly("CC.Yi.API"));//设置数据库
+                //options.UseSqlServer(connection1);//sqlserver连接
+                //options.UseMySql(connection2, serverVersion);//mysql连接
+                options.UseSqlite(connection3);//sqlite连接
+                //options.UseOracle(connection4);//oracle连接
             });
 
 
-            //依赖注入转交给Autofac
-            //services.AddScoped(typeof(IBaseDal<>), typeof(BaseDal<>));
-            //services.AddScoped(typeof(IstudentBll), typeof(studentBll));
 
-
-
-            //配置Identity身份认证
-            //services.AddIdentity<result_user, IdentityRole>(options =>
-            // {
-            //     options.Password.RequiredLength = 6;//密码最短长度
-            //     options.Password.RequireDigit = false;//密码需求数字
-            //     options.Password.RequireLowercase = false;//密码需求小写字母
-            //     options.Password.RequireNonAlphanumeric = false;//密码需求特殊字符
-            //     options.Password.RequireUppercase = false;//密码需求大写字母
-            //    //options.User.RequireUniqueEmail = false;//注册邮箱是否可以不重复
-            //    //options.User.AllowedUserNameCharacters="abcd"//密码只允许在这里的字符
-            //}).AddEntityFrameworkStores<DataContext>().AddDefaultTokenProviders();
             services.AddCors(options => options.AddPolicy("CorsPolicy",//解决跨域问题
             builder =>
             {
@@ -111,10 +118,15 @@ namespace CC.Yi.API
         //初始化使用函数
         private void InitData(IServiceProvider serviceProvider)
         {
-            //var serviceScope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope();
-
-            //var context = serviceScope.ServiceProvider.GetService<DataContext>();
-            //DbContentFactory.Initialize(context);//调用静态类方法注入
+            using (var serviceScope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                var Db = serviceScope.ServiceProvider.GetService<DataContext>();
+                var log = serviceScope.ServiceProvider.GetService<Logger<string>>();
+                if (Init.InitDb.Init(Db))
+                {
+                    log.LogInformation("数据库初始化成功！");
+                }
+            }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -123,14 +135,23 @@ namespace CC.Yi.API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
+                //配置可视化接口
                 app.UseSwaggerService();
             }
+            //配置静态文件
+            app.UseStaticFiles();
 
-         
+            //配置异常捕捉
+            app.UseErrorHandling();
+
+            //配置跨域问题
             app.UseCors("CorsPolicy");
             app.UseHttpsRedirection();
-            app.UseSession();
+
             app.UseRouting();
+
+            //配置身份验证
             app.UseAuthentication();
             app.UseAuthorization();
 
@@ -138,6 +159,8 @@ namespace CC.Yi.API
             {
                 endpoints.MapControllers();
             });
+
+            //初始化
             InitData(app.ApplicationServices);
         }
     }

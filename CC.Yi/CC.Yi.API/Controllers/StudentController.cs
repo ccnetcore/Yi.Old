@@ -29,14 +29,12 @@ namespace CC.Yi.API.Controllers
 
         //private UserManager<result_user> _userManager;//处理用户相关逻辑：添加密码，修改密码，添加删除角色等等
         //private SignInManager<result_user> _signInManager;//处理注册登录的相关逻辑
-        private IpropBll _propBll;
         private IstudentBll _studentBll;
-        public StudentController(ILogger<StudentController> logger, IstudentBll studentBll,IpropBll propBll)
+        public StudentController(ILogger<StudentController> logger, IstudentBll studentBll)
         {
             _logger = logger;
-            _logger.LogInformation("现在你进入了StudentController控制器");
+            _logger.LogInformation("现在你进入了StudentController控制器");//nlog日志模块
             _studentBll = studentBll;
-            _propBll = propBll;
         }
         #region
         //关于身份认证配置使用：
@@ -56,42 +54,20 @@ namespace CC.Yi.API.Controllers
         //    return Ok();
         //}
 
-        [HttpGet]
-        public Result test0()
-        {
-
-            _propBll.Add(new prop { name = "666" });
-          
-            return Result.Success();
-        }
-
-        [HttpGet]
-        public Result test1()
-        {
-            var data = _studentBll.GetEntities(u => u.id == 1).Include(u=>u.props).FirstOrDefault();
-            var myp = _propBll.GetEntities(u => u.id == 1).FirstOrDefault();
-            data.props.Add(myp);
-            data.props.Add(myp);
-            _studentBll.Update(data);
-            return Result.Success().SetData(new {data.id, data.name,props= 
-                data.props.Select(u=>new { 
-                u.id,
-                u.name
-                })
-                });
-        }
-
+        #region
+        //redis操作
+        #endregion
         [HttpGet]
         public Result GetReids()
         {
             var data = CacheHelper.CacheWriter.GetCache<string>("key01");
             return Result.Success(data);
         }
+
+
         #region
         //下面，权限验证
         #endregion
-
-        //发送令牌
         [HttpGet]
         public Result Login(string role)
         {
@@ -116,7 +92,7 @@ namespace CC.Yi.API.Controllers
 
             var tokenData = new JwtSecurityTokenHandler().WriteToken(token);
             return Result.Success("欢迎你！管理员!").SetData(new { token = tokenData });
-        }
+        }//发送令牌
 
         [HttpGet]
         [Authorize(Policy = "myadmin")]//基于策略的验证
@@ -140,49 +116,32 @@ namespace CC.Yi.API.Controllers
         public async Task<Result> GetTest()//查
         {
             _logger.LogInformation("调用查方法");
-            var data =await  _studentBll.GetAllEntities().ToListAsync();
+            var data = await _studentBll.GetAllEntities().ToListAsync();
             return Result.Success().SetData(data);
         }
         [HttpGet]
         public Result AddTest()//增
         {
             _logger.LogInformation("调用增方法");
-            List<student> students = new List<student>() { new student { name = "学生a" }, new student { name = "学生d" } };
-            if (_studentBll.Add(students))
-            {
-                return Result.Success();
-            }
-            else
-            {
-                return Result.Error();
-            }
+            List<student> students = new List<student>() { new student { name = "学生a" } };
+            _studentBll.Add(students);
+            return Result.Success();
+
         }
         [HttpGet]
         public Result RemoveTest()//删
         {
             _logger.LogInformation("调用删方法");
-            if (_studentBll.Delete(u => u.name == "学生a"))
-            {
-                return Result.Success();
-            }
-            else
-            {
-                return Result.Error();
-            }
+            _studentBll.Delete(u => u.id==1);
+            return Result.Success();
+
         }
         [HttpGet]
-        public  Result UpdateTest()//改
+        public Result UpdateTest()//改
         {
             _logger.LogInformation("调用改方法");
-            if (_studentBll.Update(new student { id = 2, name = "学生a" }, "name"))
-            {
-                return Result.Success();
-            }
-            else
-            {
-                return Result.Error();
-            }
-
+            _studentBll.Update(new student { id = 1, name = "学生b" }, "name");
+            return Result.Success();
         }
     }
 }

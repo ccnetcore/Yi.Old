@@ -7,6 +7,5 @@ namespace CC.Yi.Model
     public partial class DataContext :DbContext
     {
         public DbSet<student> student { get; set; }
-        public DbSet<prop> prop { get; set; }
     }
 }

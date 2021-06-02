@@ -17,33 +17,33 @@ namespace CC.Yi.Common.Cache
 
 
 
-        public bool AddCache<T>(string key, T value, DateTime expDate)
+        public static bool AddCache<T>(string key, T value, DateTime expDate)
         {
             return CacheWriter.AddCache<T>(key,value,expDate);
         }
 
-        public bool AddCache<T>(string key, T value)
+        public static bool AddCache<T>(string key, T value)
         {
             return CacheWriter.AddCache<T>(key, value);
         }
 
-        public bool RemoveCache(string key)
+        public static bool RemoveCache(string key)
         {
             return CacheWriter.RemoveCache(key);
         }
 
-        public T GetCache<T>(string key)
+        public static T GetCache<T>(string key)
         {
             return CacheWriter.GetCache<T>(key);
         }
 
-        public bool SetCache<T>(string key, T value, DateTime expDate)
+        public static bool SetCache<T>(string key, T value, DateTime expDate)
         {
             return CacheWriter.SetCache<T>(key,value,expDate);
         }
 
-        public bool SetCache<T>(string key, T value)
-        {
+        public static bool SetCache<T>(string key, T value)
+        { 
             return CacheWriter.SetCache<T>(key, value);
         }
 

@@ -3,11 +3,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace CC.Yi.IBLL
 {
     public interface IBaseBll<T> where T : class, new()
     {
+        #region
+        //通过id得到实体
+        #endregion
+        Task<T> GetEntityById(int id);
+
         #region
         //得到全部实体
         #endregion

@@ -17,17 +17,16 @@ namespace CC.Yi.API
     {
         public static void Main(string[] args)
         {
-        
+            //添加一个数据库，并修改连接数据库的配置文件
+            //添加模型类，在模型层中，使用Add-Migration xxx迁移，再使用Update-Database更新数据库
+            //向T4Model添加模型名，一键转换生成T4
+            //控制器构造函数进行依赖注入直接使用
 
             var logger = NLog.Web.NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
             try
             {
                 logger.Debug("正在启动Yi意框架。。。。。。");
                 var host = CreateHostBuilder(args).Build();
-                //var scope = host.Services.CreateScope();
-                //var services = scope.ServiceProvider;
-                //var context = services.GetRequiredService<Model.DataContext>();//获取服务
-                //DbContentFactory.Initialize(context);//调用静态类方法注入
                 host.Run();
                 logger.Info("Yi意框架启动成功！");
             }
@@ -42,10 +41,6 @@ namespace CC.Yi.API
                 // Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
                 NLog.LogManager.Shutdown();
             }
-
-
-
-
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

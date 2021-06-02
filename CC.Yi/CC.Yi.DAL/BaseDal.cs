@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace CC.Yi.DAL
 {
@@ -16,8 +17,15 @@ namespace CC.Yi.DAL
         {
             Db = _Db;
         }
+
+        public async Task<T> GetEntityById(int id)
+        {
+            return await Db.Set<T>().FindAsync(id);
+        }
+
         public IQueryable<T> GetEntities(Expression<Func<T, bool>> whereLambda)
         {
+
             return Db.Set<T>().Where(whereLambda).AsQueryable();
         }
 
