@@ -1,6 +1,7 @@
-# CC.Yi-基于.NET5下的WebAPI三层架构快速开发框架
-# Yi意框架
-意义是为了开发更简易
+<h1 align="center">CC.Yi-基于.NET5下的WebAPI三层架构快速开发框架</h1>
+<h1 align="center">Yi意框架</h1>
+<h4 align="center">意义为了开发更简易</h4>
+
 #### 版本更新
 v3.0.1------2021/6/2(架构全方面更新完善、添加oracle数据库支持、添加mongodb数据库支持)
 
