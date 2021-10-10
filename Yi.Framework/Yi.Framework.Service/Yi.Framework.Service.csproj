@@ -4,4 +4,9 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Yi.Framework.Interface\Yi.Framework.Interface.csproj" />
+    <ProjectReference Include="..\Yi.Framework.Model\Yi.Framework.Model.csproj" />
+  </ItemGroup>
+
 </Project>

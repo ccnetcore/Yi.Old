@@ -1,4 +1,4 @@
-﻿using CC.ElectronicCommerce.Common.Models;
+﻿using Yi.Framework.Common.Models;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;

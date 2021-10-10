@@ -1,5 +1,4 @@
-﻿using CC.ElectronicCommerce.Common.IOCOptions;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System;
@@ -7,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Yi.Framework.Common.IOCOptions;
 
 namespace CC.ElectronicCommerce.Core
 {

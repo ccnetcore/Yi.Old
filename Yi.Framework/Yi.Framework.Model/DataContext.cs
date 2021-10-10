@@ -6,9 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Yi.Framework.Common.IOCOptions;
+using Yi.Framework.Model.Models;
 
-namespace Yi.Framework.Model.Models
+namespace Yi.Framework.Model
 {
+	//Add-Migration yi-1
+	//Update-Database yi-1
    public class DataContext : DbContext
     {
 		private readonly IOptionsMonitor<SqliteOptions> _optionsMonitor;
@@ -31,6 +34,6 @@ namespace Yi.Framework.Model.Models
 				optionsBuilder.UseSqlite(_connStr);
 			}
 		}
-		//public virtual DbSet<TbBrand> TbBrand { get; set; }
-	}
+        public virtual DbSet<user> user { get; set; }
+    }
 }

@@ -1,5 +1,5 @@
-﻿using CC.ElectronicCommerce.Common.Models;
-using CC.ElectronicCommerce.Core;
+﻿using Yi.Framework.Common.Models;
+using Yi.Framework.Core;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;

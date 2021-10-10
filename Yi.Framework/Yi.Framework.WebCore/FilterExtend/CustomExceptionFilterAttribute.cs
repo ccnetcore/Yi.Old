@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using CC.ElectronicCommerce.Common.Models;
+using Yi.Framework.Common.Models;
 
 namespace CC.ElectronicCommerce.WebCore.FilterExtend
 {
