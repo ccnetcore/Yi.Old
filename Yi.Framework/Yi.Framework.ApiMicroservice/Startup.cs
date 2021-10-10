@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Yi.Framework
+namespace Yi.Framework.ApiMicroservice
 {
     public class Startup
     {
@@ -30,7 +30,7 @@ namespace Yi.Framework
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Yi.Framework", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Yi.Framework.ApiMicroservice", Version = "v1" });
             });
         }
 
@@ -41,7 +41,7 @@ namespace Yi.Framework
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Yi.Framework v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Yi.Framework.ApiMicroservice v1"));
             }
 
             app.UseHttpsRedirection();

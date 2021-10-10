@@ -4,8 +4,8 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:52790",
-      "sslPort": 44379
+      "applicationUrl": "http://localhost:56243",
+      "sslPort": 44329
     }
   },
   "profiles": {
@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Yi.Framework": {
+    "Yi.Framework.ApiMicroservice": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": true,

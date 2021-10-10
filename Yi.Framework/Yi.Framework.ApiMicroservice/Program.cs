@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Yi.Framework
+namespace Yi.Framework.ApiMicroservice
 {
     public class Program
     {

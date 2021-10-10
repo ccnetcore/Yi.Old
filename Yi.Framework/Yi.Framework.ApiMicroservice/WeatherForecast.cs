@@ -1,6 +1,6 @@
 using System;
 
-namespace Yi.Framework
+namespace Yi.Framework.ApiMicroservice
 {
     public class WeatherForecast
     {
