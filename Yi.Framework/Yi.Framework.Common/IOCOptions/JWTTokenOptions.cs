@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CC.ElectronicCommerce.Common.IOCOptions
+namespace Yi.Framework.Common.IOCOptions
 {
     public class JWTTokenOptions
     {

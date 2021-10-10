@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Yi.Framework.Common.IOCOptions
 {
-    public class ElasticSearchOptions
+    public class SqliteOptions
     {
         public string Url { get; set; }
-        public string IndexName { get; set; }
     }
 }

@@ -11,9 +11,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
-using CC.ElectronicCommerce.Common.IOCOptions;
+using Yi.Framework.Common.IOCOptions;
 
-namespace CC.ElectronicCommerce.Core
+namespace Yi.Framework.Core
 {
 	public class CacheClientDB : IDisposable
 	{

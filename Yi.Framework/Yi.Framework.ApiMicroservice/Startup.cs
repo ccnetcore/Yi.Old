@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Yi.Framework.Common.IOCOptions;
 
 namespace Yi.Framework.ApiMicroservice
 {
@@ -28,6 +29,9 @@ namespace Yi.Framework.ApiMicroservice
         {
 
             services.AddControllers();
+
+            services.Configure<SqliteOptions>(this.Configuration.GetSection("SqliteConn"));
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Yi.Framework.ApiMicroservice", Version = "v1" });
@@ -48,7 +52,9 @@ namespace Yi.Framework.ApiMicroservice
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
+
 
             app.UseEndpoints(endpoints =>
             {
