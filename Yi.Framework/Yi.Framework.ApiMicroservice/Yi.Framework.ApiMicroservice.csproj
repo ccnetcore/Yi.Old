@@ -13,7 +13,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Yi.Framework.Interface\Yi.Framework.Interface.csproj" />
     <ProjectReference Include="..\Yi.Framework.Model\Yi.Framework.Model.csproj" />
+    <ProjectReference Include="..\Yi.Framework.Service\Yi.Framework.Service.csproj" />
   </ItemGroup>
 
 </Project>

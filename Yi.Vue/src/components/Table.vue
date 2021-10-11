@@ -179,8 +179,7 @@ export default {
           Ids.push(item.id);
         });
       }
-      alert("多行删除");
-        ItemApi.delItemList(this.axiosUrls.del,Ids).then(() => this.initialize());
+        itemApi.delItemList(this.axiosUrls.del,Ids).then(() => this.initialize());
       this.closeDelete();
     },
     close() {
@@ -201,11 +200,9 @@ export default {
 
     save() {
       if (this.editedIndex > -1) {
-        alert("多行更新");
-        ItemApi.updateItem(this.axiosUrls.update,this.editedItem).then(() => this.initialize());
+        itemApi.updateItem(this.axiosUrls.update,this.editedItem).then(() => this.initialize());
       } else {
-        alert("添加");
-        ItemApi.addItem(this.axiosUrls.add,this.editedItem).then(() => this.initialize());
+        itemApi.addItem(this.axiosUrls.add,this.editedItem).then(() => this.initialize());
       }
       this.close();
     },

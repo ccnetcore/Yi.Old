@@ -9,10 +9,10 @@ using Yi.Framework.Interface;
 
 namespace Yi.Framework.Service
 {
-    public class CCBaseServer<T> : IBaseService<T> where T : class, new()
+    public class BaseService<T> : IBaseService<T> where T : class, new()
     {
         public DbContext _Db;
-        public CCBaseServer(DbContext Db)
+        public BaseService(DbContext Db)
         {
             _Db = Db;
         }
@@ -84,6 +84,12 @@ namespace Yi.Framework.Service
             return await _Db.SaveChangesAsync() > 0;
         }
 
+        public async Task<bool> UpdateListAsync(IEnumerable<T> entities)
+        {
+            _Db.Set<T>().UpdateRange(entities);
+            return await _Db.SaveChangesAsync() > 0;
+        }
+
         public async Task<bool> DeleteAsync(T entity)
         {
             _Db.Set<T>().Remove(entity);
@@ -114,6 +120,11 @@ namespace Yi.Framework.Service
                 return await _Db.SaveChangesAsync() > 0;
             }
             return false;
+        }
+
+        public async Task<T> GetEntity(Expression<Func<T, bool>> whereLambda)
+        {
+          return await _Db.Set<T>().Where(whereLambda).FirstOrDefaultAsync();
         }
     }
 }

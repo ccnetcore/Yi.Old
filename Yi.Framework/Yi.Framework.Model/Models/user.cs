@@ -7,11 +7,18 @@ using System.Threading.Tasks;
 
 namespace Yi.Framework.Model.Models
 {
-   public class user
+   public class user:baseModel<int>
     {
-        [Key]
-        public int id { get; set; }
-        public string name { get; set; }
-        public int age { get; set; }
+        public string username { get; set; }
+        public string password { get; set; }
+        public string icon { get; set; }
+        public string nick { get; set; }
+        public string email { get; set; }
+        public string ip { get; set; }
+        public int? age { get; set; }
+        public string introduction { get; set; }
+
+        public ICollection<role> roles { get; set; }
+        
     }
 }

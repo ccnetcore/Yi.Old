@@ -15,6 +15,11 @@ namespace Yi.Framework.Interface
         Task<T> GetEntityById(int id);
 
         #region
+        //通过表达式得到实体
+        #endregion
+        Task<T> GetEntity(Expression<Func<T, bool>> whereLambda);
+
+        #region
         //得到全部实体
         #endregion
         Task<IEnumerable<T>> GetAllEntitiesAsync();
@@ -53,6 +58,11 @@ namespace Yi.Framework.Interface
         //更新实体
         #endregion
         Task<bool> UpdateAsync(T entity);
+
+        #region
+        //更新多个实体
+        #endregion
+        Task<bool> UpdateListAsync(IEnumerable<T> entities);
 
         #region
         //更新实体部分属性

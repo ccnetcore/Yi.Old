@@ -19,8 +19,9 @@ const router = new VueRouter({
         return { x: 0, y: 0 }
     },
     routes: [layout('Default', [
-        route('Dashboard'),
-        route('UserProfile', null, 'components/profile'),
+        route('Index'),
+        route('AdmUser', null, 'AdmUser'),
+        route('AdmRole', null, 'AdmRole'),
     ])]
 })
 router.beforeEach((to, from, next) => {

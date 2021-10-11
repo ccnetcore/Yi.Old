@@ -16,14 +16,14 @@ export default {
     updateItem(url, data) {
         return myaxios({
             url: url,
-            method: 'cut',
+            method: 'put',
             data: data
         })
     },
     delItemList(url, Ids) {
         return myaxios({
             url: url,
-            method: 'del',
+            method: 'delete',
             data: Ids
         })
     },

@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -12,6 +13,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Yi.Framework.Common.IOCOptions;
+using Yi.Framework.Interface;
+using Yi.Framework.Model;
+using Yi.Framework.Service;
 
 namespace Yi.Framework.ApiMicroservice
 {
@@ -30,8 +34,21 @@ namespace Yi.Framework.ApiMicroservice
         {
 
             services.AddControllers();
-
+            services.AddCors(options => options.AddPolicy("CorsPolicy",//解决跨域问题
+builder =>
+{
+    builder.AllowAnyMethod()
+        .SetIsOriginAllowed(_ => true)
+        .AllowAnyHeader()
+        .AllowCredentials();
+}));
             services.Configure<SqliteOptions>(this.Configuration.GetSection("SqliteConn"));
+
+            services.AddScoped<DbContext, DataContext>();
+            services.AddScoped(typeof(IBaseService<>),typeof(BaseService<>));
+
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IRoleService, RoleService>();
 
             services.AddSwaggerGen(c =>
             {
@@ -52,7 +69,7 @@ namespace Yi.Framework.ApiMicroservice
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseCors("CorsPolicy");
             app.UseAuthentication();
             app.UseAuthorization();
 

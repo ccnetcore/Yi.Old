@@ -81,19 +81,19 @@
       mini: false,
       items: [
       {
-        title: "Dashboard",
+        title: "首页",
         icon: "mdi-view-dashboard",
         to: "/"
       },
       {
-        title: "User Profile",
+        title: "用户管理",
         icon: "mdi-account",
-        to: "/components/profile/",
+        to: "/admuser/",
       },
       {
-        title: "Regular Tables",
+        title: "角色管理",
         icon: "mdi-clipboard-outline",
-        to: "/tables/regular/",
+        to: "/admrole/",
       },
       {
         title: "Typography",
