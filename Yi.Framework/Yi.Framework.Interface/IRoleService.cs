@@ -33,5 +33,6 @@ namespace Yi.Framework.Interface
         /// <param name="menuId"></param>
         /// <returns></returns>
         Task<bool> SetMenusByRolesId(List<int> menuIds, int roleId);
+
     }
 }

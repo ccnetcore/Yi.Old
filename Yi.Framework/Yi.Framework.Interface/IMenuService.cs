@@ -20,7 +20,7 @@ namespace Yi.Framework.Interface
         Task<mould> GetMouldByMenu(menu _menu);
 
         /// <summary>
-        /// 通过menu得到他自己与mould（注意：确保返回的menu里含有menu）
+        /// 通过menu得到他自己与mould（注意：确保返回的menu里含有mould）
         /// </summary>
         /// <param name="_menu"></param>
         /// <returns></returns>

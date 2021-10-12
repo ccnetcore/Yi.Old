@@ -30,20 +30,24 @@ namespace Yi.Framework.Service
 
         public async Task<List<menu>> GetMenusByUser(user _user)
         {
-           return await _Db.Set<menu>().Include(u => u.roles).ThenInclude(u => u.menus)
-                .Where(u=>u.id==_user.id&& u.is_delete == (short)Common.Enum.DelFlagEnum.Normal).ToListAsync();
+           var user_data= await _Db.Set<user>().Include(u => u.roles).ThenInclude(u => u.menus)
+                .Where(u=>u.id==_user.id&& u.is_delete == (short)Common.Enum.DelFlagEnum.Normal).FirstOrDefaultAsync();
+           var menuList= user_data.roles.Select(u => u.menus);
+            return (List<menu>)menuList;
         }
 
         public async Task<List<mould>> GetMouldByUser(user _user)
-        {
-            return await _Db.Set<mould>().Include(u => u.menu)
-                .Where(u => u.id == _user.id && u.is_delete == (short)Common.Enum.DelFlagEnum.Normal).ToListAsync();
+        {         
+            var user_data = await GetEntity(u => u.id == _user.id && u.is_delete == (short)Common.Enum.DelFlagEnum.Normal);
+            var menu = await GetMenusByUser(user_data);
+            var mouldList = menu.Select(u=>u.mould);
+            return (List<mould>)mouldList;
         }
 
         public async Task<List<role>> GetRolesByUser(user _user)
         {
-            return await _Db.Set<role>().Include(u => u.users)
-                .Where(u => u.id == _user.id && u.is_delete == (short)Common.Enum.DelFlagEnum.Normal).ToListAsync();
+            var user_data = await GetEntity(u => u.id == _user.id && u.is_delete == (short)Common.Enum.DelFlagEnum.Normal);
+            return (List<role>)user_data.roles;
         }
 
         public async Task<bool> Login(user _user)
@@ -75,7 +79,8 @@ namespace Yi.Framework.Service
             {
                 return false;
             }           
-            var roleList = _Db.Set<role>().Where(u => roleIds.Contains(u.id)).ToList();            
+            var roleList = _Db.Set<role>().Where(u => roleIds.Contains(u.id)).ToList();
+            
             user_data.roles = roleList;
             return await AddAsync(user_data);
         }

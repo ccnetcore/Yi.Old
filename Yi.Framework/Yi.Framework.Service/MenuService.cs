@@ -27,22 +27,22 @@ namespace Yi.Framework.Service
 
         public async Task<List<menu>> GetChildrenByMenu(menu _menu)
         {
-            var menu_data = await GetEntity(u=>u.id==_menu.id);
-            var childrenList = menu_data.children;
-            return (List<menu>)childrenList;
+            var menu_data = await GetEntity(u=>u.id==_menu.id&& u.is_delete == (short)Common.Enum.DelFlagEnum.Normal);
+            var childrenList = menu_data.children.ToList();
+            return childrenList;
         }
 
         public async Task<menu> GetMenuMouldByMenu(menu _menu)
         {
-            var menu_data = await GetEntity(u => u.id == _menu.id);          
+            var menu_data = await GetEntityById(_menu.id);
             return menu_data;
         }
 
         public async Task<mould> GetMouldByMenu(menu _menu)
         {
-            var menu_data = await GetEntity(u => u.id == _menu.id);
-            var mould_data =await _Db.Set<mould>().Include(u => u.menu).Where(u => u.menu == menu_data).FirstOrDefaultAsync();
-            return mould_data;
+            var menu_data =await _Db.Set<menu>().Include(u => u.mould)
+                .Where(u => u.id == _menu.id & u.is_delete == (short)Common.Enum.DelFlagEnum.Normal).FirstOrDefaultAsync();
+            return menu_data.mould;
         }
 
         public async Task<bool> SetMouldByMenu(int mouldId, int menuId)

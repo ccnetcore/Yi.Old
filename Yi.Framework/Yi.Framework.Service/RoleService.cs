@@ -27,14 +27,17 @@ namespace Yi.Framework.Service
         }
 
         public async Task<List<menu>> GetMenusByRole(role _role)
-        {           
-            return await _Db.Set<menu>().Include(u=>u.mould).ThenInclude(u=>u.menu)
-                .Where(u=>u.roles.Contains(_role)&& u.is_delete == (short)Common.Enum.DelFlagEnum.Normal).ToListAsync();
+        {
+            var role_data =await _Db.Set<role>().Include(u => u.menus)
+                .Where(u => u.id == _role.id && u.is_delete == (short)Common.Enum.DelFlagEnum.Normal).FirstOrDefaultAsync();
+            return role_data.menus.ToList();
         }
 
         public async Task<List<user>> GetUsersByRole(role _role)
         {
-            return await _Db.Set<user>().Where(u => u.roles.Contains(_role) && u.is_delete == (short)Common.Enum.DelFlagEnum.Normal).ToListAsync();
+            var role_data = await _Db.Set<role>().Include(u => u.users)
+               .Where(u => u.id == _role.id && u.is_delete == (short)Common.Enum.DelFlagEnum.Normal).FirstOrDefaultAsync();
+            return role_data.users.ToList();
         }
 
         public async Task<bool> SetMenusByRolesId(List<int> menuIds, int roleId)
@@ -46,7 +49,7 @@ namespace Yi.Framework.Service
             }
             var menuList = _Db.Set<menu>().Where(u => menuIds.Contains(u.id)&&u.is_delete == (short)Common.Enum.DelFlagEnum.Normal).ToListAsync();
             
-            role_data.menus = (ICollection<menu>)menuList;
+             role_data.menus = (ICollection<menu>)menuList;
             return await AddAsync(role_data);
         }
     }
