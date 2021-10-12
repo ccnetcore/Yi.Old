@@ -44,5 +44,13 @@ namespace Yi.Framework.Interface
         /// <param name="_user"></param>
         /// <returns></returns>
         Task<List<mould>> GetMouldByUser(user _user);
+
+        /// <summary>
+        /// 给单个用户设置多个角色
+        /// </summary>
+        /// <param name="roleIds"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        Task<bool> SetRolesByUserId(List<int> roleIds,int userId);
     }
 }
