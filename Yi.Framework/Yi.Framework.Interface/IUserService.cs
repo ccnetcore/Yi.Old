@@ -52,5 +52,6 @@ namespace Yi.Framework.Interface
         /// <param name="userId"></param>
         /// <returns></returns>
         Task<bool> SetRolesByUserId(List<int> roleIds,int userId);
+        
     }
 }

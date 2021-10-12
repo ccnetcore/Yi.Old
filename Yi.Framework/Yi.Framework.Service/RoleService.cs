@@ -15,6 +15,16 @@ namespace Yi.Framework.Service
         { 
         }
 
+        public async Task<bool> AddRole(role _role)
+        {
+            var role_data = await GetEntityById(_role.id);
+            if(role_data==null)
+            {
+                return false;
+            }
+            return await AddAsync(_role);
+        }
+
         public async Task<bool> DelListByUpdateAsync(List<int> _ids)
         {
             var userList = await GetEntitiesAsync(u=>_ids.Contains(u.id));

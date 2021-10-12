@@ -40,5 +40,17 @@ namespace Yi.Framework.Interface
         /// <param name="menuId"></param>
         /// <returns></returns>
         Task<bool> SetMouldByMenu(int mouldId,int menuId);
+        /// <summary>
+        /// 添加菜单
+        /// </summary>
+        /// <param name="_menu"></param>
+        /// <returns></returns>
+        Task<bool> AddMenu(menu _menu);
+        /// <summary>
+        /// 添加子菜单
+        /// </summary>
+        /// <param name="_menu"></param>
+        /// <returns></returns>
+        Task<bool> AddChildrenMenu(menu _menu);
     }
 }
