@@ -11,5 +11,12 @@ namespace Yi.Framework.Interface
     {
         Task<bool> DelListByUpdateAsync(List<int> _ids);
         Task<IEnumerable<mould>> GetAllEntitiesTrueAsync();
+
+        /// <summary>
+        /// 得到该接口属于哪个菜单的
+        /// </summary>
+        /// <param name="_mould"></param>
+        /// <returns></returns>
+        Task<menu> GetMenuByMould(mould _mould);
     }
 }
