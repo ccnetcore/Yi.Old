@@ -35,13 +35,13 @@ namespace Yi.Framework.ApiMicroservice
 
             services.AddControllers();
             services.AddCors(options => options.AddPolicy("CorsPolicy",//解决跨域问题
-            builder =>
-            {
-                 builder.AllowAnyMethod()
-                 .SetIsOriginAllowed(_ => true)
-                 .AllowAnyHeader()
-                 .AllowCredentials();
-            }));
+builder =>
+{
+    builder.AllowAnyMethod()
+        .SetIsOriginAllowed(_ => true)
+        .AllowAnyHeader()
+        .AllowCredentials();
+}));
             services.Configure<SqliteOptions>(this.Configuration.GetSection("SqliteConn"));
 
             services.AddScoped<DbContext, DataContext>();
@@ -49,9 +49,6 @@ namespace Yi.Framework.ApiMicroservice
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IRoleService, RoleService>();
-            services.AddScoped<IMouldService, MouldService>();
-            services.AddScoped<IMenuService, MenuService>();
-            services.AddScoped<ILoopModelService, LoopModelService>();
 
             services.AddSwaggerGen(c =>
             {

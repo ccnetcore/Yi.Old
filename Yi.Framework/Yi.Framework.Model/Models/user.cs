@@ -17,6 +17,7 @@ namespace Yi.Framework.Model.Models
         public string ip { get; set; }
         public int? age { get; set; }
         public string introduction { get; set; }
+
         public ICollection<role> roles { get; set; }
         
     }

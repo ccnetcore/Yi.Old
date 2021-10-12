@@ -10,7 +10,10 @@ namespace Yi.Framework.Model.Models
     {
         public string icon { get; set; }
         public string router { get; set; }
-        public string menu_name { get; set; }       
+        public string menu_name { get; set; }
+
+       
+
         public ICollection<menu> children { get; set; }
         public mould mould { get; set; }
         public ICollection<role> roles { get; set; } 
