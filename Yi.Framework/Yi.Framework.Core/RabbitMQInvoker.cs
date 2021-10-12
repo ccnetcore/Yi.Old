@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Yi.Framework.Common.IOCOptions;
 
-namespace CC.ElectronicCommerce.Core
+namespace Yi.Framework.Core
 {
     /// <summary>
     /// 一个Exchange----多个Queue-----弄个缓存映射关系，初始化+支持全新绑定

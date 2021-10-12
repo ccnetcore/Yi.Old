@@ -54,6 +54,16 @@ namespace Yi.Framework.ApiMicroservice
             #endregion
             services.AddDataBaseService<SqliteOptions>("SqliteConn");
 
+            #region
+            //Redis服务配置
+            #endregion
+            services.AddRedisService();
+
+            #region
+            //RabbitMQ服务配置
+            #endregion
+            services.AddRabbitMQService();
+
             //下面这些应自动注入
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IRoleService, RoleService>();
