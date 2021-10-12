@@ -23,11 +23,21 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             _userService = userService;
         }
 
+        /// <summary>
+        /// 查
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<Result> GetUser()
         {
             return Result.Success().SetData(await _userService.GetAllEntitiesTrueAsync());
         }
+
+        /// <summary>
+        /// 更
+        /// </summary>
+        /// <param name="_user"></param>
+        /// <returns></returns>
         [HttpPut]
         public async Task<Result> UpdateUser(user _user)
         {
@@ -35,12 +45,24 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             return Result.Success();
 
         }
+
+        /// <summary>
+        /// 删
+        /// </summary>
+        /// <param name="_ids"></param>
+        /// <returns></returns>
         [HttpDelete]
         public async Task<Result> DelListUser(List<int> _ids)
         {
             await _userService.DelListByUpdateAsync(_ids);
             return Result.Success();
         }
+
+        /// <summary>
+        /// 增
+        /// </summary>
+        /// <param name="_user"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<Result> AddUser(user _user)
         {

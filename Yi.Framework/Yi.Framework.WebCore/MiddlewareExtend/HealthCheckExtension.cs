@@ -7,9 +7,12 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CC.ElectronicCommerce.Core.ConsulExtend
+namespace Yi.Framework.WebCore.MiddlewareExtend
 {
-    public static class HealthCheckMiddleware
+    /// <summary>
+    /// 健康检测扩展
+    /// </summary>
+    public static class HealthCheckExtension
     {
         /// <summary>
         /// 设置心跳响应

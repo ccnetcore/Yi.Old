@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CC.ElectronicCommerce.Core.ConsulExtend
+namespace Yi.Framework.Core.ConsulExtend
 {
     public abstract class AbstractConsulDispatcher
     {
