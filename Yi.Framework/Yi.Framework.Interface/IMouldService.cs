@@ -18,5 +18,6 @@ namespace Yi.Framework.Interface
         /// <param name="_mould"></param>
         /// <returns></returns>
         Task<menu> GetMenuByMould(mould _mould);
+
     }
 }
