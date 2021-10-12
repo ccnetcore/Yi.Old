@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using Consul;
 using Microsoft.Extensions.Options;
+using Yi.Framework.Common.IOCOptions;
 
-namespace CC.ElectronicCommerce.Core.ConsulExtend
+namespace Yi.Framework.Core.ConsulExtend
 {
     /// <summary>
     /// 平均

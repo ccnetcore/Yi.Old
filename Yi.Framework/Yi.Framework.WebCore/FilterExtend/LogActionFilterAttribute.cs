@@ -7,8 +7,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CC.ElectronicCommerce.WebCore.FilterExtend
+namespace Yi.Framework.WebCore.FilterExtend
 {
+    /// <summary>
+    /// 日志处理过滤器
+    /// </summary>
     public class LogActionFilterAttribute : ActionFilterAttribute
     {
         private ILogger<LogActionFilterAttribute> _logger = null;

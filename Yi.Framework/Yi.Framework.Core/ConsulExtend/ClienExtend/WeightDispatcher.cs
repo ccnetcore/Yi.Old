@@ -5,7 +5,7 @@ using System.Text;
 using Consul;
 using Microsoft.Extensions.Options;
 
-namespace CC.ElectronicCommerce.Core.ConsulExtend
+namespace Yi.Framework.Core.ConsulExtend
 {
     /// <summary>
     /// 权重

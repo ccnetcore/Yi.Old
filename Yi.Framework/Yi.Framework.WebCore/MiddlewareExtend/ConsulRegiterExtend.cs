@@ -1,14 +1,16 @@
 ﻿using Consul;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Yi.Framework.Common.IOCOptions;
 
-namespace CC.ElectronicCommerce.Core.ConsulExtend
+namespace Yi.Framework.WebCore.MiddlewareExtend
 {
     /// <summary>
     /// HTTP模式
@@ -16,29 +18,16 @@ namespace CC.ElectronicCommerce.Core.ConsulExtend
     public static class ConsulRegiterExtend
     {
         /// <summary>
-        /// 自动读取配置文件完成注册
-        /// </summary>
-        /// <param name="app"></param>
-        /// <param name="configuration"></param>
-        /// <returns></returns>
-        public static async Task UseConsulConfiguration(this IApplicationBuilder app, IConfiguration configuration)
-        {
-            ConsulRegisterOption consulRegisterOption = new ConsulRegisterOption();
-            configuration.Bind("ConsulRegisterOption", consulRegisterOption);
-
-            ConsulClientOption consulClientOption = new ConsulClientOption();
-            configuration.Bind("ConsulClientOption", consulClientOption);
-
-            await UseConsul(app, consulClientOption, consulRegisterOption);
-        }
-        /// <summary>
         /// 基于提供信息完成注册
         /// </summary>
         /// <param name="app"></param>
         /// <param name="healthService"></param>
         /// <returns></returns>
-        public static async Task UseConsul(this IApplicationBuilder app, ConsulClientOption consulClientOption, ConsulRegisterOption consulRegisterOption)
+        public static async Task UseConsulService(this IApplicationBuilder app)
         {
+          var consulRegisterOption=  Appsettings.app<ConsulRegisterOption>("ConsulRegisterOption");
+
+         var consulClientOption=   Appsettings.app<ConsulClientOption>("ConsulRegisterOption");
             using (ConsulClient client = new ConsulClient(c =>
              {
                  c.Address = new Uri($"http://{consulClientOption.IP}:{consulClientOption.Port}/");

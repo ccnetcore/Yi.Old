@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CC.ElectronicCommerce.Core.ConsulExtend
+namespace Yi.Framework.Common.IOCOptions
 {
     /// <summary>
     /// 使用Consul时需要配置

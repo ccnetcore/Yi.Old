@@ -8,8 +8,11 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Yi.Framework.Common.Models;
 
-namespace CC.ElectronicCommerce.WebCore.FilterExtend
+namespace Yi.Framework.WebCore.FilterExtend
 {
+    /// <summary>
+    /// 异常抓取过滤器
+    /// </summary>
     public class CustomExceptionFilterAttribute : IExceptionFilter
     {
         private ILogger<CustomExceptionFilterAttribute> _logger = null;

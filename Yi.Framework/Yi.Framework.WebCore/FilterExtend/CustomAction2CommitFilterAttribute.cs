@@ -12,10 +12,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CC.ElectronicCommerce.WebCore.FilterExtend
+namespace Yi.Framework.WebCore.FilterExtend
 {
+    /// <summary>
+    /// 重复提交过滤器
+    /// </summary>
     public class CustomAction2CommitFilterAttribute : ActionFilterAttribute
     {
+        /// <summary>
+        /// 防重复提交周期  单位秒
+        /// </summary>
+        public int TimeOut = 1;
+
         #region Identity
         private readonly ILogger<CustomAction2CommitFilterAttribute> _logger;
         private readonly CacheClientDB _cacheClientDB;
@@ -28,10 +36,6 @@ namespace CC.ElectronicCommerce.WebCore.FilterExtend
         }
         #endregion
 
-        /// <summary>
-        /// 防重复提交周期  单位秒
-        /// </summary>
-        public int TimeOut = 3;
 
         public override void OnActionExecuting(ActionExecutingContext context)
         {
