@@ -11,5 +11,8 @@ namespace Yi.Framework.Interface
     {
         Task<bool> DelListByUpdateAsync(List<int> _ids);
         Task<IEnumerable<role>> GetAllEntitiesTrueAsync();
+        Task<IEnumerable<role>> GetEntitiesTrueByIdAsync(List<int> _ids);
+        Task<bool> AddEntitesAsync(List<role> _roles);
+        Task<bool> UpdateEntitesAsync(List<role> _roles);
     }
 }

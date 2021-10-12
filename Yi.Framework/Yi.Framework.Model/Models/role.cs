@@ -10,8 +10,6 @@ namespace Yi.Framework.Model.Models
     {
         public string role_name { get; set; }
         public string introduce { get; set; }
-
-
         public ICollection<menu> menus { get; set; }
         public ICollection<user> users { get; set; }
     }
