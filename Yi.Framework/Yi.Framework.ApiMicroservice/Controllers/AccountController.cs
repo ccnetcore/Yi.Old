@@ -33,6 +33,11 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpPost]
         public async Task<Result> Login(user _user)
         {
+           if( await _userService.Login(_user))
+            {
+                return Result.Success().SetData(new { _user, token = 123456789 });
+            }
+            return Result.Error();
         }
 
         /// <summary>
@@ -53,8 +58,12 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <returns></returns>
         [HttpPost]
         public async Task<Result> Register(user _user, string code)
-        { 
-
+        {
+            if (code!=null)
+            { 
+                await _userService.Register(_user);
+            }
+            return Result.Error(); 
         }
 
         /// <summary>
@@ -67,7 +76,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         {
             emailAddress = emailAddress.Trim().ToLower();
             //先判断邮箱是否被注册使用过，如果被使用过，便不让操作
-            if (!await _userService.mail_exist(emailAddress))
+            if (!await _userService.EmailIsExsit(emailAddress))
             {
                 string code = RandomHelper.GenerateRandomLetter(6);
                 code = code.ToUpper();//全部转为大写

@@ -13,17 +13,7 @@ namespace Yi.Framework.Service
     {
         public RoleService(DbContext Db):base(Db)
         { 
-        }
-
-        public async Task<bool> AddRole(role _role)
-        {
-            var role_data = await GetEntityById(_role.id);
-            if(role_data==null)
-            {
-                return false;
-            }
-            return await AddAsync(_role);
-        }
+        }       
 
         public async Task<bool> DelListByUpdateAsync(List<int> _ids)
         {

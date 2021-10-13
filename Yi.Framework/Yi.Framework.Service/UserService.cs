@@ -23,6 +23,17 @@ namespace Yi.Framework.Service
             return await UpdateListAsync(userList);
         }
 
+        public async Task<bool> EmailIsExsit(string emailAddress)
+        {
+            var userList=await  GetAllEntitiesTrueAsync();
+            var is_email= userList.Where(u=>u.email==emailAddress).FirstOrDefault();
+            if (is_email == null)
+            {
+                return true;
+            }
+              return false;
+        }
+
         public async Task<IEnumerable<user>> GetAllEntitiesTrueAsync()
         {
             return await GetEntitiesAsync(u => u.is_delete == (short)Common.Enum.DelFlagEnum.Normal);

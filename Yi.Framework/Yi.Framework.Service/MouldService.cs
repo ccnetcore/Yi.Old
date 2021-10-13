@@ -27,9 +27,10 @@ namespace Yi.Framework.Service
 
         public async Task<menu> GetMenuByMould(mould _mould)
         {
-            throw new Exception();
-           //var mould_data= await _Db.Set<mould>().Include(u=>u.menu).Where(u => u.id == _mould.id&& u.is_delete == (short)Common.Enum.DelFlagEnum.Normal).FirstOrDefaultAsync();
-           // return mould_data.menu;
+            
+            var menu_data = await _Db.Set<menu>().Include(u => u.mould)
+                .Where(u => u.mould == _mould && u.is_delete == (short)Common.Enum.DelFlagEnum.Normal).FirstOrDefaultAsync();        
+            return menu_data;
         }
     }
 }

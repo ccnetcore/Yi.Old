@@ -24,16 +24,6 @@ namespace Yi.Framework.Service
             return await AddAsync(_menu);
         }
 
-        public async Task<bool> AddMenu(menu _menu)
-        {
-            var menu_data = await GetEntityById(_menu.id);
-            if (menu_data == null)
-            {
-                return false;
-            }
-            return await AddAsync(_menu);
-        }
-
         public async Task<bool> DelListByUpdateAsync(List<int> _ids)
         {
             var menuList = await GetEntitiesAsync(u=>_ids.Contains(u.id));

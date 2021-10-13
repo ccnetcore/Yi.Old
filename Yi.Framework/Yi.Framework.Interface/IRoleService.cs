@@ -33,12 +33,6 @@ namespace Yi.Framework.Interface
         /// <param name="menuId"></param>
         /// <returns></returns>
         Task<bool> SetMenusByRolesId(List<int> menuIds, int roleId);
-        /// <summary>
-        /// 添加角色
-        /// </summary>
-        /// <param name="_role"></param>
-        /// <returns></returns>
-        Task<bool> AddRole(role _role);
 
     }
 }

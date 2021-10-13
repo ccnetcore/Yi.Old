@@ -78,7 +78,9 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpPost]
         public async Task<Result> GetMenuMould()
         {
-         var _user= this.HttpContext.GetCurrentUserInfo();
+            var _user= this.HttpContext.GetCurrentUserInfo();
+            var menu_data = await _userService.GetMenusByUser(_user);
+            return Result.Success().SetData(menu_data);
         }
     }
 }
