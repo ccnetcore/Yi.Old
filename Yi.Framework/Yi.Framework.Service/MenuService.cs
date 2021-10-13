@@ -55,7 +55,7 @@ namespace Yi.Framework.Service
 
         public async Task<menu> GetMenuMouldByMenu(menu _menu)
         {
-            var menu_data = await GetEntityById(_menu.id);
+            var menu_data = await _Db.Set<menu>().Where(u=>u.id==_menu.id).Include(u=>u.mould).FirstOrDefaultAsync();
             return menu_data;
         }
 
