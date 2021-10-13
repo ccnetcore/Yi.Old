@@ -8,7 +8,7 @@
 
     <default-footer />
 
-    <!-- <default-settings /> -->
+    <default-settings />
   </v-app>
 </template>
 
@@ -29,10 +29,10 @@
         /* webpackChunkName: "default-footer" */
         './Footer'
       ),
-      // DefaultSettings: () => import(
-      //   /* webpackChunkName: "default-settings" */
-      //   './Settings'
-      // ),
+      DefaultSettings: () => import(
+        /* webpackChunkName: "default-settings" */
+        './Settings'
+      ),
       DefaultView: () => import(
         /* webpackChunkName: "default-view" */
         './View'

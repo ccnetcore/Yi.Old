@@ -65,20 +65,18 @@
   // import { get, sync } from 'vuex-pathify'
 
   export default {
+
+
     data:()=>({
-        gradient: [
-    'rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)',
-    'rgba(228, 226, 226, 1), rgba(255, 255, 255, 0.7)',
-    'rgba(244, 67, 54, .8), rgba(244, 67, 54, .8)',
-  ],
-        images: [
-    'https://demos.creative-tim.com/material-dashboard-pro/assets/img/sidebar-1.jpg',
-    'https://demos.creative-tim.com/material-dashboard-pro/assets/img/sidebar-2.jpg',
-    'https://demos.creative-tim.com/material-dashboard-pro/assets/img/sidebar-3.jpg',
-    'https://demos.creative-tim.com/material-dashboard-pro/assets/img/sidebar-4.jpg',
-  ],
-      dark:null,
+      image:'https://demos.creative-tim.com/material-dashboard-pro/assets/img/sidebar-1.jpg',
       mini: false,
+      drawer: null,
+       drawerImage: true,
+        gradient: 
+    'rgba(228, 226, 226, 1), rgba(255, 255, 255, 0.7)',
+
+      dark:null,
+     
       items: [
       {
         title: "首页",
@@ -86,34 +84,46 @@
         to: "/"
       },
       {
-        title: "用户管理",
+        title: "用户角色管理",
         icon: "mdi-account",
-        to: "/admuser/",
+        to: "",
+        children:[{
+          title:"用户管理",
+          icon:"mdi-account",
+          to:"/admuser/",
+          children:[]
+        },
+        {
+          title:"角色管理",
+          icon:"mdi-account",
+          to:"/admrole/",
+          children:[]
+        }
+        ]
       },
       {
-        title: "角色管理",
+        title: "菜单接口管理",
         icon: "mdi-clipboard-outline",
-        to: "/admrole/",
-      },
-      {
-        title: "Typography",
-        icon: "mdi-format-font",
-        to: "/components/typography/",
-      },
-      {
-        title: "Icons",
-        icon: "mdi-chart-bubble",
-        to: "/components/icons/",
-      },
-      {
-        title: "Google Maps",
-        icon: "mdi-map-marker",
-        to: "/maps/google/",
-      },
-      {
-        title: "Notifications",
-        icon: "mdi-bell",
-        to: "/components/notifications/",
+        to: "",
+        children:[{
+          title:"菜单管理",
+          icon:"mdi-account",
+          to:"/admMenu/",
+          children:[]
+        },
+        {
+          title:"接口管理",
+          icon:"mdi-account",
+          to:"/admMould/",
+          children:[]
+        },
+                {
+          title:"角色菜单分配管理",
+          icon:"mdi-account",
+          to:"/admrole/",
+          children:[]
+        },
+        ]
       },
     ],
     }),
