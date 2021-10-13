@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Yi.Framework.ApiMicroservice</name>
+    </assembly>
+    <members>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.GetUser">
+            <summary>
+            查
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.UpdateUser(Yi.Framework.Model.Models.user)">
+            <summary>
+            更
+            </summary>
+            <param name="_user"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.DelListUser(System.Collections.Generic.List{System.Int32})">
+            <summary>
+            删
+            </summary>
+            <param name="_ids"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.AddUser(Yi.Framework.Model.Models.user)">
+            <summary>
+            增
+            </summary>
+            <param name="_user"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Yi.Framework.ApiMicroservice.Utility.CustomHostingStartup">
+            <summary>
+            必须实现IHostingStartup接口
+            必须标记HostingStartup特性
+            
+            就像木马一样
+            </summary>
+        </member>
+    </members>
+</doc>

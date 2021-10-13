@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Yi.Framework.Common.IOCOptions;
 
 namespace Yi.Framework.Core.ConsulExtend
 {

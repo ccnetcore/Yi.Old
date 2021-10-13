@@ -14,7 +14,7 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
     {
         public static IServiceCollection AddRabbitMQService(this IServiceCollection services)
         {
-            Appsettings.app<RabbitMQOptions>("RabbitConn");
+            services.Configure<RabbitMQOptions>(Appsettings.appConfiguration("RabbitConn"));
             return services;
         }
     }

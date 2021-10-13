@@ -9,7 +9,7 @@ namespace Yi.Framework.WebCore
     /// <summary>
     /// appsettings.json操作类
     /// </summary>
-    public class Appsettings
+    public  class Appsettings
     {
         static IConfiguration Configuration { get; set; }
         static string contentPath { get; set; }
@@ -26,7 +26,7 @@ namespace Yi.Framework.WebCore
                .Add(new JsonConfigurationSource { Path = Path, Optional = false, ReloadOnChange = true })//这样的话，可以直接读目录里的json文件，而不是 bin 文件夹下的，所以不用修改复制属性
                .Build();
         }
-
+         
         public Appsettings(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -60,10 +60,16 @@ namespace Yi.Framework.WebCore
         /// <returns></returns>
         public static T app<T>(params string[] sections)
         {
-            List<T> list = new List<T>();
+            T app = Activator.CreateInstance<T>();
             // 引用 Microsoft.Extensions.Configuration.Binder 包
-            Configuration.Bind(string.Join(":", sections), list);
-            return list[0];
+            Configuration.Bind(string.Join(":", sections), app);
+            return app;
+        }
+
+
+        public static IConfiguration appConfiguration(params string[] sections)
+        {
+            return Configuration.GetSection(string.Join(":", sections));
         }
     }
 }

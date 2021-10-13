@@ -28,10 +28,10 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
                 //为 Swagger JSON and UI设置xml文档注释路径
                 //获取应用程序所在目录(绝对路径，不受工作目录影响，建议采用此方法获取路径使用windwos&Linux）
                 var basePath = Path.GetDirectoryName(typeof(Program).Assembly.Location);
-                var apiXmlPath = Path.Combine(basePath, @"ApiDoc.xml");//控制器层注释
-                var entityXmlPath = Path.Combine(basePath, @"SwaggerDoc.xml");//实体注释
+                var apiXmlPath = Path.Combine(basePath, @"SwaggerDoc.xml");//控制器层注释
+                //var entityXmlPath = Path.Combine(basePath, @"SwaggerDoc.xml");//实体注释
                 //c.IncludeXmlComments(apiXmlPath, true);//true表示显示控制器注释
-                c.IncludeXmlComments(entityXmlPath);
+                c.IncludeXmlComments(apiXmlPath);
 
                 //添加控制器注释
                 //c.DocumentFilter<SwaggerDocTag>();

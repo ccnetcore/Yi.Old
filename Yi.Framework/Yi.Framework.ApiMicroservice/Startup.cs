@@ -18,6 +18,7 @@ using Yi.Framework.Common.IOCOptions;
 using Yi.Framework.Interface;
 using Yi.Framework.Model;
 using Yi.Framework.Service;
+using Yi.Framework.WebCore;
 using Yi.Framework.WebCore.MiddlewareExtend;
 
 namespace Yi.Framework.ApiMicroservice
@@ -35,6 +36,11 @@ namespace Yi.Framework.ApiMicroservice
         public void ConfigureServices(IServiceCollection services)
         {
             #region
+            //Ioc配置
+            #endregion
+            services.AddIocService(Configuration);
+
+            #region
             //控制器+过滤器配置
             #endregion
             services.AddControllers();
@@ -50,25 +56,21 @@ namespace Yi.Framework.ApiMicroservice
             services.AddCorsService();
 
             #region
-            //数据库服务配置
+            //Sqlite服务配置
             #endregion
-            services.AddDataBaseService<SqliteOptions>("SqliteConn");
+            services.AddSqliteService();
 
             #region
             //Redis服务配置
             #endregion
-            services.AddRedisService();
+            //services.AddRedisService();
 
             #region
             //RabbitMQ服务配置
             #endregion
-            services.AddRabbitMQService();
+            //services.AddRabbitMQService();
 
-            //下面这些应自动注入
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IRoleService, RoleService>();
-
-
+            
         }
 
         #region Autofac容器注入
@@ -82,7 +84,7 @@ namespace Yi.Framework.ApiMicroservice
         #endregion
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public async void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public  void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             //if (env.IsDevelopment())
             {
@@ -115,7 +117,7 @@ namespace Yi.Framework.ApiMicroservice
             #region
             //健康检查注入
             #endregion
-            app.UseHealthCheckMiddleware();
+            //app.UseHealthCheckMiddleware();
 
             #region
             //鉴权注入
@@ -130,7 +132,7 @@ namespace Yi.Framework.ApiMicroservice
             #region
             //Consul服务注入
             #endregion
-            await app.UseConsulService();
+            //await app.UseConsulService();
 
             #region
             //Endpoints注入

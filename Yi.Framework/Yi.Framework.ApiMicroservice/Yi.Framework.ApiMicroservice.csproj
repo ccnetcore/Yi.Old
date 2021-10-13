@@ -5,11 +5,14 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>D:\CC.Yi\CC.Yi\Yi.Framework\Yi.Framework.ApiMicroservice\Yi.Framework.ApiMicroservice.xml</DocumentationFile>
+    <DocumentationFile>D:\CC.Yi\CC.Yi\Yi.Framework\Yi.Framework.ApiMicroservice\SwaggerDoc.xml</DocumentationFile>
     <NoWarn>1701;1702;CS1591</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Autofac" Version="6.3.0" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.1.0" />
+    <PackageReference Include="Autofac.Extras.DynamicProxy" Version="6.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.10">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -21,6 +24,7 @@
     <ProjectReference Include="..\Yi.Framework.Interface\Yi.Framework.Interface.csproj" />
     <ProjectReference Include="..\Yi.Framework.Model\Yi.Framework.Model.csproj" />
     <ProjectReference Include="..\Yi.Framework.Service\Yi.Framework.Service.csproj" />
+    <ProjectReference Include="..\Yi.Framework.WebCore\Yi.Framework.WebCore.csproj" />
   </ItemGroup>
 
 </Project>

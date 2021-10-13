@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Consul;
 using Microsoft.Extensions.Options;
+using Yi.Framework.Common.IOCOptions;
 
 namespace Yi.Framework.Core.ConsulExtend
 {

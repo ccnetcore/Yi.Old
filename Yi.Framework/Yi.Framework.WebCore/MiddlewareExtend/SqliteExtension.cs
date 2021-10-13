@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.OpenApi.Models;
 using System;
 using System.IO;
 using Yi.Framework.Common.IOCOptions;
@@ -8,13 +7,13 @@ using Yi.Framework.Common.IOCOptions;
 namespace Yi.Framework.WebCore.MiddlewareExtend
 {
     /// <summary>
-    /// Redis扩展
+    /// 数据库扩展
     /// </summary>
-    public static class RedisExtension
+    public static class SqliteExtension
     {
-        public static IServiceCollection AddRedisService(this IServiceCollection services)
+        public static IServiceCollection AddSqliteService(this IServiceCollection services)
         {
-            services.Configure<RedisConnOptions>(Appsettings.appConfiguration("RedisConn"));
+            services.Configure<SqliteOptions>(Appsettings.appConfiguration("SqliteConn"));
             return services;
         }
     }

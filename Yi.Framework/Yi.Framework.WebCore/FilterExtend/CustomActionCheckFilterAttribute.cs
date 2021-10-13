@@ -18,7 +18,6 @@ namespace Yi.Framework.WebCore.FilterExtend
     {
         #region Identity
         private readonly ILogger<CustomActionCheckFilterAttribute> _logger;
-        private readonly IModelMetadataProvider _modelMetadataProvider;
         public CustomActionCheckFilterAttribute(ILogger<CustomActionCheckFilterAttribute> logger)
         {
             this._logger = logger;

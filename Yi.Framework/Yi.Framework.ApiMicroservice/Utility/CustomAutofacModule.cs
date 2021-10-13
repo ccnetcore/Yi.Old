@@ -39,9 +39,12 @@ namespace Yi.Framework.ApiMicroservice.Utility
             //containerBuilder.RegisterType<A>().As<IA>().EnableInterfaceInterceptors();开启Aop
 
             //将数据库对象注入
-            containerBuilder.RegisterType<DataContext>().As<DbContext>().InstancePerLifetimeScope().EnableInterfaceInterceptors();
+            //containerBuilder.RegisterType<DataContext>().As<DbContext>().InstancePerLifetimeScope().EnableInterfaceInterceptors();
 
-            containerBuilder.RegisterGeneric(typeof(BaseService<>)).As(typeof(IBaseService<>)).EnableInterfaceInterceptors();
+            containerBuilder.RegisterGeneric(typeof(BaseService<>)).As(typeof(IBaseService<>)).InstancePerLifetimeScope().EnableInterfaceInterceptors();
+
+            containerBuilder.RegisterType<UserService>().As< IUserService >().InstancePerLifetimeScope().EnableInterfaceInterceptors();
+            containerBuilder.RegisterType<RoleService>().As<IRoleService>().InstancePerLifetimeScope().EnableInterfaceInterceptors();
 
         }
 
