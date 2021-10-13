@@ -1,5 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+
+import LayoutLogin from '../layouts/login/LayoutLogin.vue'
+import login from '../views/login.vue'
+import register from '../views/register.vue'
 import { trailingSlash } from '@/util/helpers'
 import {
     layout,
@@ -18,11 +22,29 @@ const router = new VueRouter({
 
         return { x: 0, y: 0 }
     },
-    routes: [layout('Default', [
-        route('Index'),
-        route('AdmUser', null, 'AdmUser'),
-        route('AdmRole', null, 'AdmRole'),
-    ])]
+    routes: [{
+            path: '/layoutLogin',
+            name: 'layoutLogin',
+            component: LayoutLogin,
+            redirect: "/login",
+            children: [{
+                    path: "/login",
+                    name: "login",
+                    component: login
+                },
+                {
+                    path: '/register',
+                    name: 'register',
+                    component: register
+                }
+            ]
+        },
+        layout('Default', [
+            route('Index'),
+            route('AdmUser', null, 'AdmUser'),
+            route('AdmRole', null, 'AdmRole'),
+        ])
+    ]
 })
 router.beforeEach((to, from, next) => {
     return to.path.endsWith('/') ? next() : next(trailingSlash(to.path))

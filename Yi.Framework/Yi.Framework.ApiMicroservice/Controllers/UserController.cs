@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Yi.Framework.Common.Models;
 using Yi.Framework.Interface;
 using Yi.Framework.Model.Models;
+using Yi.Framework.WebCore;
 
 namespace Yi.Framework.ApiMicroservice.Controllers
 {
@@ -68,6 +69,16 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         {
             await _userService.AddAsync(_user);
             return Result.Success();
+        }
+
+        /// <summary>
+        /// 通过上下文对象获取user（注意，_user下只有userId），返回值为该用户下所有的menu，(注意子类递归)并且需要关联mould
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<Result> GetMenuMould()
+        {
+         var _user= this.HttpContext.GetCurrentUserInfo();
         }
     }
 }
