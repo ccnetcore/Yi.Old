@@ -7,7 +7,7 @@
   >
     <template v-for="(item, i) in items">
       <default-list-group
-        v-if="item.items"
+        v-if="item.children"
         :key="`group-${i}`"
         :item="item"
       />

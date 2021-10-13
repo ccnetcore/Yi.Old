@@ -17,6 +17,9 @@
   // import { sync } from 'vuex-pathify'
 
   export default {
+    data:()=>({
+      mini:false
+    }),
     name: 'DefaultDrawerToggle',
 
     computed: {

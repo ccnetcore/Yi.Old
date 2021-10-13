@@ -24,7 +24,7 @@
       </v-list-item-content>
     </template>
 
-    <template v-for="(child, i) in item.items">
+    <template v-for="(child, i) in item.children">
       <default-list-group
         v-if="child.items"
         :key="`sub-group-${i}`"
