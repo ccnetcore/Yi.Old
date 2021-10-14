@@ -61,5 +61,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             await _mouldService.AddAsync(_mould);
             return Result.Success();
         }
+
+
     }
 }
