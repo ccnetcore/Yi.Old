@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Consul" Version="1.6.10.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.11" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="5.0.0" />
@@ -15,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Yi.Framework.Common\Yi.Framework.Common.csproj" />
+    <ProjectReference Include="..\Yi.Framework.Model\Yi.Framework.Model.csproj" />
   </ItemGroup>
 
   <ItemGroup>
