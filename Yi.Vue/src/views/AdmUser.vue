@@ -1,7 +1,6 @@
 <template>
-
-
     <v-card class="mx-auto" width="100%">
+      <v-btn>设置角色</v-btn>
       <ccTable :defaultItem="defaultItem" :headers="headers" :axiosUrls="axiosUrls" ></ccTable>
     </v-card>
 

@@ -5,12 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Yi.Framework.Common.Models;
+using Yi.Framework.DTOModel;
 using Yi.Framework.Interface;
 using Yi.Framework.Model.Models;
 
 namespace Yi.Framework.ApiMicroservice.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class RoleController : ControllerBase
     {
@@ -20,7 +21,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             _roleService = roleService;
         }
         [HttpGet]
-        public async Task<Result> GetURole()
+        public async Task<Result> GetRole()
         {
             return Result.Success().SetData(await _roleService.GetAllEntitiesTrueAsync());
         }
@@ -60,6 +61,16 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         {
             await _roleService.AddAsync(_role);
             return Result.Success();
+        }
+
+        /// <summary>
+        /// 给角色设置菜单，多个角色与多个菜单，让每一个角色都设置，ids1为角色，ids2为菜单
+        /// </summary>
+        /// <param name="idsListDto"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<Result> SetMenuByRole(IdsListDto<int>  idsListDto)
+        { 
         }
     }
 }

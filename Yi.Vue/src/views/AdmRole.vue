@@ -1,6 +1,9 @@
 <template>
     <v-card class="mx-auto" width="100%">
-      <ccTable :defaultItem="defaultItem" :headers="headers" :axiosUrls="axiosUrls" ></ccTable>
+      <ccTable :defaultItem="defaultItem" :headers="headers" :axiosUrls="axiosUrls" >
+
+
+      </ccTable>
     </v-card>
 
 </template>

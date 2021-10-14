@@ -27,6 +27,7 @@ const router = new VueRouter({
             route('AdmRole', null, 'AdmRole'),
             route('AdmMenu', null, 'AdmMenu'),
             route('AdmMould', null, 'AdmMould'),
+            route('AdmRoleMenu', null, 'AdmRoleMenu'),
         ]),
         layout('Login', [
             route('login', null, 'login'),

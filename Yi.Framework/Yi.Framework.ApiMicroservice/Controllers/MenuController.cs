@@ -5,12 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Yi.Framework.Common.Models;
+using Yi.Framework.DTOModel;
 using Yi.Framework.Interface;
 using Yi.Framework.Model.Models;
 
 namespace Yi.Framework.ApiMicroservice.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class MenuController : ControllerBase
     {
@@ -60,6 +61,16 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         {
             await _menuService.AddAsync(_menu);
             return Result.Success();
+        }
+
+        /// <summary>
+        /// 给一个菜单设置一个接口,Id1为菜单id,Id2为接口id
+        /// </summary>
+        /// <param name="idDto"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<Result> SetMouldByMenu(IdDto<int> idDto)
+        { 
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Yi.Framework.Common.Models;
+using Yi.Framework.DTOModel;
 using Yi.Framework.Interface;
 using Yi.Framework.Model.Models;
 using Yi.Framework.WebCore;
@@ -81,6 +82,16 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             var _user= this.HttpContext.GetCurrentUserInfo();
             var menu_data = await _userService.GetMenusByUser(_user);
             return Result.Success().SetData(menu_data);
+        }
+
+        /// <summary>
+        /// 给单个用户设置多个角色，ids有用户id与 角列表色ids，1对多
+        /// </summary>
+        /// <param name="idsDto"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<Result> SetRoleByUser(IdsDto<int>  idsDto)
+        { 
         }
     }
 }

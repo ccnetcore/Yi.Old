@@ -1,5 +1,7 @@
 <template>
     <v-card class="mx-auto" width="100%">
+      <v-btn>设置接口权限</v-btn>
+      
       <ccTable :defaultItem="defaultItem" :headers="headers" :axiosUrls="axiosUrls" ></ccTable>
     </v-card>
 

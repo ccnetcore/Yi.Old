@@ -10,7 +10,7 @@ using Yi.Framework.Model.Models;
 
 namespace Yi.Framework.ApiMicroservice.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class MouldController : ControllerBase
     {

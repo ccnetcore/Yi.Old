@@ -120,7 +120,7 @@
                 {
           title:"角色菜单分配管理",
           icon:"mdi-account",
-          to:"/admrole/",
+          to:"/admRoleMenu/",
           children:[]
         },
         ]

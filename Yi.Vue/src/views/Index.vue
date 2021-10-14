@@ -1,3 +1,3 @@
 <template>
-    <div>还有谁</div>
+    <div>首页</div>
 </template>
