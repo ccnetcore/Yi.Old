@@ -113,7 +113,7 @@
 <script>
 import itemApi from "./TableApi.js";
 export default {
-  name: "Tables",
+  name: "ccTable",
   props: {
     defaultItem: {
       type: Object,

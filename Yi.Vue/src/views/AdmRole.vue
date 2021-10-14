@@ -1,18 +1,12 @@
 <template>
     <v-card class="mx-auto" width="100%">
       <ccTable :defaultItem="defaultItem" :headers="headers" :axiosUrls="axiosUrls" >
-
-
       </ccTable>
     </v-card>
 
 </template>
 <script>
-import ccTable from "@/components/Table.vue"
 export default {
-  components: {
-    ccTable
-  },
   data: () => ({
 axiosUrls:{
   get:"role/getrole",

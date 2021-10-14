@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CC.ElectronicCommerce.Core
+namespace Yi.Framework.Common.Helper
 {
 	public static class SnowflakeHelper
 	{

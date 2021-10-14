@@ -5,11 +5,7 @@
 
 </template>
 <script>
-import ccTable from "@/components/Table.vue"
 export default {
-  components: {
-    ccTable
-  },
   data: () => ({
 axiosUrls:{
   get:"role/getrole",

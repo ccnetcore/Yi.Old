@@ -4,8 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Yi.Framework.Common;
+using Yi.Framework.Common.Helper;
 using Yi.Framework.Common.Models;
+using Yi.Framework.Core;
 using Yi.Framework.Interface;
 using Yi.Framework.Model.Models;
 
@@ -33,9 +34,11 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpPost]
         public async Task<Result> Login(user _user)
         {
-           if( await _userService.Login(_user))
+            if (await _userService.Login(_user))
             {
-                return Result.Success().SetData(new { _user, token = 123456789 });
+                _user.roles = await _userService.GetRolesByUser(_user);
+                var toke = MakeJwt.app(_user);
+                return Result.Success().SetData(new { user = new { _user.id, _user.username, _user.introduction, _user.icon, _user.nick }, toke });
             }
             return Result.Error();
         }
@@ -45,7 +48,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public  Result Logout()
+        public Result Logout()
         {
             return Result.Success();
         }
@@ -59,11 +62,11 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpPost]
         public async Task<Result> Register(user _user, string code)
         {
-            if (code!=null)
-            { 
+            if (code != null)
+            {
                 await _userService.Register(_user);
             }
-            return Result.Error(); 
+            return Result.Error();
         }
 
         /// <summary>

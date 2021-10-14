@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Yi.Framework.Core
+namespace Yi.Framework.Common.Helper
 
 {
 	/// <summary>

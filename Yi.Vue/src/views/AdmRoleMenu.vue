@@ -1,148 +1,87 @@
 <template>
-     <v-card class="mx-auto" width="100%">
-         
-<v-row>
-    <v-col cols="6">  
-   <v-list
-      flat
-      subheader
-      three-line
-    >
-      <v-subheader>General</v-subheader>
+ 
+    <v-row>
+      <v-col cols="12" md="4" lg="4">
+         <v-card class="mx-auto" width="100%">
+        <v-treeview
+          selectable
+          :items="RoleItems"
+          v-model="selectionRole"
+          return-object
+          open-all
+          hoverable
+          item-text="role_name"
+        >
+        </v-treeview>
+         </v-card>
+      </v-col>
 
-      <v-list-item-group
-        v-model="settings"
-        multiple
-        active-class=""
+      <v-col cols="12" md="8" lg="8">
+         <v-card class="mx-auto" width="100%">
+        <v-treeview
+          selectable
+          :items="Menuitems"
+          selection-type="leaf"
+          v-model="selectionMenu"
+          return-object
+          open-all
+          hoverable
+          item-text="menu_name"
+        >
+          <template v-slot:append="{ item }">
+            <v-btn>{{ item.id }}</v-btn>
+          </template>
+        </v-treeview>
+          </v-card></v-col
       >
-        <v-list-item>
-          <template v-slot:default="{ active }">
-            <v-list-item-action>
-              <v-checkbox :input-value="active"></v-checkbox>
-            </v-list-item-action>
 
-            <v-list-item-content>
-              <v-list-item-title>Notifications</v-list-item-title>
-              <v-list-item-subtitle>Notify me about updates to apps or games that I downloaded</v-list-item-subtitle>
-            </v-list-item-content>
-          </template>
-        </v-list-item>
+    </v-row>
 
-        <v-list-item>
-          <template v-slot:default="{ active }">
-            <v-list-item-action>
-              <v-checkbox :input-value="active"></v-checkbox>
-            </v-list-item-action>
-
-            <v-list-item-content>
-              <v-list-item-title>Sound</v-list-item-title>
-              <v-list-item-subtitle>Auto-update apps at any time. Data charges may apply</v-list-item-subtitle>
-            </v-list-item-content>
-          </template>
-        </v-list-item>
-
-        <v-list-item>
-          <template v-slot:default="{ active }">
-            <v-list-item-action>
-              <v-checkbox :input-value="active"></v-checkbox>
-            </v-list-item-action>
-
-            <v-list-item-content>
-              <v-list-item-title>Auto-add widgets</v-list-item-title>
-              <v-list-item-subtitle>Automatically add home screen widgets when downloads complete</v-list-item-subtitle>
-            </v-list-item-content>
-          </template>
-        </v-list-item>
-      </v-list-item-group>
-    </v-list>
-
-
-    </v-col>
-    <v-col cols="6">  <v-treeview
-    selectable
-    :items="items"
-  ></v-treeview></v-col>
-</v-row>
-
-
-
-     </v-card>
 </template>
 <script>
-  export default {
-    data: () => ({
-      items: [
-        {
-          id: 1,
-          name: 'Applications :',
-          children: [
-            { id: 2, name: 'Calendar : app' },
-            { id: 3, name: 'Chrome : app' },
-            { id: 4, name: 'Webstorm : app' },
-          ],
-        },
-        {
-          id: 5,
-          name: 'Documents :',
-          children: [
-            {
-              id: 6,
-              name: 'vuetify :',
-              children: [
-                {
-                  id: 7,
-                  name: 'src :',
-                  children: [
-                    { id: 8, name: 'index : ts' },
-                    { id: 9, name: 'bootstrap : ts' },
-                  ],
-                },
-              ],
-            },
-            {
-              id: 10,
-              name: 'material2 :',
-              children: [
-                {
-                  id: 11,
-                  name: 'src :',
-                  children: [
-                    { id: 12, name: 'v-btn : ts' },
-                    { id: 13, name: 'v-card : ts' },
-                    { id: 14, name: 'v-window : ts' },
-                  ],
-                },
-              ],
-            },
-          ],
-        },
-        {
-          id: 15,
-          name: 'Downloads :',
-          children: [
-            { id: 16, name: 'October : pdf' },
-            { id: 17, name: 'November : pdf' },
-            { id: 18, name: 'Tutorial : html' },
-          ],
-        },
-        {
-          id: 19,
-          name: 'Videos :',
-          children: [
-            {
-              id: 20,
-              name: 'Tutorials :',
-              children: [
-                { id: 21, name: 'Basic layouts : mp4' },
-                { id: 22, name: 'Advanced techniques : mp4' },
-                { id: 23, name: 'All about app : dir' },
-              ],
-            },
-            { id: 24, name: 'Intro : mov' },
-            { id: 25, name: 'Conference introduction : avi' },
-          ],
-        },
-      ],
-    }),
-  }
+export default {
+  data: () => ({
+    selectionMenu: [],
+    selectionRole: [],
+    RoleItems: [
+      { id: 1, role_name: "管理员", sex: "测试" },
+      { id: 2, role_name: "超级管理员", sex: "测试" },
+    ],
+    Menuitems: [
+      {
+        id: 1,
+        menu_name: "用户角色管理",
+        children: [
+          {
+            id: 2,
+            menu_name: "用户管理",
+            children: [
+              {
+                id: 4,
+                menu_name: "添加",
+                children: [],
+              },
+              {
+                id: 5,
+                menu_name: "修改",
+                children: [],
+              },
+              {
+                id: 7,
+                menu_name: "删除",
+                children: [],
+              },
+              {
+                id: 8,
+                menu_name: "查询",
+                children: [],
+              },
+            ],
+          },
+          { id: 3, menu_name: "角色管理" },
+        ],
+      },
+    ],
+  }),
+};
 </script>

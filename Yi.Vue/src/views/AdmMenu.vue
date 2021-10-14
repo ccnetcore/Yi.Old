@@ -1,34 +1,47 @@
 <template>
     <v-card class="mx-auto" width="100%">
-      <v-btn>设置接口权限</v-btn>
-      
-      <ccTable :defaultItem="defaultItem" :headers="headers" :axiosUrls="axiosUrls" ></ccTable>
+    <ccTreeview :items="Menuitems"></ccTreeview>
     </v-card>
 
 </template>
 <script>
-import ccTable from "@/components/Table.vue"
 export default {
-  components: {
-    ccTable
-  },
   data: () => ({
-axiosUrls:{
-  get:"role/getrole",
-  update:"role/updaterole",
-  del:"role/delListrole",
-  add:"role/addrole"
-},
-    headers: [
-      {text: "编号",align: "start",value: "id"},
-      { text: "角色名", value: "role_name", sortable: false },
-      { text: "简介", value: "introduce", sortable: false },
-      { text: "操作", value: "actions", sortable: false }
+    Menuitems: [
+      {
+        id: 1,
+        menu_name: "用户角色管理",
+        children: [
+          {
+            id: 2,
+            menu_name: "用户管理",
+            children: [
+              {
+                id: 4,
+                menu_name: "添加",
+                children: [],
+              },
+              {
+                id: 5,
+                menu_name: "修改",
+                children: [],
+              },
+              {
+                id: 7,
+                menu_name: "删除",
+                children: [],
+              },
+              {
+                id: 8,
+                menu_name: "查询",
+                children: [],
+              },
+            ],
+          },
+          { id: 3, menu_name: "角色管理" },
+        ],
+      },
     ],
-   defaultItem: {
-      role_name: "test",
-      introduce: "用于测试",
-    },
-  }),
+  })
 };
 </script>

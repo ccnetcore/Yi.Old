@@ -5,7 +5,7 @@ using System.Net.Mail;
 using System.Net.Sockets;
 using System.Text;
 
-namespace Yi.Framework.Common
+namespace Yi.Framework.Common.Helper
 {
     public class EmailHelper
     {
