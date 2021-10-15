@@ -13,3 +13,22 @@
             Type[] ts = assembly.GetTypes();
 
 #>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Yi.Framework.Model.Models;
+
+namespace Yi.Framework.Interface
+{
+  public partial class BaseContext :DbContext
+    {
+<#    foreach(string item in ts){
+ #>
+        public partial interface I<#=item #>Dal:IBaseDal<<#=item #>>
+    {
+    }
+<#    } #>
+    }
+}

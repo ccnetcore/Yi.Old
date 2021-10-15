@@ -11,5 +11,24 @@
             string solutionsPath = Host.ResolveAssemblyReference("$(SolutionDir)");//获取解决方案路径
            Assembly assembly = Assembly.LoadFrom(System.IO.Path.Combine(solutionsPath, @"Yi.Framework.ApiMicroservice\bin\Debug\net5.0\Yi.Framework.Model.dll"));
             Type[] ts = assembly.GetTypes();
+            
 
 #>
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Yi.Framework.Model
+{
+    public partial class BaseContext :DbContext
+    {
+<#    foreach(var item in ts){
+  
+ #>
+        public DbSet<<#=item#>> <#=item#> { get; set; }
+<#    } #>
+    }
+}

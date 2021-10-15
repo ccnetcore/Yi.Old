@@ -70,7 +70,12 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <returns></returns>
         [HttpPost]
         public async Task<Result> SetMenuByRole(IdsListDto<int>  idsListDto)
-        { 
+        {
+            foreach(var id in idsListDto.ids1)
+            {
+              await _roleService.SetMenusByRolesId(idsListDto.ids2, id);
+            }
+            return Result.Success();
         }
     }
 }

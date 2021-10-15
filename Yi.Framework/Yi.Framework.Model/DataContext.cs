@@ -12,7 +12,7 @@ namespace Yi.Framework.Model
 {
 	//Add-Migration yi-1
 	//Update-Database yi-1
-   public class DataContext : DbContext
+   public partial class DataContext : DbContext
     {
 		private readonly IOptionsMonitor<SqliteOptions> _optionsMonitor;
 		private readonly string _connStr;

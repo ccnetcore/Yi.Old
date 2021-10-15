@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Yi.Framework.Common;
 using Yi.Framework.Common.Helper;
 using Yi.Framework.Common.Models;
 using Yi.Framework.Core;

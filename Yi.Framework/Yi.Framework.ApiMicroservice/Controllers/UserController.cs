@@ -85,13 +85,16 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         }
 
         /// <summary>
-        /// 给单个用户设置多个角色，ids有用户id与 角列表色ids，1对多
+        /// 给单个用户设置多个角色，ids有用户id与 角色列表ids，1对多
         /// </summary>
         /// <param name="idsDto"></param>
         /// <returns></returns>
         [HttpPost]
         public async Task<Result> SetRoleByUser(IdsDto<int>  idsDto)
-        { 
+        {
+            var _user = this.HttpContext.GetCurrentUserInfo();
+            await _userService.SetRolesByUserId(idsDto.ids, _user.id);
+            return Result.Success();
         }
     }
 }
