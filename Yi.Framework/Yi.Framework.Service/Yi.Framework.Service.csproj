@@ -5,8 +5,39 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="T4DaraContext.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="T4Service.cs">
+      <DependentUpon>T4Service.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Yi.Framework.Interface\Yi.Framework.Interface.csproj" />
     <ProjectReference Include="..\Yi.Framework.Model\Yi.Framework.Model.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="T4Service.tt">
+      <LastGenOutput>T4Service.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="T4Service.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>T4Service.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
 
 </Project>
