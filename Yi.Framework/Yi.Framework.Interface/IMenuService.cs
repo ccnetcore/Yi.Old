@@ -45,6 +45,6 @@ namespace Yi.Framework.Interface
         /// </summary>
         /// <param name="_menu"></param>
         /// <returns></returns>
-        Task<bool> AddChildrenMenu(menu _menu);
+        Task<menu> AddChildrenMenu(menu _menu);
     }
 }

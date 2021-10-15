@@ -92,7 +92,7 @@ namespace Yi.Framework.Service
             {
                 return false;
             }           
-            var roleList = _Db.Set<role>().Where(u => roleIds.Contains(u.id)).ToList();
+            var roleList =await _Db.Set<role>().Where(u => roleIds.Contains(u.id) && u.is_delete == (short)Common.Enum.DelFlagEnum.Normal).ToListAsync();
             foreach(var item in user_data)
             {
                 item.roles = roleList;

@@ -13,15 +13,14 @@ namespace Yi.Framework.Service
     {
         public MenuService(DbContext Db) : base(Db) { }
 
-        public async Task<bool> AddChildrenMenu(menu _menu)
+        public async Task<menu> AddChildrenMenu(menu _menu)
         {
-            var menu_data = await GetEntity(u=>u.id==_menu.id&& u.is_delete == (short)Common.Enum.DelFlagEnum.Normal);
-            if (menu_data == null)
-            {
-                return false;
-            }         
-            menu_data.children.Add(new menu()) ;
-            return await AddAsync(_menu);
+            var menu_data = await _Db.Set<menu>().Include(u=>u.children)
+                .Where(u=>u.id==_menu.id&& u.is_delete == (short)Common.Enum.DelFlagEnum.Normal).FirstOrDefaultAsync();
+            var _children = menu_data.children.ToList();
+            _children.Add(new menu());
+            await UpdateAsync(menu_data);
+            return menu_data;
         }
 
         public async Task<bool> DelListByUpdateAsync(List<int> _ids)
