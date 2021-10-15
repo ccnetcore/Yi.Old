@@ -14,7 +14,6 @@
           <v-row>
             <v-col cols="12">
               <v-combobox
-        
                 v-model="select"
                 :items="items"
                 label="请点击选择"
@@ -30,7 +29,7 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn color="blue darken-1" text @click="dialog = false"> 关闭 </v-btn>
-        <v-btn color="blue darken-1" text @click="dialog = false"> 保存 </v-btn>
+      <div @click="dialog = false"> <slot name="save" ></slot> </div>
       </v-card-actions>
     </v-card>
   </v-dialog>

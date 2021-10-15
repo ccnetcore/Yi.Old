@@ -92,6 +92,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpPost]
         public async Task<Result> SetRoleByUser(IdsListDto<int> idsListDto)
         {
+            有bug：无法运行，500报错;
             var _user = this.HttpContext.GetCurrentUserInfo();
           await  _userService.SetRolesByUser(idsListDto.ids2, idsListDto.ids1);
             return Result.Success();

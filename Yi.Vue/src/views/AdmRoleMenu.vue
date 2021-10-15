@@ -1,8 +1,11 @@
 <template>
- 
-    <v-row>
-      <v-col cols="12" md="4" lg="4">
-         <v-card class="mx-auto" width="100%">
+  <v-row>
+    <v-col cols="12">
+ <v-card class="mx-auto" width="100%"><v-btn color="primary">确定分配</v-btn></v-card>
+    </v-col>
+    <v-col cols="12" md="4" lg="4">
+      <v-card class="mx-auto" width="100%">
+        
         <v-treeview
           selectable
           :items="RoleItems"
@@ -13,11 +16,11 @@
           item-text="role_name"
         >
         </v-treeview>
-         </v-card>
-      </v-col>
+      </v-card>
+    </v-col>
 
-      <v-col cols="12" md="8" lg="8">
-         <v-card class="mx-auto" width="100%">
+    <v-col cols="12" md="8" lg="8">
+      <v-card class="mx-auto" width="100%">
         <v-treeview
           selectable
           :items="Menuitems"
@@ -29,59 +32,36 @@
           item-text="menu_name"
         >
           <template v-slot:append="{ item }">
-            <v-btn>{{ item.id }}</v-btn>
+            <v-btn>id:{{ item.id }}</v-btn>
           </template>
         </v-treeview>
-          </v-card></v-col
-      >
-
-    </v-row>
-
+      </v-card></v-col
+    >
+  </v-row>
 </template>
 <script>
+import roleApi from "../api/roleApi";
+import menuApi from "../api/MenuApi";
 export default {
+  created() {
+ this.init();
+  },
+  methods: {
+    init() {
+      roleApi.getRole().then((resp) => {
+        this.RoleItems = resp.data;
+      });
+
+      menuApi.getMenu().then((resp) => {
+        this.Menuitems = resp.data;
+      });
+    },
+  },
   data: () => ({
     selectionMenu: [],
     selectionRole: [],
-    RoleItems: [
-      { id: 1, role_name: "管理员", sex: "测试" },
-      { id: 2, role_name: "超级管理员", sex: "测试" },
-    ],
-    Menuitems: [
-      {
-        id: 1,
-        menu_name: "用户角色管理",
-        children: [
-          {
-            id: 2,
-            menu_name: "用户管理",
-            children: [
-              {
-                id: 4,
-                menu_name: "添加",
-                children: [],
-              },
-              {
-                id: 5,
-                menu_name: "修改",
-                children: [],
-              },
-              {
-                id: 7,
-                menu_name: "删除",
-                children: [],
-              },
-              {
-                id: 8,
-                menu_name: "查询",
-                children: [],
-              },
-            ],
-          },
-          { id: 3, menu_name: "角色管理" },
-        ],
-      },
-    ],
+    RoleItems: [],
+    Menuitems: [],
   }),
 };
 </script>

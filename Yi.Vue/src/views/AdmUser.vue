@@ -1,24 +1,84 @@
 <template>
   <v-card class="mx-auto" width="100%">
-    {{select}}
-    <ccCombobox headers='设置角色' :items="items" @select="getSelect" itemText="role_name"></ccCombobox>
+    {{ select }}
+    {{ TableSelect }}
+    <ccCombobox
+      headers="设置角色"
+      :items="roleItems"
+      @select="getSelect"
+      itemText="role_name"
+    >
+      <template v-slot:save>
+        <v-btn @click="setRole" color="blue darken-1" text> 保存</v-btn>
+      </template>
+    </ccCombobox>
     <ccTable
       :defaultItem="defaultItem"
       :headers="headers"
       :axiosUrls="axiosUrls"
-    ></ccTable>
+      @selected="getTableSelect"
+    >
+      <template v-slot:action="{ item }">
+        <v-icon small class="mr-2" @click="showItem(item)"> mdi-eye </v-icon>
+      </template>
+    </ccTable>
   </v-card>
 </template>
 <script>
+import userApi from "../api/userApi";
+import roleApi from "../api/roleApi";
 export default {
-  methods:{
-    getSelect(data){
-this.select=data;
-    }
+  created() {
+    this.init();
+  },
+
+  methods: {
+    async showItem(item) {
+
+var strInfo="";
+Object.keys(item).forEach(function(key){
+
+strInfo+=key+":"+ item[key]+"<br>"
+
+});
+      await this.$dialog.confirm({
+        text: strInfo,
+        title: "信息详情",
+        actions: {
+          true: "关闭",
+        },
+      });
+    },
+    init() {
+      roleApi.getRole().then((resp) => {
+        this.roleItems = resp.data;
+      });
+    },
+    setRole() {
+      var userIds = [];
+      var roleIds = [];
+      this.TableSelect.forEach((item) => {
+        userIds.push(item.id);
+      });
+      this.select.forEach((item) => {
+        roleIds.push(item.id);
+      });
+      userApi.SetRoleByUser(userIds, roleIds).then((resp) => {
+        alert(resp);
+      });
+    },
+    getTableSelect(data) {
+      this.TableSelect = data;
+    },
+
+    getSelect(data) {
+      this.select = data;
+    },
   },
   data: () => ({
-    select:[],
-     items: [{id:1,role_name:"管理员"},{id:1,role_name:"超级管理员"}],
+    TableSelect: [],
+    select: [],
+    roleItems: [],
     axiosUrls: {
       get: "user/getuser",
       update: "user/updateuser",

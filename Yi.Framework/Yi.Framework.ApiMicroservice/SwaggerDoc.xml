@@ -53,6 +53,19 @@
             <param name="_menu"></param>
             <returns></returns>
         </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.MenuController.SetMouldByMenu(Yi.Framework.DTOModel.IdDto{System.Int32})">
+            <summary>
+            给一个菜单设置一个接口,Id1为菜单id,Id2为接口id
+            </summary>
+            <param name="idDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.MenuController.GetMenuByUser">
+            <summary>
+            得到该用户有哪些菜单，关联mould
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.MouldController.UpdateMould(Yi.Framework.Model.Models.mould)">
             <summary>
             更
@@ -95,6 +108,13 @@
             <param name="_role"></param>
             <returns></returns>
         </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.RoleController.SetMenuByRole(Yi.Framework.DTOModel.IdsListDto{System.Int32})">
+            <summary>
+            给角色设置菜单，多个角色与多个菜单，让每一个角色都设置，ids1为角色，ids2为菜单
+            </summary>
+            <param name="idsListDto"></param>
+            <returns></returns>
+        </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.GetUser">
             <summary>
             查
@@ -126,6 +146,13 @@
             <summary>
             通过上下文对象获取user（注意，_user下只有userId），返回值为该用户下所有的menu，(注意子类递归)并且需要关联mould
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.SetRoleByUser(Yi.Framework.DTOModel.IdsListDto{System.Int32})">
+            <summary>
+            给多个用户设置多个角色，ids有用户id与 角色列表ids，多对多,ids1用户,ids2为角色
+            </summary>
+            <param name="idsListDto"></param>
             <returns></returns>
         </member>
         <member name="T:Yi.Framework.ApiMicroservice.Utility.CustomHostingStartup">

@@ -92,5 +92,15 @@ namespace Yi.Framework.ApiMicroservice.Controllers
           var menuList= await _userService.GetMenusByUser(_user);
             return Result.Success().SetData(menuList);
         }
+
+        /// <summary>
+        /// 给一个菜单添加子节点（注意：添加，不是覆盖）
+        /// </summary>
+        /// <param name="childrenDto"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<Result> AddChildrenMenu(ChildrenDto<menu> childrenDto)
+        { 
+        }
     }
 }

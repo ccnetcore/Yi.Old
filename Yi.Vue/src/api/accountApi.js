@@ -16,12 +16,6 @@ export default {
             method: 'post',
         })
     },
-    logged() {
-        return myaxios({
-            url: '/Account/logged',
-            method: 'post',
-        })
-    },
     register(username, password, email, code) {
         return myaxios({
             url: `/Account/register?code=${code}`,

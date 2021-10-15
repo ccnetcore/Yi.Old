@@ -8,20 +8,20 @@
 export default {
   data: () => ({
 axiosUrls:{
-  get:"role/getrole",
-  update:"role/updaterole",
-  del:"role/delListrole",
-  add:"role/addrole"
+  get:"mould/getmould",
+  update:"mould/updatemould",
+  del:"mould/delListmould",
+  add:"mould/addmould"
 },
     headers: [
       {text: "编号",align: "start",value: "id"},
-      { text: "角色名", value: "role_name", sortable: false },
-      { text: "简介", value: "introduce", sortable: false },
+      { text: "接口名", value: "mould_name", sortable: false },
+      { text: "接口地址", value: "url", sortable: false },
       { text: "操作", value: "actions", sortable: false }
     ],
    defaultItem: {
-      role_name: "test",
-      introduce: "用于测试",
+      mould_name: "test",
+      url: "test/test",
     },
   }),
 };

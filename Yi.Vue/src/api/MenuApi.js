@@ -1,9 +1,9 @@
 import myaxios from '@/util/myaxios'
 export default {
-    getRole() {
+    getMenu() {
         return myaxios({
-            url: '/Role/getRole',
+            url: '/Menu/GetMenu',
             method: 'get'
         })
-    }
+    },
 }

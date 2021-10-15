@@ -1,47 +1,29 @@
 <template>
-    <v-card class="mx-auto" width="100%">
+  <v-card class="mx-auto" width="100%">
+    <v-btn color="primary" dark class="mb-2 mx-2" @click="dialog = true">
+      添加新项
+    </v-btn>
+    <v-btn color="primary" dark class="mb-2 mx-2" @click="dialog = true">
+      删除所选
+    </v-btn>
     <ccTreeview :items="Menuitems"></ccTreeview>
-    </v-card>
-
+  </v-card>
 </template>
 <script>
+import menuApi from "../api/MenuApi";
 export default {
+  created() {
+    this.init();
+  },
   data: () => ({
-    Menuitems: [
-      {
-        id: 1,
-        menu_name: "用户角色管理",
-        children: [
-          {
-            id: 2,
-            menu_name: "用户管理",
-            children: [
-              {
-                id: 4,
-                menu_name: "添加",
-                children: [],
-              },
-              {
-                id: 5,
-                menu_name: "修改",
-                children: [],
-              },
-              {
-                id: 7,
-                menu_name: "删除",
-                children: [],
-              },
-              {
-                id: 8,
-                menu_name: "查询",
-                children: [],
-              },
-            ],
-          },
-          { id: 3, menu_name: "角色管理" },
-        ],
-      },
-    ],
-  })
+    Menuitems: [],
+  }),
+  methods: {
+    init() {
+      menuApi.getMenu().then((resp) => {
+        this.Menuitems = resp.data;
+      });
+    },
+  },
 };
 </script>

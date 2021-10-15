@@ -86,6 +86,9 @@
 
       <!-- 表格中的删除和修改 -->
       <template v-slot:item.actions="{ item }">
+
+        <slot name="action" :item="item"></slot>
+
         <v-icon
           v-if="axiosUrls.hasOwnProperty('update')"
           small
@@ -101,6 +104,8 @@
         >
           mdi-delete
         </v-icon>
+
+
       </template>
 
       <!-- 初始化 -->
@@ -113,6 +118,7 @@
 <script>
 import itemApi from "./TableApi.js";
 export default {
+  
   name: "ccTable",
   props: {
     defaultItem: {
@@ -125,7 +131,6 @@ export default {
       type: Object,
     },
   },
-
   data: () => ({
     page: 1,
     selected: [],
@@ -143,6 +148,12 @@ export default {
   },
 
   watch: {
+     selected:{
+         handler(val, oldVal){
+              this.$emit("selected",val);
+         },
+         deep:true
+     },
     dialog(val) {
       val || this.close();
     }
@@ -200,7 +211,6 @@ export default {
       itemApi
         .delItemList(this.axiosUrls.del, Ids)
         .then(() => this.initialize());
-      this.closeDelete();
     },
     close() {
       this.dialog = false;
