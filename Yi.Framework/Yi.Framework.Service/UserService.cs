@@ -85,17 +85,20 @@ namespace Yi.Framework.Service
            return await AddAsync(_user);
         }
 
-        public async Task<bool> SetRolesByUserId(List<int> roleIds, int userId)
+        public async Task<bool> SetRolesByUser(List<int> roleIds, List<int> userIds)
         {
-            var user_data =await  GetEntity(u => u.id ==userId &&u.is_delete == (short)Common.Enum.DelFlagEnum.Normal);
+            var user_data =await _Db.Set<user>().Include(u=>u.roles).Where(u =>userIds.Contains(u.id) &&u.is_delete == (short)Common.Enum.DelFlagEnum.Normal).ToListAsync();
             if (user_data == null)
             {
                 return false;
             }           
             var roleList = _Db.Set<role>().Where(u => roleIds.Contains(u.id)).ToList();
+            foreach(var item in user_data)
+            {
+                item.roles = roleList;
+            }
             
-            user_data.roles = roleList;
-            return await AddAsync(user_data);
+            return await UpdateListAsync(user_data);
         }
     }
 }

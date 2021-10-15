@@ -17,22 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="T4DaraContext.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>T4DaraContext.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="T4DaraContext.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>T4DaraContext.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
 
 </Project>

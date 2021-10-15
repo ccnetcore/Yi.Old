@@ -8,6 +8,7 @@ using Yi.Framework.Common.Models;
 using Yi.Framework.DTOModel;
 using Yi.Framework.Interface;
 using Yi.Framework.Model.Models;
+using Yi.Framework.WebCore;
 
 namespace Yi.Framework.ApiMicroservice.Controllers
 {
@@ -16,9 +17,11 @@ namespace Yi.Framework.ApiMicroservice.Controllers
     public class MenuController : ControllerBase
     {
         private IMenuService _menuService;
-        public MenuController(IMenuService menuService)
+        private IUserService _userService;
+        public MenuController(IMenuService menuService, IUserService userService)
         {
             _menuService = menuService;
+            _userService =userService;
         }
         [HttpGet]
         public async Task<Result> GetMenu()
@@ -70,7 +73,24 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <returns></returns>
         [HttpPost]
         public async Task<Result> SetMouldByMenu(IdDto<int> idDto)
-        { 
+        {
+            if (await _menuService.SetMouldByMenu(idDto.id2,idDto.id1))
+            {
+                return Result.Success();
+            }
+            return Result.Error(); 
+        }
+
+        /// <summary>
+        /// 得到该用户有哪些菜单，关联mould
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<Result> GetMenuByUser()
+        {
+            var _user = this.HttpContext.GetCurrentUserInfo();
+          var menuList= await _userService.GetMenusByUser(_user);
+            return Result.Success().SetData(menuList);
         }
     }
 }

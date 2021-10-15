@@ -13,21 +13,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MicroServiceInstance", "MicroServiceInstance", "{026D2797-07D1-4BA5-8070-50CDE0258C59}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Framework.DTOModel", "Yi.Framework.DTOModel\Yi.Framework.DTOModel.csproj", "{5B6C87F0-CEBA-4A0A-8C30-02E927AB4AEF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.DTOModel", "Yi.Framework.DTOModel\Yi.Framework.DTOModel.csproj", "{5B6C87F0-CEBA-4A0A-8C30-02E927AB4AEF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Framework.Interface", "Yi.Framework.Interface\Yi.Framework.Interface.csproj", "{5935EC64-7414-47D8-B934-E5896DD89E4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.Interface", "Yi.Framework.Interface\Yi.Framework.Interface.csproj", "{5935EC64-7414-47D8-B934-E5896DD89E4E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Framework.Model", "Yi.Framework.Model\Yi.Framework.Model.csproj", "{F0EE03CF-30C9-4C48-BF32-FED6F3BCFB4C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.Model", "Yi.Framework.Model\Yi.Framework.Model.csproj", "{F0EE03CF-30C9-4C48-BF32-FED6F3BCFB4C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Framework.Service", "Yi.Framework.Service\Yi.Framework.Service.csproj", "{C5E41276-A30F-4098-BA79-2E8920BBD02A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.Service", "Yi.Framework.Service\Yi.Framework.Service.csproj", "{C5E41276-A30F-4098-BA79-2E8920BBD02A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Framework.Common", "Yi.Framework.Common\Yi.Framework.Common.csproj", "{4816AA7B-7222-4B3B-A178-C2A70713E9D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.Common", "Yi.Framework.Common\Yi.Framework.Common.csproj", "{4816AA7B-7222-4B3B-A178-C2A70713E9D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Framework.Core", "Yi.Framework.Core\Yi.Framework.Core.csproj", "{07A80C17-E03E-475D-9BBF-98E3B1393652}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.Core", "Yi.Framework.Core\Yi.Framework.Core.csproj", "{07A80C17-E03E-475D-9BBF-98E3B1393652}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Framework.WebCore", "Yi.Framework.WebCore\Yi.Framework.WebCore.csproj", "{E4734315-158C-4D35-AF01-1122C22F2955}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.WebCore", "Yi.Framework.WebCore\Yi.Framework.WebCore.csproj", "{E4734315-158C-4D35-AF01-1122C22F2955}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Framework.ApiMicroservice", "Yi.Framework.ApiMicroservice\Yi.Framework.ApiMicroservice.csproj", "{A95157D2-907F-411E-BA1D-A17F48C54A0E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.ApiMicroservice", "Yi.Framework.ApiMicroservice\Yi.Framework.ApiMicroservice.csproj", "{A95157D2-907F-411E-BA1D-A17F48C54A0E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

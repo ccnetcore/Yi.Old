@@ -51,7 +51,12 @@ namespace Yi.Framework.Interface
         /// <param name="roleIds"></param>
         /// <param name="userId"></param>
         /// <returns></returns>
-        Task<bool> SetRolesByUserId(List<int> roleIds,int userId);
+        Task<bool> SetRolesByUser(List<int> roleIds, List<int> userIds);
+        /// <summary>
+        /// email验证
+        /// </summary>
+        /// <param name="emailAddress"></param>
+        /// <returns></returns>
         Task<bool> EmailIsExsit(string emailAddress);
         
     }
