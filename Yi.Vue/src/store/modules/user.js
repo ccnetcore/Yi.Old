@@ -4,7 +4,26 @@ import accountApi from "@/api/accountApi"
 //再导入axion请求
 const state = { //状态
     token: getToken(),
-    user: getUser()
+    user: getUser(),
+    dark: false,
+    drawer: {
+        image: 0,
+        gradient: 0,
+        mini: false,
+    },
+    gradients: [
+        'rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)',
+        'rgba(228, 226, 226, 1), rgba(255, 255, 255, 0.7)',
+        'rgba(244, 67, 54, .8), rgba(244, 67, 54, .8)',
+    ],
+    images: [
+        'https://demos.creative-tim.com/material-dashboard-pro/assets/img/sidebar-1.jpg',
+        'https://demos.creative-tim.com/material-dashboard-pro/assets/img/sidebar-2.jpg',
+        'https://demos.creative-tim.com/material-dashboard-pro/assets/img/sidebar-3.jpg',
+        'https://demos.creative-tim.com/material-dashboard-pro/assets/img/sidebar-4.jpg',
+    ],
+    notifications: [],
+    rtl: false
 }
 
 const mutations = { //变化//载荷
@@ -18,21 +37,12 @@ const mutations = { //变化//载荷
     }
 }
 
-
-
 //在action中可以配合axios进行权限判断
 const actions = { //动作
     setIcon({ commit, state }, icon) {
         state.user.icon = icon
         commit('SET_USER', state.user)
     },
-
-
-    setLevel({ commit, state }, level) {
-
-        commit('SET_USER', state.user)
-    },
-
     // qqUpdate({ state }, openid) {
     //     return new Promise((resolv, reject) => {
     //         qqApi.qqupdate(openid, state.user.id).then(resp => {
@@ -64,7 +74,6 @@ const actions = { //动作
                     commit('SET_TOKEN', resp.data.token)
                     commit('SET_USER', resp.data.user)
                 }
-
                 resolv(resp)
             }).catch(error => {
                 reject(error)
@@ -118,5 +127,21 @@ const actions = { //动作
 
 }
 
+const getters = { //类似与计算属性 派生属性
+    dark: (state, getters) => {
+        return (
+            state.dark ||
+            getters.gradient.indexOf('255, 255, 255') === -1
+        )
+    },
+    gradient: state => {
+        return state.gradients[state.drawer.gradient]
+    },
+    image: state => {
+        return state.drawer.image === '' ? state.drawer.image : state.images[state.drawer.image]
+    }
+}
 
-export default { state, mutations, actions }
+
+
+export default { state, mutations, actions, getters }

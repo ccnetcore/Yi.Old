@@ -1,5 +1,5 @@
 import axios from 'axios'
-// import store from '../store/index'
+import store from '../store/index'
 // import VuetifyDialogPlugin from 'vuetify-dialog/nuxt/index';
 const myaxios = axios.create({
         // baseURL:'/'// 
@@ -11,7 +11,7 @@ const myaxios = axios.create({
     })
     // 请求拦截器
 myaxios.interceptors.request.use(function(config) {
-    // config.headers.Authorization = 'Bearer ' + store.state.user.token;
+    config.headers.Authorization = 'Bearer ' + store.state.user.token;
     // store.dispatch("openLoad");
     return config;
 }, function(error) {

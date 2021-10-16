@@ -4,10 +4,10 @@
     elevation="1"
     fab
     small
-    @click="mini = !mini"
+    @click="$store.state.home.mini = !$store.state.home.mini"
   >
     <v-icon>
-      {{ mini ? 'mdi-format-list-bulleted' : 'mdi-dots-vertical' }}
+      {{ $store.state.home.mini ? 'mdi-format-list-bulleted' : 'mdi-dots-vertical' }}
     </v-icon>
   </v-btn>
 </template>
@@ -17,8 +17,9 @@
   // import { sync } from 'vuex-pathify'
 
   export default {
+
     data:()=>({
-      mini:false
+     
     }),
     name: 'DefaultDrawerToggle',
 

@@ -1,42 +1,53 @@
-const state = { //状态
-    plateId: 0,
-    discussId: 0,
-    plateString: "",
+const state = {
+    drawer: null,
+    drawerImage: true,
+    mini: false,
+    items: [{
+            title: 'Dashboard',
+            icon: 'mdi-view-dashboard',
+            to: '/',
+        },
+        {
+            title: 'User Profile',
+            icon: 'mdi-account',
+            to: '/components/profile/',
+        },
+        {
+            title: 'Regular Tables',
+            icon: 'mdi-clipboard-outline',
+            to: '/tables/regular/',
+        },
+        {
+            title: 'Typography',
+            icon: 'mdi-format-font',
+            to: '/components/typography/',
+        },
+        {
+            title: 'Icons',
+            icon: 'mdi-chart-bubble',
+            to: '/components/icons/',
+        },
+        {
+            title: 'Google Maps',
+            icon: 'mdi-map-marker',
+            to: '/maps/google/',
+        },
+        {
+            title: 'Notifications',
+            icon: 'mdi-bell',
+            to: '/components/notifications/',
+        },
+    ],
 }
 
 const mutations = { //变化//载荷
-    SET_PLATEID(state, n) {
-        state.plateId = n
-    },
-    SET_DOSCUSSIDSTRING(state, n) {
-        state.plateString = n
-    },
-    SET_DOSCUSSID(state, n) {
-        state.discussId = n
-    },
 }
 
 //在action中可以配合axios进行权限判断
 const actions = { //动作
-    set_plateId(context, n) {
-        context.commit('SET_PLATEID', n)
-    },
-    set_plateString(context, n) {
-        context.commit('SET_DOSCUSSIDSTRING', n)
-    },
-    set_discussId(context, n) {
-        context.commit('SET_DOSCUSSID', n)
-    }
+
 }
+const getters = {}
 
-// const getters = { //类似与计算属性 派生属性
-//     msg(state) {
-//         if (state.count > 80) {
-//             return "成绩优异"
-//         } else {
-//             return "成绩不合格"
-//         }
-//     }
-// }
 
-export default { state, mutations, actions }
+export default { state, mutations, actions, getters }

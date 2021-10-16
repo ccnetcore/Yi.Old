@@ -39,8 +39,8 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             if( user_data!=null)
             {
                 
-                var toke = MakeJwt.app(user_data);
-                return Result.Success().SetData(new { user = new { _user.id, _user.username, _user.introduction, _user.icon, _user.nick }, toke });
+                var token = MakeJwt.app(user_data);
+                return Result.Success().SetData(new { user = new { _user.id, _user.username, _user.introduction, _user.icon, _user.nick }, token });
             }
             return Result.Error();
         }

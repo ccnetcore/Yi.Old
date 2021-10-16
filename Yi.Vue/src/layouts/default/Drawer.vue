@@ -1,24 +1,17 @@
 <template>
   <v-navigation-drawer
     id="default-drawer"
-    v-model="drawer"
+    v-model="$store.state.home.drawer"
     :dark="dark"
     :right="$vuetify.rtl"
-    :src="drawerImage ? image : ''"
-    :mini-variant.sync="mini"
+    :src="$store.state.home.drawerImage ? image : ''"
+    :mini-variant.sync="$store.state.home.mini"
     mini-variant-width="80"
     app
     width="260"
   >
-    <template
-      v-if="drawerImage"
-      #img="props"
-    >
-      <v-img
-        :key="image"
-        :gradient="gradient"
-        v-bind="props"
-      />
+    <template v-if="$store.state.home.drawerImage" #img="props">
+      <v-img :key="image" :gradient="gradient" v-bind="props" />
     </template>
 
     <div class="px-2">
@@ -41,15 +34,8 @@
           Documentation
         </app-btn>
 
-        <app-btn
-          block
-          class="text-none"
-          color="secondary"
-          href="https://store.vuetifyjs.com/products/vuetify-material-dashboard-pro"
-        >
-          <v-icon left>
-            mdi-package-up
-          </v-icon>
+        <app-btn block class="text-none" color="secondary" @click="logout">
+          <v-icon left> mdi-package-up </v-icon>
 
           退出
         </app-btn>
@@ -61,102 +47,109 @@
 </template>
 
 <script>
-  // Utilities
-  // import { get, sync } from 'vuex-pathify'
+// Utilities
+// import { get, sync } from 'vuex-pathify'
 
-  export default {
+export default {
+  methods: {
+    logout() {
+      this.$store.dispatch("Logout").then((resp) => {
+        this.$router.push({ path: "/login" });
+      });
+    },
+  },
+  data: () => ({
+    image:
+      "https://demos.creative-tim.com/material-dashboard-pro/assets/img/sidebar-1.jpg",
 
+    gradient: "rgba(228, 226, 226, 1), rgba(255, 255, 255, 0.7)",
 
-    data:()=>({
-      image:'https://demos.creative-tim.com/material-dashboard-pro/assets/img/sidebar-1.jpg',
-      mini: false,
-      drawer: null,
-       drawerImage: true,
-        gradient: 
-    'rgba(228, 226, 226, 1), rgba(255, 255, 255, 0.7)',
+    dark: null,
 
-      dark:null,
-     
-      items: [
+    items: [
       {
         title: "首页",
         icon: "mdi-view-dashboard",
-        to: "/"
+        to: "/",
       },
       {
         title: "用户角色管理",
         icon: "mdi-account",
         to: "",
-        children:[{
-          title:"用户管理",
-          icon:"mdi-account",
-          to:"/admuser/",
-          children:[]
-        },
-        {
-          title:"角色管理",
-          icon:"mdi-account",
-          to:"/admrole/",
-          children:[]
-        }
-        ]
+        children: [
+          {
+            title: "用户管理",
+            icon: "mdi-account",
+            to: "/admuser/",
+            children: [],
+          },
+          {
+            title: "角色管理",
+            icon: "mdi-account",
+            to: "/admrole/",
+            children: [],
+          },
+        ],
       },
       {
         title: "菜单接口管理",
         icon: "mdi-clipboard-outline",
         to: "",
-        children:[{
-          title:"菜单管理",
-          icon:"mdi-account",
-          to:"/admMenu/",
-          children:[]
-        },
-        {
-          title:"接口管理",
-          icon:"mdi-account",
-          to:"/admMould/",
-          children:[]
-        },
-                {
-          title:"角色菜单分配管理",
-          icon:"mdi-account",
-          to:"/admRoleMenu/",
-          children:[]
-        },
-        ]
+        children: [
+          {
+            title: "菜单管理",
+            icon: "mdi-account",
+            to: "/admMenu/",
+            children: [],
+          },
+          {
+            title: "接口管理",
+            icon: "mdi-account",
+            to: "/admMould/",
+            children: [],
+          },
+          {
+            title: "角色菜单分配管理",
+            icon: "mdi-account",
+            to: "/admRoleMenu/",
+            children: [],
+          },
+        ],
       },
     ],
-    }),
-    name: 'DefaultDrawer',
+  }),
+  name: "DefaultDrawer",
 
-    components: {
-      DefaultDrawerHeader: () => import(
+  components: {
+    DefaultDrawerHeader: () =>
+      import(
         /* webpackChunkName: "default-drawer-header" */
-        './widgets/DrawerHeader'
+        "./widgets/DrawerHeader"
       ),
-      DefaultList: () => import(
+    DefaultList: () =>
+      import(
         /* webpackChunkName: "default-list" */
-        './List'
+        "./List"
       ),
-    },
+  },
 
-    // computed: {
-    //   ...get('user', [
-    //     'dark',
-    //     'gradient',
-    //     'image',
-    //   ]),
-    //   ...get('app', [
-    //     'items',
-    //     'version',
-    //   ]),
-    //   ...sync('app', [
-    //     'drawer',
-    //     'drawerImage',
-    //     'mini',
-    //   ]),
-    // },
-  }
+  // computed: {
+  //   ...get('user', [
+  //     'dark',
+  //     'gradient',
+  //     'image',
+  //   ]),
+  //   ...get('app', [
+  //     'items',
+  //     'version',
+  //   ]),
+  //   ...sync('app', [
+  //     'drawer',
+  //     'drawerImage',
+  //     'mini',
+  //   ]),
+  // },
+};
 </script>
 
 <style lang="sass">
