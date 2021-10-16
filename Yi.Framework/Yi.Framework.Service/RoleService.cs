@@ -47,9 +47,9 @@ namespace Yi.Framework.Service
             {
                 return false;
             }
-            var menuList = _Db.Set<menu>().Where(u => menuIds.Contains(u.id)&&u.is_delete == (short)Common.Enum.DelFlagEnum.Normal).ToListAsync();
+            var menuList = await _Db.Set<menu>().Where(u => menuIds.Contains(u.id)&&u.is_delete == (short)Common.Enum.DelFlagEnum.Normal).ToListAsync();
             
-             role_data.menus = (ICollection<menu>)menuList;
+             role_data.menus =menuList;
             return await AddAsync(role_data);
         }
     }
