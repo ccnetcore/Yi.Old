@@ -1,9 +1,10 @@
 <template>
   <div>
-    <app-btn dark class="mb-2 mx-2" @click="dialog = true"> 添加新项 </app-btn>
-    <app-btn dark class="mb-2 mx-2" @click="deleteItem(null)">
+    <app-btn  dark class="ma-2" @click="dialog = true"> 添加新项 </app-btn>
+    <app-btn dark class="ma-2"  color="secondary" @click="deleteItem(null)">
       删除所选
     </app-btn>
+    
     <v-dialog v-model="dialog" max-width="500px">
       <v-card>
         <v-card-title>
@@ -63,15 +64,17 @@
             >
           </template>
         </ccCombobox>
-        <app-btn class="mx-2" @click="editItem(item)">编辑</app-btn>
-        <app-btn class="mr-2" @click="deleteItem(item)">删除</app-btn>
-        <app-btn
+         <app-btn
           @click="
             parentId = item.id;
             dialog = true;
           "
           >添加子菜单</app-btn
         >
+        <app-btn class="mx-2" @click="editItem(item)">编辑</app-btn>
+        
+        <app-btn color="secondary" class="mr-2" @click="deleteItem(item)">删除</app-btn>
+       
       </template>
     </v-treeview>
   </div>

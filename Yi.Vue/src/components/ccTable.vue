@@ -74,8 +74,8 @@
 
           <v-btn
             v-if="axiosUrls.hasOwnProperty('del')"
-            color="red"
-            dark
+          color="secondary"
+           
             class="mb-2"
             @click="deleteItem(null)"
           >

@@ -1,7 +1,7 @@
 <template>
   <v-row>
     <v-col cols="12">
- <v-card class="mx-auto" width="100%"><app-btn  @click="setMenu">确定分配</app-btn></v-card>
+ <v-card class="mx-auto" width="100%"><app-btn  class="ma-2" @click="setMenu">确定分配</app-btn></v-card>
     </v-col>
     <v-col cols="12" md="4" lg="4">
       <v-card class="mx-auto" width="100%">

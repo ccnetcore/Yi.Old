@@ -1,7 +1,5 @@
 <template>
   <v-card class="mx-auto" width="100%">
-    {{ select }}
-    {{ TableSelect }}
     <ccCombobox
       headers="设置角色"
       :items="roleItems"
