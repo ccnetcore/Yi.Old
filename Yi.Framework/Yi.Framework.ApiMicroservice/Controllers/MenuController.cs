@@ -26,7 +26,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpGet]
         public async Task<Result> GetMenu()
         {
-            return Result.Success().SetData(await _menuService.GetMenuMouldByMenu( new menu()));
+            return Result.Success().SetData(await _menuService.GetTopMenu());
         }
 
         /// <summary>
@@ -62,6 +62,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpPost]
         public async Task<Result> AddMenu(menu _menu)
         {
+            _menu.is_top = (short)Common.Enum.TopFlagEnum.Top;
             await _menuService.AddAsync(_menu);
             return Result.Success();
         }
