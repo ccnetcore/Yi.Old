@@ -63,15 +63,12 @@ namespace Yi.Framework.Service
             return roleList;
         }
 
-        public async Task<bool> Login(user _user)
+        public async Task<user> Login(user _user)
         {
-            var user_data =await GetEntity(u => u.username == _user.username&&u.password==_user.password&& 
-            u.is_delete == (short)Common.Enum.DelFlagEnum.Normal);
-            if (user_data == null)
-            {
-                return false;
-            }
-            return true;
+            var user_data =await _Db.Set<user>().Include(u=>u.roles).Where(u => u.username == _user.username&&u.password==_user.password&& 
+            u.is_delete == (short)Common.Enum.DelFlagEnum.Normal).FirstOrDefaultAsync();
+            
+            return user_data;
 
         }
 

@@ -13,10 +13,10 @@ namespace Yi.Framework.Interface
         Task<IEnumerable<user>> GetAllEntitiesTrueAsync();
 
         /// <summary>
-        /// 登录,传入_user需包含用户名与密码
+        /// 登录,传入_user需包含用户名与密码/角色
         /// </summary>
         /// <returns></returns>
-        Task<bool> Login(user _user);
+        Task<user> Login(user _user);
 
         /// <summary>
         /// 注册，需要检测是否用户名重复

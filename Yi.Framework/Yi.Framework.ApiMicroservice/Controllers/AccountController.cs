@@ -35,10 +35,11 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpPost]
         public async Task<Result> Login(user _user)
         {
-            if (await _userService.Login(_user))
+            var user_data = await _userService.Login(_user);
+            if( user_data!=null)
             {
-                _user.roles = await _userService.GetRolesByUser(_user);
-                var toke = MakeJwt.app(_user);
+                
+                var toke = MakeJwt.app(user_data);
                 return Result.Success().SetData(new { user = new { _user.id, _user.username, _user.introduction, _user.icon, _user.nick }, toke });
             }
             return Result.Error();
