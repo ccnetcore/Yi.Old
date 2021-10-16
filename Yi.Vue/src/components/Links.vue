@@ -26,9 +26,9 @@
         <div class="text-body-1 font-weight-light pt-6 pt-md-0 text-center">
           &copy; {{ (new Date()).getFullYear() }}, Made by <v-icon>mdi-vuetify</v-icon>
           <a
-            href="https://vuetifyjs.com/en/about/meet-the-team/#company"
+            href="https://ccnetcore"
             class="text-decoration-none"
-          >Vuetify</a>
+          >ccnetcore</a>
         </div>
       </v-col>
     </v-row>
@@ -42,21 +42,17 @@
     data: () => ({
       links: [
         {
-          href: 'https://vuetifyjs.com/',
-          text: 'Vuetify Docs',
+          href: '#',
+          text: 'YiFramework文档',
         },
         {
           href: '#',
-          text: 'About Us',
+          text: 'GitHub',
         },
         {
           href: '#',
-          text: 'Blog',
-        },
-        {
-          href: '#',
-          text: 'Licenses',
-        },
+          text: '论坛',
+        }
       ],
     }),
   }

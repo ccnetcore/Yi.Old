@@ -51,7 +51,7 @@
             mdi-package-up
           </v-icon>
 
-          Upgrade to Pro
+          退出
         </app-btn>
       </div>
     </template>

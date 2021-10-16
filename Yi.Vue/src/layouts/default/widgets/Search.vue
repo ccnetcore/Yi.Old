@@ -1,10 +1,10 @@
 <template>
   <v-text-field
-    placeholder="Search"
+    placeholder="全站搜索"
     class="mr-16"
     color="secondary"
     hide-details
-    style="max-width: 220px"
+    style="max-width: 400px"
   >
     <template
       v-if="$vuetify.breakpoint.mdAndUp"

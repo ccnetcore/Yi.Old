@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="dialog" persistent max-width="600px">
     <template v-slot:activator="{ on, attrs }">
-      <v-btn color="primary" dark v-bind="attrs" v-on="on">
+      <v-btn class="ma-2" color="primary" dark v-bind="attrs" v-on="on">
         {{ headers }}
       </v-btn>
     </template>

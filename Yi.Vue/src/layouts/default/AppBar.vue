@@ -41,7 +41,7 @@
   export default {
     data:()=>({
       drawer:true,
-      name:"测试系统"
+      name:"系统"
     }),
     name: 'DefaultBar',
 
