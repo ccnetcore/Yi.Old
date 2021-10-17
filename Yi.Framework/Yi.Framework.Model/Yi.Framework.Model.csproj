@@ -9,6 +9,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="T4DataContext.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>T4DataContext.tt</DependentUpon>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.10" />
   </ItemGroup>
 
@@ -21,6 +29,10 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>T4DaraContext.cs</LastGenOutput>
     </None>
+    <None Update="T4DataContext.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>T4DataContext.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
@@ -32,6 +44,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>T4DaraContext.tt</DependentUpon>
+    </Compile>
+    <Compile Update="T4DataContext.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>T4DataContext.tt</DependentUpon>
     </Compile>
   </ItemGroup>
 

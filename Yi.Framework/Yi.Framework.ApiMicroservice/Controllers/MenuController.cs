@@ -92,6 +92,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             var _user = this.HttpContext.GetCurrentUserInfo();
           var menuList= await _userService.GetMenusByUser(_user);
             return Result.Success().SetData(menuList);
+            
         }
 
         /// <summary>
@@ -105,7 +106,24 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             
             var _children= await _menuService.AddChildrenMenu(new menu() { id=childrenDto.parentId}, childrenDto.data); 
             return Result.Success();
-
+        }
+        /// <summary>
+        /// 获取用户的目录菜单，不包含接口
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<Result> GeTopMenuByUser()
+        {
+            var _user = this.HttpContext.GetCurrentUserInfo();
+            var menuList =await _userService.GetMenuByUser(_user);
+            return Result.Success().SetData(menuList);
+        }
+        public async Task<Result> GeTopMenuByUser(menu _menu)
+        {
+            var _user = this.HttpContext.GetCurrentUserInfo();
+           var menu_data= await _userService.GetMenuByUser(_user);          
+            var menuList = await _menuService.GetChildrenMenu(_menu);
+            return Result.Success().SetData(menuList);
         }
     }
 }

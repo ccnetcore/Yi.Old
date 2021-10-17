@@ -7,7 +7,7 @@ using Yi.Framework.Model.Models;
 
 namespace Yi.Framework.Interface
 {
-   public interface IMenuService:IBaseService<menu> 
+   public partial interface IMenuService:IBaseService<menu> 
     {
         Task<bool> DelListByUpdateAsync(List<int> _ids);
         /// <summary>
@@ -59,6 +59,6 @@ namespace Yi.Framework.Interface
         /// 获取子菜单
         /// </summary>
         /// <returns></returns>
-        Task<List<menu>> GetChildrenMenu();
+        Task<List<menu>> GetChildrenMenu(menu _menu);
     }
 }

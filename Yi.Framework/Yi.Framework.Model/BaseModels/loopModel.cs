@@ -10,5 +10,6 @@ namespace Yi.Framework.Model.Models
     {
         public int? is_top { get; set; }
         public int? sort { get; set; }
+        public int? is_show { get; set; }
     }
 }

@@ -7,7 +7,7 @@ using Yi.Framework.Model.Models;
 
 namespace Yi.Framework.Interface
 {
-   public interface IMouldService : IBaseService<mould> 
+   public partial interface IMouldService : IBaseService<mould> 
     {
         Task<bool> DelListByUpdateAsync(List<int> _ids);
         Task<IEnumerable<mould>> GetAllEntitiesTrueAsync();

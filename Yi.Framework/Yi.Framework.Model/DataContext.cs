@@ -34,7 +34,6 @@ namespace Yi.Framework.Model
 				optionsBuilder.UseSqlite(_connStr);
 			}
 		}
-        public  DbSet<user> user { get; set; }
-		public DbSet<role> role { get; set; }
+      
     }
 }

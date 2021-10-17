@@ -9,7 +9,7 @@ using Yi.Framework.Model.Models;
 
 namespace Yi.Framework.Service
 {
-   public class MenuService:BaseService<menu>, IMenuService
+   public partial class MenuService:BaseService<menu>, IMenuService
     {
         public MenuService(DbContext Db) : base(Db) { }
 
@@ -41,11 +41,13 @@ namespace Yi.Framework.Service
             return childrenList;
         }
 
-        public async Task<List<menu>> GetChildrenMenu()
+        public async Task<List<menu>> GetChildrenMenu(menu _menu)
         {
-            return await _Db.Set<menu>().Include(u => u.children)
-                .Where(u => u.is_delete == (short)Common.Enum.DelFlagEnum.Normal&& u.is_top == (short)Common.Enum.TopFlagEnum.Children )
-                .ToListAsync();
+            var menu= await _Db.Set<menu>().Include(u => u.children).Include(u=>u.mould)
+                .Where(u =>u.id==_menu.id&& u.is_delete == (short)Common.Enum.DelFlagEnum.Normal&& u.is_top == (short)Common.Enum.TopFlagEnum.Children )
+                .FirstOrDefaultAsync();
+            var childrenList = menu.children.ToList();
+            return childrenList;
         }
 
         public async Task<menu> GetMenuMouldByMenu(menu _menu)
@@ -75,5 +77,6 @@ namespace Yi.Framework.Service
             menu_data.mould = mould_data;
             return await UpdateAsync(menu_data);
         }
+        
     }
 }

@@ -1,0 +1,43 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+<#
+		    
+                DirectoryInfo dir = new DirectoryInfo(@"D:\YiFramework\Yi\Yi.Framework\Yi.Framework.Model\Models\");
+                FileInfo[] finfo = dir.GetFiles();
+                string filenames = string.Empty;
+                List<string> filenameList = new List<string>();
+                for (int i = 0; i < finfo.Length; i++)
+                {
+                    filenames = finfo[i].Name ; 
+                    string[] fname=filenames.Split('.');
+                    filenameList.Add(fname[0]);                  
+                }  
+
+                 
+#>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Yi.Framework.Model.Models;
+using Yi.Framework.Interface;
+using Microsoft.EntityFrameworkCore;
+
+namespace Yi.Framework.Service
+{
+   <#    foreach(string k in filenameList){ 
+            string fn= k.Substring(0,1).ToUpper()+k.Substring(1);
+ #>
+        
+        public partial class <#= fn #>Service:BaseService<<#= k #>>,I<#= fn #>Service 
+        {
+            //public <#= fn #>Service(DbContext Db):base(Db){ }
+        }
+<#    } #>
+}

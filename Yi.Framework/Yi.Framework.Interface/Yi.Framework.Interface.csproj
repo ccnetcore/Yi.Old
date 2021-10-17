@@ -9,12 +9,20 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="T4Iservice.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>T4Iservice.tt</DependentUpon>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Yi.Framework.Model\Yi.Framework.Model.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <None Update="T4IService.tt">
-      <LastGenOutput>T4IService.cs</LastGenOutput>
+      <LastGenOutput>T4Iservice.cs</LastGenOutput>
       <Generator>TextTemplatingFileGenerator</Generator>
     </None>
   </ItemGroup>
