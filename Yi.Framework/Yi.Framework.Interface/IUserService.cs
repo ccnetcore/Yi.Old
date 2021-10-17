@@ -7,7 +7,7 @@ using Yi.Framework.Model.Models;
 
 namespace Yi.Framework.Interface
 {
-   public interface IUserService:IBaseService<user> 
+   public partial interface IUserService:IBaseService<user> 
     {
         Task<bool> DelListByUpdateAsync(List<int> _ids);
         Task<IEnumerable<user>> GetAllEntitiesTrueAsync();
@@ -58,6 +58,13 @@ namespace Yi.Framework.Interface
         /// <param name="emailAddress"></param>
         /// <returns></returns>
         Task<bool> EmailIsExsit(string emailAddress);
-        
+        /// <summary>
+        /// 获取用户的目录菜单，没有绑定接口
+        /// </summary>
+        /// <param name="_user"></param>
+        /// <returns></returns>
+        Task<List<List<menu>>> GetMenuByUser(user _user);
+
+
     }
 }

@@ -11,10 +11,12 @@ using Yi.Framework.Model.Models;
 
 namespace Yi.Framework.Service
 {
-   public class UserService: BaseService<user>,IUserService
+   public partial class UserService: BaseService<user>,IUserService
     {
-        public UserService(DbContext Db) :base(Db)
+        private IRoleService _roleService;
+        public UserService(DbContext Db, IRoleService roleService) :base(Db)
         {
+            _roleService = roleService;
         }
         public async Task<bool> DelListByUpdateAsync(List<int> _ids)
         {
@@ -97,5 +99,19 @@ namespace Yi.Framework.Service
             
             return await UpdateListAsync(user_data);
         }
+        public async Task <List<List<menu>>> GetMenuByUser(user _user)
+        {
+            var user_data =await _Db.Set<user>().Include(u => u.roles).ThenInclude(u => u.menus)
+                .Where(u => u.id == _user.id && u.is_delete == (short)Common.Enum.DelFlagEnum.Normal).FirstOrDefaultAsync();
+           var roleList= user_data.roles.ToList();
+            var menuList = new List<List<menu>>();
+            foreach (var role in roleList)
+            {
+              var menu= await _roleService.GetMenusByRole(role);
+                menuList.Add(menu);
+            }
+            return menuList;
+        }
+
     }
 }

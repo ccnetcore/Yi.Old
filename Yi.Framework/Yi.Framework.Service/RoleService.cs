@@ -9,7 +9,7 @@ using Yi.Framework.Model.Models;
 
 namespace Yi.Framework.Service
 {
-   public class RoleService:BaseService<role>, IRoleService
+   public partial class RoleService:BaseService<role>, IRoleService
     {
         public RoleService(DbContext Db):base(Db)
         { 
@@ -30,7 +30,9 @@ namespace Yi.Framework.Service
         {
             var role_data =await _Db.Set<role>().Include(u => u.menus)
                 .Where(u => u.id == _role.id && u.is_delete == (short)Common.Enum.DelFlagEnum.Normal).FirstOrDefaultAsync();
-            return role_data.menus.ToList();
+           var menuList =role_data.menus.Where(u => u.is_top == (short)Common.Enum.TopFlagEnum.Top && u.is_delete == (short)Common.Enum.DelFlagEnum.Normal)
+                .ToList();
+            return menuList;
         }
 
         public async Task<List<user>> GetUsersByRole(role _role)

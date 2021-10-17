@@ -9,7 +9,7 @@ using Yi.Framework.Model.Models;
 
 namespace Yi.Framework.Service
 {
-   public class MouldService:BaseService<mould>, IMouldService
+   public partial class MouldService:BaseService<mould>, IMouldService
     {
         public MouldService(DbContext Db) : base(Db) { }
 
