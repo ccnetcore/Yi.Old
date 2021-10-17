@@ -118,12 +118,5 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             var menuList =await _userService.GetMenuByUser(_user);
             return Result.Success().SetData(menuList);
         }
-        public async Task<Result> GeTopMenuByUser(menu _menu)
-        {
-            var _user = this.HttpContext.GetCurrentUserInfo();
-           var menu_data= await _userService.GetMenuByUser(_user);          
-            var menuList = await _menuService.GetChildrenMenu(_menu);
-            return Result.Success().SetData(menuList);
-        }
     }
 }
