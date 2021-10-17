@@ -60,5 +60,6 @@ namespace Yi.Framework.Interface
         /// </summary>
         /// <returns></returns>
         Task<List<menu>> GetChildrenMenu(menu _menu);
+       
     }
 }

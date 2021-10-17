@@ -26,7 +26,9 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpGet]
         public async Task<Result> GetMenu()
         {
-            return Result.Success().SetData(await _menuService.GetTopMenu());
+            //var top =await _menuService.GetTopMenu();
+            //var children=await _menuService.get
+            return  Result.Success().SetData(await _menuService.GetTopMenu());
         }
 
         /// <summary>

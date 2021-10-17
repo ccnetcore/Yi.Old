@@ -42,17 +42,20 @@ namespace Yi.Framework.Service
             return role_data.users.ToList();
         }
 
-        public async Task<bool> SetMenusByRolesId(List<int> menuIds, int roleId)
+        public async Task<bool> SetMenusByRolesId(List<int> menuIds,List<int> roleIds)
         {
-            var role_data = await GetEntity(u => u.id == roleId && u.is_delete == (short)Common.Enum.DelFlagEnum.Normal);
+            var role_data = await _Db.Set<role>().Include(u=>u.menus)
+                .Where(u =>roleIds.Contains(u.id) && u.is_delete == (short)Common.Enum.DelFlagEnum.Normal).ToListAsync();
             if (role_data == null)
             {
                 return false;
             }
             var menuList = await _Db.Set<menu>().Where(u => menuIds.Contains(u.id)&&u.is_delete == (short)Common.Enum.DelFlagEnum.Normal).ToListAsync();
-            
-             role_data.menus =menuList;
-            return await AddAsync(role_data);
+            foreach(var role in role_data)
+            {
+                role.menus =menuList;
+            }             
+            return await UpdateListAsync(role_data);
         }
     }
 }
