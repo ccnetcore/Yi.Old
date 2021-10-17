@@ -50,6 +50,15 @@ myaxios.interceptors.response.use(async function(response) {
     store.dispatch("closeLoad");
     return resp;
 }, function(error) {
+
+    const resp = error.response.data
+    if (resp.code == undefined && resp.msg == undefined) {
+        vm.$dialog.notify.error("错误代码：无，原因：与服务器失去连接", {
+            position: "top-right",
+            timeout: 5000,
+        });
+    }
+
     store.dispatch("closeLoad");
     return Promise.reject(error);
 });

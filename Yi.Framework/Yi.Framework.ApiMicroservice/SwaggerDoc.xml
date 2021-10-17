@@ -73,6 +73,12 @@
             <param name="childrenDto"></param>
             <returns></returns>
         </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.MenuController.GeTopMenuByUser">
+            <summary>
+            获取用户的目录菜单，不包含接口
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.MouldController.UpdateMould(Yi.Framework.Model.Models.mould)">
             <summary>
             更
