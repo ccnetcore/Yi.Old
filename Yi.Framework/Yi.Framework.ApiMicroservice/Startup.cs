@@ -13,13 +13,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Yi.Framework.ApiMicroservice.Utility;
 using Yi.Framework.Common.IOCOptions;
 using Yi.Framework.Interface;
 using Yi.Framework.Model;
 using Yi.Framework.Service;
 using Yi.Framework.WebCore;
+using Yi.Framework.WebCore.FilterExtend;
 using Yi.Framework.WebCore.MiddlewareExtend;
+using Yi.Framework.WebCore.Utility;
 
 namespace Yi.Framework.ApiMicroservice
 {
@@ -43,7 +44,9 @@ namespace Yi.Framework.ApiMicroservice
             #region
             //控制器+过滤器配置
             #endregion
-            services.AddControllers();
+            services.AddControllers(optios=> {
+                //optios.Filters.Add(typeof(CustomExceptionFilterAttribute));
+            });
 
             #region
             //Swagger服务配置
@@ -54,6 +57,11 @@ namespace Yi.Framework.ApiMicroservice
             //跨域服务配置
             #endregion
             services.AddCorsService();
+
+            #region
+            //Jwt鉴权配置
+            #endregion
+            services.AddJwtService();
 
             #region
             //Sqlite服务配置
@@ -98,6 +106,10 @@ namespace Yi.Framework.ApiMicroservice
                 #endregion
                 app.UseSwaggerService();
             }
+            #region
+            //错误抓取反馈注入
+            #endregion
+            app.UseErrorHandlingService();
 
             #region
             //HttpsRedirection注入

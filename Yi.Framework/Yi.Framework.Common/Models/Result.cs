@@ -26,6 +26,11 @@ namespace Yi.Framework.Common.Models
         {
             return new Result() { status = true, code = 200, msg = msg };
         }
+        public static Result UnAuthorize(string msg = "unAuthorize")
+        {
+            return new Result() { status = false, code = 401, msg = msg };
+        }
+
         public Result SetData(object obj)
         {
             this.data = obj;
@@ -56,6 +61,12 @@ namespace Yi.Framework.Common.Models
         {
             return new Result<T> { status = true, code = 200, msg = msg };
         }
+
+        public static Result<T> UnAuthorize(string msg = "unAuthorize")
+        {
+            return new Result<T>{ status = false, code = 401, msg = msg };
+        }
+
         public Result<T> SetData(T TValue)
         {
             this.data = TValue;

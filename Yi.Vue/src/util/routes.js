@@ -55,8 +55,7 @@ export function redirect(
 
 export function route(name, component, path = '') {
     component = Object(component) === component ?
-        component :
-        { default: name.replace(' ', '') }
+        component : { default: name.replace(' ', '') }
 
     const components = {}
 

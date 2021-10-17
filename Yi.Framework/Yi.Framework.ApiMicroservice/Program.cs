@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Yi.Framework.WebCore.BuilderExtend;
 
 namespace Yi.Framework.ApiMicroservice
 {
@@ -19,9 +20,25 @@ namespace Yi.Framework.ApiMicroservice
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+
+                .ConfigureAppConfiguration((hostBuilderContext, configurationBuilder) =>
+                {
+                    configurationBuilder.AddCommandLine(args);
+                    configurationBuilder.AddJsonFile("appsettings.json", optional: true, reloadOnChange: false);
+                    #region 
+                    //ApolloÅäÖÃ
+                    #endregion
+                    //configurationBuilder.AddApolloService("Yi");
+                })
+                .ConfigureLogging(loggingBuilder =>
+                {
+                    loggingBuilder.AddFilter("System", Microsoft.Extensions.Logging.LogLevel.Warning);
+                    loggingBuilder.AddFilter("Microsoft", Microsoft.Extensions.Logging.LogLevel.Warning);
+                    loggingBuilder.AddLog4Net();
+                })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder.UseStartup<Startup>().UseUrls("https://*:44329");
                 }).UseServiceProviderFactory(new AutofacServiceProviderFactory());
     }
 }

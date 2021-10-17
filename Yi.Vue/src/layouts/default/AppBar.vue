@@ -25,6 +25,7 @@
     <default-notifications />
 
     <default-account />
+    
   </v-app-bar>
 </template>
 

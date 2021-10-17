@@ -5,6 +5,7 @@ import vuetify from './plugins/vuetify'
 import VuetifyDialog from 'vuetify-dialog'
 import 'vuetify-dialog/dist/vuetify-dialog.css'
 import './plugins'
+import "./permission"
 import store from './store/index'
 
 Vue.config.productionTip = false
@@ -13,9 +14,11 @@ Vue.use(VuetifyDialog, {
         vuetify
     }
 });
-new Vue({
+let vm = new Vue({
     router,
     store,
     vuetify,
     render: function(h) { return h(App) }
 }).$mount('#app')
+
+export default vm;

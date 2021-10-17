@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Yi.Framework.ApiMicroservice.Utility
+namespace Yi.Framework.WebCore.Utility
 {
     public class CustomAutofacAop : IInterceptor
     {

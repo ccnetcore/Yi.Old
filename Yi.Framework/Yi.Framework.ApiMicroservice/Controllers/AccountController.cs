@@ -28,7 +28,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
 
 
         /// <summary>
-        /// 登录方法，要返回data:{user,token} token先写123456789,不要有导航属性
+        /// 登录方法，要返回data:{user,token} token
         /// </summary>
         /// <param name="_user"></param>
         /// <returns></returns>

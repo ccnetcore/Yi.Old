@@ -7,8 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-[assembly: HostingStartup(typeof(Yi.Framework.ApiMicroservice.Utility.CustomHostingStartup))]
-namespace Yi.Framework.ApiMicroservice.Utility
+[assembly: HostingStartup(typeof(Yi.Framework.WebCore.Utility.CustomHostingStartup))]
+namespace Yi.Framework.WebCore.Utility
 {
     /// <summary>
     /// 必须实现IHostingStartup接口

@@ -10,13 +10,10 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using Yi.Framework.ApiMicroservice.Utility;
-using Yi.Framework.Interface;
-using Yi.Framework.Model;
-using Yi.Framework.Service;
+using Yi.Framework.WebCore.Utility;
 using Module = Autofac.Module;
 
-namespace Yi.Framework.ApiMicroservice.Utility
+namespace Yi.Framework.WebCore.Utility
 {
     public class CustomAutofacModule : Module
     {
