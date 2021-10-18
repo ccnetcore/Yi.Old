@@ -33,11 +33,11 @@ namespace Yi.Framework.WebCore
         {
             IEnumerable<Claim> claimlist = httpContext.AuthenticateAsync().Result.Principal.Claims;
        
-            Int32.TryParse(claimlist.FirstOrDefault(u => u.Type == "id").Value,out int resId);
+            Int32.TryParse(claimlist.FirstOrDefault(u => u.Type == ClaimTypes.Sid).Value,out int resId);
             return new user()
             {
                 id =resId,
-                username = claimlist.FirstOrDefault(u => u.Type == "username").Value ?? "匿名"
+                username = claimlist.FirstOrDefault(u => u.Type == ClaimTypes.Name).Value ?? "匿名"
             };
         }
     }

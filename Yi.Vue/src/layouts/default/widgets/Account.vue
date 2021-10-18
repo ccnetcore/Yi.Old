@@ -49,10 +49,10 @@
 
     data: () => ({
       profile: [
-        { title: 'Profile' },
-        { title: 'Settings' },
+        { title: '用户信息' },
+        { title: '设置' },
         { divider: true },
-        { title: 'Log out' },
+        { title: '登出' },
       ],
     }),
   }

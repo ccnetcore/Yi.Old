@@ -1,6 +1,9 @@
 <template>
-  <v-card class="mx-auto" width="100%">
-    <ccCombobox
+<material-card color="primary" icon="mdi-account-outline">
+    <template #title>
+     用户管理 — <small class="text-body-1">用户可拥有多个角色</small>
+    </template>
+     <ccCombobox
       headers="设置角色"
       :items="roleItems"
       @select="getSelect"
@@ -20,7 +23,9 @@
         <v-icon small class="mr-2" @click="showItem(item)"> mdi-eye </v-icon>
       </template>
     </ccTable>
-  </v-card>
+  </material-card>
+    
+
 </template>
 <script>
 import userApi from "../api/userApi";

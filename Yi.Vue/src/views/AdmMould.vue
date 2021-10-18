@@ -1,8 +1,11 @@
 <template>
-    <v-card class="mx-auto" width="100%">
-      <ccTable :defaultItem="defaultItem" :headers="headers" :axiosUrls="axiosUrls" ></ccTable>
-    </v-card>
 
+<material-card color="primary" icon="mdi-account-outline">
+    <template #title>
+      接口管理 — <small class="text-body-1">接口可被菜单拥有</small>
+    </template>
+      <ccTable :defaultItem="defaultItem" :headers="headers" :axiosUrls="axiosUrls" ></ccTable>
+  </material-card>
 </template>
 <script>
 export default {

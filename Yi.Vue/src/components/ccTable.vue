@@ -1,5 +1,4 @@
 <template>
-  <v-card>
     <v-data-table
       :headers="headers"
       :items="desserts"
@@ -113,7 +112,6 @@
         <v-btn color="primary" @click="initialize"> 刷新 </v-btn>
       </template>
     </v-data-table>
-  </v-card>
 </template>
 <script>
 import itemApi from "./TableApi.js";

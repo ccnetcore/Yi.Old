@@ -85,7 +85,7 @@ export default {
           },
           {
             title: "角色管理",
-            icon: "mdi-account",
+            icon: "mdi-account-tie",
             to: "/admrole/",
             children: [],
           },
@@ -114,6 +114,19 @@ export default {
             to: "/admRoleMenu/",
             children: [],
           },
+        ],
+      },
+      {
+        title: "测试路由",
+        icon: "mdi-clipboard-outline",
+        to: "",
+        children: [
+          {
+            title: "用户信息",
+            icon: "mdi-account",
+            to: "/userinfo/",
+            children: [],
+          }
         ],
       },
     ],

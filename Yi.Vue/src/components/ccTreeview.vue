@@ -1,7 +1,7 @@
 <template>
   <div>
-    <app-btn  dark class="ma-2" @click="dialog = true"> 添加新项 </app-btn>
-    <app-btn dark class="ma-2"  color="secondary" @click="deleteItem(null)">
+    <app-btn  dark class="ma-4" @click="dialog = true"> 添加新项 </app-btn>
+    <app-btn dark class="ma-4"  color="secondary" @click="deleteItem(null)">
       删除所选
     </app-btn>
     

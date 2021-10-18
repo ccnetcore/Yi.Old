@@ -1,7 +1,10 @@
 <template>
   <v-row>
     <v-col cols="12">
- <v-card class="mx-auto" width="100%"><app-btn  class="ma-2" @click="setMenu">确定分配</app-btn></v-card>
+<material-card color="primary" icon="mdi-account-outline">
+    <template #title>
+      角色菜单分配管理 — <small class="text-body-1">你可以在这里多角色分配多菜单</small>
+    </template><app-btn  class="ma-4" @click="setMenu">确定分配</app-btn></material-card>
     </v-col>
     <v-col cols="12" md="4" lg="4">
       <v-card class="mx-auto" width="100%">

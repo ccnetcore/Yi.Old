@@ -51,11 +51,11 @@
 
     data: () => ({
       notifications: [
-        'Mike John Responded to your email',
-        'You have 5 new tasks',
-        'You\'re now friends with Andrew',
-        'Another Notification',
-        'Another one',
+        '临时消息1，请检查邮箱',
+        '临时消息2，请检查邮箱',
+        '临时消息3，请检查邮箱',
+        '临时消息4，请检查邮箱',
+        '临时消息5，请检查邮箱',
       ],
     }),
   }
