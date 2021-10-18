@@ -74,5 +74,8 @@ namespace Yi.Framework.ApiMicroservice.Controllers
            await _roleService.SetMenusByRolesId(idsListDto.ids2, idsListDto.ids1);
             return Result.Success();
         }
+
+       
+
     }
 }
