@@ -25,9 +25,8 @@ namespace Yi.Framework.Interface
         Task<bool> Register(user _user);
 
         /// <summary>
-        /// 得到该用户拥有哪些角色
+        /// 根据http上下文的用户得到该用户有哪些角色
         /// </summary>
-        /// <param name="user"></param>
         /// <returns></returns>
         Task<List<role>> GetRolesByUser(user _user);
 
@@ -64,7 +63,7 @@ namespace Yi.Framework.Interface
         /// <param name="_user"></param>
         /// <returns></returns>
         Task<List<List<menu>>> GetMenuByUser(user _user);
-
+      
 
     }
 }

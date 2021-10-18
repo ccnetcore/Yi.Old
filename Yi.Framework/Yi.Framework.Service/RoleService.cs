@@ -31,7 +31,7 @@ namespace Yi.Framework.Service
             var role_data =await _Db.Set<role>().Include(u => u.menus)
                 .Where(u => u.id == _role.id && u.is_delete == (short)Common.Enum.DelFlagEnum.Normal).FirstOrDefaultAsync();
            var menuList =role_data.menus.Where(u => u.is_top == (short)Common.Enum.TopFlagEnum.Top && u.is_delete == (short)Common.Enum.DelFlagEnum.Normal)
-                .ToList();
+                .ToList();        
             return menuList;
         }
 

@@ -108,6 +108,7 @@ namespace Yi.Framework.Service
             foreach (var role in roleList)
             {
               var menu= await _roleService.GetMenusByRole(role);
+                menu.ForEach(u => u.roles = null);
                 menuList.Add(menu);
             }
             return menuList;
