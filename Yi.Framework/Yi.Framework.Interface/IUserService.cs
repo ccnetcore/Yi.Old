@@ -62,8 +62,6 @@ namespace Yi.Framework.Interface
         /// </summary>
         /// <param name="_user"></param>
         /// <returns></returns>
-        Task<List<List<menu>>> GetMenuByUser(user _user);
-      
-
+        Task<List<menu>> GetMenuByUser(user _user);
     }
 }

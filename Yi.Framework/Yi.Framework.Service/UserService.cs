@@ -99,20 +99,20 @@ namespace Yi.Framework.Service
             
             return await UpdateListAsync(user_data);
         }
-        public async Task <List<List<menu>>> GetMenuByUser(user _user)
+        public async Task <List<menu>> GetMenuByUser(user _user)
         {
             var user_data =await _Db.Set<user>().Include(u => u.roles).ThenInclude(u => u.menus)
                 .Where(u => u.id == _user.id && u.is_delete == (short)Common.Enum.DelFlagEnum.Normal).FirstOrDefaultAsync();
-           var roleList= user_data.roles.ToList();
-            var menuList = new List<List<menu>>();
-            foreach (var role in roleList)
+           var role_data= user_data.roles.ToList();
+            List<menu> menu_data = new ();
+            foreach (var role in role_data)
             {
-              var menu= await _roleService.GetMenusByRole(role);
-                menu.ForEach(u => u.roles = null);
-                menuList.Add(menu);
-            }
-            return menuList;
+                var menu = await _roleService.GetMenusByRole(role);
+                menu.ForEach(u=>u.roles=null);
+                menu_data = menu_data.Concat(menu).OrderByDescending(u=>u.sort).ToList();               
+            }                  
+            return menu_data;
         }
-
+       
     }
 }

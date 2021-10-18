@@ -9,6 +9,6 @@ namespace Yi.Framework.DTOModel
 {
     public class ChangePwdDto:user
     {
-        public string oldPassword { get; set; }
+        public string newPassword { get; set; }
     }
 }

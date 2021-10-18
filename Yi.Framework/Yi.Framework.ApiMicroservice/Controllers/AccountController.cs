@@ -8,6 +8,7 @@ using Yi.Framework.Common;
 using Yi.Framework.Common.Helper;
 using Yi.Framework.Common.Models;
 using Yi.Framework.Core;
+using Yi.Framework.DTOModel;
 using Yi.Framework.Interface;
 using Yi.Framework.Model.Models;
 
@@ -99,6 +100,19 @@ namespace Yi.Framework.ApiMicroservice.Controllers
                 return Result.Error("该邮箱已被注册");
             }
             //  邮箱和验证码都要被记住，然后注册时候比对邮箱和验证码是不是都和现在生成的一样
+        }
+        [HttpPut]
+
+        public async Task<Result> ChangePassword(ChangePwdDto pwdDto)
+        {
+            var user_data = await _userService.GetEntityById(pwdDto.id);
+            if (user_data.password == pwdDto.newPassword)
+            {
+                user_data.password = pwdDto.newPassword;
+                await _userService.UpdateAsync(user_data);
+                return Result.Success();
+            }
+            return Result.Error();
         }
     }
 }
