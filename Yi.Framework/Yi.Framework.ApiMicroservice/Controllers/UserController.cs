@@ -112,10 +112,10 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// 根据用户id得到该用户有哪些角色
         /// </summary>
         /// <returns></returns>
-        [HttpPost]
-        public async Task<Result> GetRolesByUserId(user _user)
+        [HttpGet]
+        public async Task<Result> GetRolesByUserId(int userId)
         {            
-            var roleList = await _userService.GetRolesByUser(_user);
+            var roleList = await _userService.GetRolesByUser(new user() { id=userId});
             return Result.Success().SetData(roleList);
         }
         /// <summary>

@@ -174,5 +174,17 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.GetRolesByUserId(System.Int32)">
+            <summary>
+            根据用户id得到该用户有哪些角色
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.GetUserInfoById">
+            <summary>
+            根据http上下文的用户得到该用户信息，关联角色
+            </summary>
+            <returns></returns>
+        </member>
     </members>
 </doc>
