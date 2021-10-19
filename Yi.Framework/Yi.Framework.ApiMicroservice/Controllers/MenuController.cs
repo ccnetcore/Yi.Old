@@ -27,7 +27,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         public async Task<Result> GetMenu()
         {
                       
-            return  Result.Success().SetData(await _menuService.GetMenuMould());
+            return  Result.Success().SetData(await _menuService.GetAllEntitiesTrueAsync());
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         public async Task<Result> AddChildrenMenu(ChildrenDto<menu> childrenDto)
         {
             
-            var _children= await _menuService.AddChildrenMenu(new menu() { id=childrenDto.parentId}, childrenDto.data); 
+            var _children= await _menuService.AddChildrenMenu(childrenDto.parentId, childrenDto.data); 
             return Result.Success();
         }
         /// <summary>

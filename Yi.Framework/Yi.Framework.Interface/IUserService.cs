@@ -63,5 +63,11 @@ namespace Yi.Framework.Interface
         /// <param name="_user"></param>
         /// <returns></returns>
         Task<List<menu>> GetMenuByUser(user _user);
+        /// <summary>
+        /// 通过用户id，得到该用户的所有信息，关联角色
+        /// </summary>
+        /// <param name="user_id"></param>
+        /// <returns></returns>
+        Task<user> GetUserInfoById(int user_id);
     }
 }

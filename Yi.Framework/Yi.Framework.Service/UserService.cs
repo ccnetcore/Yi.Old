@@ -113,6 +113,11 @@ namespace Yi.Framework.Service
             }                  
             return menu_data;
         }
-       
-    }
+        public async Task<user> GetUserInfoById(int user_id)
+        {
+            var user_data=await _Db.Set<user>().Include(u=>u.roles)
+                .Where(u => u.id == user_id && u.is_delete == (short)Common.Enum.DelFlagEnum.Normal).FirstOrDefaultAsync();
+            return user_data;
+        }
+   }
 }

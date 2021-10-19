@@ -49,7 +49,7 @@ namespace Yi.Framework.Interface
         /// </summary>
         /// <param name="_menu"></param>
         /// <returns></returns>
-        Task<menu> AddChildrenMenu(menu _menu, menu _children);
+        Task<menu> AddChildrenMenu(int menu_id, menu _children);
         /// <summary>
         /// 获取根目录菜单
         /// </summary>

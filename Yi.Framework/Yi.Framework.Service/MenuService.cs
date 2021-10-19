@@ -11,9 +11,9 @@ namespace Yi.Framework.Service
 {
    public partial class MenuService:BaseService<menu>, IMenuService
     {
-        public async Task<menu> AddChildrenMenu(menu _menu, menu _children)
+        public async Task<menu> AddChildrenMenu(int menu_id, menu _children)
         {
-            var menu_data = await _Db.Set<menu>().Include(u => u.children).Where(u => u.id == _menu.id).FirstOrDefaultAsync();
+            var menu_data = await _Db.Set<menu>().Include(u => u.children).Where(u => u.id == menu_id).FirstOrDefaultAsync();
             _children.is_top = (short)Common.Enum.TopFlagEnum.Children;          
             menu_data.children.Add(_children);
             await UpdateAsync(menu_data);
@@ -58,7 +58,8 @@ namespace Yi.Framework.Service
 
         public async Task<menu> GetMenuMouldByMenu(menu _menu)
         {
-            var menu_data = await _Db.Set<menu>().Include(u => u.children).Include(u=>u.mould).Where(u=>u.id==_menu.id).FirstOrDefaultAsync();
+            var menu_data = await _Db.Set<menu>().Include(u => u.children).Include(u=>u.mould)
+                .Where(u=>u.id==_menu.id&& u.is_delete == (short)Common.Enum.DelFlagEnum.Normal).FirstOrDefaultAsync();
             return menu_data;
         }
 
