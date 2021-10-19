@@ -36,13 +36,17 @@ export default {
   methods: {
     async showItem(item) {
       var strInfo = "";
-      Object.keys(item).forEach(function (key) {
+         userApi.GetRolesByUserId(item.id).then(async(resp)=>{
+
+const roleData=resp.data;
+strInfo+="拥有的角色:<br>"
+roleData.forEach(u=>{strInfo+=u.role_name+"<br>"})
+
+strInfo+="<hr>"
+                 Object.keys(item).forEach(async function (key) {
         strInfo += key + ":" + item[key] + "<br>";
       });
-      userApi.GetRolesByUserId(item.id).then(resp=>{
-const roleData=resp.data;
-roleData.forEach(u=>{strInfo+="角色名:"+u.role_name})
-})
+   
       await this.$dialog.confirm({
         text: strInfo,
         title: "信息详情",
@@ -50,6 +54,11 @@ roleData.forEach(u=>{strInfo+="角色名:"+u.role_name})
           true: "关闭",
         },
       });
+
+
+
+})
+
     },
     init() {
       roleApi.getRole().then((resp) => {
