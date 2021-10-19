@@ -1,7 +1,7 @@
 <template>
   <div>
     <app-btn  dark class="ma-4" @click="dialog = true"> 添加新项 </app-btn>
-    <app-btn dark class="ma-4"  color="secondary" @click="deleteItem(null)">
+    <app-btn dark class="my-4"  color="secondary" @click="deleteItem(null)">
       删除所选
     </app-btn>
     
@@ -39,6 +39,7 @@
     </v-dialog>
 
     <v-treeview
+    open-on-click
       selectable
       :items="desserts"
       :selection-type="selectionType"
@@ -52,6 +53,8 @@
         <v-btn class="mr-2">编号:{{ item.id }}</v-btn>
         <v-btn class="mr-2">图标:{{ item.icon }}</v-btn>
         <v-btn class="mr-2">路由:{{ item.router }}</v-btn>
+        <v-btn v-if="item.mould" class="mr-2">接口名:{{ item.mould.mould_name }}</v-btn>
+        <v-btn  v-if="item.mould" class="mr-2">接口地址:{{ item.mould.url }}</v-btn>
         <ccCombobox
           headers="设置接口权限"
           itemText="mould_name"

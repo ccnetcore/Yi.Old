@@ -75,7 +75,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             return Result.Success();
         }
         [HttpGet]
-        public async Task<Result> GetMenuByRloeIds(int roleId)
+        public async Task<Result> GetMenuByRloe(int roleId)
         {
             var menuList =await _roleService.GetMenusByRoleId(roleId);
             return Result.Success().SetData(menuList);
