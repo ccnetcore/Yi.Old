@@ -45,7 +45,15 @@ namespace Yi.Framework.Service
         {
            var user_data= await _Db.Set<user>().Include(u => u.roles).ThenInclude(u=>u.menus).ThenInclude(u=>u.mould)
                 .Where(u=>u.id==_user.id&& u.is_delete == (short)Common.Enum.DelFlagEnum.Normal).FirstOrDefaultAsync();
-           var menuList= user_data.roles.Select(u=>u.menus);
+            var role_data =await GetRolesByUser(user_data);
+            var menuList = new List<menu>();
+            role_data.ForEach(u =>
+            {
+                var menu_data = _roleService.GetMenusByRole(u);
+                menuList = menuList.Concat((IEnumerable<menu>)menu_data).ToList();
+            });
+            //menuList.ForEach(u => u.roles = null);
+
             return (List<menu>)menuList;
         }
 
@@ -53,8 +61,8 @@ namespace Yi.Framework.Service
         {         
             var user_data = await GetEntity(u => u.id == _user.id && u.is_delete == (short)Common.Enum.DelFlagEnum.Normal);
             var menu = await GetMenusByUser(user_data);
-            var mouldList = menu.Select(u=>u.mould);
-            return (List<mould>)mouldList;
+            var mouldList = menu.Select(u=>u.mould).ToList();
+            return mouldList;
         }
 
         public async Task<List<role>> GetRolesByUser(user _user)

@@ -74,10 +74,10 @@ namespace Yi.Framework.ApiMicroservice.Controllers
            await _roleService.SetMenusByRolesId(idsListDto.ids2, idsListDto.ids1);
             return Result.Success();
         }
-        [HttpPost]
-        public async Task<Result> GetMenuByRloeIds(List<int> roleIds)
+        [HttpGet]
+        public async Task<Result> GetMenuByRloeIds(int roleId)
         {
-            var menuList =await _roleService.GetMenusByRoleId(roleIds);
+            var menuList =await _roleService.GetMenusByRoleId(roleId);
             return Result.Success().SetData(menuList);
         }       
     }

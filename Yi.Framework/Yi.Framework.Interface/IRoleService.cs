@@ -38,7 +38,7 @@ namespace Yi.Framework.Interface
         /// </summary>
         /// <param name="roleIds"></param>
         /// <returns></returns>
-        Task<List<menu>> GetMenusByRoleId(List<int> roleIds);
+        Task<List<menu>> GetMenusByRoleId(int roleId);
 
     }
 }
