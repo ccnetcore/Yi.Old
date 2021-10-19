@@ -116,6 +116,7 @@ export default {
           position: "top-right",
           timeout: 5000,
         });
+               this.init();
       });
     },
 

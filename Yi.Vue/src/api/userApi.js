@@ -7,9 +7,16 @@ export default {
             data: { "ids1": userIds, "ids2": roleIds }
         })
     },
+
     GetRolesByUser() {
         return myaxios({
             url: '/User/GetRolesByUser',
+            method: 'get'
+        })
+    },
+    GetRolesByUserId(userId) {
+        return myaxios({
+            url: `/User/GetRolesByUserId?userId=${userId}`,
             method: 'get'
         })
     }

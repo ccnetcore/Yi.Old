@@ -36,14 +36,13 @@ export default {
   methods: {
     async showItem(item) {
       var strInfo = "";
-
-roleApi.GetRolesByUser().then(resp=>{
-
-})
-
       Object.keys(item).forEach(function (key) {
         strInfo += key + ":" + item[key] + "<br>";
       });
+      userApi.GetRolesByUserId(item.id).then(resp=>{
+const roleData=resp.data;
+roleData.forEach(u=>{strInfo+="角色名:"+u.role_name})
+})
       await this.$dialog.confirm({
         text: strInfo,
         title: "信息详情",

@@ -49,6 +49,18 @@ export default {
   created() {
  this.init();
   },
+watch: {
+     selectionRole:{
+         handler(val, oldVal){
+              if(val.length==1)
+              {
+                ////
+                this.selectionMenu=[{id:38},{id:39}]
+              }
+         },
+         deep:true
+     },
+  },
   methods: {
     setMenu(){
      var roleIds=[];

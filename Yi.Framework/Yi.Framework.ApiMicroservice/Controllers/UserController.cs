@@ -114,8 +114,14 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <returns></returns>
         [HttpGet]
         public async Task<Result> GetRolesByUserId(int userId)
+<<<<<<< Updated upstream
         {            
             var roleList = await _userService.GetRolesByUser(new user() { id=userId});
+=======
+        {
+            var _user =await _userService.GetEntityById(userId);
+            var roleList = await _userService.GetRolesByUser(_user);
+>>>>>>> Stashed changes
             return Result.Success().SetData(roleList);
         }
         /// <summary>
