@@ -1,9 +1,9 @@
 <template>
-<material-card color="primary" icon="mdi-account-outline">
+  <material-card color="primary" icon="mdi-account-outline">
     <template #title>
-     用户管理 — <small class="text-body-1">用户可拥有多个角色</small>
+      用户管理 — <small class="text-body-1">用户可拥有多个角色</small>
     </template>
-     <ccCombobox
+    <ccCombobox
       headers="设置角色"
       :items="roleItems"
       @select="getSelect"
@@ -24,8 +24,6 @@
       </template>
     </ccTable>
   </material-card>
-    
-
 </template>
 <script>
 import userApi from "../api/userApi";
@@ -37,13 +35,15 @@ export default {
 
   methods: {
     async showItem(item) {
+      var strInfo = "";
 
-var strInfo="";
-Object.keys(item).forEach(function(key){
+roleApi.GetRolesByUser().then(resp=>{
 
-strInfo+=key+":"+ item[key]+"<br>"
+})
 
-});
+      Object.keys(item).forEach(function (key) {
+        strInfo += key + ":" + item[key] + "<br>";
+      });
       await this.$dialog.confirm({
         text: strInfo,
         title: "信息详情",
@@ -67,7 +67,10 @@ strInfo+=key+":"+ item[key]+"<br>"
         roleIds.push(item.id);
       });
       userApi.SetRoleByUser(userIds, roleIds).then((resp) => {
-        alert(resp);
+        this.$dialog.notify.success(resp.msg, {
+          position: "top-right",
+          timeout: 5000,
+        });
       });
     },
     getTableSelect(data) {

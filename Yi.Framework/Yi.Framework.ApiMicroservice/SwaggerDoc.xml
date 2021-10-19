@@ -168,5 +168,11 @@
             <param name="idsListDto"></param>
             <returns></returns>
         </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.GetRolesByUser">
+            <summary>
+            根据http上下文的用户得到该用户有哪些角色
+            </summary>
+            <returns></returns>
+        </member>
     </members>
 </doc>

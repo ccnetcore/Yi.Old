@@ -11,10 +11,6 @@ namespace Yi.Framework.Service
 {
    public partial class RoleService:BaseService<role>, IRoleService
     {
-        public RoleService(DbContext Db):base(Db)
-        { 
-        }       
-
         public async Task<bool> DelListByUpdateAsync(List<int> _ids)
         {
             var userList = await GetEntitiesAsync(u=>_ids.Contains(u.id));

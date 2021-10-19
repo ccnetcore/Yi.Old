@@ -11,8 +11,6 @@ namespace Yi.Framework.Service
 {
    public partial class MouldService:BaseService<mould>, IMouldService
     {
-        public MouldService(DbContext Db) : base(Db) { }
-
         public async Task<bool> DelListByUpdateAsync(List<int> _ids)
         {
             var mouldList =await GetEntitiesAsync(u => _ids.Contains(u.id));

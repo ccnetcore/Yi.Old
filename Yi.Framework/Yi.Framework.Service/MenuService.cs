@@ -11,9 +11,6 @@ namespace Yi.Framework.Service
 {
    public partial class MenuService:BaseService<menu>, IMenuService
     {
-        public MenuService(DbContext Db) : base(Db) { }
-
-       
         public async Task<menu> AddChildrenMenu(menu _menu, menu _children)
         {
             var menu_data = await _Db.Set<menu>().Include(u => u.children).Where(u => u.id == _menu.id).FirstOrDefaultAsync();

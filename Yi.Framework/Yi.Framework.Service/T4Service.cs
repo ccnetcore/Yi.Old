@@ -12,21 +12,21 @@ namespace Yi.Framework.Service
            
         public partial class MenuService:BaseService<menu>,IMenuService 
         {
-            //public MenuService(DbContext Db):base(Db){ }
+            public MenuService(DbContext Db):base(Db){ }
         }
         
         public partial class MouldService:BaseService<mould>,IMouldService 
         {
-            //public MouldService(DbContext Db):base(Db){ }
+            public MouldService(DbContext Db):base(Db){ }
         }
         
         public partial class RoleService:BaseService<role>,IRoleService 
         {
-            //public RoleService(DbContext Db):base(Db){ }
+            public RoleService(DbContext Db):base(Db){ }
         }
         
         public partial class UserService:BaseService<user>,IUserService 
         {
-            //public UserService(DbContext Db):base(Db){ }
+            public UserService(DbContext Db):base(Db){ }
         }
 }

@@ -6,8 +6,9 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ output extension=".cs" #>
 <#
-		    
-                DirectoryInfo dir = new DirectoryInfo(@"D:\YiFramework\Yi\Yi.Framework\Yi.Framework.Model\Models\");
+		    		     string solutionsPath = Host.ResolveAssemblyReference("$(SolutionDir)");//获取解决方案路径
+                string dirPath= Path.Combine(solutionsPath,@"Yi.Framework.Model\Models\");
+                DirectoryInfo dir = new DirectoryInfo(dirPath);
                 FileInfo[] finfo = dir.GetFiles();
                 string filenames = string.Empty;
                 List<string> filenameList = new List<string>();
