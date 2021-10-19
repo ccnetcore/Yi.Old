@@ -61,7 +61,8 @@ namespace Yi.Framework.Service
         {
             var user_data = await _Db.Set<user>().Include(u=>u.roles)
                 .Where(u => u.id == _user.id && u.is_delete == (short)Common.Enum.DelFlagEnum.Normal).FirstOrDefaultAsync();
-            var roleList = user_data.roles.ToList();
+            var roleList = user_data.roles.Where(u=> u.is_delete == (short)Common.Enum.DelFlagEnum.Normal).ToList();
+            roleList.ForEach(u => u.users = null);
             return roleList;
         }
 

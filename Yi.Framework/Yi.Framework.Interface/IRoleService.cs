@@ -27,13 +27,18 @@ namespace Yi.Framework.Interface
         Task<List<user>> GetUsersByRole(role _role);
 
         /// <summary>
-        /// 给单个角色设置多个菜单
+        /// 给多个角色设置多个菜单
         /// </summary>
         /// <param name="menuIds"></param>
-        /// <param name="menuId"></param>
+        /// <param name="roleIds"></param>
         /// <returns></returns>
         Task<bool> SetMenusByRolesId(List<int> menuIds, List<int> roleIds);
-
+        /// <summary>
+        /// 获取多个用户的菜单，并列，不包含子菜单
+        /// </summary>
+        /// <param name="roleIds"></param>
+        /// <returns></returns>
+        Task<List<menu>> GetMenusByRoleId(List<int> roleIds);
 
     }
 }

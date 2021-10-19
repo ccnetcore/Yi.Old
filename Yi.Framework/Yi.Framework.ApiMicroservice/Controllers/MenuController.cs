@@ -27,7 +27,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         public async Task<Result> GetMenu()
         {
                       
-            return  Result.Success().SetData(await _menuService.GetAllEntitiesTrueAsync());
+            return  Result.Success().SetData(await _menuService.GetTopMenu());
         }
 
         /// <summary>

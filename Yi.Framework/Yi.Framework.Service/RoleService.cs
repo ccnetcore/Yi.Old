@@ -53,5 +53,17 @@ namespace Yi.Framework.Service
             }             
             return await UpdateListAsync(role_data);
         }
+        public async Task<List<menu>> GetMenusByRoleId(List<int> roleIds)
+        {
+            var roleList = await _Db.Set<role>().Include(u=>u.menus)
+                .Where(u => roleIds.Contains(u.id) && u.is_delete == (short)Common.Enum.DelFlagEnum.Normal).ToListAsync();
+           var menuList=new List<menu>();
+            roleList.ForEach(item =>
+            {
+                var menus = item.menus.Where(u => u.is_delete == (short)Common.Enum.DelFlagEnum.Normal);
+                menuList = menuList.Concat(menus).ToList();
+            });          
+            return menuList;
+        }
     }
 }
