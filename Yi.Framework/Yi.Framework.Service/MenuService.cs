@@ -75,11 +75,22 @@ namespace Yi.Framework.Service
             var menu_data= await _Db.Set<menu>().Include(u => u.children).Include(u=>u.mould)
                .Where(u =>u.is_delete == (short)Common.Enum.DelFlagEnum.Normal && u.is_top == (short)Common.Enum.TopFlagEnum.Top)
                .ToListAsync();
-         return TopMenuBuilder(menu_data); 
+         return TopMenuBuild(menu_data); 
         }
-        private List<menu> TopMenuBuilder(List<menu> menu_data)
+        private List<menu> TopMenuBuild(List<menu> menu_data)
         {
-        
+           
+            for(int i = menu_data.Count()-1; i >=0; i--)
+            {
+                if(menu_data[i].is_delete == (short)Common.Enum.DelFlagEnum.Deleted)
+                {
+                    menu_data.Remove(menu_data[i]);
+                }
+                else if(menu_data[i].children != null)
+                {               
+                    menu_data[i].children= TopMenuBuild(menu_data[i].children.ToList());
+               } 
+            }
             return menu_data;
         }
 
