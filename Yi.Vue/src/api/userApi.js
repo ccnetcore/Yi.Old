@@ -19,5 +19,11 @@ export default {
             url: `/User/GetRolesByUserId?userId=${userId}`,
             method: 'get'
         })
+    },
+    GetUserInfoById() {
+        return myaxios({
+            url: `/User/GetUserInfoById`,
+            method: 'get'
+        })
     }
 }

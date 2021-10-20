@@ -32,6 +32,13 @@
             <param name="emailAddress"></param>
             <returns></returns>
         </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.AccountController.ChangePassword(Yi.Framework.DTOModel.ChangePwdDto)">
+            <summary>
+            修改密码
+            </summary>
+            <param name="pwdDto"></param>
+            <returns></returns>
+        </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.MenuController.UpdateMenu(Yi.Framework.Model.Models.menu)">
             <summary>
             更

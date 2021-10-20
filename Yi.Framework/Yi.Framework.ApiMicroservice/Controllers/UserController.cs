@@ -122,6 +122,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// 根据http上下文的用户得到该用户信息，关联角色
         /// </summary>
         /// <returns></returns>
+        [Authorize]
         [HttpGet]
         public async Task<Result> GetUserInfoById()
         {

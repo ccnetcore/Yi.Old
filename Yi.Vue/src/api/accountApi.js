@@ -28,6 +28,13 @@ export default {
             url: `/Account/email?emailAddress=${emailAddress}`,
             method: 'post',
         })
+    },
+    changePassword(user, newPassword) {
+        return myaxios({
+            url: `/Account/changePassword`,
+            method: 'put',
+            data: { user, newPassword }
+        })
     }
 
 }

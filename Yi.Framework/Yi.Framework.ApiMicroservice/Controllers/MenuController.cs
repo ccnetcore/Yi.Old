@@ -104,8 +104,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpPost]
         public async Task<Result> AddChildrenMenu(ChildrenDto<menu> childrenDto)
         {
-            
-            var _children= await _menuService.AddChildrenMenu(childrenDto.parentId, childrenDto.data); 
+            await _menuService.AddChildrenMenu(childrenDto.parentId, childrenDto.data); 
             return Result.Success();
         }
         /// <summary>

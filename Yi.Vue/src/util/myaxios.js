@@ -49,11 +49,30 @@ myaxios.interceptors.response.use(async function(response) {
 
     store.dispatch("closeLoad");
     return resp;
-}, function(error) {
-
+}, async function(error) {
     const resp = error.response.data
     if (resp.code == undefined && resp.msg == undefined) {
         vm.$dialog.notify.error("错误代码：无，原因：与服务器失去连接", {
+            position: "top-right",
+            timeout: 5000,
+        });
+    } else if (resp.code == 401) {
+        const res = await vm.$dialog.error({
+            text: `错误代码：${resp.code}，原因：${resp.msg}<br>是否重新进行登录？`,
+            title: '错误',
+            actions: {
+                'false': '取消',
+                'true': '跳转'
+            }
+        });
+        if (res) {
+            vm.$store.dispatch("Logout").then((resp) => {
+                vm.$router.push({ path: "/login" });
+            });
+        }
+
+    } else if (resp.code !== 200) {
+        vm.$dialog.notify.error(`错误代码：${resp.code}，原因：${resp.msg}`, {
             position: "top-right",
             timeout: 5000,
         });

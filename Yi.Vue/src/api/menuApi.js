@@ -40,5 +40,11 @@ export default {
             method: 'post',
             data: { id1: menuId, id2: mouldId }
         })
+    },
+    geTopMenuByUser() {
+        return myaxios({
+            url: '/Menu/geTopMenuByUser',
+            method: 'get'
+        })
     }
 }

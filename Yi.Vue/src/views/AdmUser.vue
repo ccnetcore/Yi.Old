@@ -108,6 +108,8 @@ strInfo+="<hr>"
       { text: "邮箱", value: "email", sortable: true },
       { text: "IP", value: "ip", sortable: false },
       { text: "年龄", value: "age", sortable: false },
+      { text: "地址", value: "address", sortable: false },
+      { text: "电话", value: "phone", sortable: false },
       { text: "操作", value: "actions", sortable: false },
     ],
     defaultItem: {
@@ -116,6 +118,8 @@ strInfo+="<hr>"
       icon: "mdi-lock",
       nick: "橙子",
       age: 18,
+      address:"中国",
+      phone:""
     },
   }),
 };
