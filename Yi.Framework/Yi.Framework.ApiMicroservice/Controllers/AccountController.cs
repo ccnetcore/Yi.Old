@@ -101,17 +101,33 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             }
             //  邮箱和验证码都要被记住，然后注册时候比对邮箱和验证码是不是都和现在生成的一样
         }
+        /// <summary>
+        /// 修改密码
+        /// </summary>
+        /// <param name="pwdDto"></param>
+        /// <returns></returns>
         [HttpPut]
-
         public async Task<Result> ChangePassword(ChangePwdDto pwdDto)
         {
-            var user_data = await _userService.GetEntityById(pwdDto.id);
-            if (user_data.password == pwdDto.newPassword)
+            if (pwdDto.newPassword != null)
             {
-                user_data.password = pwdDto.newPassword;
-                await _userService.UpdateAsync(user_data);
-                return Result.Success();
+                var user_data = await _userService.GetEntityById(pwdDto.id);
+                if (user_data.password == pwdDto.password)
+                {
+                    user_data.password = pwdDto.newPassword;
+                    user_data.phone = pwdDto.phone;
+                    user_data.introduction = pwdDto.introduction;                   
+                    user_data.email = pwdDto.email;
+                    user_data.age = pwdDto.age;
+                    user_data.address = pwdDto.address;
+                    user_data.is_delete = pwdDto.is_delete;
+                    user_data.nick = pwdDto.nick;                   
+                    await _userService.UpdateAsync(user_data);
+                    user_data.password = null;
+                    return Result.Success().SetData(user_data);
+                }
             }
+            
             return Result.Error();
         }
     }
