@@ -7,8 +7,9 @@ using Yi.Framework.Model.Models;
 
 namespace Yi.Framework.DTOModel
 {
-    public class ChangePwdDto:user
+    public class ChangePwdDto
     {
+        public user user { get; set; }
         public string newPassword { get; set; }
     }
 }

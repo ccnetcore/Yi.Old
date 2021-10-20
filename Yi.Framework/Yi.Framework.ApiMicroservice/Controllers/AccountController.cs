@@ -109,26 +109,36 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpPut]
         public async Task<Result> ChangePassword(ChangePwdDto pwdDto)
         {
+            var user_data = await _userService.GetUserInfoById(pwdDto.user.id);
+           
             if (pwdDto.newPassword != null)
-            {
-                var user_data = await _userService.GetEntityById(pwdDto.id);
-                if (user_data.password == pwdDto.password)
+            {               
+                if (user_data.password == pwdDto.user.password)
                 {
                     user_data.password = pwdDto.newPassword;
-                    user_data.phone = pwdDto.phone;
-                    user_data.introduction = pwdDto.introduction;                   
-                    user_data.email = pwdDto.email;
-                    user_data.age = pwdDto.age;
-                    user_data.address = pwdDto.address;
-                    user_data.is_delete = pwdDto.is_delete;
-                    user_data.nick = pwdDto.nick;                   
+                    user_data.phone = pwdDto.user.phone;
+                    user_data.introduction = pwdDto.user.introduction;
+                    user_data.email = pwdDto.user.email;
+                    user_data.age = pwdDto.user.age;
+                    user_data.address = pwdDto.user.address;
+                    
+                    user_data.nick = pwdDto.user.nick;
                     await _userService.UpdateAsync(user_data);
                     user_data.password = null;
                     return Result.Success().SetData(user_data);
                 }
             }
             
-            return Result.Error();
+            user_data.phone = pwdDto.user.phone;
+            user_data.introduction = pwdDto.user.introduction;
+            user_data.email = pwdDto.user.email;
+            user_data.age = pwdDto.user.age;
+            user_data.address = pwdDto.user.address;
+            user_data.is_delete = pwdDto.user.is_delete;
+            user_data.nick = pwdDto.user.nick;
+            await _userService.UpdateAsync(user_data);
+            user_data.password = null;
+            return Result.Success().SetData(user_data);
         }
     }
 }
