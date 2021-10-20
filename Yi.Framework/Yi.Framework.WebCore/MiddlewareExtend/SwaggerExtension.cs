@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using System;
 using System.IO;
+using Yi.Framework.Common.Models;
 
 namespace Yi.Framework.WebCore.MiddlewareExtend
 {
@@ -11,11 +12,11 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
     /// </summary>
     public static class SwaggerExtension
     {
-        public static IServiceCollection AddSwaggerService<Program>(this IServiceCollection services)
+        public static IServiceCollection AddSwaggerService<Program>(this IServiceCollection services, string title = "Yi意框架-API接口")
         {
             var apiInfo = new OpenApiInfo
             {
-                Title = "Yi意框架-API接口",
+                Title = title,
                 Version = "v1",
                 Contact = new OpenApiContact { Name = "橙子", Email = "454313500@qq.com", Url = new System.Uri("https://ccnetcore.com") }
             };
@@ -64,12 +65,28 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
             return services;
         }
 
-        public static void UseSwaggerService(this IApplicationBuilder app)
+        public static void UseSwaggerService(this IApplicationBuilder app, params SwaggerModel[] swaggerModels)
         {
             //在 Startup.Configure 方法中，启用中间件为生成的 JSON 文档和 Swagger UI 提供服务：
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Yi.Framework"));
+            app.UseSwaggerUI(c =>
+            {
+                if (swaggerModels.Length == 0)
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Yi.Framework");
+                }
+                else
+                {
+                    foreach (var k in swaggerModels)
+                    {
+                        c.SwaggerEndpoint(k.url, k.name);
+                    }
+                }
+
+            }
+
+            );
         }
 
     }
