@@ -153,7 +153,7 @@
                                   <v-col 
                                   v-for="item in menuInfo"
                                   :key="item.id"
-                                  cols="6" sm="3" md="1">{{menuInfo.menu_name}}</v-col>
+                                  cols="6" sm="3" md="1">{{item.menu_name}}</v-col>
                                 </v-row>
                               </v-list-item-subtitle>
                             </v-list-item-content>
@@ -224,7 +224,7 @@
 
             <v-col cols="12" class="text-right">
               <v-btn color="primary" class="ma-4" min-width="100"> 清空 </v-btn>
-              <v-btn color="secondary" min-width="100"> 保存 </v-btn>
+              <v-btn color="secondary" @click="save()" min-width="100"> 保存 </v-btn>
             </v-col>
           </v-form>
         </material-card>
@@ -235,7 +235,8 @@
 
 <script>
 import userApi from "../api/userApi";
-import menuApi from "../api/menuApi"
+import menuApi from "../api/menuApi";
+import accountApi from "../api/accountApi"
 export default {
   name: "UserProfileView",
   data: () => ({
@@ -244,10 +245,10 @@ export default {
     editInfo: {},
     newPassword:"",
     dis_newPassword:true,
-    menuInfo:{}
+    menuInfo:[]
   }),
   created() {
-    // this.init();
+    this.init();
   },
  watch:{
     editInfo:{
@@ -266,9 +267,30 @@ export default {
  },
 
   methods: {
+    save()
+    {
+      accountApi.changePassword(this.editInfo,this.newPassword).then(resp=>{
+        if(resp.status)
+        {
+            this.$dialog.notify.error(resp.msg, {
+              position: "top-right",
+              timeout: 5000,
+            });
+        }
+        else
+        {
+ this.$dialog.notify.success(resp.msg, {
+              position: "top-right",
+              timeout: 5000,
+            });
+        }
+        this.init();
+      })
+    },
     init() {
       userApi.GetUserInfoById().then((resp) => {
         this.userInfo = resp.data;
+        this.userInfo.password="";
       this.editInfo= Object.assign({}, this.userInfo);
       });
 

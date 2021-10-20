@@ -126,6 +126,7 @@ namespace Yi.Framework.Service
         {
             var user_data=await _Db.Set<user>().Include(u=>u.roles)
                 .Where(u => u.id == user_id && u.is_delete == (short)Common.Enum.DelFlagEnum.Normal).FirstOrDefaultAsync();
+            user_data.password = null;
             user_data.roles.ToList().ForEach(u => u.users = null);
             return user_data;
         }
