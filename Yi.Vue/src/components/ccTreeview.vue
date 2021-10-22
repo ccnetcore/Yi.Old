@@ -1,5 +1,6 @@
 <template>
   <div>
+    <v-divider></v-divider>
     <app-btn  dark class="ma-4" @click="dialog = true"> 添加新项 </app-btn>
     <app-btn dark class="my-4"  color="secondary" @click="deleteItem(null)">
       删除所选

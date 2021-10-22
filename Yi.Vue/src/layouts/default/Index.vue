@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    
     <default-bar />
 
     <default-drawer />
