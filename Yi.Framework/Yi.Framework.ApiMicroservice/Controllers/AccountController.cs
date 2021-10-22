@@ -112,7 +112,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             var uid= pwdDto.user.id;
             var user_data = await _userService.GetUserById(uid);
             string msg = "修改成功";
-            if (pwdDto.newPassword != null)
+            if (! string.IsNullOrEmpty( pwdDto.newPassword))
             {               
                 if (user_data.password == pwdDto.user.password)
                 {
@@ -124,9 +124,11 @@ namespace Yi.Framework.ApiMicroservice.Controllers
                     user_data.age = pwdDto.user.age;
                     user_data.address = pwdDto.user.address;
                     user_data.nick = pwdDto.user.nick;
+
+                    
                     await _userService.UpdateAsync(user_data);
                     user_data.password = null;
-                    return Result.Success(msg).SetData(user_data);
+                    return Result.Success(msg);
                 }
                 else
                 {
@@ -141,9 +143,11 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             user_data.age = pwdDto.user.age;
             user_data.address = pwdDto.user.address;
             user_data.nick = pwdDto.user.nick;
+
             await _userService.UpdateAsync(user_data);
-            user_data.password = null;
-            return Result.Success(msg).SetData(user_data);
+
+
+            return Result.Success(msg);
         }
     }
 }

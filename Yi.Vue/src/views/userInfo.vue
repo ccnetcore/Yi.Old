@@ -288,6 +288,7 @@ export default {
       })
     },
     init() {
+      this.newPassword="";
       userApi.GetUserInfoById().then((resp) => {
         this.userInfo = resp.data;
         this.userInfo.password="";
