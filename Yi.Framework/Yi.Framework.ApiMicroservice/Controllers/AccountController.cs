@@ -109,36 +109,41 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpPut]
         public async Task<Result> ChangePassword(ChangePwdDto pwdDto)
         {
-            var user_data = await _userService.GetUserInfoById(pwdDto.user.id);
-           
+            var uid= pwdDto.user.id;
+            var user_data = await _userService.GetUserById(uid);
+            string msg = "修改成功";
             if (pwdDto.newPassword != null)
             {               
                 if (user_data.password == pwdDto.user.password)
                 {
+
                     user_data.password = pwdDto.newPassword;
                     user_data.phone = pwdDto.user.phone;
                     user_data.introduction = pwdDto.user.introduction;
                     user_data.email = pwdDto.user.email;
                     user_data.age = pwdDto.user.age;
                     user_data.address = pwdDto.user.address;
-                    
                     user_data.nick = pwdDto.user.nick;
                     await _userService.UpdateAsync(user_data);
                     user_data.password = null;
-                    return Result.Success().SetData(user_data);
+                    return Result.Success(msg).SetData(user_data);
+                }
+                else
+                {
+                    msg = "密码错误";
+                    return Result.Error(msg);
                 }
             }
-            
+
             user_data.phone = pwdDto.user.phone;
             user_data.introduction = pwdDto.user.introduction;
             user_data.email = pwdDto.user.email;
             user_data.age = pwdDto.user.age;
             user_data.address = pwdDto.user.address;
-            user_data.is_delete = pwdDto.user.is_delete;
             user_data.nick = pwdDto.user.nick;
             await _userService.UpdateAsync(user_data);
             user_data.password = null;
-            return Result.Success().SetData(user_data);
+            return Result.Success(msg).SetData(user_data);
         }
     }
 }

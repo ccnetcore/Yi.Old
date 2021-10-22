@@ -69,5 +69,6 @@ namespace Yi.Framework.Interface
         /// <param name="user_id"></param>
         /// <returns></returns>
         Task<user> GetUserInfoById(int user_id);
+        Task<user> GetUserById(int user_id);
     }
 }
