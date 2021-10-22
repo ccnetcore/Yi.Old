@@ -7,10 +7,16 @@
           <small class="text-body-1"
             >你可以在这里多角色分配多菜单/选中一个可查看</small
           > </template
-        ><app-btn class="ma-4" @click="setMenu">确定分配</app-btn
-        ><app-btn class="my-4"  color="secondary" @click="clear">清空选择</app-btn></material-card
+        >
+         <v-divider></v-divider>
+        <app-btn class="ma-4" @click="setMenu">确定分配</app-btn
+        >
+        
+        <app-btn class="my-4"  color="secondary" @click="clear">清空选择</app-btn></material-card
       >
+      
     </v-col>
+   
     <v-col cols="12" md="4" lg="4">
       <v-card class="mx-auto" width="100%">
         <v-treeview

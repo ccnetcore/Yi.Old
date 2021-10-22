@@ -1,162 +1,133 @@
 <template>
-  <v-card
-    class="px-6 py-4 mx-auto elevation-4 rounded-md"
-    style="height: 600px; width: 500px"
-  >
-    <div>
-      <h1 class="title my-2">Angstrong</h1>
-      <v-subheader>登入你的用户</v-subheader>
-    </div>
+  <v-card class="auth-card">
+    <!-- logo -->
+    <v-card-title class="d-flex align-center justify-center py-7">
+      <router-link to="/" class="d-flex align-center">
+        <v-img
+          :src="require('@/assets/logo.svg')"
+          max-height="30px"
+          max-width="30px"
+          alt="logo"
+          contain
+          class="me-3"
+        ></v-img>
+        <h2 class="text-2xl font-weight-semibold">Yi-Framework</h2>
+      </router-link>
+    </v-card-title>
 
-    <v-form ref="form" v-model="valid" lazy-validation>
-      <v-text-field
-        v-model="user_name"
-        :rules="user_nameRules"
-        label="用户名"
-        outlined
-        clearable
-        required
-        :counter="20"
-      ></v-text-field>
+    <!-- title -->
+    <v-card-text>
+      <p class="text-2xl font-weight-semibold text--primary mb-2">
+        欢迎来到CCNetCore! 👋🏻
+      </p>
+      <p class="mb-2">登入你的用户，开始畅游一切</p>
+    </v-card-text>
 
-      <v-text-field
-        v-model="password"
-        :rules="passwordRules"
-        label="密码"
-        outlined
-        clearable
-        required
-        type="password"
-      ></v-text-field>
-      <v-row>
-        <v-col cols="6">
-          <v-checkbox
-            v-model="checkbox"
-            :rules="[(v) => !!v || '同意后才可进入']"
-            label="你同意协议吗？"
-            required
-          ></v-checkbox
-        ></v-col>
-        <v-col cols="6" class="text-right pt-8"
-          ><router-link to="/register">前往注册</router-link></v-col
-        >
-      </v-row>
-    </v-form>
+    <!-- login form -->
+    <v-card-text>
+      <v-form>
+        <v-text-field
+          v-model="form.username"
+          outlined
+          label="用户"
+          placeholder="123456789@qq.com"
+          counter="20"
+        ></v-text-field>
 
-    <v-btn
-      class="my-2 light-blue white--text"
-      @click="login"
-      large
-      style="width: 100%"
-      @keyup.enter="enterSearch"
-      :loading="loader"
-      :disabled="btn_dis"
-    >
-      登入
-    </v-btn>
-    <p class="my-2">或使用登录</p>
-    <v-btn  class="my-2 cyan white--text" @click="qqlogin" large style="width: 100%" :loading="loader" :disabled="btn_dis">
-      <v-icon class="mx-2"  > mdi-qqchat </v-icon>
-      QQ
-    </v-btn>
+        <v-text-field
+          v-model="form.password"
+          outlined
+          :type="isPasswordVisible ? 'text' : 'password'"
+          label="密码"
+          placeholder="············"
+          :append-icon="isPasswordVisible ? 'mdi-eye' : 'mdi-eye-off'"
+          @click:append="isPasswordVisible = !isPasswordVisible"
+        ></v-text-field>
 
-    <v-btn class="cyan white--text" @click="yklogin" large style="width: 100%"  :loading="loader" :disabled="btn_dis">
-      <v-icon class="mx-2"> mdi-message-text </v-icon>
-      临时游客
-    </v-btn>
+        <div class="d-flex align-center justify-space-between flex-wrap">
+          <v-checkbox label="记住密码" hide-details class="me-3 mt-1">
+          </v-checkbox>
+
+          <!-- forgot link -->
+          <a href="javascript:void(0)" class="mt-1"> 忘记密码? </a>
+        </div>
+
+        <v-btn block color="primary" @click="login" class="mt-6"> 登录 </v-btn>
+      </v-form>
+    </v-card-text>
+
+    <!-- create new account  -->
+    <v-card-text class="d-flex align-center justify-center flex-wrap mt-2">
+      <span class="me-2"> 没有我们的账号? </span>
+      <router-link :to="{ path: '/register' }"> 注册账号 </router-link>
+    </v-card-text>
+
+    <!-- divider -->
+    <v-card-text class="d-flex align-center mt-2">
+      <v-divider></v-divider>
+      <span class="mx-5">or</span>
+      <v-divider></v-divider>
+    </v-card-text>
+
+    <!-- social links -->
+    <v-card-actions class="d-flex justify-center ">
+      <v-btn v-for="link in socialLink" :key="link.icon" icon class="ms-1">
+        <v-icon :color="$vuetify.theme.dark ? link.colorInDark : link.color">
+          {{ link.icon }}
+        </v-icon>
+      </v-btn>
+    </v-card-actions>
   </v-card>
 </template>
 <script>
 export default {
   data: () => ({
-    btn_dis:false,
-    loader: null,
-    valid: true,
-    user_name: "",
-    user_nameRules: [
-      (v) => !!v || "用户名不能为空",
-      (v) => (v && v.length <= 20) || "用户名必须小于20个字符",
+    socialLink: [
+      {
+        icon: "mdi-qqchat",
+        color: "#8D5EE0",
+        colorInDark: "#8D5EE0",
+      },
+      {
+        icon: "mdi-facebook",
+        color: "#4267b2",
+        colorInDark: "#4267b2",
+      },
+      {
+        icon: "mdi-twitter",
+        color: "#1da1f2",
+        colorInDark: "#1da1f2",
+      },
+      {
+        icon: "mdi-github",
+        color: "#272727",
+        colorInDark: "#fff",
+      },
+      {
+        icon: "mdi-google",
+        color: "#db4437",
+        colorInDark: "#db4437",
+      },
     ],
-    password: "",
-    passwordRules: [
-      (v) => !!v || "密码不能为空",
-      (v) => (v && v.length <= 120) || "密码必须小于20个字符",
-    ],
-    select: null,
-    checkbox: true,
-  }),
-  created() {
-    this.enterSearch();
-  },
-  methods: {
-    enterSearch() {
-      document.onkeydown = (e) => {
-        //13表示回车键，baseURI是当前页面的地址，为了更严谨，也可以加别的，可以打印e看一下
-        if (e.keyCode === 13 && e.target.baseURI.match("/")) {
-          //回车后执行搜索方法
-          this.login();
-        }
-      };
-    },
 
-    qqlogin() {
-      // QC.Login.showPopup(myqq.myqqLogin);
-      // window.close();
+    isPasswordVisible: false,
+    form: {
+      username: "",
+      password: "",
     },
-    yklogin() {
-      this.loader = "true";
-      this.btn_dis=true;
-      this.$store
-        .dispatch("Login", {
-          username: "游客",
-          password: "",
-        })
-        .then((resp) => {
-          if (resp.status) {
-            this.$router.push("/");
-          } else {
-            this.loader=null;
-             this.btn_dis=false;
-            this.$dialog.notify.error(resp.msg, {
-              position: "top-right",
-              timeout: 5000,
-            });
-          }
-        });
-    },
+  }),
+  methods: {
     login() {
-      if (this.$refs.form.validate()) {
-        this.loader = "true";
-        this.btn_dis=true;
-        this.$store
-          .dispatch("Login", {
-            username: this.user_name,
-            password: this.password,
-          })
-          .then((resp) => {
-            if (resp.status) {
-              this.$router.push("/");
-            } else {
-              this.loader = null;
-              this.btn_dis=false;
-              this.$dialog.notify.error(resp.msg, {
-                position: "top-right",
-                timeout: 5000,
-              });
-            }
+      this.$store.dispatch("Login", this.form).then((resp) => {
+        if (resp.status) {
+          this.$router.push("/");
+        } else {
+          this.$dialog.notify.error(resp.msg, {
+            position: "top-right",
+            timeout: 5000,
           });
-      } else {
-        this.$dialog.notify.error("请合理输入数据", {
-          position: "top-right",
-          timeout: 5000,
-        });
-      }
-    },
-    reset() {
-      this.$refs.form.reset();
-    },
-    resetValidation() {
-      this.$refs.form.resetValidation();
+        }
+      });
     },
   },
 };
