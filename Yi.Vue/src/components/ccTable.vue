@@ -24,7 +24,7 @@
           ></v-text-field>
 
           <v-btn
-            v-if="axiosUrls.hasOwnProperty('add')"
+            v-if="axiosUrls.add!=''"
             color="primary"
             dark
             class="mb-2 mx-2"
@@ -35,7 +35,7 @@
 
           <!-- 添加提示框 -->
           <v-dialog
-            v-if="axiosUrls.hasOwnProperty('add')"
+            v-if="axiosUrls.add!=''"
             v-model="dialog"
             max-width="500px"
           >
@@ -72,7 +72,7 @@
           </v-dialog>
 
           <v-btn
-            v-if="axiosUrls.hasOwnProperty('del')"
+            v-if="axiosUrls.del!=''"
           color="secondary"
            
             class="mb-2"
@@ -89,7 +89,7 @@
         <slot name="action" :item="item"></slot>
 
         <v-icon
-          v-if="axiosUrls.hasOwnProperty('update')"
+          v-if="axiosUrls.update!=''"
           small
           class="mr-2"
           @click="editItem(item)"
@@ -97,7 +97,7 @@
           mdi-pencil
         </v-icon>
         <v-icon
-          v-if="axiosUrls.hasOwnProperty('del')"
+          v-if="axiosUrls.del!=''"
           small
           @click="deleteItem(item)"
         >

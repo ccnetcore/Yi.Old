@@ -12,93 +12,109 @@
   </material-card>
 </template>
 <script>
-import getUrl from '../util/getMould'
+import {handUrl} from '../util/getMould'
 export default {
-  created(){
-this.init();
+  created() {
+    this.init();
   },
-  methods:{
-init(){
-  const resp=  [
-      {
-        menu_name: "首页",
-        icon: "mdi-view-dashboard",
-        to: "/",
-      },
-      {
-        menu_name: "用户角色管理",
-        icon: "mdi-account",
-        to: "",
-        children: [
-          {
-            menu_name: "用户管理",
-            icon: "mdi-account",
-            to: "/admuser/",
-            children: [
-              {
-                menu_name: "get",
-                 icon: "mdi-account",
-                 to: "/admrole/",
-                 mould:{
-                   mould_name:"get",
-                   url: "666666无敌",
-                 }
-                
-              }
-            ],
-          },
-          {
-            menu_name: "角色管理",
-            icon: "mdi-account-tie",
-            to: "/admrole/",
-            children: [],
-          },
-        ],
-      },
-      {
-        menu_name: "菜单接口管理",
-        icon: "mdi-clipboard-outline",
-        to: "",
-        children: [
-          {
-            menu_name: "菜单管理",
-            icon: "mdi-account",
-            to: "/admMenu/",
-            children: [],
-          },
-          {
-            menu_name: "接口管理",
-            icon: "mdi-account",
-            to: "/admMould/",
-            children: [],
-          },
-          {
-            menu_name: "角色菜单分配管理",
-            icon: "mdi-account",
-            to: "/admRoleMenu/",
-            children: [],
-          },
-        ],
-      },
-      {
-        menu_name: "测试路由",
-        icon: "mdi-clipboard-outline",
-        to: "",
-        children: [
-          {
-            menu_name: "用户信息",
-            icon: "mdi-account",
-            to: "/userinfo/",
-            children: [],
+  methods: {
+    recursiveFun(menuList, menuStr) {
+      if (this.start) {
+        this.getUrlFun(menuList, menuStr);
+      }
+    },
+    getUrlFun(menuList, menuStr) {
+      for (var i = 0; i < menuList.length; i++) {
+        if (menuList[i].menu_name == menuStr) {
+          this.start = false;
+        this.axiosUrls= handUrl(menuList[i]);
+        } else {
+          if (menuList[i].children != undefined && this.start) {
+            this.recursiveFun(menuList[i].children, menuStr);
           }
-        ],
-      },
-    ];
-var mytest= getUrl.getUrl(resp,"用户管理")
-console.log(mytest);
-}
+        }
+      }
+    },
+    init() {
+      const resp = [
+        {
+          menu_name: "首页",
+          icon: "mdi-view-dashboard",
+          to: "/",
+        },
+        {
+          menu_name: "用户角色管理",
+          icon: "mdi-account",
+          to: "",
+          children: [
+            {
+              menu_name: "用户管理",
+              icon: "mdi-account",
+              to: "/admuser/",
+              children: [
+                {
+                  menu_name: "",
+                  icon: "mdi-account",
+                  to: "/admrole/",
+                  mould: {
+                    mould_name: "get",
+                    url: "/role/getrole",
+                  },
+                },
+              ],
+            },
+            {
+              menu_name: "角色管理",
+              icon: "mdi-account-tie",
+              to: "/admrole/",
+              children: [],
+            },
+          ],
+        },
+        {
+          menu_name: "菜单接口管理",
+          icon: "mdi-clipboard-outline",
+          to: "",
+          children: [
+            {
+              menu_name: "菜单管理",
+              icon: "mdi-account",
+              to: "/admMenu/",
+              children: [],
+            },
+            {
+              menu_name: "接口管理",
+              icon: "mdi-account",
+              to: "/admMould/",
+              children: [],
+            },
+            {
+              menu_name: "角色菜单分配管理",
+              icon: "mdi-account",
+              to: "/admRoleMenu/",
+              children: [],
+            },
+          ],
+        },
+        {
+          menu_name: "测试路由",
+          icon: "mdi-clipboard-outline",
+          to: "",
+          children: [
+            {
+              menu_name: "用户信息",
+              icon: "mdi-account",
+              to: "/userinfo/",
+              children: [],
+            },
+          ],
+        },
+      ];
+      this.recursiveFun(resp, "用户管理");
+    },
   },
   data: () => ({
+    start: true,
     axiosUrls: {
       get: "role/getrole",
       update: "role/updaterole",

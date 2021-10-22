@@ -103,6 +103,7 @@ export default {
       icon: "mdi-start",
       router: "test",
       menu_name: "测试",
+      is_show:1
     },
   }),
   computed: {

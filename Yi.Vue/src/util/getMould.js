@@ -1,17 +1,24 @@
-function getUrl(menuList, menuStr) {
-    for (var i = 0; i < menuList.length; i++) {
-        if (menuList[i].menu_name == menuStr) {
-            console.log(handUrl(menuList[i]))
-            return 1;
-        } else {
-            if (menuList[i].children != undefined) {
-                getUrl(menuList[i].children, menuStr);
-            }
+var start = true;
 
+function getUrl(menuList, menuStr) {
+
+    if (start) {
+        for (var i = 0; i < menuList.length; i++) {
+            if (menuList[i].menu_name == menuStr) {
+                alert(777)
+                start = false;
+                console.log(handUrl(menuList[i]))
+                return handUrl(menuList[i])
+            } else {
+                if (menuList[i].children != undefined && start) {
+                    alert(666)
+                    getUrl(menuList[i].children, menuStr);
+                }
+
+            }
         }
     }
-}
-
+};
 
 function handUrl(menu) {
     var axiosUrls = {
@@ -42,4 +49,8 @@ function handUrl(menu) {
     });
     return axiosUrls;
 }
-export default { getUrl }
+
+export {
+    getUrl,
+    handUrl
+}
