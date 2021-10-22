@@ -69,6 +69,11 @@ namespace Yi.Framework.ApiMicroservice
             services.AddSqliteService();
 
             #region
+            //MySql服务配置
+            #endregion
+            services.AddMysqlService();
+
+            #region
             //Redis服务配置
             #endregion
             //services.AddRedisService();
@@ -78,7 +83,7 @@ namespace Yi.Framework.ApiMicroservice
             #endregion
             //services.AddRabbitMQService();
 
-            
+
         }
 
         #region Autofac容器注入

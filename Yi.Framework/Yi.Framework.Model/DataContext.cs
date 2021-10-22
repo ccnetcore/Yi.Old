@@ -14,10 +14,10 @@ namespace Yi.Framework.Model
 	//Update-Database yi-1
    public partial class DataContext : DbContext
     {
-		private readonly IOptionsMonitor<SqliteOptions> _optionsMonitor;
+		private readonly IOptionsMonitor<MySqlConnOptions> _optionsMonitor;
 		private readonly string _connStr;
 
-		public DataContext(IOptionsMonitor<SqliteOptions> optionsMonitor)
+		public DataContext(IOptionsMonitor<MySqlConnOptions> optionsMonitor)
 		{
 			_optionsMonitor = optionsMonitor;
 			_connStr = _optionsMonitor.CurrentValue.Url;
@@ -31,7 +31,9 @@ namespace Yi.Framework.Model
 		{
 			if (!optionsBuilder.IsConfigured)
 			{
-				optionsBuilder.UseSqlite(_connStr);
+				//optionsBuilder.UseSqlite(_connStr);
+				var serverVersion = new MySqlServerVersion(new Version(8, 0, 21));
+				optionsBuilder.UseMySql(_connStr, serverVersion);
 			}
 		}
       
