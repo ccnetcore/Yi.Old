@@ -5,13 +5,11 @@ function getUrl(menuList, menuStr) {
     if (start) {
         for (var i = 0; i < menuList.length; i++) {
             if (menuList[i].menu_name == menuStr) {
-                alert(777)
                 start = false;
                 console.log(handUrl(menuList[i]))
                 return handUrl(menuList[i])
             } else {
                 if (menuList[i].children != undefined && start) {
-                    alert(666)
                     getUrl(menuList[i].children, menuStr);
                 }
 

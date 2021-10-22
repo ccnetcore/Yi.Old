@@ -68,67 +68,65 @@ export default {
 
     items: [
       {
-        title: "首页",
+        menu_name: "首页",
         icon: "mdi-view-dashboard",
-        to: "/",
+        router: "/",
       },
       {
-        title: "用户角色管理",
+        menu_name: "用户角色管理",
         icon: "mdi-account",
-        to: "",
+        router: "",
         children: [
           {
-            title: "用户管理",
+            menu_name: "用户管理",
             icon: "mdi-account",
-            to: "/admuser/",
-            children: [
-
-            ],
+            router: "/admuser/",
+             children: null,
           },
           {
-            title: "角色管理",
+            menu_name: "角色管理",
             icon: "mdi-account-tie",
-            to: "/admrole/",
-            children: [],
+            router: "/admrole/",
+            children: null,
           },
         ],
       },
       {
-        title: "菜单接口管理",
+        menu_name: "菜单接口管理",
         icon: "mdi-clipboard-outline",
-        to: "",
+        router: "",
         children: [
           {
-            title: "菜单管理",
+            menu_name: "菜单管理",
             icon: "mdi-account",
-            to: "/admMenu/",
-            children: [],
+            router: "/admMenu/",
+            children: null,
           },
           {
-            title: "接口管理",
+            menu_name: "接口管理",
             icon: "mdi-account",
-            to: "/admMould/",
-            children: [],
+            router: "/admMould/",
+            children: null,
           },
           {
-            title: "角色菜单分配管理",
+            menu_name: "角色菜单分配管理",
             icon: "mdi-account",
-            to: "/admRoleMenu/",
-            children: [],
+            router: "/admRoleMenu/",
+            children: null,
           },
         ],
       },
       {
-        title: "测试路由",
+        menu_name: "测试路由",
         icon: "mdi-clipboard-outline",
-        to: "",
+        router: "",
         children: [
           {
-            title: "用户信息",
+            menu_name: "用户信息",
             icon: "mdi-account",
-            to: "/userinfo/",
-            children: [],
-          }
+            router: "/userinfo/",
+            children: null,
+          },
         ],
       },
     ],

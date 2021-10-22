@@ -3,7 +3,7 @@
     :href="item.href"
     :rel="item.href ? 'nofollow' : undefined"
     :target="item.href ? '_blank' : undefined"
-    :to="item.to"
+    :to="item.router"
     active-class="primary white--text"
     link
     class="py-1"
@@ -28,8 +28,8 @@
       <v-icon v-text="item.icon" />
     </v-list-item-icon>
 
-    <v-list-item-content v-if="item.title">
-      <v-list-item-title v-text="item.title" />
+    <v-list-item-content v-if="item.menu_name">
+      <v-list-item-title v-text="item.menu_name" />
     </v-list-item-content>
   </v-list-item>
 </template>
@@ -47,7 +47,7 @@
 
     computed: {
       title () {
-        const matches = this.item.title.match(/\b(\w)/g)
+        const matches = this.item.menu_name.match(/\b(\w)/g)
 
         return matches.join('')
       },

@@ -1,7 +1,7 @@
 <template>
   <v-list-group
    
-
+:group="group"
     :prepend-icon="item.icon"
     eager
     v-bind="$attrs"
@@ -19,20 +19,20 @@
         <v-img :src="item.avatar" />
       </v-list-item-avatar>
 
-      <v-list-item-content v-if="item.title">
-        <v-list-item-title v-text="item.title" />
+      <v-list-item-content v-if="item.menu_name">
+        <v-list-item-title v-text="item.menu_name" />
       </v-list-item-content>
     </template>
 
     <template v-for="(child, i) in item.children">
       <default-list-group
-        v-if="child.items"
+        v-if="child.children"
         :key="`sub-group-${i}`"
         :item="child"
       />
 
       <default-list-item
-        v-if="!child.items"
+        v-if="!child.children"
         :key="`child-${i}`"
         :item="child"
       />
@@ -60,11 +60,11 @@
 
     computed: {
  
-      // group () {
-      //   return this.genGroup(this.item.items)
-      // },
+      group () {
+        return this.genGroup(this.item.children)
+      },
       title () {
-        const matches = this.item.title.match(/\b(\w)/g)
+        const matches = this.item.menu_name.match(/\b(\w)/g)
 
         return matches.join('')
       },
@@ -73,12 +73,12 @@
     methods: {
       genGroup (items) {
         return items.reduce((acc, cur) => {
-          if (!cur.to) return acc
+          if (!cur.router) return acc
 
           acc.push(
-            cur.items
-              ? this.genGroup(cur.items)
-              : cur.to.slice(1, -1),
+            cur.children
+              ? this.genGroup(cur.children)
+              : cur.router.slice(1, -1),
           )
 
           return acc
