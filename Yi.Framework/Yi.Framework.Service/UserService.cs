@@ -50,11 +50,11 @@ namespace Yi.Framework.Service
             role_data.ForEach(u =>
             {
                 var menu_data = _roleService.GetMenusByRole(u);
-                menuList = menuList.Concat((IEnumerable<menu>)menu_data).ToList();
+                menuList = menuList.Concat(menu_data.GetAwaiter().GetResult()).ToList();
             });
-            //menuList.ForEach(u => u.roles = null);
+            menuList.ForEach(u => u.roles = null);
 
-            return (List<menu>)menuList;
+            return menuList;
         }
 
         public async Task<List<mould>> GetMouldByUser(user _user)
