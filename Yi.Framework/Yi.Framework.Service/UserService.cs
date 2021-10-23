@@ -136,20 +136,33 @@ namespace Yi.Framework.Service
         }
         public async Task<List<menu>> GetMenuById(int user_id)
         {
-            var user_data = await _Db.Set<user>().Include(u => u.roles).ThenInclude(u => u.menus).ThenInclude(u => u.children)
-                .ThenInclude(u => u.children).ThenInclude(u => u.children).ThenInclude(u => u.mould)
-                .Where(u => u.id == user_id && u.is_delete == (short)Common.Enum.DelFlagEnum.Normal).FirstOrDefaultAsync();
-            var role_data = user_data.roles.ToList();
+            var user_data = await _Db.Set<user>().Include(u => u.roles).Where(u => u.id == user_id).FirstOrDefaultAsync();
             List<menu> menu_data = new();
-            foreach (var role in role_data)
+          
+            foreach (var role in user_data.roles)
             {
                 var menu = await _roleService.GetMenusByRole(role);
                 menu.ForEach(u => u.roles = null);
                 menu_data = menu_data.Union(menu).OrderByDescending(u => u.sort).ToList();
             }
-            return TopMenuBuild2(TopMenuBuild(menu_data));
+            //menu_data为角色所有的菜单，不是一个递归的啊
+
+            var allMenuIds = menu_data.Select(u => u.id).ToList();
+            var topMenu = menu_data.Where(u => u.is_top == (short)Common.Enum.ShowFlagEnum.Show);
+
+            //现在要开始关联菜单了
+
+            List<menu> endMenu = new List<menu>();
+            foreach (var item in topMenu)
+            {
+          var p=    await  _Db.Set<menu>().Where(u=>u.id==item.id).Include(u => u.children).ThenInclude(u => u.children).ThenInclude(u => u.children).ThenInclude(u => u.children).ThenInclude(u => u.children).ToListAsync();
+                endMenu = endMenu.Union(p).ToList();
+            }
+
+
+            return TopMenuBuild2(TopMenuBuild(endMenu, allMenuIds));
         }
-        private List<menu> TopMenuBuild(List<menu> menu_data)
+        private List<menu> TopMenuBuild(List<menu> menu_data,List<int> allMenuIds)
         {
 
             for (int i = menu_data.Count() - 1; i >= 0; i--)
@@ -160,13 +173,13 @@ namespace Yi.Framework.Service
                     menu_data[i].icon = "Yi";
                 }
 
-                if (menu_data[i].is_delete == (short)Common.Enum.DelFlagEnum.Deleted|| menu_data[i].is_show == (short)Common.Enum.ShowFlagEnum.NoShow)
+                if (!allMenuIds.Contains(menu_data[i].id) || menu_data[i].is_delete == (short)Common.Enum.DelFlagEnum.Deleted|| menu_data[i].is_show == (short)Common.Enum.ShowFlagEnum.NoShow)
                 {
                     menu_data.Remove(menu_data[i]);
                 }
                 else if (menu_data[i].children != null)
                 {
-                    menu_data[i].children = TopMenuBuild(menu_data[i].children.ToList());
+                    menu_data[i].children = TopMenuBuild(menu_data[i].children.ToList(), allMenuIds);
                 }
             }
             return menu_data;
