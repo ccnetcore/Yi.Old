@@ -93,7 +93,7 @@ export default {
     mouldSelect: [],
     mouldList: [],
     desserts: [],
-    selectionType: "leaf",
+    selectionType: "independent",
     selection: [],
     dialog: false,
     editedItem: {},

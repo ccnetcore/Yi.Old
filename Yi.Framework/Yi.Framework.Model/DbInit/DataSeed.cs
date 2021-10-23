@@ -27,7 +27,7 @@ namespace Yi.Framework.Model.DbInit
                             {
                                 new menu() 
                                 { 
-                                    menu_name="用户角色管理",is_show=1,children=new List<menu>()
+                                    menu_name="用户角色管理",is_show=1,is_top=1, children=new List<menu>()
                                     {
                                         new menu()
                                         { 
@@ -110,7 +110,7 @@ namespace Yi.Framework.Model.DbInit
                                 },
                                  new menu()
                                 {
-                                    menu_name="角色接口管理",is_show=1,children=new List<menu>()
+                                    menu_name="角色接口管理",is_show=1, is_top=1,children=new List<menu>()
                                     {
                                         new menu()
                                         {
@@ -190,14 +190,14 @@ namespace Yi.Framework.Model.DbInit
                                         },
                                          new menu()
                                         {
-                                            menu_name="角色菜单分配管理",router="/admRoleMenu", is_show=1,children=null
+                                            menu_name="角色菜单分配管理",router="/admRoleMenu", is_show=1, children=null
                                         }
                                     }
 
                                 },
                                   new menu()
                                 {
-                                    menu_name="路由管理",is_show=1,children=new List<menu>()
+                                    menu_name="路由管理",is_show=1,is_top=1,children=new List<menu>()
                                     {
                                         new menu()
                                         {

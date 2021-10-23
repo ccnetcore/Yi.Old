@@ -49,15 +49,21 @@
 <script>
 // Utilities
 // import { get, sync } from 'vuex-pathify'
-
+import userApi from '@/api/userApi'
 export default {
   methods: {
+    init(){
+  userApi.GetMenuByUserId().then((resp)=>{
+    this.items=resp.data;
+  })
+},
     logout() {
       this.$store.dispatch("Logout").then((resp) => {
         this.$router.push({ path: "/login" });
       });
     },
   },
+  created(){this.init()},
   data: () => ({
     image:
       "https://demos.creative-tim.com/material-dashboard-pro/assets/img/sidebar-1.jpg",
@@ -66,70 +72,7 @@ export default {
 
     dark: null,
 
-    items: [
-      {
-        menu_name: "首页",
-        icon: "mdi-view-dashboard",
-        router: "/",
-      },
-      {
-        menu_name: "用户角色管理",
-        icon: "mdi-account",
-        router: "",
-        children: [
-          {
-            menu_name: "用户管理",
-            icon: "mdi-account",
-            router: "/admuser/",
-             children: null,
-          },
-          {
-            menu_name: "角色管理",
-            icon: "mdi-account-tie",
-            router: "/admrole/",
-            children: null,
-          },
-        ],
-      },
-      {
-        menu_name: "菜单接口管理",
-        icon: "mdi-clipboard-outline",
-        router: "",
-        children: [
-          {
-            menu_name: "菜单管理",
-            icon: "mdi-account",
-            router: "/admMenu/",
-            children: null,
-          },
-          {
-            menu_name: "接口管理",
-            icon: "mdi-account",
-            router: "/admMould/",
-            children: null,
-          },
-          {
-            menu_name: "角色菜单分配管理",
-            icon: "mdi-account",
-            router: "/admRoleMenu/",
-            children: null,
-          },
-        ],
-      },
-      {
-        menu_name: "测试路由",
-        icon: "mdi-clipboard-outline",
-        router: "",
-        children: [
-          {
-            menu_name: "用户信息",
-            icon: "mdi-account",
-            router: "/userinfo/",
-            children: null,
-          },
-        ],
-      },
-    ],
+    items: [],
   }),
   name: "DefaultDrawer",
 

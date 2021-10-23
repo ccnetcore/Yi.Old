@@ -145,22 +145,24 @@ namespace Yi.Framework.Service
             {
                 var menu = await _roleService.GetMenusByRole(role);
                 menu.ForEach(u => u.roles = null);
-                menu_data = menu_data.Concat(menu).OrderByDescending(u => u.sort).ToList();
+                menu_data = menu_data.Union(menu).OrderByDescending(u => u.sort).ToList();
             }
-            return TopMenuBuild(menu_data);
+            return TopMenuBuild2(TopMenuBuild(menu_data));
         }
         private List<menu> TopMenuBuild(List<menu> menu_data)
         {
 
             for (int i = menu_data.Count() - 1; i >= 0; i--)
             {
-                if (menu_data[i].is_delete == (short)Common.Enum.DelFlagEnum.Deleted|| menu_data[i].is_delete == (short)Common.Enum.ShowFlagEnum.NoShow)
+
+                if (menu_data[i].icon == null)
+                {
+                    menu_data[i].icon = "Yi";
+                }
+
+                if (menu_data[i].is_delete == (short)Common.Enum.DelFlagEnum.Deleted|| menu_data[i].is_show == (short)Common.Enum.ShowFlagEnum.NoShow)
                 {
                     menu_data.Remove(menu_data[i]);
-                }
-                else if (menu_data[i].children == null)
-                {
-                    menu_data[i].children =null;
                 }
                 else if (menu_data[i].children != null)
                 {
@@ -169,6 +171,26 @@ namespace Yi.Framework.Service
             }
             return menu_data;
         }
+
+        private List<menu> TopMenuBuild2(List<menu> menu_data)
+        {
+
+            for (int i = menu_data.Count() - 1; i >= 0; i--)
+            {
+                if (menu_data[i].children.Count() == 0)
+                {
+                    menu_data[i].children = null;
+                }
+                else if (menu_data[i].children != null)
+                {
+                    menu_data[i].children = TopMenuBuild2(menu_data[i].children.ToList());
+                }
+            }
+            return menu_data;
+        }
+
+
+
         public async Task<menu> GetMenuByUserId(string router)
         {
            return await _Db.Set<menu>().Include(u => u.children).ThenInclude(u => u.mould)

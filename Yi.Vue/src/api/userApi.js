@@ -25,5 +25,11 @@ export default {
             url: `/User/GetUserInfoById`,
             method: 'get'
         })
-    }
+    },
+    GetMenuByUserId() {
+        return myaxios({
+            url: `/User/GetMenuByUserId`,
+            method: 'get'
+        })
+    },
 }

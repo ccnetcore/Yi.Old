@@ -38,7 +38,7 @@
           open-on-click
           selectable
           :items="Menuitems"
-          selection-type="leaf"
+          selection-type="independent"
           v-model="selectionMenu"
           return-object
           open-all
