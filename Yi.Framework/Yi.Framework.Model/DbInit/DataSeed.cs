@@ -14,11 +14,25 @@ namespace Yi.Framework.Model.DbInit
         {
             if (!_Db.Set<user>().Any())
             {
-                await _Db.Set<user>().AddAsync(new user { username = "admin", password = "123" });
+                await _Db.Set<user>().AddAsync(new user
+                {
+                    username = "admin",
+                    password = "123",
+                    roles = new List<role>()
+                    {
+                        new role()
+                        { 
+                            menus = new List<menu>()
+                            {
+                                new menu() { mould=new mould()}
+                            }
+                        }
+                    }
+                });
             }
             await _Db.SaveChangesAsync();
 
-            Console.WriteLine(nameof(DbContext) + ":数据库用户初始成功！");
+            Console.WriteLine(nameof(DbContext) + ":数据库初始成功！");
         }
     }
 }

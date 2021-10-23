@@ -45,10 +45,10 @@ namespace Yi.Framework.Interface
         Task<List<mould>> GetMouldByUser(user _user);
 
         /// <summary>
-        /// 给单个用户设置多个角色
+        /// 给多个用户设置多个角色
         /// </summary>
         /// <param name="roleIds"></param>
-        /// <param name="userId"></param>
+        /// <param name="userIds"></param>
         /// <returns></returns>
         Task<bool> SetRolesByUser(List<int> roleIds, List<int> userIds);
         /// <summary>
@@ -64,11 +64,22 @@ namespace Yi.Framework.Interface
         /// <returns></returns>
         Task<List<menu>> GetMenuByUser(user _user);
         /// <summary>
-        /// 通过用户id，得到该用户的所有信息，关联角色
+        /// 通过用户id，得到该用户的所有信息，关联角色,过滤迭代
         /// </summary>
         /// <param name="user_id"></param>
         /// <returns></returns>
         Task<user> GetUserInfoById(int user_id);
+        /// <summary>
+        /// 通过用户id，得到该用户的所有信息，关联角色
+        /// </summary>
+        /// <param name="user_id"></param>
+        /// <returns></returns>
         Task<user> GetUserById(int user_id);
+        /// <summary>
+        /// 通过http获取用户id，得到该用户所有的菜单（递归的那种），把所有children为[]的值全部过滤成null,不要绑定mould
+        /// </summary>
+        /// <param name="user_id"></param>
+        /// <returns></returns>
+        Task<List<menu>> GetMenuById(int user_id);
     }
 }

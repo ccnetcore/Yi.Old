@@ -25,6 +25,7 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
             #endregion
             services.AddScoped<DbContext, DataContext>();
 
+
             return services;
         }
 

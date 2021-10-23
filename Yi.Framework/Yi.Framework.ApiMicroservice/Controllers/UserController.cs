@@ -129,8 +129,37 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             var _user = HttpContext.GetCurrentUserInfo();          
             return Result.Success().SetData(await _userService.GetUserInfoById(_user.id));
         }
-
-
+        [HttpGet]
+        public async Task<Result> GetMenuByUserId()
+        {
+            var _user = HttpContext.GetCurrentUserInfo();
+            return Result.Success().SetData(await _userService.GetMenuById(_user.id));
+        }
+        [HttpPost]
+        public async Task<Result> GetRouterByUserId( AxiosUrlsModel urlsModel,string router)
+        {
+            var _user = HttpContext.GetCurrentUserInfo();
+            var menuList= await _userService.GetMenuById(_user.id);
+            var menu_data= menuList.Where(u => u.router == router).FirstOrDefault();
+            foreach(var _menu in menu_data.children)
+                if (_menu.mould.mould_name == "get")
+                {
+                    urlsModel.get= _menu.mould.url;
+                }
+                else if (_menu.mould.mould_name == "del")
+                {
+                    urlsModel.del= _menu.mould.url ;
+                }
+                else if (_menu.mould.mould_name == "update")
+                {
+                    urlsModel.update= _menu.mould.url ;
+                }
+                else if (_menu.mould.mould_name == "add")
+                {
+                    urlsModel.add = _menu.mould.url ;
+                }          
+            return Result.Success().SetData(urlsModel);
+        }
 
     }
 }

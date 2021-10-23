@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Yi.Framework.Common.Helper
 {
-    public class MD5Helper
+    public  class MD5Helper
     {
         /// <summary>
         /// 16位MD5加密

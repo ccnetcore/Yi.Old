@@ -134,5 +134,40 @@ namespace Yi.Framework.Service
                 .Where(u => u.id == user_id && u.is_delete == (short)Common.Enum.DelFlagEnum.Normal).FirstOrDefaultAsync();
             return user_data;
         }
+        public async Task<List<menu>> GetMenuById(int user_id)
+        {
+            var user_data = await _Db.Set<user>().Include(u => u.roles).ThenInclude(u => u.menus).ThenInclude(u => u.children)
+                .ThenInclude(u => u.children).ThenInclude(u => u.children).ThenInclude(u => u.mould)
+                .Where(u => u.id == user_id && u.is_delete == (short)Common.Enum.DelFlagEnum.Normal).FirstOrDefaultAsync();
+            var role_data = user_data.roles.ToList();
+            List<menu> menu_data = new();
+            foreach (var role in role_data)
+            {
+                var menu = await _roleService.GetMenusByRole(role);
+                menu.ForEach(u => u.roles = null);
+                menu_data = menu_data.Concat(menu).OrderByDescending(u => u.sort).ToList();
+            }
+            return TopMenuBuild(menu_data);
+        }
+        private List<menu> TopMenuBuild(List<menu> menu_data)
+        {
+
+            for (int i = menu_data.Count() - 1; i >= 0; i--)
+            {
+                if (menu_data[i].is_delete == (short)Common.Enum.DelFlagEnum.Deleted|| menu_data[i].is_delete == (short)Common.Enum.ShowFlagEnum.NoShow)
+                {
+                    menu_data.Remove(menu_data[i]);
+                }
+                else if (menu_data[i].children == null)
+                {
+                    menu_data[i].children =null;
+                }
+                else if (menu_data[i].children != null)
+                {
+                    menu_data[i].children = TopMenuBuild(menu_data[i].children.ToList());
+                }
+            }
+            return menu_data;
+        }
     }
 }
