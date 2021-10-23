@@ -169,5 +169,10 @@ namespace Yi.Framework.Service
             }
             return menu_data;
         }
+        public async Task<menu> GetMenuByUserId(string router)
+        {
+           return await _Db.Set<menu>().Include(u => u.children).ThenInclude(u => u.mould)
+                .Where(u => u.router==router&&u.is_delete == (short)Common.Enum.DelFlagEnum.Normal && u.is_delete == (short)Common.Enum.ShowFlagEnum.Show).FirstOrDefaultAsync();
+        }
     }
 }

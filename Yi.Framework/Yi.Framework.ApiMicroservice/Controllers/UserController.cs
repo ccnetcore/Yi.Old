@@ -139,9 +139,11 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         public async Task<Result> GetRouterByUserId( AxiosUrlsModel urlsModel,string router)
         {
             var _user = HttpContext.GetCurrentUserInfo();
-            var menuList= await _userService.GetMenuById(_user.id);
-            var menu_data= menuList.Where(u => u.router == router).FirstOrDefault();
-            foreach(var _menu in menu_data.children)
+            var menuList = await _userService.GetMenuById(_user.id);
+            //var menu_data= await _userService.GetMenuByUserId(router);
+            var menu_data =menuList.Where(u=>u.router==router).FirstOrDefault();
+
+            foreach (var _menu in menu_data.children)
                 if (_menu.mould.mould_name == "get")
                 {
                     urlsModel.get= _menu.mould.url;

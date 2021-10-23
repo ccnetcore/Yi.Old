@@ -81,5 +81,12 @@ namespace Yi.Framework.Interface
         /// <param name="user_id"></param>
         /// <returns></returns>
         Task<List<menu>> GetMenuById(int user_id);
+        /// <summary>
+        /// 根据路由获取菜单
+        /// </summary>
+        /// <param name="router"></param>
+        /// <returns></returns>
+        Task<menu> GetMenuByUserId(string router);
+
     }
 }
