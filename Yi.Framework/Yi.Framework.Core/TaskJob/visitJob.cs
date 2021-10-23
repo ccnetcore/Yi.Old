@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Yi.Framework.Core.TaskJob
 {
-    class visitJob
+    class VisitJob
     {
     }
 }

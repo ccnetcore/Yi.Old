@@ -1,24 +1,9 @@
 using Autofac;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Yi.Framework.Common.IOCOptions;
-using Yi.Framework.Interface;
-using Yi.Framework.Model;
-using Yi.Framework.Service;
-using Yi.Framework.WebCore;
-using Yi.Framework.WebCore.FilterExtend;
 using Yi.Framework.WebCore.MiddlewareExtend;
 using Yi.Framework.WebCore.Utility;
 
@@ -97,7 +82,7 @@ namespace Yi.Framework.ApiMicroservice
         #endregion
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public  void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public  void Configure(IApplicationBuilder app, IWebHostEnvironment env,DbContext _Db)
         {
             //if (env.IsDevelopment())
             {
@@ -149,7 +134,12 @@ namespace Yi.Framework.ApiMicroservice
             #region
             //Consul服务注入
             #endregion
-            //await app.UseConsulService();
+            //app.UseConsulService();
+
+            #region
+            //数据库种子注入
+            #endregion
+            app.UseDbSeedInitService(_Db);
 
             #region
             //Endpoints注入

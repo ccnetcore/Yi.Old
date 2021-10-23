@@ -23,7 +23,7 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
         /// <param name="app"></param>
         /// <param name="healthService"></param>
         /// <returns></returns>
-        public static async Task UseConsulService(this IApplicationBuilder app)
+        public static  void UseConsulService(this IApplicationBuilder app)
         {
           var consulRegisterOption=  Appsettings.app<ConsulRegisterOption>("ConsulRegisterOption");
 
@@ -34,7 +34,7 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
                  c.Datacenter = consulClientOption.Datacenter;
              }))
             {
-                await client.Agent.ServiceRegister(new AgentServiceRegistration()
+                 client.Agent.ServiceRegister(new AgentServiceRegistration()
                 {
                     ID = $"{consulRegisterOption.IP}-{consulRegisterOption.Port}-{Guid.NewGuid()}",//唯一Id
                     Name = consulRegisterOption.GroupName,//组名称-Group
@@ -48,7 +48,7 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
                         Timeout = TimeSpan.FromSeconds(consulRegisterOption.Timeout),
                         DeregisterCriticalServiceAfter = TimeSpan.FromSeconds(consulRegisterOption.DeregisterCriticalServiceAfter)
                     }
-                });
+                }).Wait();
                 Console.WriteLine($"{JsonConvert.SerializeObject(consulRegisterOption)} 完成注册");
             }
         }
