@@ -12,21 +12,26 @@
   </material-card>
 </template>
 <script>
+import userApi from "../api/userApi"
 export default {
   created() {
     this.init();
   },
   methods: {
     init() {
+     userApi.GetRouterByUserId(this.$route.path).then(resp=>{
+       this.axiosUrls=resp.data;
+     })
+      
     }
   },
   data: () => ({
     start: true,
     axiosUrls: {
-      get: "role/getrole",
-      update: "role/updaterole",
-      del: "role/delListrole",
-      add: "role/addrole",
+      // get: "role/getrole",
+      // update: "role/updaterole",
+      // del: "role/delListrole",
+      // add: "role/addrole",
     },
     headers: [
       { text: "编号", align: "start", value: "id" },

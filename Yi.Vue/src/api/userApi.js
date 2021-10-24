@@ -32,4 +32,10 @@ export default {
             method: 'get'
         })
     },
+    GetRouterByUserId(router) {
+        return myaxios({
+            url: `/User/GetRouterByUserId?router=${router}`,
+            method: 'get'
+        })
+    }
 }

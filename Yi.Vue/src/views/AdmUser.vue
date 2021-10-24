@@ -36,31 +36,31 @@ export default {
   methods: {
     async showItem(item) {
       var strInfo = "";
-         userApi.GetRolesByUserId(item.id).then(async(resp)=>{
+      userApi.GetRolesByUserId(item.id).then(async (resp) => {
+        const roleData = resp.data;
+        strInfo += "拥有的角色:<br>";
+        roleData.forEach((u) => {
+          strInfo += u.role_name + "<br>";
+        });
 
-const roleData=resp.data;
-strInfo+="拥有的角色:<br>"
-roleData.forEach(u=>{strInfo+=u.role_name+"<br>"})
+        strInfo += "<hr>";
+        Object.keys(item).forEach(async function (key) {
+          strInfo += key + ":" + item[key] + "<br>";
+        });
 
-strInfo+="<hr>"
-                 Object.keys(item).forEach(async function (key) {
-        strInfo += key + ":" + item[key] + "<br>";
+        await this.$dialog.confirm({
+          text: strInfo,
+          title: "信息详情",
+          actions: {
+            true: "关闭",
+          },
+        });
       });
-   
-      await this.$dialog.confirm({
-        text: strInfo,
-        title: "信息详情",
-        actions: {
-          true: "关闭",
-        },
-      });
-
-
-
-})
-
     },
     init() {
+      userApi.GetRouterByUserId(this.$route.path).then((resp) => {
+        this.axiosUrls = resp.data;
+      });
       roleApi.getRole().then((resp) => {
         this.roleItems = resp.data;
       });
@@ -93,12 +93,7 @@ strInfo+="<hr>"
     TableSelect: [],
     select: [],
     roleItems: [],
-    axiosUrls: {
-      get: "user/getuser",
-      update: "user/updateuser",
-      del: "user/delListuser",
-      add: "user/adduser",
-    },
+    axiosUrls: {},
     headers: [
       { text: "编号", align: "start", value: "id" },
       { text: "用户名", value: "username", sortable: false },
@@ -118,8 +113,8 @@ strInfo+="<hr>"
       icon: "mdi-lock",
       nick: "橙子",
       age: 18,
-      address:"中国",
-      phone:""
+      address: "中国",
+      phone: "",
     },
   }),
 };
