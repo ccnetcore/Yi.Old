@@ -138,33 +138,20 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpGet]
         public async Task<Result> GetRouterByUserId(string router)
         {
-            var _user = HttpContext.GetCurrentUserInfo();
-            var menu_data = await _userService.GetMenuByUserId(router,_user.id);
+            var _user = HttpContext.GetCurrentUserInfo(out List<int> menuIds);
+            var menu_data = await _userService.GetMenuByUserId(router,_user.id, menuIds);
             AxiosUrlsModel urlsModel = new();
-            foreach (var _menu in menu_data.children)
-                if (_menu.mould.mould_name == "get")
+            foreach (var _menu in menu_data)
+            {
+                var mould_name = _menu.mould.mould_name;
+                switch (mould_name)
                 {
-                    urlsModel.get= _menu.mould.url;
+                    case "get":urlsModel.get= _menu.mould.url;break;
+                    case "add": urlsModel.add = _menu.mould.url; break;
+                    case "del": urlsModel.del = _menu.mould.url; break;
+                    case "update": urlsModel.update = _menu.mould.url; break;
                 }
-                else if (_menu.mould.mould_name == "del")
-                {
-                    urlsModel.del= _menu.mould.url ;
-                }
-                else if (_menu.mould.mould_name == "update")
-                {
-                    urlsModel.update= _menu.mould.url ;
-                }
-                else if (_menu.mould.mould_name == "add")
-                {
-                    urlsModel.add = _menu.mould.url ;
-                }
-                else
-                {
-                    urlsModel.add = null;
-                    urlsModel.del = null;
-                    urlsModel.update = null;
-                    urlsModel.get = null;
-                }
+            }
             return Result.Success().SetData(urlsModel);
         }
 

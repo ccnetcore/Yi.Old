@@ -21,10 +21,12 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         private readonly ILogger<UserController> _logger;
 
         private IUserService _userService;
-        public AccountController(ILogger<UserController> logger, IUserService userService)
+        private IMenuService _menuService;
+        public AccountController(ILogger<UserController> logger, IUserService userService, IMenuService menuService)
         {
             _logger = logger;
             _userService = userService;
+            _menuService = menuService;
         }
 
 
@@ -37,10 +39,10 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         public async Task<Result> Login(user _user)
         {
             var user_data = await _userService.Login(_user);
-            if( user_data!=null)
-            {
-                
-                var token = MakeJwt.app(user_data);
+            var menuList = await _userService.GetMenusByUser(user_data);
+            if ( user_data!=null)
+            {               
+                var token = MakeJwt.app(new jwtUser() {user=user_data,menuIds= menuList});
                 return Result.Success().SetData(new { user = new { _user.id, _user.username, _user.introduction, _user.icon, _user.nick }, token });
             }
             return Result.Error();

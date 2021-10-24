@@ -110,15 +110,14 @@ namespace Yi.Framework.Service
         }
         public async Task <List<menu>> GetMenuByUser(user _user)
         {
-            var user_data =await _Db.Set<user>().Include(u => u.roles).ThenInclude(u => u.menus)
-                .Where(u => u.id == _user.id && u.is_delete == (short)Common.Enum.DelFlagEnum.Normal).FirstOrDefaultAsync();
-           var role_data= user_data.roles.ToList();
+            //var user_data =await _Db.Set<user>().Include(u => u.roles).ThenInclude(u => u.menus)
+            //    .Where(u => u.id == _user.id && u.is_delete == (short)Common.Enum.DelFlagEnum.Normal).FirstOrDefaultAsync();
             List<menu> menu_data = new ();
-            foreach (var role in role_data)
+            foreach (var role in _user.roles)
             {
-                var menu = await _roleService.GetMenusByRole(role);
+                var menu = role.menus.ToList();
                 menu.ForEach(u=>u.roles=null);
-                menu_data = menu_data.Concat(menu).OrderByDescending(u=>u.sort).ToList();               
+                menu_data = menu_data.Concat(menu).ToList();               
             }                  
             return menu_data;
         }
@@ -204,15 +203,19 @@ namespace Yi.Framework.Service
 
 
 
-        public async Task<menu> GetMenuByUserId(string router,int userId)
+        public async Task<List<menu>> GetMenuByUserId(string router,int userId,List<int> menuIds)
         {
-           var user_data= await _Db.Set<user>().Include(u => u.roles).ThenInclude(u => u.menus).ThenInclude(u => u.mould)
-                .Where(u => u.id==userId&&u.is_delete == (short)Common.Enum.DelFlagEnum.Normal && u.is_delete == (short)Common.Enum.ShowFlagEnum.Show).FirstOrDefaultAsync();
+           var user_data= await _Db.Set<user>().Include(u => u.roles).ThenInclude(u => u.menus).ThenInclude(u => u.children)
+                .ThenInclude(u => u.mould).Where(u => u.id==userId).FirstOrDefaultAsync();
            var roleList= user_data.roles.ToList();
-            menu menu_data=new();
+            roleList.ForEach(u => u.users = null);           
+            List<menu> menu_data =new();
             foreach(var item in roleList)
-            {              
-                menu_data = item.menus.Where(u => u.router == router).FirstOrDefault();
+            {
+                item.menus.ToList().ForEach(u => u.roles = null);
+                var menuData = item.menus.Where(u => u.router == router).FirstOrDefault();
+                menu_data= menuData.children?.Where(u => menuIds.Contains(u.id)&& u.is_delete == (short)Common.Enum.DelFlagEnum.Normal).ToList();
+                if (menu_data != null) { break; }
             }
            
             return  menu_data;

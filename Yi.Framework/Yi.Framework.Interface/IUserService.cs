@@ -86,7 +86,7 @@ namespace Yi.Framework.Interface
         /// </summary>
         /// <param name="router"></param>
         /// <returns></returns>
-        Task<menu> GetMenuByUserId(string router,int userId);
+        Task<List<menu>> GetMenuByUserId(string router,int userId, List<int> menuIds);
 
     }
 }
