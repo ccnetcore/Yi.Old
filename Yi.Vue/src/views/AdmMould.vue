@@ -18,7 +18,7 @@ methods:{
   init(){
          userApi.GetRouterByUserId(this.$route.path).then(resp=>{
        this.axiosUrls=resp.data;
-  }
+  })
   }
 },
   data: () => ({
