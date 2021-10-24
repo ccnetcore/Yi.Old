@@ -183,7 +183,7 @@ namespace Yi.Framework.Model.DbInit
                                                     menu_name="add",is_show=0,
                                                     mould=new mould()
                                                     {
-                                                        mould_name="del",url="/Mould/addMould"
+                                                        mould_name="add",url="/Mould/addMould"
                                                     }
                                                 }
                                             }

@@ -58,7 +58,7 @@
         <v-btn  v-if="item.mould" class="mr-2">接口地址:{{ item.mould.url }}</v-btn>
         <ccCombobox
           headers="设置接口权限"
-          itemText="mould_name"
+          itemText="url"
           :items="mouldList"
           @select="getSelect"
         >

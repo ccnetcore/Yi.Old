@@ -28,10 +28,6 @@ export default {
   data: () => ({
     start: true,
     axiosUrls: {
-      // get: "role/getrole",
-      // update: "role/updaterole",
-      // del: "role/delListrole",
-      // add: "role/addrole",
     },
     headers: [
       { text: "编号", align: "start", value: "id" },
