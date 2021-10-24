@@ -204,10 +204,18 @@ namespace Yi.Framework.Service
 
 
 
-        public async Task<menu> GetMenuByUserId(string router)
+        public async Task<menu> GetMenuByUserId(string router,int userId)
         {
-           return await _Db.Set<menu>().Include(u => u.children).ThenInclude(u => u.mould)
-                .Where(u => u.router==router&&u.is_delete == (short)Common.Enum.DelFlagEnum.Normal && u.is_delete == (short)Common.Enum.ShowFlagEnum.Show).FirstOrDefaultAsync();
+           var user_data= await _Db.Set<user>().Include(u => u.roles).ThenInclude(u => u.menus).ThenInclude(u => u.mould)
+                .Where(u => u.id==userId&&u.is_delete == (short)Common.Enum.DelFlagEnum.Normal && u.is_delete == (short)Common.Enum.ShowFlagEnum.Show).FirstOrDefaultAsync();
+           var roleList= user_data.roles.ToList();
+            menu menu_data=new();
+            foreach(var item in roleList)
+            {              
+                menu_data = item.menus.Where(u => u.router == router).FirstOrDefault();
+            }
+           
+            return  menu_data;
         }
     }
 }
