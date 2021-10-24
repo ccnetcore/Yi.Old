@@ -113,7 +113,7 @@ namespace Yi.Framework.Service
             var user_data = await _Db.Set<user>().Include(u => u.roles).ThenInclude(u => u.menus)
                 .Where(u => u.id == _user.id && u.is_delete == (short)Common.Enum.DelFlagEnum.Normal).FirstOrDefaultAsync();
             List<menu> menu_data = new ();
-            foreach (var role in _user.roles)
+            foreach (var role in user_data.roles)
             {
                 var menu = role.menus.ToList();
                 menu.ForEach(u=>u.roles=null);

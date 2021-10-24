@@ -72,8 +72,7 @@ namespace Yi.Framework.Service
 
         public async Task<List<menu>> GetTopMenu()
         {
-            var menu_data= await _Db.Set<menu>().Include(u=>u.mould).Include(u => u.children)
-                .ThenInclude(u => u.children).ThenInclude(u => u.children).ThenInclude(u => u.children)
+            var menu_data= await _Db.Set<menu>().Include(u=>u.mould).Include(u => u.children).ThenInclude(u => u.children).ThenInclude(u => u.children).ThenInclude(u => u.children)
                .Where(u =>u.is_delete == (short)Common.Enum.DelFlagEnum.Normal && u.is_top == (short)Common.Enum.ShowFlagEnum.Show)
                .ToListAsync();
          return TopMenuBuild(menu_data); 

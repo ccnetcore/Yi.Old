@@ -31,8 +31,8 @@ methods:{
       { text: "操作", value: "actions", sortable: false },
     ],
     defaultItem: {
-      mould_name: "test",
-      url: "test/test",
+      mould_name: "get",
+      url: "/get/gettest",
     },
   }),
 };
