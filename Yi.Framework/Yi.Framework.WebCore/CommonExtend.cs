@@ -29,14 +29,19 @@ namespace Yi.Framework.WebCore
         /// </summary>
         /// <param name="httpContext"></param>
         /// <returns></returns>
-        public static user GetCurrentUserInfo(this HttpContext httpContext)
+        public static user GetCurrentUserInfo(this HttpContext httpContext, out List<int> menuIds)
         {
             IEnumerable<Claim> claimlist = httpContext.AuthenticateAsync().Result.Principal.Claims;
-       
-            Int32.TryParse(claimlist.FirstOrDefault(u => u.Type == ClaimTypes.Sid).Value,out int resId);
+
+            Int32.TryParse(claimlist.FirstOrDefault(u => u.Type == ClaimTypes.Sid).Value, out int resId);
+
+
+            menuIds = claimlist.Where(u => u.Type == "menuIds").ToList().Select(u => Convert.ToInt32(u.Value)).ToList();
+
+
             return new user()
             {
-                id =resId,
+                id = resId,
                 username = claimlist.FirstOrDefault(u => u.Type == ClaimTypes.Name).Value ?? "匿名"
             };
         }
