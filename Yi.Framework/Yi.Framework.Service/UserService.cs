@@ -209,7 +209,7 @@ namespace Yi.Framework.Service
         }
 
         /// <summary>
-        /// 这种就命名的话，改成MenuChildrenBuild
+        /// 这种就命名的话，改成MenuChildrenBuild,这个方法应该可以提到core层，这是一个公用的方法
         /// </summary>
         /// <param name="menu_data"></param>
         /// <returns></returns>

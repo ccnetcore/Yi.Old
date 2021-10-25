@@ -14,6 +14,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [Authorize]
     public class MenuController : ControllerBase
     {
         private IMenuService _menuService;

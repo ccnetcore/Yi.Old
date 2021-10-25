@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -109,6 +110,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <param name="pwdDto"></param>
         /// <returns></returns>
         [HttpPut]
+        [Authorize]
         public async Task<Result> ChangePassword(ChangePwdDto pwdDto)
         {
             var uid= pwdDto.user.id;

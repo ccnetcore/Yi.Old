@@ -55,7 +55,7 @@
         <v-btn class="mr-2">图标:{{ item.icon }}</v-btn>
         <v-btn class="mr-2">路由:{{ item.router }}</v-btn>
         <v-btn v-if="item.mould" class="mr-2">接口名:{{ item.mould.mould_name }}</v-btn>
-        <v-btn  v-if="item.mould" class="mr-2">接口地址:{{ item.mould.url }}</v-btn>
+        <v-btn  v-if="item.mould" class="mr-2" color="secondary">接口地址:{{ item.mould.url }}</v-btn>
         <ccCombobox
           headers="设置接口权限"
           itemText="url"
