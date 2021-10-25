@@ -11,17 +11,6 @@ namespace Yi.Framework.Service
 {
    public partial class RoleService:BaseService<role>, IRoleService
     {
-        public async Task<bool> DelListByUpdateAsync(List<int> _ids)
-        {
-            var userList = await GetEntitiesAsync(u=>_ids.Contains(u.id));
-            userList.ToList().ForEach(u => u.is_delete =(short)Common.Enum.DelFlagEnum.Deleted);
-            return await UpdateListAsync(userList);
-        }
-        public async Task<IEnumerable<role>> GetAllEntitiesTrueAsync()
-        {
-            return await GetEntitiesAsync(u => u.is_delete == (short)Common.Enum.DelFlagEnum.Normal);
-        }
-
         public async Task<List<menu>> GetMenusByRole(role _role)
         {
             var role_data =await _Db.Set<role>().Include(u => u.menus)

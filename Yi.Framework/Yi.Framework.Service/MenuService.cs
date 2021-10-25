@@ -20,18 +20,6 @@ namespace Yi.Framework.Service
             return menu_data;
         }
 
-        public async Task<bool> DelListByUpdateAsync(List<int> _ids)
-        {
-            var menuList = await GetEntitiesAsync(u=>_ids.Contains(u.id));
-            menuList.ToList().ForEach(u => u.is_delete = (short)Common.Enum.DelFlagEnum.Deleted);
-            return await UpdateListAsync(menuList);
-        }
-
-        public async Task<IEnumerable<menu>> GetAllEntitiesTrueAsync()
-        {
-            return await GetEntitiesAsync(u=> u.is_delete == (short)Common.Enum.DelFlagEnum.Normal);
-        }
-
         public async Task<List<menu>> GetChildrenByMenu(menu _menu)
         {
             var menu_data = await GetEntity(u=>u.id==_menu.id&& u.is_delete == (short)Common.Enum.DelFlagEnum.Normal);

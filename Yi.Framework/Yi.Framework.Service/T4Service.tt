@@ -39,6 +39,19 @@ namespace Yi.Framework.Service
         public partial class <#= fn #>Service:BaseService<<#= k #>>,I<#= fn #>Service 
         {
             public <#= fn #>Service(DbContext Db):base(Db){ }
+
+            public async Task<bool> DelListByUpdateAsync(List<int> _ids)
+            {
+                var <#= k #>List = await GetEntitiesAsync(u=>_ids.Contains(u.id));
+                <#= k #>List.ToList().ForEach(u => u.is_delete = (short)Common.Enum.DelFlagEnum.Deleted);
+                return await UpdateListAsync(<#= k #>List);
+            }
+
+            public async Task<IEnumerable<<#= k #>>> GetAllEntitiesTrueAsync()
+            {
+                return await GetEntitiesAsync(u=> u.is_delete == (short)Common.Enum.DelFlagEnum.Normal);
+            }
+
         }
 <#    } #>
 }
