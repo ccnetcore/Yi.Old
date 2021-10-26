@@ -102,16 +102,20 @@
 
 **国内.Net行业领头人中鼎鼎有名的微软MVP**： Eleven神、哲学的老张
 
-**参与开发人员**：
+**核心开发人员**：
 
 [橙子]https://github.com/ccnetcore
 
 [lzw]https://github.com/yeslode
 
+[其他]https://github.com
+
+****
 #### 联系我们：
 
 QQ：454313500
 
+****
 #### FQA:
 
 问1：为何不采用经典的三层架构？
