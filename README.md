@@ -9,6 +9,7 @@
 [![sdk](https://img.shields.io/badge/sdk-5.0.1-d.svg)](#) [![License MIT](https://img.shields.io/badge/license-Apache-blue.svg?style=flat-square)](https://github.com/ccnetcore/Yi/master/LICENSE) [![star this repo](https://githubbadges.com/star.svg?user=ccnetcore&repo=Yi&style=flat-square)](https://github.com/ccnetcore/Yi)[![fork this repo](https://githubbadges.com/fork.svg?user=ccnetcore&repo=Yi&style=flat-square)](https://github.com/ccnetcore/Yi/fork)
 ****
 #### 简介:
+**中文：Yi框架**
 
 **CC.Yi.Old**：.Net5早期三层单体架构（已被CC.Yi取代）
 
@@ -54,20 +55,20 @@
 - [x] 支持`Aop封装`，FilterAop、IocAop、LogAop
 - [x] 支持`Log4Net日志`记录，自动生成至bin目录下的logs文件夹
 - [x] 支持`DbSeed数据库种子数据`接入，默认创建admin用户，密码123
-- [x] 支持主流数据库随意切换，Mysql/Sqlite/Sqlserver/Oracle
-- [x] 支持微软官方EFcore ORM
-- [x] 支持swagger，jwt身份认证接入
-- [x] 支持Cors跨域
-- [x] 支持AutoFac自动映射依赖注入   
-- [x] 支持consul健康检查
-- [x] 支持RabbitMQ消息队列
-- [x] 支持Redis多级缓存 
-- [x] 支持Ocelot网关，路由、服务聚合、服务发现、认证、鉴权、限流、熔断、缓存、Header头传递
-- [x] 支持Apollo全局配置中心;
-- [x] 支持docker镜像制作
-- [x] 支持页面静态化处理，将动态页面生成静态页面
-- [ ] 支持 ELK
-- [ ] 支持IdentityService4
+- [x] 支持主流`数据库随意切换`，Mysql/Sqlite/Sqlserver/Oracle
+- [x] 支持微软官方`EFcore ORM`
+- [x] 支持`SwaggerWebAPI`，jwt身份认证接入
+- [x] 支持`Cors`跨域
+- [x] 支持`AutoFac`自动映射依赖注入   
+- [x] 支持`consul`健康检查
+- [x] 支持`RabbitMQ`消息队列
+- [x] 支持`Redis`多级缓存 
+- [x] 支持Ocelot`网关，路由、服务聚合、服务发现、认证、鉴权、限流、熔断、缓存、Header头传递
+- [x] 支持`Apollo`全局配置中心;
+- [x] 支持`docker`镜像制作
+- [x] 支持页面`静态化处理`，将动态页面生成静态页面
+- [ ] 支持ELK
+- [ ] 支持IdentityService4`
 - [ ] 支持Es分词查询
 - [ ] 支持微信支付
 - [ ] 支持Quartz.net任务调度，实现任意接口被调度
