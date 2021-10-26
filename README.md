@@ -9,7 +9,7 @@
 [![sdk](https://img.shields.io/badge/sdk-5.0.1-d.svg)](#) [![License MIT](https://img.shields.io/badge/license-Apache-blue.svg?style=flat-square)](https://github.com/ccnetcore/Yi/master/LICENSE) [![star this repo](https://githubbadges.com/star.svg?user=ccnetcore&repo=Yi&style=flat-square)](https://github.com/ccnetcore/Yi)[![fork this repo](https://githubbadges.com/fork.svg?user=ccnetcore&repo=Yi&style=flat-square)](https://github.com/ccnetcore/Yi/fork)
 ****
 #### 简介:
-**中文：Yi框架**
+**中文：意框架**
 
 **CC.Yi.Old**：.Net5早期三层单体架构（已被CC.Yi取代）
 
