@@ -50,7 +50,7 @@
 - [x] 支持采用`异步`开发awit/async
 - [x] 支持数据库主从`读写分离`
 - [x] 支持功能替换，无需改动代码，只需配置`json文件`进行装配即可
-- [x] 支持采用DbFirst开发方式，使用`T4模板代码生成器`，自动映射model层代码一键生成Service层于IService所有代码
+- [x] 支持采用DbFirst开发方式，使用`T4模板代码生成器`，自动映射模型一键生成Service及IService所有代码
 - [x] 支持`用户-角色-菜单-接口`以及vue2.0前端全部逻辑代码，下载无需修改直接使用
 - [x] 支持`Aop封装`，FilterAop、IocAop、LogAop
 - [x] 支持`Log4Net日志`记录，自动生成至bin目录下的logs文件夹
