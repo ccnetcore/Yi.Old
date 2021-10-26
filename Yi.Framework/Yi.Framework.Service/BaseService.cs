@@ -5,16 +5,22 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Yi.Framework.Common.Enum;
 using Yi.Framework.Interface;
+using Yi.Framework.Model.ModelFactory;
 
 namespace Yi.Framework.Service
 {
     public class BaseService<T> : IBaseService<T> where T : class, new()
     {
         public DbContext _Db;
-        public BaseService(DbContext Db)
+        public DbContext _Db2;
+        public IDbContextFactory _DbFactory;
+        public BaseService(IDbContextFactory DbFactory)
         {
-            _Db = Db;
+            _DbFactory = DbFactory;
+            _Db = DbFactory.ConnWriteOrRead(WriteAndReadEnum.Write);
+            _Db2 = DbFactory.ConnWriteOrRead(WriteAndReadEnum.Read);
         }
 
         public async Task<T> GetEntityById(int id)

@@ -23,36 +23,39 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
         /// <param name="app"></param>
         /// <param name="healthService"></param>
         /// <returns></returns>
-        public static  void UseConsulService(this IApplicationBuilder app)
+        public static void UseConsulService(this IApplicationBuilder app)
         {
-          var consulRegisterOption=  Appsettings.app<ConsulRegisterOption>("ConsulRegisterOption");
 
-         var consulClientOption=   Appsettings.app<ConsulClientOption>("ConsulRegisterOption");
-            using (ConsulClient client = new ConsulClient(c =>
-             {
-                 c.Address = new Uri($"http://{consulClientOption.IP}:{consulClientOption.Port}/");
-                 c.Datacenter = consulClientOption.Datacenter;
-             }))
+            if (Appsettings.appBool("Consul_Enabled"))
             {
-                 client.Agent.ServiceRegister(new AgentServiceRegistration()
+                var consulRegisterOption = Appsettings.app<ConsulRegisterOption>("ConsulRegisterOption");
+
+                var consulClientOption = Appsettings.app<ConsulClientOption>("ConsulRegisterOption");
+                using (ConsulClient client = new ConsulClient(c =>
+                 {
+                     c.Address = new Uri($"http://{consulClientOption.IP}:{consulClientOption.Port}/");
+                     c.Datacenter = consulClientOption.Datacenter;
+                 }))
                 {
-                    ID = $"{consulRegisterOption.IP}-{consulRegisterOption.Port}-{Guid.NewGuid()}",//唯一Id
-                    Name = consulRegisterOption.GroupName,//组名称-Group
-                    Address = consulRegisterOption.IP,
-                    Port = consulRegisterOption.Port,
-                    Tags = new string[] { consulRegisterOption.Tag },
-                    Check = new AgentServiceCheck()
+                    client.Agent.ServiceRegister(new AgentServiceRegistration()
                     {
-                        Interval = TimeSpan.FromSeconds(consulRegisterOption.Interval),
-                        HTTP = $"http://{consulRegisterOption.IP}:{consulRegisterOption.Port}{consulRegisterOption.HealthCheckUrl}",
-                        Timeout = TimeSpan.FromSeconds(consulRegisterOption.Timeout),
-                        DeregisterCriticalServiceAfter = TimeSpan.FromSeconds(consulRegisterOption.DeregisterCriticalServiceAfter)
-                    }
-                }).Wait();
-                Console.WriteLine($"{JsonConvert.SerializeObject(consulRegisterOption)} 完成注册");
+                        ID = $"{consulRegisterOption.IP}-{consulRegisterOption.Port}-{Guid.NewGuid()}",//唯一Id
+                        Name = consulRegisterOption.GroupName,//组名称-Group
+                        Address = consulRegisterOption.IP,
+                        Port = consulRegisterOption.Port,
+                        Tags = new string[] { consulRegisterOption.Tag },
+                        Check = new AgentServiceCheck()
+                        {
+                            Interval = TimeSpan.FromSeconds(consulRegisterOption.Interval),
+                            HTTP = $"http://{consulRegisterOption.IP}:{consulRegisterOption.Port}{consulRegisterOption.HealthCheckUrl}",
+                            Timeout = TimeSpan.FromSeconds(consulRegisterOption.Timeout),
+                            DeregisterCriticalServiceAfter = TimeSpan.FromSeconds(consulRegisterOption.DeregisterCriticalServiceAfter)
+                        }
+                    }).Wait();
+                    Console.WriteLine($"{JsonConvert.SerializeObject(consulRegisterOption)} 完成注册");
+                }
             }
         }
-
 
     }
 }

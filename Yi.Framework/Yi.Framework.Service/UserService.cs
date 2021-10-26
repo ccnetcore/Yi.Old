@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Yi.Framework.Interface;
 using Yi.Framework.Model;
+using Yi.Framework.Model.ModelFactory;
 using Yi.Framework.Model.Models;
 
 namespace Yi.Framework.Service
@@ -14,7 +15,7 @@ namespace Yi.Framework.Service
     public partial class UserService : BaseService<user>, IUserService
     {
         private IRoleService _roleService;
-        public UserService(DbContext Db, IRoleService roleService) : base(Db)
+        public UserService(IDbContextFactory DbFactory, IRoleService roleService) : base(DbFactory)
         {
             _roleService = roleService;
         }

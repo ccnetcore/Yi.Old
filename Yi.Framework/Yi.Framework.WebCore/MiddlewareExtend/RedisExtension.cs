@@ -14,7 +14,10 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
     {
         public static IServiceCollection AddRedisService(this IServiceCollection services)
         {
-            services.Configure<RedisConnOptions>(Appsettings.appConfiguration("RedisConn"));
+            if (Appsettings.appBool("Redis_Enabled"))
+            {
+                services.Configure<RedisConnOptions>(Appsettings.appConfiguration("RedisConn"));
+            }
             return services;
         }
     }

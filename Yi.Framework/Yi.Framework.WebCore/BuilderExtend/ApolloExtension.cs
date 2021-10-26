@@ -22,17 +22,20 @@ namespace Yi.Framework.WebCore.BuilderExtend
             //阿波罗的日志级别调整
             LogManager.UseConsoleLogging(LogLevel.Warn);
             var root = builder.Build();
-            var apolloBuilder = builder.AddApollo(root.GetSection("apollo")).AddDefault();
 
-
-
-            foreach (var item in NameSpace)
+            if (Appsettings.Bool(root["Apollo_Enabled"]))
             {
-                apolloBuilder.AddNamespace(item, ConfigFileFormat.Json);
-            }
-            //监听apollo配置
-            Monitor(builder.Build());
+                var apolloBuilder = builder.AddApollo(root.GetSection("apollo")).AddDefault();
 
+
+
+                foreach (var item in NameSpace)
+                {
+                    apolloBuilder.AddNamespace(item, ConfigFileFormat.Json);
+                }
+                //监听apollo配置
+                Monitor(builder.Build());
+            }
 
         }
         #region private

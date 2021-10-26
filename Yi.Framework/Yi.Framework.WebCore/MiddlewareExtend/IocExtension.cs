@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.IO;
 using Yi.Framework.Model;
+using Yi.Framework.Model.ModelFactory;
 
 namespace Yi.Framework.WebCore.MiddlewareExtend
 {
@@ -19,13 +20,10 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
             //配置文件使用配置
             #endregion
             services.AddSingleton(new Appsettings(configuration));
-
             #region
             //数据库配置
             #endregion
-            services.AddScoped<DbContext, DataContext>();
-
-
+            services.AddTransient<DbContext, DataContext>();
             return services;
         }
 

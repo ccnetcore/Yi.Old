@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Yi.Framework.Model.ModelFactory;
 using Yi.Framework.WebCore.Utility;
 using Module = Autofac.Module;
 
@@ -19,6 +20,9 @@ namespace Yi.Framework.WebCore.Utility
     {
         protected override void Load(ContainerBuilder containerBuilder)
         {
+
+            containerBuilder.RegisterType<DbContextFactory>().As<IDbContextFactory>().InstancePerDependency().EnableInterfaceInterceptors();
+
             var basePath = AppContext.BaseDirectory;
             var servicesDllFile = Path.Combine(basePath, "Yi.Framework.Service.dll");
             if (!(File.Exists(servicesDllFile)))
@@ -41,7 +45,7 @@ namespace Yi.Framework.WebCore.Utility
 
             //containerBuilder.RegisterGeneric(typeof(BaseService<>)).As(typeof(IBaseService<>)).InstancePerDependency().EnableInterfaceInterceptors();
 
-        
+
 
         }
 

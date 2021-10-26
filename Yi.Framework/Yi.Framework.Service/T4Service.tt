@@ -29,6 +29,7 @@ using System.Threading.Tasks;
 using Yi.Framework.Model.Models;
 using Yi.Framework.Interface;
 using Microsoft.EntityFrameworkCore;
+using Yi.Framework.Model.ModelFactory;
 
 namespace Yi.Framework.Service
 {
@@ -38,7 +39,7 @@ namespace Yi.Framework.Service
         
         public partial class <#= fn #>Service:BaseService<<#= k #>>,I<#= fn #>Service 
         {
-            public <#= fn #>Service(DbContext Db):base(Db){ }
+            public <#= fn #>Service(IDbContextFactory DbFactory):base(DbFactory){ }
 
             public async Task<bool> DelListByUpdateAsync(List<int> _ids)
             {

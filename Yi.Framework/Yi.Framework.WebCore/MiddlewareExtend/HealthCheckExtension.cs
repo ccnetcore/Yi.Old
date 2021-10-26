@@ -22,12 +22,17 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
         /// <returns></returns>
         public static void UseHealthCheckMiddleware(this IApplicationBuilder app, string checkPath = "/Health")
         {
-            app.Map(checkPath, applicationBuilder => applicationBuilder.Run(async context =>
+            if (Appsettings.appBool("HealthCheck_Enabled"))
             {
-                Console.WriteLine($"This is Health Check");
-                context.Response.StatusCode = (int)HttpStatusCode.OK;
-                await context.Response.WriteAsync("OK");
-            }));
+                app.Map(checkPath, applicationBuilder => applicationBuilder.Run(async context =>
+                {
+                    Console.WriteLine($"This is Health Check");
+                    context.Response.StatusCode = (int)HttpStatusCode.OK;
+                    await context.Response.WriteAsync("OK");
+                }));
+            }
+
+
         }
 
     }

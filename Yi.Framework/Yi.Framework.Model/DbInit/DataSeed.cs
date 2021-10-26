@@ -4,14 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Yi.Framework.Model.ModelFactory;
 using Yi.Framework.Model.Models;
 
 namespace Yi.Framework.Model.DbInit
 {
     public class DataSeed
     {
-        public async static Task SeedAsync(DbContext _Db)
+        public async static Task SeedAsync(IDbContextFactory _DbFactory)
         {
+         var _Db=  _DbFactory.ConnWriteOrRead(Common.Enum.WriteAndReadEnum.Write);
             if (!_Db.Set<user>().Any())
             {
                 await _Db.Set<user>().AddAsync(new user

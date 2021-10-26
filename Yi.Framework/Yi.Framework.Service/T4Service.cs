@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 using Yi.Framework.Model.Models;
 using Yi.Framework.Interface;
 using Microsoft.EntityFrameworkCore;
+using Yi.Framework.Model.ModelFactory;
 
 namespace Yi.Framework.Service
 {
            
         public partial class MenuService:BaseService<menu>,IMenuService 
         {
-            public MenuService(DbContext Db):base(Db){ }
+            public MenuService(IDbContextFactory DbFactory):base(DbFactory){ }
 
             public async Task<bool> DelListByUpdateAsync(List<int> _ids)
             {
@@ -30,7 +31,7 @@ namespace Yi.Framework.Service
         
         public partial class MouldService:BaseService<mould>,IMouldService 
         {
-            public MouldService(DbContext Db):base(Db){ }
+            public MouldService(IDbContextFactory DbFactory):base(DbFactory){ }
 
             public async Task<bool> DelListByUpdateAsync(List<int> _ids)
             {
@@ -48,7 +49,7 @@ namespace Yi.Framework.Service
         
         public partial class RoleService:BaseService<role>,IRoleService 
         {
-            public RoleService(DbContext Db):base(Db){ }
+            public RoleService(IDbContextFactory DbFactory):base(DbFactory){ }
 
             public async Task<bool> DelListByUpdateAsync(List<int> _ids)
             {
@@ -66,7 +67,7 @@ namespace Yi.Framework.Service
         
         public partial class UserService:BaseService<user>,IUserService 
         {
-            public UserService(DbContext Db):base(Db){ }
+            public UserService(IDbContextFactory DbFactory):base(DbFactory){ }
 
             public async Task<bool> DelListByUpdateAsync(List<int> _ids)
             {

@@ -8,6 +8,7 @@ namespace Yi.Framework.Common.IOCOptions
 {
     public class SqliteOptions
     {
-        public string Url { get; set; }
+        public string WriteUrl { get; set; }
+        public List<string> ReadUrl { get; set; }
     }
 }

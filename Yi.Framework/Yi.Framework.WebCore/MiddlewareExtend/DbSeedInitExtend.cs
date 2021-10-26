@@ -7,24 +7,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Yi.Framework.Model.DbInit;
+using Yi.Framework.Model.ModelFactory;
 
 namespace Yi.Framework.WebCore.MiddlewareExtend
 {
   public static class DbSeedInitExtend
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(DbSeedInitExtend));
-        public  static  void UseDbSeedInitService(this IApplicationBuilder app, DbContext _Db)
+        public  static  void UseDbSeedInitService(this IApplicationBuilder app, IDbContextFactory _DbFactory)
         {
-            if (app == null) throw new ArgumentNullException(nameof(app));
 
-            try
+            if (Appsettings.appBool("DbSeed_Enabled"))
             {
-               DataSeed.SeedAsync(_Db).Wait();
-            }
-            catch (Exception e)
-            {
-                log.Error($"Error occured seeding the Database.\n{e.Message}");
-                throw;
+                if (app == null) throw new ArgumentNullException(nameof(app));
+
+                try
+                {
+                    DataSeed.SeedAsync(_DbFactory).Wait();
+                }
+                catch (Exception e)
+                {
+                    log.Error($"Error occured seeding the Database.\n{e.Message}");
+                    throw;
+                }
             }
         }
     }

@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Yi.Framework.Common.IOCOptions
 {
-	public class MySqlConnOptions
+	public class DbConnOptions
 	{
-		public string Url { get; set; }
+		public string WriteUrl { get; set; }
+		public List<string> ReadUrl { get; set; }
 	}
 }

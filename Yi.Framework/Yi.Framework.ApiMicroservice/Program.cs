@@ -28,7 +28,7 @@ namespace Yi.Framework.ApiMicroservice
                     #region 
                     //ApolloÅäÖÃ
                     #endregion
-                    //configurationBuilder.AddApolloService("Yi");
+                    configurationBuilder.AddApolloService("Yi");
                 })
                 .ConfigureLogging(loggingBuilder =>
                 {
@@ -38,7 +38,7 @@ namespace Yi.Framework.ApiMicroservice
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>().UseUrls("https://*:44329");
+                    webBuilder.UseStartup<Startup>();
                 }).UseServiceProviderFactory(new AutofacServiceProviderFactory());
     }
 }

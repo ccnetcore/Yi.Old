@@ -12,21 +12,28 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
     {
         public static IServiceCollection AddCorsService(this IServiceCollection services)
         {
-            services.AddCors(options => options.AddPolicy("CorsPolicy",//解决跨域问题
-            builder =>
-            {
-                builder.AllowAnyMethod()
-               .SetIsOriginAllowed(_ => true)
-               .AllowAnyHeader()
-               .AllowCredentials();
-            }));
 
+            if (Appsettings.appBool("Cors_Enabled"))
+            {
+
+                services.AddCors(options => options.AddPolicy("CorsPolicy",//解决跨域问题
+                builder =>
+                {
+                    builder.AllowAnyMethod()
+                   .SetIsOriginAllowed(_ => true)
+                   .AllowAnyHeader()
+                   .AllowCredentials();
+                }));
+            }
             return services;
         }
 
         public static void UseCorsService(this IApplicationBuilder app)
         {
-            app.UseCors("CorsPolicy");
+            if (Appsettings.appBool("Cors_Enabled"))
+            {
+                app.UseCors("CorsPolicy");
+            }
         }
 
     }
