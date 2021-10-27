@@ -12,7 +12,6 @@ namespace Yi.Framework.Model.Models
         public string introduce { get; set; }
 
 
-        public ICollection<menu> menus { get; set; }
-        public ICollection<user> users { get; set; }
+        public IList<menu> menus { get; set; }
     }
 }
