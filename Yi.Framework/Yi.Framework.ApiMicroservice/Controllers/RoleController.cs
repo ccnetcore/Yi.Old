@@ -67,20 +67,22 @@ namespace Yi.Framework.ApiMicroservice.Controllers
 
         /// <summary>
         /// 给角色设置菜单，多个角色与多个菜单，让每一个角色都设置，ids1为角色，ids2为菜单
+        /// 用于设置角色
         /// </summary>
         /// <param name="idsListDto"></param>
         /// <returns></returns>
         [HttpPost]
         public async Task<Result> SetMenuByRole(IdsListDto<int>  idsListDto)
         {
-           await _roleService.SetMenusByRolesId(idsListDto.ids2, idsListDto.ids1);
-            return Result.Success();
         }
+        /// <summary>
+        /// 用于给角色设置菜单的时候，点击一个角色，显示这个角色拥有的并列的菜单
+        /// </summary>
+        /// <param name="roleId"></param>
+        /// <returns></returns>
         [HttpGet]
-        public async Task<Result> GetMenuByRloe(int roleId)
+        public async Task<Result> GetTopMenusByRoleId(int roleId)
         {
-            var menuList =await _roleService.GetMenusByRoleId(roleId);
-            return Result.Success().SetData(menuList);
         }       
     }
 }

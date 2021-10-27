@@ -8,9 +8,9 @@ export default {
         })
     },
 
-    GetRolesByUser() {
+    GetRolesByHttpUser() {
         return myaxios({
-            url: '/User/GetRolesByUser',
+            url: '/User/GetRolesByHttpUser',
             method: 'get'
         })
     },
@@ -20,19 +20,19 @@ export default {
             method: 'get'
         })
     },
-    GetUserInfoById() {
+    GetUserInRolesByHttpUser() {
         return myaxios({
-            url: `/User/GetUserInfoById`,
+            url: `/User/GetUserInRolesByHttpUser`,
             method: 'get'
         })
     },
-    GetMenuByUserId() {
+    GetMenuByHttpUser() {
         return myaxios({
-            url: `/User/GetMenuByUserId`,
+            url: `/User/GetMenuByHttpUser`,
             method: 'get'
         })
     },
-    GetRouterByUserId(router) {
+    GetAxiosByRouter(router) {
         return myaxios({
             url: `/User/GetRouterByUserId?router=${router}`,
             method: 'get'

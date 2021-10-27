@@ -25,11 +25,13 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             _menuService = menuService;
             _userService =userService;
         }
+        /// <summary>
+        /// 这个是要递归的，但是要过滤掉删除的，所以，可以写一个通用过滤掉删除的方法
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
-        public async Task<Result> GetMenu()
-        {
-                      
-            return  Result.Success().SetData(await _menuService.GetTopMenu());
+        public async Task<Result> GetMenuInMould()
+        {      
         }
 
         /// <summary>
@@ -59,44 +61,26 @@ namespace Yi.Framework.ApiMicroservice.Controllers
 
         /// <summary>
         /// 增
+        /// 现在，top菜单只允许为一个
         /// </summary>
         /// <param name="_menu"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<Result> AddMenu(menu _menu)
+        public async Task<Result> AddTopMenu(menu _menu)
         {
-            _menu.is_top = (short)Common.Enum.TopFlagEnum.Top;
-            await _menuService.AddAsync(_menu);
-            return Result.Success();
         }
 
         /// <summary>
         /// 给一个菜单设置一个接口,Id1为菜单id,Id2为接口id
+        /// 用于给菜单设置接口
         /// </summary>
         /// <param name="idDto"></param>
         /// <returns></returns>
         [HttpPost]
         public async Task<Result> SetMouldByMenu(IdDto<int> idDto)
         {
-            if (await _menuService.SetMouldByMenu(idDto.id2,idDto.id1))
-            {
-                return Result.Success();
-            }
-            return Result.Error(); 
         }
 
-        /// <summary>
-        /// 得到该用户有哪些菜单，关联mould
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        public async Task<Result> GetMenuByUser()
-        {
-            var _user = this.HttpContext.GetCurrentUserInfo();
-          var menuList= await _userService.GetMenusByUser(_user);
-            return Result.Success().SetData(menuList);
-            
-        }
 
         /// <summary>
         /// 给一个菜单添加子节点（注意：添加，不是覆盖）
@@ -106,19 +90,16 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpPost]
         public async Task<Result> AddChildrenMenu(ChildrenDto<menu> childrenDto)
         {
-            await _menuService.AddChildrenMenu(childrenDto.parentId, childrenDto.data); 
-            return Result.Success();
         }
+
         /// <summary>
         /// 获取用户的目录菜单，不包含接口
+        /// 用于账户信息页面，显示这个用户有哪些菜单，需要并列
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<Result> GeTopMenuByUser()
+        public async Task<Result> GetTopMenusByHttpUser()
         {
-            var _user = this.HttpContext.GetCurrentUserInfo();
-            var menuList =await _userService.GetMenuByUser(_user);
-            return Result.Success().SetData(menuList);
         }
     }
 }

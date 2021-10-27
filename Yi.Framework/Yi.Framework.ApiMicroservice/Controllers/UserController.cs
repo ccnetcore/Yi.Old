@@ -74,86 +74,55 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             return Result.Success();
         }
 
-        /// <summary>
-        /// 通过上下文对象获取user（注意，_user下只有userId），返回值为该用户下所有的menu，(注意子类递归)并且需要关联mould
-        /// </summary>
-        /// <returns></returns>
-        [HttpPost]
-        public async Task<Result> GetMenuMould()
-        {
-            var _user= this.HttpContext.GetCurrentUserInfo();
-            var menu_data = await _userService.GetMenusByUser(_user);
-            return Result.Success().SetData(menu_data);
-        }
 
         /// <summary>
         /// 给多个用户设置多个角色，ids有用户id与 角色列表ids，多对多,ids1用户,ids2为角色
+        /// 用户设置给用户设置角色
         /// </summary>
         /// <param name="idsListDto"></param>
         /// <returns></returns>
         [HttpPost]
         public async Task<Result> SetRoleByUser(IdsListDto<int> idsListDto)
         {
-          
-          await  _userService.SetRolesByUser(idsListDto.ids2, idsListDto.ids1);
-            return Result.Success();
         }
-        /// <summary>
-        /// 根据http上下文的用户得到该用户有哪些角色
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        public async Task<Result> GetRolesByUser()
-        {
-            var _user = HttpContext.GetCurrentUserInfo();
-            var roleList = await _userService.GetRolesByUser(_user);
-            return Result.Success().SetData(roleList);
-        }
+
         /// <summary>
         /// 根据用户id得到该用户有哪些角色
+        /// 用于显示用户详情中的角色说明
         /// </summary>
         /// <returns></returns>
         [HttpGet]
         public async Task<Result> GetRolesByUserId(int userId)
         {            
-            var roleList = await _userService.GetRolesByUser(new user() { id=userId});
-            return Result.Success().SetData(roleList);
         }
         /// <summary>
         /// 根据http上下文的用户得到该用户信息，关联角色
+        /// 用于显示账号信息页中的用户信息和角色信息
         /// </summary>
         /// <returns></returns>
-        
         [HttpGet]
-        public async Task<Result> GetUserInfoById()
+        public async Task<Result> GetUserInRolesByHttpUser()
         {
-            var _user = HttpContext.GetCurrentUserInfo();          
-            return Result.Success().SetData(await _userService.GetUserInfoById(_user.id));
         }
+
+        /// <summary>
+        /// 得到登录用户的递归菜单，放到导航栏
+        /// 用户放到导航栏中
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
-        public async Task<Result> GetMenuByUserId()
+        public async Task<Result> GetMenuByHttpUser()
         {
-            var _user = HttpContext.GetCurrentUserInfo();
-            return Result.Success().SetData(await _userService.GetMenuById(_user.id));
         }
+
+        /// <summary>
+        /// 得到请求模型
+        /// </summary>
+        /// <param name="router"></param>
+        /// <returns></returns>
         [HttpGet]
-        public async Task<Result> GetRouterByUserId(string router)
+        public async Task<Result> GetAxiosByRouter(string router)
         {
-            var _user = HttpContext.GetCurrentUserInfo(out List<int> menuIds);
-            var menu_data = await _userService.GetMenuByUserId(router,_user.id, menuIds);
-            AxiosUrlsModel urlsModel = new();
-            foreach (var _menu in menu_data)
-            {
-                var mould_name = _menu.mould.mould_name;
-                switch (mould_name)
-                {
-                    case "get":urlsModel.get= _menu.mould.url;break;
-                    case "add": urlsModel.add = _menu.mould.url; break;
-                    case "del": urlsModel.del = _menu.mould.url; break;
-                    case "update": urlsModel.update = _menu.mould.url; break;
-                }
-            }
-            return Result.Success().SetData(urlsModel);
         }
 
     }

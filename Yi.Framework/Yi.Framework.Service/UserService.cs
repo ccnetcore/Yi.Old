@@ -221,7 +221,7 @@ namespace Yi.Framework.Service
             {
                 if (menu_data[i].children.Count() == 0)
                 {
-                    menu_data[i].children = null;
+                    menu_data[i].children = null;f
                 }
                 else if (menu_data[i].children != null)
                 {
