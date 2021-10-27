@@ -21,7 +21,7 @@ namespace Yi.Framework.Model.Models
         public int? phone { get; set; }
 
 
-        public IList<role> roles { get; set; }
+        public List<role> roles { get; set; }
         
     }
 }

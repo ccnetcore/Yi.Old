@@ -36,7 +36,8 @@ namespace Yi.Framework.Interface
         
         public partial interface I<#= fn #>Service:IBaseService<<#= k #>>
         {
-
+         Task<bool> DelListByUpdateAsync(List<int> _ids);
+        Task<IEnumerable<<#= k #>>> GetAllEntitiesTrueAsync();
         }
 <#    } #>
 }

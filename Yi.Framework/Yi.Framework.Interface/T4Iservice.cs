@@ -10,21 +10,25 @@ namespace Yi.Framework.Interface
            
         public partial interface IMenuService:IBaseService<menu>
         {
-
+         Task<bool> DelListByUpdateAsync(List<int> _ids);
+        Task<IEnumerable<menu>> GetAllEntitiesTrueAsync();
         }
         
         public partial interface IMouldService:IBaseService<mould>
         {
-
+         Task<bool> DelListByUpdateAsync(List<int> _ids);
+        Task<IEnumerable<mould>> GetAllEntitiesTrueAsync();
         }
         
         public partial interface IRoleService:IBaseService<role>
         {
-
+         Task<bool> DelListByUpdateAsync(List<int> _ids);
+        Task<IEnumerable<role>> GetAllEntitiesTrueAsync();
         }
         
         public partial interface IUserService:IBaseService<user>
         {
-
+         Task<bool> DelListByUpdateAsync(List<int> _ids);
+        Task<IEnumerable<user>> GetAllEntitiesTrueAsync();
         }
 }

@@ -14,13 +14,13 @@ namespace Yi.Framework.Service
     public class BaseService<T> : IBaseService<T> where T : class, new()
     {
         public DbContext _Db;
-        public DbContext _Db2;
+        public DbContext _DbRead;
         public IDbContextFactory _DbFactory;
         public BaseService(IDbContextFactory DbFactory)
         {
             _DbFactory = DbFactory;
             _Db = DbFactory.ConnWriteOrRead(WriteAndReadEnum.Write);
-            _Db2 = DbFactory.ConnWriteOrRead(WriteAndReadEnum.Read);
+            _DbRead = DbFactory.ConnWriteOrRead(WriteAndReadEnum.Read);
         }
 
         public async Task<T> GetEntityById(int id)

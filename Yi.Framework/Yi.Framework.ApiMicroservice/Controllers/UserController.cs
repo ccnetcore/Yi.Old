@@ -84,17 +84,10 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpPost]
         public async Task<Result> SetRoleByUser(IdsListDto<int> idsListDto)
         {
+            await _userService.SetRoleByUser(idsListDto.ids2, idsListDto.ids1);
+            return Result.Success();
         }
 
-        /// <summary>
-        /// 根据用户id得到该用户有哪些角色
-        /// 用于显示用户详情中的角色说明
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        public async Task<Result> GetRolesByUserId(int userId)
-        {            
-        }
         /// <summary>
         /// 根据http上下文的用户得到该用户信息，关联角色
         /// 用于显示账号信息页中的用户信息和角色信息
@@ -103,6 +96,8 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpGet]
         public async Task<Result> GetUserInRolesByHttpUser()
         {
+            var _user =  HttpContext.GetCurrentUserInfo();
+            return Result.Success().SetData( await _userService.GetUserInRolesByHttpUser(_user.id));
         }
 
         /// <summary>
@@ -113,6 +108,8 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpGet]
         public async Task<Result> GetMenuByHttpUser()
         {
+            var _user = HttpContext.GetCurrentUserInfo();
+            return Result.Success().SetData(await _userService.GetMenuByHttpUser(_user.id));
         }
 
         /// <summary>
@@ -123,6 +120,21 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpGet]
         public async Task<Result> GetAxiosByRouter(string router)
         {
+            var _user = HttpContext.GetCurrentUserInfo(out List<int> ids);
+            var menuList= await _userService.GetAxiosByRouter(router, _user.id, ids);
+            AxiosUrlsModel urlsModel = new();
+            menuList.ForEach(u =>
+            {
+                switch (u.menu_name)
+                {
+                    case "get":urlsModel.get = u.mould.url;break;
+                    case "del": urlsModel.del = u.mould.url; break;
+                    case "add": urlsModel.add = u.mould.url; break;
+                    case "update": urlsModel.update = u.mould.url; break;
+                }
+            });
+            
+            return Result.Success().SetData(urlsModel);
         }
 
     }

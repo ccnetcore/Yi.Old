@@ -14,7 +14,7 @@ namespace Yi.Framework.Model.Models
         
        
 
-        public IList<menu> children { get; set; }
+        public List<menu> children { get; set; }
         public mould mould { get; set; }
     }
 }
