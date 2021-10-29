@@ -38,7 +38,7 @@ namespace Yi.Framework.Service
         /// <returns></returns>
         public async Task<user> GetUserById(int userId)
         {
-            return await _Db.Set<user>().Include(u => u.roles).ThenInclude(u => u.menus).ThenInclude(u => u.children).ThenInclude(u => u.mould).Where(u=>u.id==userId).FirstOrDefaultAsync();
+            return await _DbRead.Set<user>().Include(u => u.roles).ThenInclude(u => u.menus).ThenInclude(u => u.children).ThenInclude(u => u.mould).Where(u=>u.id==userId).FirstOrDefaultAsync();
 
         }
         public async  Task<List<menu>> GetAxiosByRouter(string router, int userId, List<int> menuIds)
@@ -47,7 +47,7 @@ namespace Yi.Framework.Service
             List<menu> menuList = new();
            foreach(var item in user_data.roles)
             {
-               var m= item.menus.Where(u => u.router.ToUpper() == router.ToUpper()).FirstOrDefault();
+               var m=item.menus.Where(u => u.router.ToUpper() == router.ToUpper()).FirstOrDefault();
                menuList= m.children.Where(u => menuIds.Contains(u.id)&&u.is_delete==Normal).ToList();
                 if (m != null) { break; }
             }
@@ -73,7 +73,7 @@ namespace Yi.Framework.Service
             List<menu> endMenu = new();
             foreach (var item in topMenu)
             {
-                var p = await _Db.Set<menu>().Where(u => u.id == item.id).Include(u => u.children).ThenInclude(u => u.children).ThenInclude(u => u.children).ThenInclude(u => u.children).ThenInclude(u => u.children).ToListAsync();
+                var p = await _DbRead.Set<menu>().Where(u => u.id == item.id).Include(u => u.children).ThenInclude(u => u.children).ThenInclude(u => u.children).ThenInclude(u => u.children).ThenInclude(u => u.children).ToListAsync();
                 endMenu = endMenu.Union(p).ToList();
             }
 
@@ -92,10 +92,7 @@ namespace Yi.Framework.Service
             for (int i = menu_data.Count() - 1; i >= 0; i--)
             {
 
-                if (menu_data[i].icon == null)
-                {
-                    menu_data[i].icon = "Yi";
-                }
+                
 
                 if (!allMenuIds.Contains(menu_data[i].id) || menu_data[i].is_delete == (short)Common.Enum.DelFlagEnum.Deleted || menu_data[i].is_show == (short)Common.Enum.ShowFlagEnum.NoShow)
                 {
@@ -139,7 +136,7 @@ namespace Yi.Framework.Service
 
         public async Task<user> Login(user _user)
         {
-            var user_data = await _Db.Set<user>().Include(u => u.roles).Where(u => u.username == _user.username && u.password ==_user.password &&u.is_delete == (short)Common.Enum.DelFlagEnum.Normal).FirstOrDefaultAsync();
+            var user_data = await _DbRead.Set<user>().Include(u => u.roles).Where(u => u.username == _user.username && u.password ==_user.password &&u.is_delete == Normal).FirstOrDefaultAsync();
             return user_data;
         }
 
@@ -155,8 +152,8 @@ namespace Yi.Framework.Service
 
         public async Task<bool> SetRoleByUser(List<int> roleIds, List<int> userIds)
         {
-            var user_data = await _Db.Set<user>().Include(u => u.roles).Where(u => userIds.Contains(u.id)).ToListAsync();          
-            var roleList = await _Db.Set<role>().Where(u => roleIds.Contains(u.id)).ToListAsync();
+            var user_data = await _DbRead.Set<user>().Include(u => u.roles).Where(u => userIds.Contains(u.id)).ToListAsync();          
+            var roleList = await _DbRead.Set<role>().Where(u => roleIds.Contains(u.id)).ToListAsync();
             user_data.ForEach(u => u.roles = roleList);          
             return await UpdateListAsync(user_data);
         }

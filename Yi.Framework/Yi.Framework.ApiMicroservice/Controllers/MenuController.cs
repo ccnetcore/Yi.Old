@@ -31,7 +31,8 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <returns></returns>
         [HttpGet]
         public async Task<Result> GetMenuInMould()
-        {      
+        {
+            return Result.Success().SetData(await _menuService.GetMenuInMould());
         }
 
         /// <summary>
@@ -68,6 +69,8 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpPost]
         public async Task<Result> AddTopMenu(menu _menu)
         {
+            await _menuService.AddTopMenu(_menu);
+            return Result.Success();
         }
 
         /// <summary>
@@ -79,6 +82,8 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpPost]
         public async Task<Result> SetMouldByMenu(IdDto<int> idDto)
         {
+            await _menuService.SetMouldByMenu(idDto.id1, idDto.id2);
+            return Result.Success();
         }
 
 
@@ -90,6 +95,8 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpPost]
         public async Task<Result> AddChildrenMenu(ChildrenDto<menu> childrenDto)
         {
+            await _menuService.AddChildrenMenu(childrenDto.parentId, childrenDto.data);
+            return Result.Success();
         }
 
         /// <summary>
@@ -100,6 +107,9 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpGet]
         public async Task<Result> GetTopMenusByHttpUser()
         {
+            HttpContext.GetCurrentUserInfo(out List<int> menuIds);
+
+            return Result.Success().SetData(await _menuService.GetTopMenusByTopMenuIds(menuIds));
         }
     }
 }

@@ -9,22 +9,13 @@ namespace Yi.Framework.Interface
 {
    public partial interface IRoleService:IBaseService<role> 
     {
-        Task<bool> DelListByUpdateAsync(List<int> _ids);
-        Task<IEnumerable<role>> GetAllEntitiesTrueAsync();
 
         /// <summary>
         /// 获取该角色的所有菜单
         /// </summary>
-        /// <param name="_role"></param>
+        /// <param name="roleId"></param>
         /// <returns></returns>
-        Task<List<menu>> GetMenusByRole(role _role);
-
-        /// <summary>
-        /// 获取含有该角色的所有用户
-        /// </summary>
-        /// <param name="_role"></param>
-        /// <returns></returns>
-        Task<List<user>> GetUsersByRole(role _role);
+        Task<List<menu>> GetMenusByRole(int roleId);
 
         /// <summary>
         /// 给多个角色设置多个菜单
@@ -38,7 +29,19 @@ namespace Yi.Framework.Interface
         /// </summary>
         /// <param name="roleIds"></param>
         /// <returns></returns>
-        Task<List<menu>> GetMenusByRoleId(int roleId);
-
+        Task<List<menu>> GetMenusByRoleId(List<int> roleIds);
+        /// <summary>
+        /// 获取用户的角色
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        Task<List<role>> GetRolesByUserId(int userId);
+        /// <summary>
+        /// 获取该角色的top菜单
+        /// </summary>
+        /// <param name="roleId"></param>
+        /// <returns></returns>
+        Task<List<menu>> GetTopMenusByRoleId(int roleId);
+        
     }
 }

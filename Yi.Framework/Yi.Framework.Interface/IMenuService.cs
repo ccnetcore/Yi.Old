@@ -9,57 +9,35 @@ namespace Yi.Framework.Interface
 {
    public partial interface IMenuService:IBaseService<menu> 
     {
-        Task<bool> DelListByUpdateAsync(List<int> _ids);
         /// <summary>
-        /// 获取所有菜单
+        /// 获取所有菜单，关联接口
+        /// 这个是要递归的，但是要过滤掉删除的，所以，可以写一个通用过滤掉删除的方法
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<menu>> GetAllEntitiesTrueAsync();
-
+        Task<menu> GetMenuInMould();
         /// <summary>
-        /// 通过menu得到mould（1对1关系）
+        /// 增
+        /// 现在，top菜单只允许为一个
         /// </summary>
-        /// <param name="_menu"></param>
         /// <returns></returns>
-        Task<mould> GetMouldByMenu(menu _menu);
-
+        Task<bool> AddTopMenu(menu _menu);
         /// <summary>
-        /// 通过menu得到他自己与mould（注意：确保返回的menu里含有mould）
+        /// 给一个菜单设置一个接口,Id1为菜单id,Id2为接口id
+        /// 用于给菜单设置接口
         /// </summary>
-        /// <param name="_menu"></param>
         /// <returns></returns>
-        Task<menu> GetMenuMouldByMenu(menu _menu);
-
+        Task<menu> SetMouldByMenu(int id1, int id2);
         /// <summary>
-        /// 得到该菜单下所有的子类
+        /// 给一个菜单添加子节点（注意：添加，不是覆盖）
         /// </summary>
-        /// <param name="_menu"></param>
-        /// <returns></returns>
-        Task<List<menu>> GetChildrenByMenu(menu _menu);
-
-        /// <summary>
-        /// 给菜单设置接口（1对1关系）
-        /// </summary>
-        /// <param name="mouldId"></param>
-        /// <param name="menuId"></param>
-        /// <returns></returns>
-        Task<bool> SetMouldByMenu(int mouldId,int menuId);
-        /// <summary>
-        /// 添加子菜单
-        /// </summary>
-        /// <param name="_menu"></param>
         /// <returns></returns>
         Task<menu> AddChildrenMenu(int menu_id, menu _children);
         /// <summary>
-        /// 获取根目录菜单
+        /// 获取用户的目录菜单，不包含接口
+        /// 用于账户信息页面，显示这个用户有哪些菜单，需要并列
         /// </summary>
         /// <returns></returns>
-        Task<List<menu>> GetTopMenu();
-        /// <summary>
-        /// 获取子菜单
-        /// </summary>
-        /// <returns></returns>
-        Task<List<menu>> GetChildrenMenu(menu _menu);
-        Task<List<menu>> GetMenuMould();
+        Task<List<menu>> GetTopMenusByTopMenuIds(List<int> menuIds);
+        Task<List<menu>> GetTopMenuByUserId(int userId);
     }
 }

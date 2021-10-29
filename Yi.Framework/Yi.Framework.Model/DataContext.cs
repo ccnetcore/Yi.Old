@@ -28,6 +28,8 @@ namespace Yi.Framework.Model
             _connStr = connstr;
             return this;
         }
+
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

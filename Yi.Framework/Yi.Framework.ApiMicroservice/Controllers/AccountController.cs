@@ -40,7 +40,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         public async Task<Result> Login(user _user)
         {
             var user_data = await _userService.Login(_user);
-            var menuList = await _userService.GetMenusByUser(user_data);
+            var menuList = await _menuService.GetTopMenuByUserId(user_data.id);
             if ( user_data!=null)
             {               
                 var token = MakeJwt.app(new jwtUser() {user=user_data,menuIds= menuList});
@@ -112,9 +112,8 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpPut]
         [Authorize]
         public async Task<Result> ChangePassword(ChangePwdDto pwdDto)
-        {
-            var uid= pwdDto.user.id;
-            var user_data = await _userService.GetUserById(uid);
+        {          
+            var user_data = await _userService.GetUserById(pwdDto.user.id);
             string msg = "修改成功";
             if (! string.IsNullOrEmpty( pwdDto.newPassword))
             {               

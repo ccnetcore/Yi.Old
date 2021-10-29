@@ -9,8 +9,7 @@ namespace Yi.Framework.Interface
 {
    public partial interface IMouldService : IBaseService<mould> 
     {
-        Task<bool> DelListByUpdateAsync(List<int> _ids);
-        Task<IEnumerable<mould>> GetAllEntitiesTrueAsync();
+       
 
         /// <summary>
         /// 得到该接口属于哪个菜单的

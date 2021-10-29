@@ -47,7 +47,7 @@ namespace Yi.Framework.StaticPageProcessor
                     services.AddHostedService<InitPageWorker>();
 
                     #region 服务注入
-                    services.Configure<MySqlConnOptions>(configuration.GetSection("MysqlConn"));
+                    //services.Configure<MySqlConnOptions>(configuration.GetSection("MysqlConn"));
 
                     services.AddTransient<CacheClientDB, CacheClientDB>();
                     services.Configure<RedisConnOptions>(configuration.GetSection("RedisConn"));
