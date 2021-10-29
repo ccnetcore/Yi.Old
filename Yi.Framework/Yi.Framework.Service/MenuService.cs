@@ -41,7 +41,7 @@ namespace Yi.Framework.Service
          return TopMenuBuild(menu_data); 
         }
 
-        public async Task<List<menu>> GetTopMenusByHttpUser(List<int> menuIds)
+        public async Task<List<menu>> GetTopMenusByTopMenuIds(List<int> menuIds)
         {
            return await _DbRead.Set<menu>().Where(u => menuIds.Contains(u.id)).ToListAsync();
         }
@@ -77,7 +77,14 @@ namespace Yi.Framework.Service
         }
         public async Task<List<menu>> GetTopMenuByUserId(int userId)
         {
-            throw new Exception();
+            var user_data = await _DbRead.Set<user>().Include(u => u.roles).ThenInclude(u => u.menus).FirstOrDefaultAsync();
+            List<menu> menuList = new();
+            user_data.roles.ForEach(u =>
+            {
+                var m = u.menus.Where(u => u.is_delete == Normal).ToList();
+                menuList = menuList.Union(m).ToList();
+            });
+            return menuList;
         }
 
     }
