@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Yi.Framework.Model;
 
 namespace Yi.Framework.Model.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20211030074708_yi-3")]
+    partial class yi3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -151,26 +153,6 @@ namespace Yi.Framework.Model.Migrations
                     b.HasKey("id");
 
                     b.ToTable("user");
-                });
-
-            modelBuilder.Entity("Yi.Framework.Model.Models.visit", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("is_delete")
-                        .HasColumnType("int");
-
-                    b.Property<int>("num")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("time")
-                        .HasColumnType("datetime(6)");
-
-                    b.HasKey("id");
-
-                    b.ToTable("visit");
                 });
 
             modelBuilder.Entity("Yi.Framework.Model.Models.menu", b =>

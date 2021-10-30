@@ -16,6 +16,7 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
         {
             DbContextFactory.MutiDB_Enabled = Appsettings.appBool("MutiDB_Enabled");
             DataContext.DbSelect = Appsettings.app("DbSelect");
+            DataContext._connStr = Appsettings.app("DbConn", "WriteUrl");
             services.Configure<DbConnOptions>(Appsettings.appConfiguration("DbConn"));
             return services;
         }

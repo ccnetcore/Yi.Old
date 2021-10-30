@@ -31,4 +31,10 @@ namespace Yi.Framework.Interface
          Task<bool> DelListByUpdateAsync(List<int> _ids);
         Task<IEnumerable<user>> GetAllEntitiesTrueAsync();
         }
+        
+        public partial interface IVisitService:IBaseService<visit>
+        {
+         Task<bool> DelListByUpdateAsync(List<int> _ids);
+        Task<IEnumerable<visit>> GetAllEntitiesTrueAsync();
+        }
 }

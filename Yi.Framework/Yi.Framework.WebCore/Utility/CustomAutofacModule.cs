@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Yi.Framework.Job;
 using Yi.Framework.Model.ModelFactory;
 using Yi.Framework.WebCore.Utility;
 using Module = Autofac.Module;
@@ -18,26 +19,44 @@ namespace Yi.Framework.WebCore.Utility
 {
     public class CustomAutofacModule : Module
     {
-        protected override void Load(ContainerBuilder containerBuilder)
+        private Assembly GetDll(string ass)
         {
-
-            containerBuilder.RegisterType<DbContextFactory>().As<IDbContextFactory>().InstancePerDependency().EnableInterfaceInterceptors();
-
             var basePath = AppContext.BaseDirectory;
-            var servicesDllFile = Path.Combine(basePath, "Yi.Framework.Service.dll");
+            var servicesDllFile = Path.Combine(basePath, ass);
             if (!(File.Exists(servicesDllFile)))
             {
                 var msg = "service.dll 丢失，请编译后重新生成。";
                 throw new Exception(msg);
             }
-            var assemblysServices = Assembly.LoadFrom(servicesDllFile);
+            return   Assembly.LoadFrom(servicesDllFile); ;
+        }
+
+        protected override void Load(ContainerBuilder containerBuilder)
+        {
+
+            containerBuilder.RegisterType<DbContextFactory>().As<IDbContextFactory>().InstancePerDependency().EnableInterfaceInterceptors();
+
+
+            
+
+
+///反射注入服务层及接口层     
+            var assemblysServices = GetDll( "Yi.Framework.Service.dll");
             containerBuilder.RegisterAssemblyTypes(assemblysServices)
                      .AsImplementedInterfaces()
                      .InstancePerDependency()
                      .EnableInterfaceInterceptors();
-          
+
+///反射注册任务调度层
+            var assemblysJob = GetDll("Yi.Framework.Job.dll");
+            containerBuilder.RegisterAssemblyTypes(assemblysJob)
+                     .InstancePerDependency();
+
+
 
             containerBuilder.Register(c => new CustomAutofacAop());//AOP注册
+
+
             //containerBuilder.RegisterType<A>().As<IA>().EnableInterfaceInterceptors();开启Aop
 
             //将数据库对象注入

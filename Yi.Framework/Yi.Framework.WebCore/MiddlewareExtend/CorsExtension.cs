@@ -15,7 +15,6 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
 
             if (Appsettings.appBool("Cors_Enabled"))
             {
-
                 services.AddCors(options => options.AddPolicy("CorsPolicy",//解决跨域问题
                 builder =>
                 {

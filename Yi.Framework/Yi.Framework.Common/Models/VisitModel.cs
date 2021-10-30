@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Yi.Framework.Core.TaskJob
+namespace Yi.Framework.Common.Models
 {
-    class VisitJob
+    public class visitModel
     {
+        public static int visitNum { get; set; } = 0;
     }
 }

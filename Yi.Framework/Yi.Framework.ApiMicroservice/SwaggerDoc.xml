@@ -39,6 +39,12 @@
             <param name="pwdDto"></param>
             <returns></returns>
         </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.MenuController.GetMenuInMould">
+            <summary>
+            这个是要递归的，但是要过滤掉删除的，所以，可以写一个通用过滤掉删除的方法
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.MenuController.UpdateMenu(Yi.Framework.Model.Models.menu)">
             <summary>
             更
@@ -53,9 +59,10 @@
             <param name="_ids"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.MenuController.AddMenu(Yi.Framework.Model.Models.menu)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.MenuController.AddTopMenu(Yi.Framework.Model.Models.menu)">
             <summary>
             增
+            现在，top菜单只允许为一个
             </summary>
             <param name="_menu"></param>
             <returns></returns>
@@ -63,14 +70,9 @@
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.MenuController.SetMouldByMenu(Yi.Framework.DTOModel.IdDto{System.Int32})">
             <summary>
             给一个菜单设置一个接口,Id1为菜单id,Id2为接口id
+            用于给菜单设置接口
             </summary>
             <param name="idDto"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.MenuController.GetMenuByUser">
-            <summary>
-            得到该用户有哪些菜单，关联mould
-            </summary>
             <returns></returns>
         </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.MenuController.AddChildrenMenu(Yi.Framework.DTOModel.ChildrenDto{Yi.Framework.Model.Models.menu})">
@@ -80,9 +82,10 @@
             <param name="childrenDto"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.MenuController.GeTopMenuByUser">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.MenuController.GetTopMenusByHttpUser">
             <summary>
             获取用户的目录菜单，不包含接口
+            用于账户信息页面，显示这个用户有哪些菜单，需要并列
             </summary>
             <returns></returns>
         </member>
@@ -128,11 +131,26 @@
             <param name="_role"></param>
             <returns></returns>
         </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.RoleController.GetRolesByUserId(System.Int32)">
+            <summary>
+            根据用户id得到该用户有哪些角色
+            用于显示用户详情中的角色说明
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.RoleController.SetMenuByRole(Yi.Framework.DTOModel.IdsListDto{System.Int32})">
             <summary>
             给角色设置菜单，多个角色与多个菜单，让每一个角色都设置，ids1为角色，ids2为菜单
+            用于设置角色
             </summary>
             <param name="idsListDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.RoleController.GetTopMenusByRoleId(System.Int32)">
+            <summary>
+            用于给角色设置菜单的时候，点击一个角色，显示这个角色拥有的并列的菜单
+            </summary>
+            <param name="roleId"></param>
             <returns></returns>
         </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.GetUser">
@@ -162,35 +180,33 @@
             <param name="_user"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.GetMenuMould">
-            <summary>
-            通过上下文对象获取user（注意，_user下只有userId），返回值为该用户下所有的menu，(注意子类递归)并且需要关联mould
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.SetRoleByUser(Yi.Framework.DTOModel.IdsListDto{System.Int32})">
             <summary>
             给多个用户设置多个角色，ids有用户id与 角色列表ids，多对多,ids1用户,ids2为角色
+            用户设置给用户设置角色
             </summary>
             <param name="idsListDto"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.GetRolesByUser">
-            <summary>
-            根据http上下文的用户得到该用户有哪些角色
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.GetRolesByUserId(System.Int32)">
-            <summary>
-            根据用户id得到该用户有哪些角色
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.GetUserInfoById">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.GetUserInRolesByHttpUser">
             <summary>
             根据http上下文的用户得到该用户信息，关联角色
+            用于显示账号信息页中的用户信息和角色信息
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.GetMenuByHttpUser">
+            <summary>
+            得到登录用户的递归菜单，放到导航栏
+            用户放到导航栏中
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.GetAxiosByRouter(System.String)">
+            <summary>
+            得到请求模型
+            </summary>
+            <param name="router"></param>
             <returns></returns>
         </member>
     </members>

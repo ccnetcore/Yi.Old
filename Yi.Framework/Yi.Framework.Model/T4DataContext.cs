@@ -12,6 +12,7 @@ namespace Yi.Framework.Model
         public DbSet<mould> mould { get; set; }
         public DbSet<role> role { get; set; }
         public DbSet<user> user { get; set; }
+        public DbSet<visit> visit { get; set; }
     }
 }
 

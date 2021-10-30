@@ -28,6 +28,11 @@ namespace Yi.Framework.ApiMicroservice
             services.AddIocService(Configuration);
 
             #region
+            //Quartz任务调度配置
+            #endregion
+            services.AddQuartzService();
+
+            #region
             //控制器+过滤器配置
             #endregion
             services.AddControllers(optios=> {

@@ -82,4 +82,22 @@ namespace Yi.Framework.Service
             }
 
         }
+        
+        public partial class VisitService:BaseService<visit>,IVisitService 
+        {
+            public VisitService(IDbContextFactory DbFactory):base(DbFactory){ }
+
+            public async Task<bool> DelListByUpdateAsync(List<int> _ids)
+            {
+                var visitList = await GetEntitiesAsync(u=>_ids.Contains(u.id));
+                visitList.ToList().ForEach(u => u.is_delete = (short)Common.Enum.DelFlagEnum.Deleted);
+                return await UpdateListAsync(visitList);
+            }
+
+            public async Task<IEnumerable<visit>> GetAllEntitiesTrueAsync()
+            {
+                return await GetEntitiesAsync(u=> u.is_delete == (short)Common.Enum.DelFlagEnum.Normal);
+            }
+
+        }
 }

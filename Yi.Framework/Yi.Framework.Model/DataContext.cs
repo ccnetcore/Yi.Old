@@ -16,7 +16,7 @@ namespace Yi.Framework.Model
     public partial class DataContext : DbContext
     {
         //private readonly IOptionsMonitor<MySqlConnOptions> _optionsMonitor;
-        private string _connStr;
+        public static string _connStr;
         public static string DbSelect = DbConst.Mysql;
         //public DataContext(IOptionsMonitor<MySqlConnOptions> optionsMonitor)
         //{
