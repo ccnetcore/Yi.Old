@@ -1,8 +1,8 @@
 import myaxios from '@/util/myaxios'
 export default {
-    getMenu() {
+    GetMenuInMould() {
         return myaxios({
-            url: '/Menu/GetMenu',
+            url: '/Menu/GetMenuInMould',
             method: 'get'
         })
     },
@@ -27,9 +27,9 @@ export default {
             data: ids
         })
     },
-    addMenu(data) {
+    AddTopMenu(data) {
         return myaxios({
-            url: '/Menu/addMenu',
+            url: '/Menu/AddTopMenu',
             method: 'post',
             data: data
         })

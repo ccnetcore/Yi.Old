@@ -53,8 +53,8 @@ import userApi from '@/api/userApi'
 export default {
   methods: {
     init(){
-  userApi.GetMenuByUserId().then((resp)=>{
-    this.items=resp.data;
+  userApi.GetMenuByHttpUser().then((resp)=>{
+    this.items=resp.data.children;
   })
 },
     logout() {

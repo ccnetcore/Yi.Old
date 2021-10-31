@@ -13,11 +13,17 @@ export default {
             data: { ids1: roleList, ids2: menuList }
         })
     },
-    getMenuByRloe(roleId) {
+    GetTopMenusByRoleId(roleId) {
         return myaxios({
-            url: `/Role/getMenuByRloe?roleId=${roleId}`,
+            url: `/Role/GetTopMenusByRoleId?roleId=${roleId}`,
             method: 'get'
 
         })
-    }
+    },
+    GetRolesByUserId(userId) {
+        return myaxios({
+            url: `/Role/GetRolesByUserId?userId=${userId}`,
+            method: 'get'
+        })
+    },
 }

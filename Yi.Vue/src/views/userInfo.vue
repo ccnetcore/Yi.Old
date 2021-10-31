@@ -289,13 +289,13 @@ export default {
     },
     init() {
       this.newPassword="";
-      userApi.GetUserInfoById().then((resp) => {
+      userApi.GetUserInRolesByHttpUser().then((resp) => {
         this.userInfo = resp.data;
         this.userInfo.password="";
       this.editInfo= Object.assign({}, this.userInfo);
       });
 
-      menuApi.geTopMenuByUser().then(resp=>{
+      menuApi.GetTopMenusByHttpUser().then(resp=>{
 this.menuInfo=resp.data;
       })
     },

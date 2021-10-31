@@ -36,7 +36,7 @@ export default {
   methods: {
     async showItem(item) {
       var strInfo = "";
-      userApi.GetRolesByUserId(item.id).then(async (resp) => {
+      roleApi.GetRolesByUserId(item.id).then(async (resp) => {
         const roleData = resp.data;
         strInfo += "拥有的角色:<br>";
         roleData.forEach((u) => {
@@ -58,7 +58,7 @@ export default {
       });
     },
     init() {
-      userApi.GetRouterByUserId(this.$route.path).then((resp) => {
+      userApi.GetAxiosByRouter(this.$route.path).then((resp) => {
         this.axiosUrls = resp.data;
       });
       roleApi.getRole().then((resp) => {

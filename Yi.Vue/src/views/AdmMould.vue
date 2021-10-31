@@ -16,7 +16,7 @@ export default {
 created(){this.init()},
 methods:{
   init(){
-         userApi.GetRouterByUserId(this.$route.path).then(resp=>{
+         userApi.GetAxiosByRouter(this.$route.path).then(resp=>{
        this.axiosUrls=resp.data;
   })
   }

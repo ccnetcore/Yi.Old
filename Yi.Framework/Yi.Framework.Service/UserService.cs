@@ -91,9 +91,6 @@ namespace Yi.Framework.Service
 
             for (int i = menu_data.Count() - 1; i >= 0; i--)
             {
-
-                
-
                 if (!allMenuIds.Contains(menu_data[i].id) || menu_data[i].is_delete == (short)Common.Enum.DelFlagEnum.Deleted || menu_data[i].is_show == (short)Common.Enum.ShowFlagEnum.NoShow)
                 {
                     menu_data.Remove(menu_data[i]);
@@ -116,6 +113,10 @@ namespace Yi.Framework.Service
 
             for (int i = menu_data.Count() - 1; i >= 0; i--)
             {
+                if (menu_data[i].icon == null)
+                {
+                    menu_data[i].icon = "mdi-view-dashboard";
+                }
                 if (menu_data[i].children.Count() == 0)
                 {
                     menu_data[i].children = null; 

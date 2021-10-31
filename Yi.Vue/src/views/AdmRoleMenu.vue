@@ -64,7 +64,7 @@ export default {
     selectionRole: {
       handler(val, oldVal) {
         if (val.length == 1) {
-          roleApi.getMenuByRloe(val[0].id).then((resp) => {
+          roleApi.GetTopMenusByRoleId(val[0].id).then((resp) => {
             this.selectionMenu = resp.data;
           });
         }
@@ -98,8 +98,8 @@ export default {
         this.RoleItems = resp.data;
       });
 
-      menuApi.getMenu().then((resp) => {
-        this.Menuitems = resp.data;
+      menuApi.GetMenuInMould().then((resp) => {
+        this.Menuitems = [resp.data];
       });
     },
   },

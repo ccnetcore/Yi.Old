@@ -168,8 +168,8 @@ export default {
         this.mouldList = resp.data;
       });
 
-      menuApi.getMenu().then((resp) => {
-        this.desserts = resp.data;
+      menuApi.GetMenuInMould().then((resp) => {
+        this.desserts =[ resp.data];
       });
       this.$nextTick(() => {
         this.editedItem = Object.assign({}, this.defaultItem);
@@ -187,7 +187,7 @@ export default {
         menuApi.UpdateMenu(this.editedItem).then(() => this.init());
       } else {
         if (this.parentId == 0) {
-          menuApi.addMenu(this.editedItem).then(() => {
+          menuApi.AddTopMenu(this.editedItem).then(() => {
             this.init();
           });
         } else {

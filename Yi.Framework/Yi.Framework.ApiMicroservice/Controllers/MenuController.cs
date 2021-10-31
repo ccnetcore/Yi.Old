@@ -19,11 +19,9 @@ namespace Yi.Framework.ApiMicroservice.Controllers
     public class MenuController : ControllerBase
     {
         private IMenuService _menuService;
-        private IUserService _userService;
-        public MenuController(IMenuService menuService, IUserService userService)
+        public MenuController(IMenuService menuService)
         {
             _menuService = menuService;
-            _userService =userService;
         }
         /// <summary>
         /// 这个是要递归的，但是要过滤掉删除的，所以，可以写一个通用过滤掉删除的方法
