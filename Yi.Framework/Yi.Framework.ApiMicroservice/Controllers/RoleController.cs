@@ -3,12 +3,14 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Yi.Framework.Common.Models;
 using Yi.Framework.DTOModel;
 using Yi.Framework.Interface;
 using Yi.Framework.Model.Models;
+using Yi.Framework.WebCore;
 
 namespace Yi.Framework.ApiMicroservice.Controllers
 {
@@ -24,8 +26,22 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         }
         [HttpGet]
         public async Task<Result> GetRole()
+        {            
+           return Result.Success().SetData(await _roleService.GetAllEntitiesTrueAsync());
+        }
+        [HttpPost]
+        public async Task<IActionResult> GetRoleFlie()
         {
-            return Result.Success().SetData(await _roleService.GetAllEntitiesTrueAsync());
+            var roleList = await _roleService.GetAllEntitiesTrueAsync();
+            Dictionary<string, string> dt = new();
+            dt.Add("输出", "文件");
+            var byteStream = Excel.ExportExcel(roleList.ToList(), dt).ToString();
+            MemoryStream s = new MemoryStream();
+            StreamWriter writer = new StreamWriter(s);
+            writer.Write(byteStream);
+            writer.Flush();
+            //stream.Read(byteStream, 0, byteStream.Length);
+            return new FileStreamResult(s, "application/vnd.ms-excel");
         }
 
         /// <summary>
@@ -91,12 +107,13 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <summary>
         /// 用于给角色设置菜单的时候，点击一个角色，显示这个角色拥有的并列的菜单
         /// </summary>
-        /// <param name="roleId"></param>
+        /// <param name="role"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<Result> GetTopMenusByRoleId(int roleId)
+        public async Task<Result> GetTopMenusByRoleId(role role)
         {
-            return Result.Success().SetData(await _roleService.GetTopMenusByRoleId(roleId) ); ;
+           
+            return Result.Success().SetData(await _roleService.GetTopMenusByRoleId(role.id) ); ;
         }       
     }
 }

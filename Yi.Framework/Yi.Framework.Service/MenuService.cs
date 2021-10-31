@@ -43,7 +43,7 @@ namespace Yi.Framework.Service
 
         public async Task<List<menu>> GetTopMenusByTopMenuIds(List<int> menuIds)
         {
-           return await _DbRead.Set<menu>().Where(u => menuIds.Contains(u.id)).ToListAsync();
+           return await _DbRead.Set<menu>().AsNoTracking().Where(u => menuIds.Contains(u.id)).ToListAsync();
         }
 
         public async Task<menu> SetMouldByMenu(int id1,int id2)

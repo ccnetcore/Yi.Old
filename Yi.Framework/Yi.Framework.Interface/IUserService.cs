@@ -52,7 +52,7 @@ namespace Yi.Framework.Interface
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        Task<List<menu>> GetMenuByHttpUser(int userId);
+        Task<menu> GetMenuByHttpUser(int userId);
         /// <summary>
         /// 根据路由获取菜单
         /// </summary>
