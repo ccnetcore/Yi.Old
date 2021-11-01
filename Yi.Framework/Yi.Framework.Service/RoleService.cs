@@ -45,9 +45,9 @@ namespace Yi.Framework.Service
         }
         public async Task<List<menu>> GetTopMenusByRoleId(int roleId)
         {
-            var role_data = await _Db.Set<role>().Where(u => u.id == roleId).FirstOrDefaultAsync();
+            var role_data = await _Db.Set<role>().Include(u=>u.menus).Where(u => u.id == roleId).FirstOrDefaultAsync();
             var menuList = role_data.menus.Where(u => u.is_delete == Normal).ToList();
-            menuList.ForEach(u => u.children = null);
+            
             return menuList;
         }
 

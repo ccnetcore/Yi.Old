@@ -54,7 +54,7 @@ namespace Yi.Framework.Service
             return  menuList;
         }   
 
-        public async Task<List<menu>> GetMenuByHttpUser(int userId)
+        public async Task<menu> GetMenuByHttpUser(int userId)
         {
             var user_data = await GetUserById(userId);
             List<menu> menuList = new();
@@ -78,7 +78,7 @@ namespace Yi.Framework.Service
             }
 
 
-            return TopMenuBuild2(TopMenuBuild(endMenu, allMenuIds));
+            return TopMenuBuild2(TopMenuBuild(endMenu, allMenuIds))[0];
         }
         /// <summary>
         /// 这种就命名的话，改成MenuIconAndShowBuild
