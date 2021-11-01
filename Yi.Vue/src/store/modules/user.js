@@ -17,10 +17,10 @@ const state = { //状态
         'rgba(244, 67, 54, .8), rgba(244, 67, 54, .8)',
     ],
     images: [
-        'https://demos.creative-tim.com/material-dashboard-pro/assets/img/sidebar-1.jpg',
-        'https://demos.creative-tim.com/material-dashboard-pro/assets/img/sidebar-2.jpg',
-        'https://demos.creative-tim.com/material-dashboard-pro/assets/img/sidebar-3.jpg',
-        'https://demos.creative-tim.com/material-dashboard-pro/assets/img/sidebar-4.jpg',
+        'https://z3.ax1x.com/2021/05/09/gJadhD.jpg',
+        'https://z3.ax1x.com/2021/05/09/gJadhD2.jpg',
+        'https://z3.ax1x.com/2021/05/09/gJadhD3.jpg',
+        'https://z3.ax1x.com/2021/05/09/gJadhD4.jpg',
     ],
     notifications: [],
     rtl: false
@@ -34,6 +34,12 @@ const mutations = { //变化//载荷
     SET_USER(state, user) {
         state.user = user
         setUser(user)
+    },
+    SetGradient(state, gradient) {
+        state.drawer.gradient = gradient
+    },
+    SetImage(state, image) {
+        state.drawer.image = image
     }
 }
 

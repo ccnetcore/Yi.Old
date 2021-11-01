@@ -15,7 +15,17 @@
         v-bind="attrs"
         v-on="on"
       >
-        <v-icon>mdi-account</v-icon>
+        <!-- <v-icon>mdi-account</v-icon> -->
+        <v-avatar size="36" class="elevation-2">
+              <!-- <img src="https://z3.ax1x.com/2021/05/09/gJadhD.jpg" /> -->
+              <img
+                :src="
+                  baseurl +
+                  '/File/ShowNoticeImg?filePath=' +
+                  $store.state.user.user.icon
+                "
+              />
+            </v-avatar>
       </v-btn>
     </template>
 
@@ -24,6 +34,12 @@
       flat
       nav
     >
+
+  <app-bar-item to="/"><v-list-item-title v-text="'用户名：橙子'" /></app-bar-item>
+  <app-bar-item to="/"><v-list-item-title v-text="'称号：橙子'" /></app-bar-item>
+
+        <v-divider class="mb-2 mt-2"/>
+
       <template v-for="(p, i) in profile">
         <v-divider
           v-if="p.divider"
