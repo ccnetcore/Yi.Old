@@ -28,22 +28,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         public async Task<Result> GetRole()
         {            
            return Result.Success().SetData(await _roleService.GetAllEntitiesTrueAsync());
-        }
-        [HttpPost]
-        public async Task<IActionResult> GetRoleFlie()
-        {
-            var roleList = await _roleService.GetAllEntitiesTrueAsync();
-            Dictionary<string, string> dt = new();
-            dt.Add("输出", "文件");
-            var byteStream = Excel.ExportExcel(roleList.ToList(), dt).ToString();
-            MemoryStream s = new MemoryStream();
-            StreamWriter writer = new StreamWriter(s);
-            writer.Write(byteStream);
-            writer.Flush();
-            //stream.Read(byteStream, 0, byteStream.Length);
-            return new FileStreamResult(s, "application/vnd.ms-excel");
-        }
-
+        }      
         /// <summary>
         /// 更
         /// </summary>
@@ -107,13 +92,13 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <summary>
         /// 用于给角色设置菜单的时候，点击一个角色，显示这个角色拥有的并列的菜单
         /// </summary>
-        /// <param name="role"></param>
+        /// <param name="roleId"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<Result> GetTopMenusByRoleId(role role)
+        public async Task<Result> GetTopMenusByRoleId(int roleId)
         {
            
-            return Result.Success().SetData(await _roleService.GetTopMenusByRoleId(role.id) ); ;
+            return Result.Success().SetData(await _roleService.GetTopMenusByRoleId(roleId) ); ;
         }       
     }
 }

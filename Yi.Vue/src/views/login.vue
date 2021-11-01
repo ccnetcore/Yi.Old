@@ -112,8 +112,8 @@ export default {
 
     isPasswordVisible: false,
     form: {
-      username: "",
-      password: "",
+      username: "admin",
+      password: "123",
     },
   }),
   methods: {

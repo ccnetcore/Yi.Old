@@ -40,10 +40,11 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         public async Task<Result> Login(user _user)
         {
             var user_data = await _userService.Login(_user);
-            var menuList = await _menuService.GetTopMenuByUserId(user_data.id);
+            //var menuList = await _menuService.GetTopMenuByUserId(user_data.id);
+
             if ( user_data!=null)
-            {               
-                var token = MakeJwt.app(new jwtUser() {user=user_data,menuIds= menuList});
+            {                           
+                var token = MakeJwt.app(new jwtUser() {user=user_data});
                 return Result.Success().SetData(new { user = new { _user.id, _user.username, _user.introduction, _user.icon, _user.nick }, token });
             }
             return Result.Error();
@@ -148,10 +149,16 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             user_data.nick = pwdDto.user.nick;
 
             await _userService.UpdateAsync(user_data);
-
+           
 
             return Result.Success(msg);
         }
 
+        [HttpPost]
+       public async Task<Result> UpdataIcon()
+        {
+            return Result.Success();
+
+        }
     }
 }

@@ -17,7 +17,7 @@ namespace Yi.Framework.Core
     public class jwtUser
     { 
         public user user { get; set; }
-        public List<menu> menuIds { get; set; }
+        //public List<menu> menuIds { get; set; }
     
     }
 
@@ -37,14 +37,14 @@ namespace Yi.Framework.Core
             claims.Add(new Claim(JwtRegisteredClaimNames.Exp, $"{new DateTimeOffset(DateTime.Now.AddMinutes(30)).ToUnixTimeSeconds()}"));
             claims.Add(new Claim(ClaimTypes.Name, _user.user.username));
             claims.Add(new Claim(ClaimTypes.Sid, _user.user.id.ToString()));
-            foreach (var k in _user.menuIds)
-            {
-                claims.Add(new Claim("menuIds",k.id.ToString()));
-            }
-            foreach (var k in _user.user.roles)
-            {
-                claims.Add(new Claim(ClaimTypes.Role, k.role_name));
-            }
+            //foreach (var k in _user.menuIds)
+            //{
+            //    claims.Add(new Claim("menuIds",k.id.ToString()));
+            //}
+            //foreach (var k in _user.user.roles)
+            //{
+            //    claims.Add(new Claim(ClaimTypes.Role, k.role_name));
+            //}
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtConst.SecurityKey));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
