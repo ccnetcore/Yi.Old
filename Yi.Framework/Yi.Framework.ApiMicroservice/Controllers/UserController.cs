@@ -21,12 +21,10 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         private readonly ILogger<UserController> _logger;
 
         private IUserService _userService;
-        private IMenuService _menuService;
-        public UserController(ILogger<UserController> logger, IUserService userService, IMenuService menuService)
+        public UserController(ILogger<UserController> logger, IUserService userService)
         {
             _logger = logger;
             _userService = userService;
-            _menuService = menuService;
         }
 
         /// <summary>
@@ -122,19 +120,8 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpGet]
         public async Task<Result> GetAxiosByRouter(string router)
         {
-            var _user = HttpContext.GetCurrentUserInfo();
-            var menuList = await _menuService.GetTopMenuByUserId(_user.id);
-            if (menuList == null)
-            {
-                return Result.Error();
-            }
-            List<int> menuIds = new();
-            menuList.ForEach(u =>
-            {
-                var id = u.id;
-                menuIds.Add(id);
-            });            
-            var childrenList = await _userService.GetAxiosByRouter(router, _user.id, menuIds);
+            var _user = HttpContext.GetCurrentUserInfo(out List<int> menuIds);
+            var menuList= await _userService.GetAxiosByRouter(router, _user.id, menuIds);
             AxiosUrlsModel urlsModel = new();
             menuList.ForEach(u =>
             {

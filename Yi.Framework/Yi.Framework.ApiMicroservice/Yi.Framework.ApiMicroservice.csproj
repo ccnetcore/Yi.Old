@@ -24,9 +24,4 @@
     <ProjectReference Include="..\Yi.Framework.WebCore\Yi.Framework.WebCore.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\imgae\" />
-    <Folder Include="wwwroot\file\" />
-  </ItemGroup>
-
 </Project>
