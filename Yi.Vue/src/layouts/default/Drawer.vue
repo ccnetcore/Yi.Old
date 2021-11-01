@@ -4,13 +4,13 @@
     v-model="$store.state.home.drawer"
     :dark="dark"
     :right="$vuetify.rtl"
-    :src="$store.state.home.drawerImage ? image : ''"
+    :src="drawerImage ? image : ''"
     :mini-variant.sync="$store.state.home.mini"
     mini-variant-width="80"
     app
     width="260"
   >
-    <template v-if="$store.state.home.drawerImage" #img="props">
+    <template v-if="drawerImage" #img="props">
       <v-img :key="image" :gradient="gradient" v-bind="props" />
     </template>
 
@@ -49,28 +49,41 @@
 <script>
 // Utilities
 // import { get, sync } from 'vuex-pathify'
-import userApi from '@/api/userApi'
+import userApi from "@/api/userApi";
 export default {
   methods: {
-    init(){
-  userApi.GetMenuByHttpUser().then((resp)=>{
-    this.items=resp.data.children;
-  })
-},
+    init() {
+      userApi.GetMenuByHttpUser().then((resp) => {
+        this.items = resp.data.children;
+      });
+    },
     logout() {
       this.$store.dispatch("Logout").then((resp) => {
         this.$router.push({ path: "/login" });
       });
     },
   },
-  created(){this.init()},
+  created() {
+    this.init();
+  },
+  computed: {
+    image() {
+      return this.$store.getters.image;
+    },
+        gradient() {
+      return this.$store.getters.gradient;
+    },
+              drawerImage()
+    {
+     return  this.$store.state.home.drawerImage;
+    },
+                  dark()
+    {
+     return  this.$store.state.user.dark;
+    }
+  },
+
   data: () => ({
-    image:
-      "https://demos.creative-tim.com/material-dashboard-pro/assets/img/sidebar-1.jpg",
-
-    gradient: "rgba(228, 226, 226, 1), rgba(255, 255, 255, 0.7)",
-
-    dark: null,
 
     items: [],
   }),
@@ -88,7 +101,6 @@ export default {
         "./List"
       ),
   },
-
   // computed: {
   //   ...get('user', [
   //     'dark',

@@ -41,6 +41,9 @@ const state = {
 }
 
 const mutations = { //变化//载荷
+    SetDrawerImage(state, drawerImage) {
+        state.drawerImage = drawerImage
+    }
 }
 
 //在action中可以配合axios进行权限判断

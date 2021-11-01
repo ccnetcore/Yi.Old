@@ -33,7 +33,7 @@
     >
       <v-card class="text-center mb-0" width="300">
         <v-card-text>
-          <strong class="mb-3 d-inline-block">SIDEBAR FILTERS</strong>
+          <strong class="mb-3 d-inline-block">主题颜色</strong>
 
           <v-item-group v-model="color" mandatory>
             <v-item v-for="color in colors" :key="color" :value="color">
@@ -51,7 +51,7 @@
 
           <v-divider class="my-4 secondary" />
 
-          <strong class="mb-3 d-inline-block">SIDEBAR BACKGROUND</strong>
+          <strong class="mb-3 d-inline-block">图层颜色</strong>
 
           <v-item-group v-model="gradient" mandatory>
             <v-item
@@ -75,7 +75,7 @@
           <v-divider class="my-4 secondary" />
 
           <v-row align="center" no-gutters>
-            <v-col cols="auto"> Dark Mode </v-col>
+            <v-col cols="auto"> 主题模式 </v-col>
 
             <v-spacer />
 
@@ -92,7 +92,7 @@
           <v-divider class="my-4 secondary" />
 
           <v-row align="center" no-gutters>
-            <v-col cols="auto"> Sidebar Mini </v-col>
+            <v-col cols="auto"> 迷你菜单 </v-col>
 
             <v-spacer />
 
@@ -109,7 +109,7 @@
           <v-divider class="my-4 secondary" />
 
           <v-row align="center" no-gutters>
-            <v-col cols="auto"> Sidebar Image </v-col>
+            <v-col cols="auto"> 图片菜单 </v-col>
 
             <v-spacer />
 
@@ -125,7 +125,7 @@
 
           <v-divider class="my-4 secondary" />
 
-          <strong class="mb-3 d-inline-block">IMAGES</strong>
+          <strong class="mb-3 d-inline-block">图片</strong>
 
           <v-card :disabled="!drawerImage" flat>
             <v-item-group
@@ -156,27 +156,27 @@
             class="mb-3"
             color="grey darken-1"
             dark
-            href="https://vuetifyjs.com/components/api-explorer"
+            href="https://github.com/ccnetcore/yi"
             rel="noopener"
             target="_blank"
           >
-            Vuetify Documentation
+            Github 地址
           </v-btn>
 
           <v-btn
             block
             color="info"
-            href="https://store.vuetifyjs.com/products/vuetify-material-dashboard-free"
+            href="https://ccnetcore.com"
             rel="noopener"
             target="_blank"
           >
-            Get Free Demo
+            加入我们
           </v-btn>
 
           <div class="my-12" />
 
           <div>
-            <strong class="mb-3 d-inline-block">THANK YOU FOR SHARING!</strong>
+            <strong class="mb-3 d-inline-block">感谢你的支持！</strong>
           </div>
 
           <v-btn class="ma-1" color="#55acee" dark rounded>
@@ -205,28 +205,56 @@ export default {
   name: "DashboardCoreSettings",
 
   mixins: [Proxyable],
+computed: {
+
+
+gradients(){
+  return this.$store.state.user.gradients},
+    image:{
+      get(){
+              return this.$store.state.user.drawer.image;
+            },
+            set(value){
+                this.$store.commit('SetImage',value)
+            }
+    },
+  gradient:{
+            get(){
+                 return this.$store.state.user.drawer.gradient;
+            },
+            set(value){
+                this.$store.commit('SetGradient',value)
+            }
+    },
+    images()
+    {
+     return  this.$store.state.user.images;
+    },
+        drawerImage:
+    {
+               get(){
+                      return  this.$store.state.home.drawerImage;
+            },
+            set(value){
+                this.$store.commit('SetDrawerImage',value)
+            },
+
+
+
+    },
+                      dark()
+    {
+     return  this.$store.state.user.dark;
+    },
+                          drawer()
+    {
+     return  this.$store.state.home.drawer;
+    }
+},
 
 
 
   data: () => ({
-    image:
-      "https://demos.creative-tim.com/material-dashboard-pro/assets/img/sidebar-1.jpg",
-    drawer: null,
-    drawerImage: true,
-    gradient: "rgba(228, 226, 226, 1), rgba(255, 255, 255, 0.7)",
-    images: [
-      "https://demos.creative-tim.com/material-dashboard-pro/assets/img/sidebar-1.jpg",
-      "https://demos.creative-tim.com/material-dashboard-pro/assets/img/sidebar-2.jpg",
-      "https://demos.creative-tim.com/material-dashboard-pro/assets/img/sidebar-3.jpg",
-      "https://demos.creative-tim.com/material-dashboard-pro/assets/img/sidebar-4.jpg",
-    ],
-    gradients: [
-      "rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)",
-      "rgba(228, 226, 226, 1), rgba(255, 255, 255, 0.7)",
-      "rgba(244, 67, 54, .8), rgba(244, 67, 54, .8)",
-    ],
-    dark: null,
-
     color: "#E91E63",
     colors: ["#9C27b0", "#00CAE3", "#4CAF50", "#ff9800", "#E91E63", "#FF5252"],
     menu: false,
@@ -251,7 +279,10 @@ export default {
 
   watch: {
     color(val) {
+
       this.$vuetify.theme.themes[this.isDark ? "dark" : "light"].primary = val;
+                  this.$vuetify.theme.dark=true;
+      this.$vuetify.theme.dark=false;
     },
   },
 };

@@ -1,16 +1,11 @@
 import myaxios from '@/util/myaxios'
 export default {
-    OnPostUploadImage(file) {
+    Upload(file) {
         return myaxios({
-            url: '/File/OnPostUploadImage',
+            url: '/File/Upload',
             method: 'post',
+            headers: { "Content-Type": "multipart/form-data" },
             data: file
-        })
-    },
-    getLogs() {
-        return myaxios({
-            url: '/File/GetLogs',
-            method: 'get'
         })
     }
 }

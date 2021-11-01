@@ -17,8 +17,13 @@
             <h4 class="text-h4 mb-3 text--primary">{{ userInfo.nick }}</h4>
 
             <p class="text--secondary">{{ userInfo.introduction }}</p>
-
-            <v-btn class="mr-4" color="primary" min-width="100" rounded>
+                  <input
+                    type="file"
+                    ref="imgFile"
+                    @change="uploadImage()"
+                    class="d-none"
+                  />
+            <v-btn class="mr-4" @click="choiceImg" color="primary" min-width="100" rounded>
               编辑头像
             </v-btn>
             <v-btn color="primary" min-width="100" rounded> 绑定QQ </v-btn>
@@ -57,17 +62,34 @@
                     <div>Account Information</div>
                     <v-row>
                       <v-col cols="12" md="4">
-                        <v-text-field color="purple" label="用户名" v-model="editInfo.username" disabled />
+                        <v-text-field
+                          color="purple"
+                          label="用户名"
+                          v-model="editInfo.username"
+                          disabled
+                        />
                       </v-col>
                       <v-col cols="12" md="4">
-                        <v-text-field color="purple" label="昵称" v-model="editInfo.nick" />
+                        <v-text-field
+                          color="purple"
+                          label="昵称"
+                          v-model="editInfo.nick"
+                        />
                       </v-col>
                       <v-col cols="12" md="4">
-                        <v-text-field color="purple" label="邮箱"  v-model="editInfo.email"/>
+                        <v-text-field
+                          color="purple"
+                          label="邮箱"
+                          v-model="editInfo.email"
+                        />
                       </v-col>
 
                       <v-col cols="12" md="6">
-                        <v-text-field color="purple" label="住址" v-model="editInfo.address" />
+                        <v-text-field
+                          color="purple"
+                          label="住址"
+                          v-model="editInfo.address"
+                        />
                       </v-col>
                       <v-col cols="12" md="6">
                         <v-text-field
@@ -79,7 +101,7 @@
                       </v-col>
                       <v-col cols="12">
                         <v-textarea
-                        v-model="editInfo.introduction"
+                          v-model="editInfo.introduction"
                           color="purple"
                           label="简介"
                           value="空空如也，Ta什么也没有留下"
@@ -135,10 +157,14 @@
                               <v-list-item-title>拥有角色：</v-list-item-title>
                               <v-list-item-subtitle>
                                 <v-row>
-                                  <v-col 
-                                  v-for="item in editInfo.roles"
-                                  :key="item.id"
-                                  cols="6" sm="3" md="1">{{item.role_name}}</v-col>
+                                  <v-col
+                                    v-for="item in editInfo.roles"
+                                    :key="item.id"
+                                    cols="6"
+                                    sm="3"
+                                    md="1"
+                                    >{{ item.role_name }}</v-col
+                                  >
                                 </v-row>
                               </v-list-item-subtitle>
                             </v-list-item-content>
@@ -150,10 +176,14 @@
                               <v-list-item-title>拥有菜单：</v-list-item-title>
                               <v-list-item-subtitle>
                                 <v-row>
-                                  <v-col 
-                                  v-for="item in menuInfo"
-                                  :key="item.id"
-                                  cols="6" sm="3" md="1">{{item.menu_name}}</v-col>
+                                  <v-col
+                                    v-for="item in menuInfo"
+                                    :key="item.id"
+                                    cols="6"
+                                    sm="3"
+                                    md="1"
+                                    >{{ item.menu_name }}</v-col
+                                  >
                                 </v-row>
                               </v-list-item-subtitle>
                             </v-list-item-content>
@@ -224,7 +254,9 @@
 
             <v-col cols="12" class="text-right">
               <v-btn color="primary" class="ma-4" min-width="100"> 清空 </v-btn>
-              <v-btn color="secondary" @click="save()" min-width="100"> 保存 </v-btn>
+              <v-btn color="secondary" @click="save()" min-width="100">
+                保存
+              </v-btn>
             </v-col>
           </v-form>
         </material-card>
@@ -234,71 +266,79 @@
 </template>
 
 <script>
+import fileApi from "../api/fileApi";
 import userApi from "../api/userApi";
 import menuApi from "../api/menuApi";
-import accountApi from "../api/accountApi"
+import accountApi from "../api/accountApi";
 export default {
   name: "UserProfileView",
   data: () => ({
     tab: "tab-1",
     userInfo: {},
     editInfo: {},
-    newPassword:"",
-    dis_newPassword:true,
-    menuInfo:[]
+    newPassword: "",
+    dis_newPassword: true,
+    menuInfo: [],
   }),
   created() {
     this.init();
   },
- watch:{
-    editInfo:{
-         handler(val, oldVal){
-             if(val.password.length>0 )
-             {
-               this.dis_newPassword=false;
-             }
-             else
-             {
-               this.dis_newPassword=true;
-             }
-         },
-         deep:true //true 深度监听
-     }
- },
+  watch: {
+    editInfo: {
+      handler(val, oldVal) {
+        if (val.password.length > 0) {
+          this.dis_newPassword = false;
+        } else {
+          this.dis_newPassword = true;
+        }
+      },
+      deep: true, //true 深度监听
+    },
+  },
 
   methods: {
-    save()
-    {
-      accountApi.changePassword(this.editInfo,this.newPassword).then(resp=>{
-        if(resp.status)
-        {
+    save() {
+      accountApi
+        .changePassword(this.editInfo, this.newPassword)
+        .then((resp) => {
+          if (resp.status) {
             this.$dialog.notify.error(resp.msg, {
               position: "top-right",
               timeout: 5000,
             });
-        }
-        else
-        {
- this.$dialog.notify.success(resp.msg, {
+          } else {
+            this.$dialog.notify.success(resp.msg, {
               position: "top-right",
               timeout: 5000,
             });
-        }
-        this.init();
-      })
+          }
+          this.init();
+        });
     },
     init() {
-      this.newPassword="";
+      this.newPassword = "";
       userApi.GetUserInRolesByHttpUser().then((resp) => {
         this.userInfo = resp.data;
-        this.userInfo.password="";
-      this.editInfo= Object.assign({}, this.userInfo);
+        this.userInfo.password = "";
+        this.editInfo = Object.assign({}, this.userInfo);
       });
 
-      menuApi.GetTopMenusByHttpUser().then(resp=>{
-this.menuInfo=resp.data;
-      })
+      menuApi.GetTopMenusByHttpUser().then((resp) => {
+        this.menuInfo = resp.data;
+      });
     },
+choiceImg() {
+      this.$refs.imgFile.dispatchEvent(new MouseEvent("click"));
+    },
+    uploadImage() {
+      const file = this.$refs.imgFile.files[0];
+      let formData = new FormData();
+      formData.append("img", file);
+      fileApi.Upload(formData).then(resp=>{
+        this.init();
+     })
+    },
+
   },
 };
 </script>
