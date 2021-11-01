@@ -31,7 +31,7 @@ namespace Yi.Framework.Service
         public async Task<menu> GetMenuInMould()
         {
             var menu_data= await _DbRead.Set<menu>().Include(u=>u.mould)
-               .Include(u => u.children).ThenInclude(u => u.mould)
+               .Include(u => u.children).ThenInclude(u => u.mould).OrderByDescending(u => u.sort)
                .Include(u=>u.children).ThenInclude(u => u.children).ThenInclude(u => u.mould)
                .Include(u => u.children).ThenInclude(u => u.children).ThenInclude(u => u.children).ThenInclude(u => u.mould)
                .Include(u => u.children).ThenInclude(u => u.children).ThenInclude(u => u.children).ThenInclude(u => u.children).ThenInclude(u => u.mould)

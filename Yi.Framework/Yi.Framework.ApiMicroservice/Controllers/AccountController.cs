@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -40,6 +41,10 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         public async Task<Result> Login(user _user)
         {
             var user_data = await _userService.Login(_user);
+            if (user_data == null)
+            {
+                return Result.Error("该用户不存在");
+            }
             var menuList = await _menuService.GetTopMenuByUserId(user_data.id);
             if ( user_data!=null)
             {               
@@ -152,6 +157,16 @@ namespace Yi.Framework.ApiMicroservice.Controllers
 
             return Result.Success(msg);
         }
-
+        [HttpGet]
+        public async Task<Result> EditIcon(int userId,IFormFile file)
+        {
+            var user_data = await _userService.GetUserById(userId);
+            var fileController = new FileController();
+            var type = Common.Const.FileConst.Image;
+            var filename= fileController.Upload(type,file);
+            user_data.icon = filename.ToString();
+            await _userService.UpdateAsync(user_data);
+            return Result.Success();
+        }
     }
 }
