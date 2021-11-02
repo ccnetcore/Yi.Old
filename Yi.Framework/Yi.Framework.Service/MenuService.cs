@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Yi.Framework.Core;
 using Yi.Framework.Interface;
 using Yi.Framework.Model.Models;
 
@@ -38,7 +39,7 @@ namespace Yi.Framework.Service
                .Where(u =>u.is_delete == Normal && u.is_show == (short)Common.Enum.ShowFlagEnum.Show && u.is_top == (short)Common.Enum.TopFlagEnum.Top)
                .OrderByDescending(u=>u.sort)
                .FirstOrDefaultAsync();
-         return TopMenuBuild(menu_data); 
+         return TreeMenuBuild.Normal(menu_data); 
         }
 
         public async Task<List<menu>> GetTopMenusByTopMenuIds(List<int> menuIds)
@@ -55,26 +56,7 @@ namespace Yi.Framework.Service
             return menu_data;
         }
 
-        /// <summary>
-        /// 过滤已经被删除的（这个应该是别的地方有方法的，不应该写到service层里面的）
-        /// </summary>
-        /// <param name="menu_data"></param>
-        /// <returns></returns>
-        private menu TopMenuBuild(menu menu_data)
-        {
-            for (int i = menu_data.children.Count() - 1; i >= 0; i--)
-            {
-                if (menu_data.children[i].is_delete == (short)Common.Enum.DelFlagEnum.Deleted)
-                {
-                    menu_data.children.Remove(menu_data.children[i]);
-                }
-                else if (menu_data.children[i] != null)
-                {
-                    TopMenuBuild(menu_data.children[i]);
-                }
-            }
-            return menu_data;
-        }
+ 
         public async Task<List<menu>> GetTopMenuByUserId(int userId)
         {
             var user_data = await _DbRead.Set<user>().Include(u => u.roles).ThenInclude(u => u.menus).FirstOrDefaultAsync();

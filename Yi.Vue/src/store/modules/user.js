@@ -8,7 +8,7 @@ const state = { //状态
     dark: false,
     drawer: {
         image: 0,
-        gradient: 0,
+        gradient: 1,
         mini: false,
     },
     gradients: [

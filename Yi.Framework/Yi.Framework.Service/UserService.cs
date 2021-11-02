@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Yi.Framework.Core;
 using Yi.Framework.Interface;
 using Yi.Framework.Model;
 using Yi.Framework.Model.ModelFactory;
@@ -64,70 +65,16 @@ namespace Yi.Framework.Service
                 menuList = menuList.Union(m).OrderByDescending(u => u.sort).ToList();
             }
             //menu_data为角色所有的菜单，不是一个递归的啊
-
             var allMenuIds = menuList.Select(u => u.id).ToList();
-            var topMenu = menuList.Where(u => u.is_top == (short)Common.Enum.ShowFlagEnum.Show);
 
+
+            var topMenu =await _DbRead.Set<menu>().Include(u => u.children).ThenInclude(u => u.children).ThenInclude(u => u.children).ThenInclude(u => u.children).ThenInclude(u => u.children).Where(u => u.is_top == (short)Common.Enum.ShowFlagEnum.Show).FirstOrDefaultAsync();
+
+            
             //现在要开始关联菜单了
-
-            List<menu> endMenu = new();
-            foreach (var item in topMenu)
-            {
-                var p = await _DbRead.Set<menu>().Where(u => u.id == item.id).Include(u => u.children).ThenInclude(u => u.children).ThenInclude(u => u.children).ThenInclude(u => u.children).ThenInclude(u => u.children).ToListAsync();
-                endMenu = endMenu.Union(p).ToList();
-            }
-
-
-            return TopMenuBuild2(TopMenuBuild(endMenu, allMenuIds))[0];
-        }
-        /// <summary>
-        /// 这种就命名的话，改成MenuIconAndShowBuild
-        /// </summary>
-        /// <param name="menu_data"></param>
-        /// <param name="allMenuIds"></param>
-        /// <returns></returns>
-        private List<menu> TopMenuBuild(List<menu> menu_data, List<int> allMenuIds)
-        {
-
-            for (int i = menu_data.Count() - 1; i >= 0; i--)
-            {
-                if (!allMenuIds.Contains(menu_data[i].id) || menu_data[i].is_delete == (short)Common.Enum.DelFlagEnum.Deleted || menu_data[i].is_show == (short)Common.Enum.ShowFlagEnum.NoShow)
-                {
-                    menu_data.Remove(menu_data[i]);
-                }
-                else if (menu_data[i].children != null)
-                {
-                    menu_data[i].children = TopMenuBuild(menu_data[i].children.ToList(), allMenuIds);
-                }
-            }
-            return menu_data;
+            return TreeMenuBuild.Sort(TreeMenuBuild.ShowFormat(topMenu, allMenuIds)); ;
         }
 
-        /// <summary>
-        /// 这种就命名的话，改成MenuChildrenBuild,这个方法应该可以提到core层，这是一个公用的方法
-        /// </summary>
-        /// <param name="menu_data"></param>
-        /// <returns></returns>
-        private List<menu> TopMenuBuild2(List<menu> menu_data)
-        {
-
-            for (int i = menu_data.Count() - 1; i >= 0; i--)
-            {
-                if (menu_data[i].icon == null)
-                {
-                    menu_data[i].icon = "mdi-view-dashboard";
-                }
-                if (menu_data[i].children.Count() == 0)
-                {
-                    menu_data[i].children = null; 
-                }
-                else if (menu_data[i].children != null)
-                {
-                    menu_data[i].children = TopMenuBuild2(menu_data[i].children.ToList());
-                }
-            }
-            return menu_data;
-        }
       
 
         public async Task<user> GetUserInRolesByHttpUser(int userId)

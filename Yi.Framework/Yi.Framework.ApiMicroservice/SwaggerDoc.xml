@@ -146,11 +146,11 @@
             <param name="idsListDto"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.RoleController.GetTopMenusByRoleId(System.Int32)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.RoleController.GetTopMenusByRoleId(Yi.Framework.Model.Models.role)">
             <summary>
             用于给角色设置菜单的时候，点击一个角色，显示这个角色拥有的并列的菜单
             </summary>
-            <param name="roleId"></param>
+            <param name="role"></param>
             <returns></returns>
         </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.GetUser">
