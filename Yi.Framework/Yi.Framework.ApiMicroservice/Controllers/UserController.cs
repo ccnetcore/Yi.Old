@@ -120,7 +120,12 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpGet]
         public async Task<Result> GetAxiosByRouter(string router)
         {
+            
             var _user = HttpContext.GetCurrentUserInfo(out List<int> menuIds);
+            if (menuIds == null)
+            {
+                return Result.Error();
+            }
             var menuList= await _userService.GetAxiosByRouter(router, _user.id, menuIds);
             AxiosUrlsModel urlsModel = new();
             menuList.ForEach(u =>

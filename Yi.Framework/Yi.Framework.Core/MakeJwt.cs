@@ -37,7 +37,7 @@ namespace Yi.Framework.Core
             claims.Add(new Claim(JwtRegisteredClaimNames.Exp, $"{new DateTimeOffset(DateTime.Now.AddMinutes(30)).ToUnixTimeSeconds()}"));
             claims.Add(new Claim(ClaimTypes.Name, _user.user.username));
             claims.Add(new Claim(ClaimTypes.Sid, _user.user.id.ToString()));
-            foreach (var k in _user.menuIds)
+            foreach (var k in _user?.menuIds)
             {
                 claims.Add(new Claim("menuIds",k.id.ToString()));
             }

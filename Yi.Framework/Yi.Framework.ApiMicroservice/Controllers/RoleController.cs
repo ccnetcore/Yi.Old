@@ -107,13 +107,13 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <summary>
         /// 用于给角色设置菜单的时候，点击一个角色，显示这个角色拥有的并列的菜单
         /// </summary>
-        /// <param name="role"></param>
+        /// <param name="roleId"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<Result> GetTopMenusByRoleId(role role)
+        public async Task<Result> GetTopMenusByRoleId(int roleId)
         {
            
-            return Result.Success().SetData(await _roleService.GetTopMenusByRoleId(role.id) ); ;
+            return Result.Success().SetData(await _roleService.GetTopMenusByRoleId(roleId) ); ;
         }       
     }
 }
