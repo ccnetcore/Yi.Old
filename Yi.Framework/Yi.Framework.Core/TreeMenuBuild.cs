@@ -93,7 +93,7 @@ namespace Yi.Framework.Core
             {
                 for (int i = menu_data.children.Count() - 1; i >= 0; i--)
                 {
-                    menu_data.children = menu_data.children.AsEnumerable().OrderByDescending(u => u.sort).ToList();
+                    menu_data.children = menu_data.children.AsEnumerable().OrderBy(u => u.sort).ToList();
 
                     if (menu_data.children != null || menu_data.children.Count() != 0)
                     {
