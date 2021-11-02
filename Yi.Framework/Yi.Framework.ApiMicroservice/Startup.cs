@@ -100,7 +100,7 @@ namespace Yi.Framework.ApiMicroservice
             #region
             //错误抓取反馈注入
             #endregion
-            app.UseErrorHandlingService();
+            //app.UseErrorHandlingService();
 
             #region
             //HttpsRedirection注入

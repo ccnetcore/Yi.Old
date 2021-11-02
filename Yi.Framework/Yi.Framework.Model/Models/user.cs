@@ -19,7 +19,7 @@ namespace Yi.Framework.Model.Models
         public string introduction { get; set; }
         public string address { get; set; }
         public int? phone { get; set; }
-
+        
 
         public List<role> roles { get; set; }
         
