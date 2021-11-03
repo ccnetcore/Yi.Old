@@ -48,8 +48,10 @@
     computed: {
       title () {
         const matches = this.item.menu_name.match(/\b(\w)/g)
-
+if(matches!=null)
+{
         return matches.join('')
+}
       },
     },
   }

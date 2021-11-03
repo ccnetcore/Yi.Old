@@ -39,6 +39,14 @@
             <param name="pwdDto"></param>
             <returns></returns>
         </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.FileController.Upload(System.String,Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            该方法不对外暴露
+            </summary>
+            <param name="type"></param>
+            <param name="file"></param>
+            <returns></returns>
+        </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.MenuController.GetMenuInMould">
             <summary>
             这个是要递归的，但是要过滤掉删除的，所以，可以写一个通用过滤掉删除的方法
@@ -159,11 +167,11 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.SettingController.UpdateSetting">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.SettingController.UpdateSetting(Yi.Framework.DTOModel.SettingDto)">
             <summary>
             更
             </summary>
-            <param name="_Setting"></param>
+            <param name="settingDto"></param>
             <returns></returns>
         </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.UserController.GetUser">

@@ -23,26 +23,42 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         {
             _userService = userService;
             _env = env;
-        }      
+        }
         [HttpPost]
         [Authorize]
         public async Task<Result> EditIcon(IFormFile file)
         {
-            var _user = HttpContext.GetCurrentUserInfo();
-            var user_data = await _userService.GetUserById(_user.id);
-            var type = "image";
-          var filename = await Upload(type, file);      
-            user_data.icon = filename;
-            await _userService.UpdateAsync(user_data);
-            return Result.Success();
+            try
+            {
+                var _user = HttpContext.GetCurrentUserInfo();
+                var user_data = await _userService.GetUserById(_user.id);
+                var type = "image";
+                var filename = await Upload(type, file);
+                user_data.icon = filename;
+                await _userService.UpdateAsync(user_data);
+                return Result.Success();
+            }
+            catch
+            {
+                return Result.Error();
+            }
         }
+
+        [Route("/api/{type}/{fileName}")]
         [HttpGet]
-        public IActionResult Get(string type, string imageNmae)
+        public IActionResult Get(string type, string fileName)
         {
-            var path = Path.Combine($"wwwroot/{type}", imageNmae);
-            var stream = System.IO.File.OpenRead(path);
-            var MimeType = Common.Helper.MimeHelper.GetMimeMapping(imageNmae);
-            return new FileStreamResult(stream, MimeType);
+            try
+            {
+                var path = Path.Combine($"wwwroot/{type}", fileName);
+                var stream = System.IO.File.OpenRead(path);
+                var MimeType = Common.Helper.MimeHelper.GetMimeMapping(fileName);
+                return new FileStreamResult(stream, MimeType);
+            }
+            catch
+            {
+                return new NotFoundResult();
+            }
         }
 
         /// <summary>
@@ -51,9 +67,8 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <param name="type"></param>
         /// <param name="file"></param>
         /// <returns></returns>
-        private async Task<string> Upload(string type,IFormFile file)
+        private async Task<string> Upload(string type, IFormFile file)
         {
-            
             string filename = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
             using (var stream = new FileStream(Path.Combine($"wwwroot/{type}", filename), FileMode.CreateNew, FileAccess.Write))
             {
@@ -63,13 +78,13 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             return filename;
         }
 
-         [HttpGet]
-        public async Task<IActionResult>ExportFile()
+        [HttpGet]
+        public async Task<IActionResult> ExportFile()
         {
             var userdata = await _userService.GetAllEntitiesTrueAsync();
             var userList = userdata.ToList();
-            List<string> header = new() { "用户", "密码", "头像",  "昵称", "邮箱", "ip","年龄", "个人介绍", "地址", "手机", "角色" };
-           var filename= Common.Helper.ExcelHelper.CreateExcelFromList(userList,header,_env.ContentRootPath.ToString());
+            List<string> header = new() { "用户", "密码", "头像", "昵称", "邮箱", "ip", "年龄", "个人介绍", "地址", "手机", "角色" };
+            var filename = Common.Helper.ExcelHelper.CreateExcelFromList(userList, header, _env.ContentRootPath.ToString());
             var MimeType = Common.Helper.MimeHelper.GetMimeMapping(filename);
             return new FileStreamResult(new FileStream(Path.Combine(_env.ContentRootPath+@"/wwwroot/Excel", filename), FileMode.Open),MimeType);
         }
