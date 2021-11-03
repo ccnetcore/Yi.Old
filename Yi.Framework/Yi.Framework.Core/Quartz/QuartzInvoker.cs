@@ -34,8 +34,13 @@ namespace Yi.Framework.Core
         /// <param name="second"></param>
         /// <param name="data"></param>
         /// <returns></returns>
-        public async Task start(string cron, JobKey jobKey, string jobClass, long second = 0)
+        public async Task start(string cron, JobKey jobKey, string jobClass, long second = 0, IDictionary<string, object> data = null)
         {
+            if (data == null)
+            {
+                data = new Dictionary<string, object>();
+            }
+
             var myClass = AssemblyHelper.GetClass("Yi.Framework.Job", jobClass).FirstOrDefault();
 
             _scheduler = await _schedulerFactory.GetScheduler();
@@ -49,6 +54,7 @@ namespace Yi.Framework.Core
                             .Build();
             //创建任务
             var jobDetail = JobBuilder.Create(myClass)
+                            .UsingJobData(new JobDataMap(data))
                             .WithIdentity(jobKey.Name, jobKey.Group)
                             .Build();
             //将触发器和任务器绑定到调度器中

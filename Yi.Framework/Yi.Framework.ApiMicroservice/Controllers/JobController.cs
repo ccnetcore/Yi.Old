@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Yi.Framework.Common;
+using Yi.Framework.Common.Const;
 using Yi.Framework.Common.Helper;
 using Yi.Framework.Common.Models;
 using Yi.Framework.Core;
@@ -30,7 +31,16 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpPost]
         public async Task<Result> startJob()
         {
-           await _quartzInvoker.start("*/1 * * * * ? ", new Quartz.JobKey("test", "my"), "VisitJob");
+            //任务1
+            //await _quartzInvoker.start("*/1 * * * * ? ", new Quartz.JobKey("test", "my"), "VisitJob");
+
+            //任务2
+            Dictionary<string, object> data = new Dictionary<string, object>()
+            {
+                {JobConst.method,"get" },
+                {JobConst.url,"https://www.baidu.com" }
+            };
+           await _quartzInvoker.start("*/1 * * * * ? ", new Quartz.JobKey("test", "my"), "HttpJob",data: data);
             return Result.Success();
         }
 

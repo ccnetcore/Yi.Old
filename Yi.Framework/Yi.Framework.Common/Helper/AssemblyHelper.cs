@@ -13,7 +13,8 @@ namespace Yi.Framework.Common.Helper
         {
             Assembly assembly = Assembly.Load(assemblyFile);
             return assembly.GetTypes().Where(m => m.IsClass 
-            && m.Name==null?true:m.Name==className
+            && className == null?true:m.Name==className
+            && spaceName == null ? true :m.Namespace == spaceName
              ).ToList();
         }
 
