@@ -29,20 +29,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         {            
            return Result.Success().SetData(await _roleService.GetAllEntitiesTrueAsync());
         }
-        [HttpPost]
-        public async Task<IActionResult> GetRoleFlie()
-        {
-            var roleList = await _roleService.GetAllEntitiesTrueAsync();
-            Dictionary<string, string> dt = new();
-            dt.Add("输出", "文件");
-            var byteStream = Excel.ExportExcel(roleList.ToList(), dt).ToString();
-            MemoryStream s = new MemoryStream();
-            StreamWriter writer = new StreamWriter(s);
-            writer.Write(byteStream);
-            writer.Flush();
-            //stream.Read(byteStream, 0, byteStream.Length);
-            return new FileStreamResult(s, "application/vnd.ms-excel");
-        }
+       
 
         /// <summary>
         /// 更

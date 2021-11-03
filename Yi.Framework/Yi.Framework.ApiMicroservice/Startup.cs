@@ -84,7 +84,7 @@ namespace Yi.Framework.ApiMicroservice
         #endregion
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public  void Configure(IApplicationBuilder app, IWebHostEnvironment env,IDbContextFactory _DbFactory, CacheClientDB _cacheClientDB)
+        public  void Configure(IApplicationBuilder app, IWebHostEnvironment env,IDbContextFactory _DbFactory)
         {
             //if (env.IsDevelopment())
             {
@@ -142,7 +142,7 @@ namespace Yi.Framework.ApiMicroservice
             //数据库种子注入
             #endregion
             app.UseDbSeedInitService(_DbFactory);
-            app.UseRedisInitService(_cacheClientDB);
+            //app.UseRedisInitService(_cacheClientDB);
             #region
             //Endpoints注入
             #endregion
