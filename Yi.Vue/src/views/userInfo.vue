@@ -334,7 +334,7 @@ choiceImg() {
       const file = this.$refs.imgFile.files[0];
       let formData = new FormData();
       formData.append("img", file);
-      fileApi.Upload(formData).then(resp=>{
+      fileApi.EditIcon(formData).then(resp=>{
         this.init();
      })
     },

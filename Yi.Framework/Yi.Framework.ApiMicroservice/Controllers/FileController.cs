@@ -36,12 +36,14 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             await _userService.UpdateAsync(user_data);
             return Result.Success();
         }
+
+        [Route("{type}/{fileNmae}")]
         [HttpGet]
-        public IActionResult Get(string type, string imageNmae)
+        public IActionResult Get(string type, string fileNmae)
         {
-            var path = Path.Combine($"wwwroot\\{type}", imageNmae);
+            var path = Path.Combine($"wwwroot\\{type}", fileNmae);
             var stream = System.IO.File.OpenRead(path);
-            var MimeType = Common.Helper.MimeHelper.GetMimeMapping(imageNmae);
+            var MimeType = Common.Helper.MimeHelper.GetMimeMapping(fileNmae);
             return new FileStreamResult(stream, MimeType);
         }
 
