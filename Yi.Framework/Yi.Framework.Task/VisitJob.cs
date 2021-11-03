@@ -31,13 +31,11 @@ namespace Yi.Framework.Job
         {
             return Task.Run(() =>
             {
-
-                _DBWrite.Set<visit>().Add(new visit() { num = visitModel.visitNum, time = DateTime.Now });
+                _DBWrite.Set<visit>().Add(new visit() { num = JobModel.visitNum, time = DateTime.Now });
                 _DBWrite.SaveChanges();
-                _logger.LogWarning("定时任务开始调度：" + nameof(VisitJob) + ":" + DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss") + $"：访问总数为:{visitModel.visitNum}");
-                visitModel.visitNum = 0;
+                _logger.LogWarning("定时任务开始调度：" + nameof(VisitJob) + ":" + DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss") + $"：访问总数为:{JobModel.visitNum}");
+                JobModel.visitNum = 0;
             }
-
             );
         }
     }

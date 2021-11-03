@@ -45,7 +45,12 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             return new FileStreamResult(stream, MimeType);
         }
 
-
+        /// <summary>
+        /// 该方法不对外暴露
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="file"></param>
+        /// <returns></returns>
         private async Task<string> Upload(string type,IFormFile file)
         {
             
@@ -57,6 +62,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
 
             return filename;
         }
+
          [HttpGet]
         public async Task<IActionResult>ExportFile()
         {

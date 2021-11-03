@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Yi.Framework.Common.Models
 {
-    public class visitModel
+    public class JobModel
     {
         public static int visitNum { get; set; } = 0;
     }
