@@ -6,6 +6,17 @@ namespace Yi.Framework.Common.Helper
 {
     public class JsonHelper
     {
+
+
+        public static string ObjToStr<T>(T obj)
+        {
+           return Newtonsoft.Json.JsonConvert.SerializeObject(obj);
+        }
+
+        public static T StrToObj<T>(string str)
+        {
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(str);
+        }
         /// <summary>
         /// 转换对象为JSON格式数据
         /// </summary>

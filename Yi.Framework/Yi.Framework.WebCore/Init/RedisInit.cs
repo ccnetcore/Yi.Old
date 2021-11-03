@@ -13,11 +13,11 @@ namespace Yi.Framework.WebCore.Init
     {
         public  static void Seed(CacheClientDB _cacheClientDB)
         {
-            var setDto = Common.Helper.JsonHelper.GetJSON<SettingDto>(new SettingDto()
+            var setDto = Common.Helper.JsonHelper.ObjToStr(new SettingDto()
             {
-                ImageList_key = { "默认图片", "默认图片" },
-                InitRole_key = "默认角色",
-                Title_key = "默认标题",
+                ImageList_key =new List<string> { "默认图片", "默认图片" },
+                InitRole_key = "普通用户",
+                Title_key = "YiFramework",
                 InitIcon_key = "默认头像"
             });
             if (_cacheClientDB.Get<SettingDto>(RedisConst.key)==null)
