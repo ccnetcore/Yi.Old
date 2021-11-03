@@ -108,8 +108,8 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpGet]
         public async Task<Result> GetMenuByHttpUser()
         {
-            var _user = HttpContext.GetCurrentUserInfo();
-            return Result.Success().SetData(await _userService.GetMenuByHttpUser(_user.id));
+         HttpContext.GetCurrentUserInfo(out var allMenuIds);
+            return Result.Success().SetData(await _userService.GetMenuByHttpUser(allMenuIds));
         }
 
         /// <summary>

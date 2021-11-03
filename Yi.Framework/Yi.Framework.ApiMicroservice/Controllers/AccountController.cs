@@ -13,6 +13,7 @@ using Yi.Framework.Core;
 using Yi.Framework.DTOModel;
 using Yi.Framework.Interface;
 using Yi.Framework.Model.Models;
+using Yi.Framework.WebCore;
 
 namespace Yi.Framework.ApiMicroservice.Controllers
 {
@@ -157,16 +158,6 @@ namespace Yi.Framework.ApiMicroservice.Controllers
 
             return Result.Success(msg);
         }
-        [HttpGet]
-        public async Task<Result> EditIcon(int userId,IFormFile file)
-        {
-            var user_data = await _userService.GetUserById(userId);
-            var fileController = new FileController();
-            var type = Common.Const.FileConst.Image;
-            var filename= fileController.Upload(type,file);
-            user_data.icon = filename.ToString();
-            await _userService.UpdateAsync(user_data);
-            return Result.Success();
-        }
+     
     }
 }

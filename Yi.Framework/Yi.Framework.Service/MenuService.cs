@@ -37,14 +37,13 @@ namespace Yi.Framework.Service
                .Include(u => u.children).ThenInclude(u => u.children).ThenInclude(u => u.children).ThenInclude(u => u.mould)
                .Include(u => u.children).ThenInclude(u => u.children).ThenInclude(u => u.children).ThenInclude(u => u.children).ThenInclude(u => u.mould)
                .Where(u =>u.is_delete == Normal && u.is_show == (short)Common.Enum.ShowFlagEnum.Show && u.is_top == (short)Common.Enum.TopFlagEnum.Top)
-               .OrderByDescending(u=>u.sort)
                .FirstOrDefaultAsync();
-         return TreeMenuBuild.Normal(menu_data); 
+         return  TreeMenuBuild.Sort(TreeMenuBuild.Normal(menu_data)); 
         }
 
         public async Task<List<menu>> GetTopMenusByTopMenuIds(List<int> menuIds)
         {
-           return await _DbRead.Set<menu>().AsNoTracking().Where(u => menuIds.Contains(u.id)).ToListAsync();
+           return await _DbRead.Set<menu>().AsNoTracking().Where(u => menuIds.Contains(u.id)).OrderBy(u=>u.sort).ToListAsync();
         }
 
         public async Task<menu> SetMouldByMenu(int id1,int id2)

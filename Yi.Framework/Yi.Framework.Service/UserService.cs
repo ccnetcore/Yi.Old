@@ -55,28 +55,12 @@ namespace Yi.Framework.Service
             return  menuList;
         }   
 
-        public async Task<menu> GetMenuByHttpUser(int userId)
+        public async Task<menu> GetMenuByHttpUser(List<int> allMenuIds)
         {
-            var user_data = await GetUserById(userId);
-            List<menu> menuList = new();
-            foreach (var item in user_data.roles)
-            {
-                var m = item.menus.Where(u => u.is_delete == Normal).ToList();
-                menuList = menuList.Union(m).OrderByDescending(u => u.sort).ToList();
-            }
-            //menu_data为角色所有的菜单，不是一个递归的啊
-            var allMenuIds = menuList.Select(u => u.id).ToList();
-
-
-            var topMenu =await _DbRead.Set<menu>().Include(u => u.children).ThenInclude(u => u.children).ThenInclude(u => u.children).ThenInclude(u => u.children).ThenInclude(u => u.children).Where(u => u.is_top == (short)Common.Enum.ShowFlagEnum.Show).FirstOrDefaultAsync();
-
-            
+            var topMenu =await _DbRead.Set<menu>().Include(u => u.children).ThenInclude(u => u.children).ThenInclude(u => u.children).ThenInclude(u => u.children).ThenInclude(u => u.children).Where(u => u.is_top == (short)Common.Enum.ShowFlagEnum.Show).FirstOrDefaultAsync();            
             //现在要开始关联菜单了
             return TreeMenuBuild.Sort(TreeMenuBuild.ShowFormat(topMenu, allMenuIds)); ;
-        }
-
-      
-
+        }   
         public async Task<user> GetUserInRolesByHttpUser(int userId)
         {
            return await GetUserById(userId);          

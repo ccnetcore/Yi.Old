@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
 using System;
@@ -22,46 +23,49 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         {
             _userService = userService;
             _env = env;
-        }
-
-        public FileController()
+        }      
+        [HttpPost]
+        [Authorize]
+        public async Task<Result> EditIcon(IFormFile file)
         {
+            var _user = HttpContext.GetCurrentUserInfo();
+            var user_data = await _userService.GetUserById(_user.id);
+            var type = "image";
+          var filename = await Upload(type, file);      
+            user_data.icon = filename;
+            await _userService.UpdateAsync(user_data);
+            return Result.Success();
         }
-
         [HttpGet]
-        [Route("{type}/{imageNmae}")]
         public IActionResult Get(string type, string imageNmae)
         {
-            var path = Path.Combine(@"wwwroot/file", imageNmae);
+            var path = Path.Combine($"wwwroot\\{type}", imageNmae);
             var stream = System.IO.File.OpenRead(path);
-            var MimeType = Common.Helper.MimeMapping.GetMimeMapping(imageNmae);
+            var MimeType = Common.Helper.MimeHelper.GetMimeMapping(imageNmae);
             return new FileStreamResult(stream, MimeType);
         }
 
-        [HttpPost]
-        [Route("{type}/{imageNmae}")]
-        public async Task<Result> Upload(string type,IFormFile file)
+
+        private async Task<string> Upload(string type,IFormFile file)
         {
-            if (type != Common.Const.FileConst.Image) { return Result.Error(); }
+            
             string filename = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-            string filepath = Path.Combine(@"wwwroot/image", filename);
-            using (var stream = new FileStream(Path.Combine(_env.ContentRootPath, filepath), FileMode.CreateNew, FileAccess.Write))
+            using (var stream = new FileStream(Path.Combine($"wwwroot\\{type}", filename), FileMode.CreateNew, FileAccess.Write))
             {
                 await file.CopyToAsync(stream);
             }
 
-            return Result.Success().SetData(filename);
+            return filename;
         }
-        [HttpGet]
-        public async Task<IActionResult> GetFile()
+         [HttpGet]
+        public async Task<IActionResult>ExportFile()
         {
             var userdata = await _userService.GetAllEntitiesTrueAsync();
             var userList = userdata.ToList();
-            Dictionary<string, string> dt = new();
-            dt.Add("sc", "user");
-            var bt = Excel.ExportExcel(userList, dt);
-            MemoryStream ms = new(bt);
-            return new FileStreamResult(ms, "application/vnd.ms-excel");
+            List<string> header = new() { "用户", "密码", "头像",  "昵称", "邮箱", "ip","年龄", "个人介绍", "地址", "手机", "角色" };
+           var filename= Common.Helper.ExcelHelper.CreateExcelFromList(userList,header,_env.ContentRootPath.ToString());
+            var MimeType = Common.Helper.MimeHelper.GetMimeMapping(filename);
+            return new FileStreamResult(new FileStream(Path.Combine(_env.ContentRootPath+@"\wwwroot\Excel", filename), FileMode.Open),MimeType);
         }
     }
 }

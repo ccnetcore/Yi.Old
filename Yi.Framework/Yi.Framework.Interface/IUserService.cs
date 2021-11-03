@@ -50,9 +50,9 @@ namespace Yi.Framework.Interface
         /// <summary>
         /// 通过http获取用户id，得到该用户所有的菜单（递归的那种），把所有children为[]的值全部过滤成null,不要绑定mould
         /// </summary>
-        /// <param name="userId"></param>
+        /// <param name="allMenuIds"></param>
         /// <returns></returns>
-        Task<menu> GetMenuByHttpUser(int userId);
+        Task<menu> GetMenuByHttpUser(List<int> allMenuIds);
         /// <summary>
         /// 根据路由获取菜单
         /// </summary>
