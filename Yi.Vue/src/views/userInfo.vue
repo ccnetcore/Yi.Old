@@ -3,11 +3,7 @@
     <v-row justify="center">
       <v-col cols="12" md="4">
         <app-card class="mt-4 text-center">
-          <v-img
-            class="rounded-circle elevation-6 mt-n12 d-inline-block"
-            src="https://demos.creative-tim.com/vue-material-dashboard/img/marc.aba54d65.jpg"
-            width="128"
-          />
+ <ccAvatar :size="128" class="rounded-circle elevation-6 mt-n12 d-inline-block"></ccAvatar>
 
           <v-card-text class="text-center">
             <h6 class="text-h6 mb-2 text--secondary">
@@ -321,7 +317,11 @@ export default {
         this.userInfo = resp.data;
         this.userInfo.password = "";
         this.editInfo = Object.assign({}, this.userInfo);
+        this.$store.commit('SET_USER',this.userInfo)
       });
+
+
+
 
       menuApi.GetTopMenusByHttpUser().then((resp) => {
         this.menuInfo = resp.data;
@@ -333,9 +333,13 @@ choiceImg() {
     uploadImage() {
       const file = this.$refs.imgFile.files[0];
       let formData = new FormData();
-      formData.append("img", file);
+      formData.append("file", file);
       fileApi.EditIcon(formData).then(resp=>{
         this.init();
+                  this.$dialog.notify.success(resp.msg, {
+            position: "top-right",
+            timeout: 5000,
+          });
      })
     },
 
