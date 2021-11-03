@@ -29,7 +29,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             _cacheClientDB = cacheClientDB;
         }
 
-     
+
 
         /// <summary>
         /// 查
@@ -37,8 +37,9 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <returns></returns>
         [HttpGet]
         public Result GetSetting()
-        {           
-            return Result.Success().SetData( _cacheClientDB.Get<SettingDto>(RedisConst.key));
+        {
+            var setDto = Common.Helper.JsonHelper.ParseFormByJson<SettingDto>(_cacheClientDB.Get<string>(RedisConst.key));
+            return Result.Success().SetData(setDto);
         }
 
         /// <summary>
@@ -47,11 +48,14 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <param name="settingDto"></param>
         /// <returns></returns>
         [HttpPut]
-        public  Result UpdateSetting(SettingDto settingDto)
+        public Result UpdateSetting(SettingDto settingDto)
         {
-            _cacheClientDB.Set(RedisConst.key, settingDto);
+            var setDto = Common.Helper.JsonHelper.GetJSON<SettingDto>(settingDto);
+
+            _cacheClientDB.Set(RedisConst.key, setDto);
             return Result.Success();
 
         }
     }
+
 }

@@ -39,7 +39,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpGet]
         public IActionResult Get(string type, string imageNmae)
         {
-            var path = Path.Combine($"wwwroot\\{type}", imageNmae);
+            var path = Path.Combine($"wwwroot/{type}", imageNmae);
             var stream = System.IO.File.OpenRead(path);
             var MimeType = Common.Helper.MimeHelper.GetMimeMapping(imageNmae);
             return new FileStreamResult(stream, MimeType);
@@ -55,7 +55,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         {
             
             string filename = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-            using (var stream = new FileStream(Path.Combine($"wwwroot\\{type}", filename), FileMode.CreateNew, FileAccess.Write))
+            using (var stream = new FileStream(Path.Combine($"wwwroot/{type}", filename), FileMode.CreateNew, FileAccess.Write))
             {
                 await file.CopyToAsync(stream);
             }
@@ -71,7 +71,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             List<string> header = new() { "用户", "密码", "头像",  "昵称", "邮箱", "ip","年龄", "个人介绍", "地址", "手机", "角色" };
            var filename= Common.Helper.ExcelHelper.CreateExcelFromList(userList,header,_env.ContentRootPath.ToString());
             var MimeType = Common.Helper.MimeHelper.GetMimeMapping(filename);
-            return new FileStreamResult(new FileStream(Path.Combine(_env.ContentRootPath+@"\wwwroot\Excel", filename), FileMode.Open),MimeType);
+            return new FileStreamResult(new FileStream(Path.Combine(_env.ContentRootPath+@"/wwwroot/Excel", filename), FileMode.Open),MimeType);
         }
     }
 }

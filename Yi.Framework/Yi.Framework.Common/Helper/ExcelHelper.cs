@@ -20,7 +20,7 @@ namespace Yi.Framework.Common.Helper
         public static string CreateExcelFromList<T>(List<T> dataList, List<string> headers,string evn)
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-            string sWebRootFolder = Path.Combine($"{evn}", "wwwroot\\Excel");//如果用浏览器url下载的方式  存放excel的文件夹一定要建在网站首页的同级目录下！！！
+            string sWebRootFolder = Path.Combine($"{evn}", "wwwroot/Excel");//如果用浏览器url下载的方式  存放excel的文件夹一定要建在网站首页的同级目录下！！！
             if (!Directory.Exists(sWebRootFolder))
             {
                 Directory.CreateDirectory(sWebRootFolder);
