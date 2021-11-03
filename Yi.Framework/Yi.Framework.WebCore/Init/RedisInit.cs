@@ -16,6 +16,7 @@ namespace Yi.Framework.WebCore.Init
             
             if (_cacheClientDB.Get<SettingDto>(RedisConst.key)==null)
             {
+                Newtonsoft.Json.JsonConvert.SerializeObject();
                 _cacheClientDB.Add(RedisConst.key, new SettingDto()
                 {
                     ImageList_key = { "默认图片", "默认图片" } ,

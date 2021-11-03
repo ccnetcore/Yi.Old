@@ -44,9 +44,9 @@ namespace Yi.Framework.Core
 		//	}
 		//}
 		#endregion
-		public CacheClientDB(IOptionsMonitor<RedisConnOptions> jwtTokenOptions)
+		public CacheClientDB(IOptionsMonitor<RedisConnOptions> redisConnOptions)
 		{
-			this._RedisOptions = jwtTokenOptions.CurrentValue;
+			this._RedisOptions = redisConnOptions.CurrentValue;
 			client = new RedisClient(_RedisOptions.Host, _RedisOptions.Prot, _RedisOptions.Password, _RedisOptions.DB);
 		}
 		// 管道模式 三种模式
