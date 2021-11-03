@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Yi.Framework.Model.ModelFactory;
 using Yi.Framework.Model.Models;
 
-namespace Yi.Framework.Model.DbInit
+namespace Yi.Framework.WebCore.Init
 {
     public class DataSeed
     {

@@ -6,28 +6,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Yi.Framework.Core;
 using Yi.Framework.Model.ModelFactory;
 using Yi.Framework.WebCore.Init;
 
 namespace Yi.Framework.WebCore.MiddlewareExtend
 {
-  public static class DbSeedInitExtend
+  public static class RedisInitExtend
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(DbSeedInitExtend));
-        public  static  void UseDbSeedInitService(this IApplicationBuilder app, IDbContextFactory _DbFactory)
+        private static readonly ILog log = LogManager.GetLogger(typeof(RedisInitExtend));
+        public  static  void UseRedisInitService(this IApplicationBuilder app, CacheClientDB _cacheClientDB)
         {
 
-            if (Appsettings.appBool("DbSeed_Enabled"))
+            if (Appsettings.appBool("RedisSet_Enabled"))
             {
                 if (app == null) throw new ArgumentNullException(nameof(app));
 
                 try
                 {
-                    DataSeed.SeedAsync(_DbFactory).Wait();
+                    RedisInit.Seed(_cacheClientDB);
                 }
                 catch (Exception e)
                 {
-                    log.Error($"Error occured seeding the Database.\n{e.Message}");
+                    log.Error($"Error occured seeding the RedisInit.\n{e.Message}");
                     throw;
                 }
             }

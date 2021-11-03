@@ -4,6 +4,7 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.IO;
 using Yi.Framework.Common.IOCOptions;
+using Yi.Framework.Core;
 
 namespace Yi.Framework.WebCore.MiddlewareExtend
 {
@@ -17,6 +18,7 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
             if (Appsettings.appBool("Redis_Enabled"))
             {
                 services.Configure<RedisConnOptions>(Appsettings.appConfiguration("RedisConn"));
+                services.AddTransient<CacheClientDB>();
             }
             return services;
         }
