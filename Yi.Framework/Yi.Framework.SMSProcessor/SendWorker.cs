@@ -43,9 +43,10 @@ namespace Yi.Framework.SMSProcessor
             HttpClient _HttpClient = new HttpClient();
             this._RabbitMQInvoker.RegistReciveAction(rabbitMQConsumerModel, message =>
             {
+              var data=  Common.Helper.JsonHelper.StrToObj<SMSQueueModel>(message);
                 try
                 {
-                    _aliyunSMSInvoker.SendCode("1234","15949688315");
+                    _aliyunSMSInvoker.SendCode(data.code, data.phone);
                 
                     return true;
                 }

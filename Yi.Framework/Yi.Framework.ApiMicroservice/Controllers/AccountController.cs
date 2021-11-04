@@ -88,10 +88,10 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         }
 
 
-        [HttpGet]
+        [HttpPost]
         public Result SendSMS(SMSQueueModel test)
         {
-            _rabbitMQInvoker.Send(new Common.IOCOptions.RabbitMQConsumerModel() { ExchangeName=RabbitConst.SMS_Exchange,QueueName=RabbitConst.SMS_Queue_Send} );
+            _rabbitMQInvoker.Send(new Common.IOCOptions.RabbitMQConsumerModel() { ExchangeName=RabbitConst.SMS_Exchange,QueueName=RabbitConst.SMS_Queue_Send} ,JsonHelper.ObjToStr(test));
             return Result.Success();
         }
 

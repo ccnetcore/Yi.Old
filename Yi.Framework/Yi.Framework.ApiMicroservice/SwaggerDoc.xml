@@ -25,12 +25,6 @@
             <param name="code"></param>
             <returns></returns>
         </member>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.AccountController.SendMail">
-            <summary>
-            发送邮件
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.AccountController.Email(System.String)">
             <summary>
             传入邮箱，需要先到数据库判断该邮箱是否被人注册过，到userservice写mail_exist方法，还有接口别忘了。这个接口不需要洞，只需要完成userservice写mail_exist与接口即可
