@@ -26,16 +26,18 @@ namespace Yi.Framework.Core
         private readonly string _HostName = null;
         private readonly string _UserName = null;
         private readonly string _Password = null;
-        public RabbitMQInvoker(IOptionsMonitor<RabbitMQOptions> optionsMonitor) : this(optionsMonitor.CurrentValue.HostName, optionsMonitor.CurrentValue.UserName, optionsMonitor.CurrentValue.Password)
+        private readonly int _Port = 0;
+        public RabbitMQInvoker(IOptionsMonitor<RabbitMQOptions> optionsMonitor) : this(optionsMonitor.CurrentValue.HostName, optionsMonitor.CurrentValue.UserName, optionsMonitor.CurrentValue.Password,optionsMonitor.CurrentValue.Port)
         {
             this._rabbitMQOptions = optionsMonitor.CurrentValue;
         }
 
-        public RabbitMQInvoker(string hostName, string userName = "cc", string password = "cc")
+        public RabbitMQInvoker(string hostName, string userName = "cc", string password = "cc",int port= 5672)
         {
             this._HostName = hostName;
             this._UserName = userName;
             this._Password = password;
+            this._Port = port;
         }
         #endregion
 
@@ -103,7 +105,9 @@ namespace Yi.Framework.Core
                         {
                             HostName = this._HostName,
                             Password = this._Password,
-                            UserName = this._UserName
+                            UserName = this._UserName,
+                            Port=this._Port
+                            
                         };
                         _CurrentConnection = factory.CreateConnection();
                     }

@@ -70,7 +70,10 @@ namespace Yi.Framework.ApiMicroservice
             #endregion
             services.AddRabbitMQService();
 
-
+            #region
+            //短信服务配置
+            #endregion
+            services.AddSMSService();
         }
 
         #region Autofac容器注入
@@ -158,6 +161,7 @@ namespace Yi.Framework.ApiMicroservice
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+
             });
         }
     }

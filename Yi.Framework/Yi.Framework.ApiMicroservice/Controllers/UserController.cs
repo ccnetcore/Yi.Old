@@ -76,6 +76,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
 
 
         /// <summary>
+        /// SetRoleByUser 
         /// 给多个用户设置多个角色，ids有用户id与 角色列表ids，多对多,ids1用户,ids2为角色
         /// 用户设置给用户设置角色
         /// </summary>

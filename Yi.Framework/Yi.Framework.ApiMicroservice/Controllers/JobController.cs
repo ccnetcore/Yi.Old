@@ -28,6 +28,10 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             _quartzInvoker = quartzInvoker;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         public async Task<Result> startJob()
         {
@@ -44,18 +48,30 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             return Result.Success();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<Result> getRunJobList()
         {
            return  Result.Success().SetData(await _quartzInvoker.getRunJobList());
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public Result  getJobClass()
         {
             return Result.Success().SetData(_quartzInvoker.getJobClassList());
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [HttpPut]
         public async Task<Result> stopJob()
         {
@@ -63,6 +79,10 @@ namespace Yi.Framework.ApiMicroservice.Controllers
           return Result.Success();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [HttpDelete]
         public async Task<Result> DeleteJob()
         {
@@ -70,6 +90,10 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             return Result.Success();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [HttpPut]
         public async Task<Result> ResumeJob()
         {

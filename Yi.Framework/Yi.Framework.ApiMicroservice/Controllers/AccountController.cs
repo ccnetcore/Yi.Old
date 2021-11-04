@@ -7,8 +7,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Yi.Framework.Common;
+using Yi.Framework.Common.Const;
 using Yi.Framework.Common.Helper;
 using Yi.Framework.Common.Models;
+using Yi.Framework.Common.QueueModel;
 using Yi.Framework.Core;
 using Yi.Framework.DTOModel;
 using Yi.Framework.Interface;
@@ -25,11 +27,13 @@ namespace Yi.Framework.ApiMicroservice.Controllers
 
         private IUserService _userService;
         private IMenuService _menuService;
-        public AccountController(ILogger<UserController> logger, IUserService userService, IMenuService menuService)
+        private RabbitMQInvoker _rabbitMQInvoker;
+        public AccountController(ILogger<UserController> logger, IUserService userService, IMenuService menuService,RabbitMQInvoker rabbitMQInvoker)
         {
             _logger = logger;
             _userService = userService;
             _menuService = menuService;
+            _rabbitMQInvoker = rabbitMQInvoker;
         }
 
 
@@ -81,6 +85,14 @@ namespace Yi.Framework.ApiMicroservice.Controllers
                 await _userService.Register(_user);
             }
             return Result.Error();
+        }
+
+
+        [HttpGet]
+        public Result SendSMS(SMSQueueModel test)
+        {
+            _rabbitMQInvoker.Send(new Common.IOCOptions.RabbitMQConsumerModel() { ExchangeName=RabbitConst.SMS_Exchange,QueueName=RabbitConst.SMS_Queue_Send} );
+            return Result.Success();
         }
 
         /// <summary>

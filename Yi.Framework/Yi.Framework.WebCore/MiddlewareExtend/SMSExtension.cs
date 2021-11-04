@@ -5,20 +5,22 @@ using System;
 using System.IO;
 using Yi.Framework.Common.IOCOptions;
 using Yi.Framework.Core;
+using Yi.Framework.Core.SMS;
 
 namespace Yi.Framework.WebCore.MiddlewareExtend
 {
     /// <summary>
     /// Redis扩展
     /// </summary>
-    public static class RabbitMQExtension
+    public static class SMSExtension
     {
-        public static IServiceCollection AddRabbitMQService(this IServiceCollection services)
+        public static IServiceCollection AddSMSService(this IServiceCollection services)
         {
-            if (Appsettings.appBool("RabbitMQ_Enabled"))
+            if (Appsettings.appBool("SMS_Enabled"))
             {
-                services.Configure<RabbitMQOptions>(Appsettings.appConfiguration("RabbitConn"));
-                services.AddTransient<RabbitMQInvoker>();
+               
+                services.Configure<SMSOptions>(Appsettings.appConfiguration("SMS"));
+                services.AddTransient<AliyunSMSInvoker>();
             }
             return services;
 
