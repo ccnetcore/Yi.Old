@@ -155,6 +155,7 @@ namespace Yi.Framework.ApiMicroservice
             //redis种子注入
             #endregion
             app.UseRedisSeedInitService(_cacheClientDB);
+
             #region
             //Endpoints注入
             #endregion

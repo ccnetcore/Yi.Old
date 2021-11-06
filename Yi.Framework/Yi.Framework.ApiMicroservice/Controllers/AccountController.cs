@@ -28,12 +28,16 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         private IUserService _userService;
         private IMenuService _menuService;
         private RabbitMQInvoker _rabbitMQInvoker;
-        public AccountController(ILogger<UserController> logger, IUserService userService, IMenuService menuService,RabbitMQInvoker rabbitMQInvoker)
+        private CacheClientDB _cacheClientDB;
+        private IRoleService _roleService;
+        public AccountController(ILogger<UserController> logger, IUserService userService, IMenuService menuService,RabbitMQInvoker rabbitMQInvoker,CacheClientDB cacheClientDB, IRoleService roleService)
         {
             _logger = logger;
             _userService = userService;
             _menuService = menuService;
             _rabbitMQInvoker = rabbitMQInvoker;
+            _cacheClientDB = cacheClientDB;
+            _roleService = roleService;
         }
 
 
@@ -72,7 +76,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         }
 
         /// <summary>
-        /// code为验证码,判断一下，假装验证码都是对的
+        /// code为验证码,从redis中判断一下code是否正确
         /// </summary>
         /// <param name="_user"></param>
         /// <param name="code"></param>
@@ -80,23 +84,57 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpPost]
         public async Task<Result> Register(user _user, string code)
         {
-            if (code != null)
+            _user.username=_user.username.Trim();
+            if(string.IsNullOrEmpty(_user.username))
+            code = code.Trim();
+
+             string trueCode=  _cacheClientDB.Get<string>(RedisConst.keyCode + _user.phone);
+            if (code == trueCode)
             {
+                //设置默认头像
+                var setting = JsonHelper.StrToObj<SettingDto>(_cacheClientDB.Get<string>(RedisConst.key));
+                _user.icon = setting.InitIcon;
+                //设置默认角色
+                if (string.IsNullOrEmpty(setting.InitRole))
+                {
+                    return Result.Error("无默认角色，请初始化数据库");
+                }
+                _user.roles = new List<role>();
+                _user.roles.Add(await _roleService.GetEntity(u => u.role_name == setting.InitRole));
                 await _userService.Register(_user);
+
+                return Result.Success("恭喜，你已加入我们！");
             }
-            return Result.Error();
+            return Result.Error("验证码有误，请重新输入！");
         }
 
 
+        /// <summary>
+        /// 发送短信，需要将生成的sms+code存入redis
+        /// </summary>
+        /// <param name="SMSAddress"></param>
+        /// <returns></returns>
         [HttpPost]
-        public Result SendSMS(SMSQueueModel test)
+        public async  Task<Result> SendSMS(string SMSAddress)
         {
-            _rabbitMQInvoker.Send(new Common.IOCOptions.RabbitMQConsumerModel() { ExchangeName=RabbitConst.SMS_Exchange,QueueName=RabbitConst.SMS_Queue_Send} ,JsonHelper.ObjToStr(test));
-            return Result.Success();
+            SMSAddress = SMSAddress.Trim();
+            if (!await _userService.PhoneIsExsit(SMSAddress))
+            {
+                SMSQueueModel sMSQueueModel = new SMSQueueModel();
+                sMSQueueModel.phone = SMSAddress;
+                sMSQueueModel.code =RandomHelper.GenerateCheckCodeNum(6);
+
+                //10分钟过期
+                _cacheClientDB.Set(RedisConst.keyCode+sMSQueueModel.phone, sMSQueueModel.code, TimeSpan.FromMinutes(10));
+
+                _rabbitMQInvoker.Send(new Common.IOCOptions.RabbitMQConsumerModel() { ExchangeName = RabbitConst.SMS_Exchange, QueueName = RabbitConst.SMS_Queue_Send }, JsonHelper.ObjToStr(sMSQueueModel));
+                return Result.Success("发送短信成功，10分钟后过期，请留意短信接收");
+            }
+                return Result.Error("该号码已被注册");
         }
 
         /// <summary>
-        /// 传入邮箱，需要先到数据库判断该邮箱是否被人注册过，到userservice写mail_exist方法，还有接口别忘了。这个接口不需要洞，只需要完成userservice写mail_exist与接口即可
+        /// 发送邮箱，需要先到数据库判断该邮箱是否被人注册过，到userservice写mail_exist方法，还有接口别忘了。
         /// </summary>
         /// <param name="emailAddress"></param>
         /// <returns></returns>

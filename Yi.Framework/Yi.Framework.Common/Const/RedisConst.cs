@@ -13,6 +13,7 @@ namespace Yi.Framework.Common.Const
         /// </summary>
         public const string key = "YiFramework:data";
 
+        public const string keyCode = "YiFramework:code";
         ///// <summary>
         ///// 初始化角色名
         ///// </summary>

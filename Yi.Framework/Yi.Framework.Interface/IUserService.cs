@@ -42,6 +42,13 @@ namespace Yi.Framework.Interface
         Task<bool> EmailIsExsit(string emailAddress);
 
         /// <summary>
+        /// sms验证
+        /// </summary>
+        /// <param name="smsAddress"></param>
+        /// <returns></returns>
+        Task<bool> PhoneIsExsit(string smsAddress);
+
+        /// <summary>
         /// 通过用户id，得到该用户的所有信息，关联角色
         /// </summary>
         /// <param name="userId"></param>

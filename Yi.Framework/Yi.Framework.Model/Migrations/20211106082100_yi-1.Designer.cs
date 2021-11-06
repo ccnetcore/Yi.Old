@@ -9,7 +9,7 @@ using Yi.Framework.Model;
 namespace Yi.Framework.Model.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20211022181627_yi-1")]
+    [Migration("20211106082100_yi-1")]
     partial class yi1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -134,8 +134,8 @@ namespace Yi.Framework.Model.Migrations
                     b.Property<string>("password")
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("phone")
-                        .HasColumnType("int");
+                    b.Property<string>("phone")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("username")
                         .HasColumnType("longtext");
@@ -143,6 +143,26 @@ namespace Yi.Framework.Model.Migrations
                     b.HasKey("id");
 
                     b.ToTable("user");
+                });
+
+            modelBuilder.Entity("Yi.Framework.Model.Models.visit", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("is_delete")
+                        .HasColumnType("int");
+
+                    b.Property<int>("num")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("time")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("id");
+
+                    b.ToTable("visit");
                 });
 
             modelBuilder.Entity("menurole", b =>

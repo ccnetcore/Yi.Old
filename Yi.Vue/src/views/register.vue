@@ -18,10 +18,10 @@
 
     <!-- title -->
     <v-card-text>
-      <p class="text-2xl font-weight-semibold text--primary mb-2">
+      <p class="text-2xl font-weight-semibold text--primary mb-1">
         注册-从这里开始 🚀
       </p>
-      <p class="mb-2">加入我们，获得一个有趣的灵魂！</p>
+      <p class="mb-1">加入我们，获得一个有趣的灵魂！</p>
     </v-card-text>
 
     <!-- login form -->
@@ -31,30 +31,42 @@
           v-model="form.username"
           outlined
           label="用户名"
-          placeholder="JohnDoe"
-
-          class="mb-3"
+          placeholder="cc"
+          class="mb-1"
           counter="20"
         ></v-text-field>
 
         <v-text-field
-          v-model="form.email"
+          v-model="form.phone"
           outlined
-          label="邮箱"
-          placeholder="john@example.com"
+          label="电话"
+          placeholder="12345678901"
+          class="mb-1"
+        >
+        </v-text-field>
 
-          class="mb-3"
-        ></v-text-field>
-
+        <v-row>
+          <v-col cols="9">
+            <v-text-field
+              v-model="code"
+              outlined
+              label="验证码"
+              placeholder="123456"
+              class="mb-1"
+            >
+            </v-text-field>
+          </v-col>
+          <v-col cols="3">
+            <app-btn @click="sendSMS" class="mb-1 mt-1">验证码</app-btn>
+          </v-col>
+        </v-row>
         <v-text-field
           v-model="form.password"
           outlined
           :type="isPasswordVisible ? 'text' : 'password'"
           label="密码"
           placeholder="············"
-          :append-icon="
-            isPasswordVisible ? 'mdi-eye' : 'mdi-eye-off'
-          "
+          :append-icon="isPasswordVisible ? 'mdi-eye' : 'mdi-eye-off'"
           @click:append="isPasswordVisible = !isPasswordVisible"
         ></v-text-field>
 
@@ -67,7 +79,9 @@
           </template>
         </v-checkbox>
 
-        <v-btn block color="primary" class="mt-6"> 注册 </v-btn>
+        <v-btn block color="primary" class="mt-6" @click="register">
+          注册
+        </v-btn>
       </v-form>
     </v-card-text>
 
@@ -86,53 +100,79 @@
 
     <!-- social link -->
     <v-card-actions class="d-flex justify-center">
-          <v-btn
-            v-for="link in socialLink"
-            :key="link.icon"
-            icon
-            class="ms-1"
-          >
-            <v-icon :color="$vuetify.theme.dark ? link.colorInDark:link.color">
-              {{ link.icon }}
-            </v-icon>
-          </v-btn>
-        </v-card-actions>
+      <v-btn v-for="link in socialLink" :key="link.icon" icon class="ms-1">
+        <v-icon :color="$vuetify.theme.dark ? link.colorInDark : link.color">
+          {{ link.icon }}
+        </v-icon>
+      </v-btn>
+    </v-card-actions>
   </v-card>
 </template>
 <script>
+import accoutAPI from "../api/accountApi";
 export default {
+  methods: {
+    sendSMS() {
+      accoutAPI.SendSMS(this.form.phone).then(resp=>{
+         if (resp.status) {
+            this.$dialog.notify.success(resp.msg, {
+              position: "top-right",
+              timeout: 5000,
+            });
+          }
+      });
+    },
+    register() {
+      accoutAPI
+        .register(
+          this.form.username,
+          this.form.password,
+          this.form.phone,
+          this.code
+        )
+        .then((resp) => {
+          if (resp.status) {
+            this.$dialog.notify.success(resp.msg, {
+              position: "top-right",
+              timeout: 5000,
+            });
+            this.$router.push("/login/");
+          } 
+        });
+    },
+  },
   data: () => ({
-    socialLink:[
-     {
-        icon: 'mdi-qqchat',
-        color: '#8D5EE0',
-        colorInDark: '#8D5EE0',
-      },
-   {
-        icon: 'mdi-facebook',
-        color: '#4267b2',
-        colorInDark: '#4267b2',
+    socialLink: [
+      {
+        icon: "mdi-qqchat",
+        color: "#8D5EE0",
+        colorInDark: "#8D5EE0",
       },
       {
-        icon: 'mdi-twitter',
-        color: '#1da1f2',
-        colorInDark: '#1da1f2',
+        icon: "mdi-facebook",
+        color: "#4267b2",
+        colorInDark: "#4267b2",
       },
       {
-        icon: 'mdi-github',
-        color: '#272727',
-        colorInDark: '#fff',
+        icon: "mdi-twitter",
+        color: "#1da1f2",
+        colorInDark: "#1da1f2",
       },
       {
-        icon: 'mdi-google',
-        color: '#db4437',
-        colorInDark: '#db4437',
+        icon: "mdi-github",
+        color: "#272727",
+        colorInDark: "#fff",
       },
-],
-
+      {
+        icon: "mdi-google",
+        color: "#db4437",
+        colorInDark: "#db4437",
+      },
+    ],
     isPasswordVisible: false,
+    code: "",
     form: {
-      email: "",
+      phone: "",
       username: "",
       password: "",
     },

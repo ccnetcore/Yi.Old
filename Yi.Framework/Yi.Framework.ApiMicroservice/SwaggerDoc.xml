@@ -19,15 +19,22 @@
         </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.AccountController.Register(Yi.Framework.Model.Models.user,System.String)">
             <summary>
-            code为验证码,判断一下，假装验证码都是对的
+            code为验证码,从redis中判断一下code是否正确
             </summary>
             <param name="_user"></param>
             <param name="code"></param>
             <returns></returns>
         </member>
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.AccountController.SendSMS(System.String)">
+            <summary>
+            发送短信，需要将生成的sms+code存入redis
+            </summary>
+            <param name="SMSAddress"></param>
+            <returns></returns>
+        </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.AccountController.Email(System.String)">
             <summary>
-            传入邮箱，需要先到数据库判断该邮箱是否被人注册过，到userservice写mail_exist方法，还有接口别忘了。这个接口不需要洞，只需要完成userservice写mail_exist与接口即可
+            发送邮箱，需要先到数据库判断该邮箱是否被人注册过，到userservice写mail_exist方法，还有接口别忘了。
             </summary>
             <param name="emailAddress"></param>
             <returns></returns>

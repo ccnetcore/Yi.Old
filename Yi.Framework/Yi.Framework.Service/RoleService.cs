@@ -47,7 +47,9 @@ namespace Yi.Framework.Service
         {
             var role_data = await _Db.Set<role>().Include(u=>u.menus).Where(u => u.id == roleId).FirstOrDefaultAsync();
             var menuList = role_data.menus.Where(u => u.is_delete == Normal).ToList();
-            
+
+            menuList.ForEach(u => u.roles = null);
+
             return menuList;
         }
 

@@ -15,22 +15,25 @@ namespace Yi.Framework.Service
 {
     public partial class UserService : BaseService<user>, IUserService
     {
-        private IRoleService _roleService;
         short Normal = (short)Common.Enum.DelFlagEnum.Normal;
-        public UserService(IDbContextFactory DbFactory, IRoleService roleService) : base(DbFactory)
+        public async Task<bool> PhoneIsExsit(string smsAddress)
         {
-            _roleService = roleService;
+            var userList = await GetEntity(u => u.phone == smsAddress);
+            if (userList == null)
+            {
+                return false;
+            }
+            return true;
         }
 
         public async Task<bool> EmailIsExsit(string emailAddress)
         {
-            var userList = await GetAllEntitiesTrueAsync();
-            var is_email = userList.Where(u => u.email == emailAddress).FirstOrDefault();
-            if (is_email == null)
+            var userList = await GetEntity(u => u.email == emailAddress);
+            if (userList == null)
             {
-                return true;
+                return false;
             }
-            return false;
+            return true;
         }
         /// <summary>
         /// 
@@ -48,9 +51,10 @@ namespace Yi.Framework.Service
             List<menu> menuList = new();
            foreach(var item in user_data.roles)
             {
-               var m=item.menus.Where(u => u.router.ToUpper() == router.ToUpper()).FirstOrDefault();
-               menuList= m.children.Where(u => menuIds.Contains(u.id)&&u.is_delete==Normal).ToList();
-                if (m != null) { break; }
+               var m=item.menus.Where(u =>u?.router?.ToUpper() == router.ToUpper()).FirstOrDefault();
+                if (m == null) { break; }
+                menuList = m.children?.Where(u => menuIds.Contains(u.id)&&u.is_delete==Normal).ToList();
+               
             }
             return  menuList;
         }   
@@ -63,7 +67,12 @@ namespace Yi.Framework.Service
         }   
         public async Task<user> GetUserInRolesByHttpUser(int userId)
         {
-           return await GetUserById(userId);          
+            var data = await GetUserById(userId);
+            data.roles?.ForEach(u=> {
+                u.users = null;
+                u.menus = null;
+            });
+           return data;          
         }
 
         public async Task<user> Login(user _user)
@@ -79,7 +88,7 @@ namespace Yi.Framework.Service
             {
                 return false;
             }
-            return await AddAsync(_user);
+            return await UpdateAsync(_user);
         }
 
         public async Task<bool> SetRoleByUser(List<int> roleIds, List<int> userIds)
@@ -89,5 +98,7 @@ namespace Yi.Framework.Service
             user_data.ForEach(u => u.roles = roleList);          
             return await UpdateListAsync(user_data);
         }
+
+
     }
 }
