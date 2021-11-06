@@ -30,7 +30,8 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         private RabbitMQInvoker _rabbitMQInvoker;
         private CacheClientDB _cacheClientDB;
         private IRoleService _roleService;
-        public AccountController(ILogger<UserController> logger, IUserService userService, IMenuService menuService,RabbitMQInvoker rabbitMQInvoker,CacheClientDB cacheClientDB, IRoleService roleService)
+        private IHttpContextAccessor _httpContext;
+        public AccountController(ILogger<UserController> logger, IUserService userService, IMenuService menuService,RabbitMQInvoker rabbitMQInvoker,CacheClientDB cacheClientDB, IRoleService roleService, IHttpContextAccessor httpContext)
         {
             _logger = logger;
             _userService = userService;
@@ -38,6 +39,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             _rabbitMQInvoker = rabbitMQInvoker;
             _cacheClientDB = cacheClientDB;
             _roleService = roleService;
+            _httpContext = httpContext;
         }
 
 
@@ -94,6 +96,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
                 //设置默认头像
                 var setting = JsonHelper.StrToObj<SettingDto>(_cacheClientDB.Get<string>(RedisConst.key));
                 _user.icon = setting.InitIcon;
+                _user.ip = _httpContext.HttpContext.Request.Headers["X-Real-IP"].FirstOrDefault();//通过上下文获取ip
                 //设置默认角色
                 if (string.IsNullOrEmpty(setting.InitRole))
                 {
@@ -117,6 +120,10 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpPost]
         public async  Task<Result> SendSMS(string SMSAddress)
         {
+            if (string.IsNullOrEmpty(SMSAddress))
+            {
+                return Result.Error("请输入电话号码");
+            }
             SMSAddress = SMSAddress.Trim();
             if (!await _userService.PhoneIsExsit(SMSAddress))
             {

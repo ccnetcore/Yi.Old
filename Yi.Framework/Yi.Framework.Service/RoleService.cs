@@ -16,7 +16,8 @@ namespace Yi.Framework.Service
         public async Task<List<role>> GetRolesByUserId(int userId)
         {
             var user_data =await _Db.Set<user>().Include(u => u.roles).Where(u => u.id==userId).FirstOrDefaultAsync();
-            var roleList = user_data.roles.Where(u=>u.is_delete==Normal).ToList();       
+            var roleList = user_data.roles.Where(u=>u.is_delete==Normal).ToList();
+            roleList.ForEach(u => u.users = null);
             return roleList;
         }
 

@@ -57,7 +57,7 @@
             </v-text-field>
           </v-col>
           <v-col cols="3">
-            <app-btn @click="sendSMS" class="mb-1 mt-1">验证码</app-btn>
+            <v-btn color="secondary" @click="sendSMS" class="mb-1 mt-1" :disabled="is_en">验证码</v-btn>
           </v-col>
         </v-row>
         <v-text-field
@@ -113,6 +113,7 @@ import accoutAPI from "../api/accountApi";
 export default {
   methods: {
     sendSMS() {
+      this.is_en=true
       accoutAPI.SendSMS(this.form.phone).then(resp=>{
          if (resp.status) {
             this.$dialog.notify.success(resp.msg, {
@@ -171,6 +172,7 @@ export default {
     ],
     isPasswordVisible: false,
     code: "",
+    is_en:false,
     form: {
       phone: "",
       username: "",
