@@ -41,6 +41,7 @@ namespace Yi.Framework.Service
          return  TreeMenuBuild.Sort(TreeMenuBuild.Normal(menu_data)); 
         }
 
+
         public async Task<List<menu>> GetTopMenusByTopMenuIds(List<int> menuIds)
         {
            return await _DbRead.Set<menu>().AsNoTracking().Where(u => menuIds.Contains(u.id)).OrderBy(u=>u.sort).ToListAsync();

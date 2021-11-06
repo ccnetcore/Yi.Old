@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Yi.Framework.Model;
 
 namespace Yi.Framework.Model.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20211106080646_ec2")]
+    partial class ec2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,23 +26,44 @@ namespace Yi.Framework.Model.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("image")
-                        .HasColumnType("longtext")
-                        .HasComment("品牌图片");
+                        .HasColumnType("longtext");
 
                     b.Property<int>("is_delete")
                         .HasColumnType("int");
 
                     b.Property<string>("letter")
-                        .HasColumnType("longtext")
-                        .HasComment("品牌首字母");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("name")
-                        .HasColumnType("longtext")
-                        .HasComment("品牌名称");
+                        .HasColumnType("longtext");
 
                     b.HasKey("id");
 
                     b.ToTable("brand");
+                });
+
+            modelBuilder.Entity("Yi.Framework.Model.Models.brand_category", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("brandId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("categoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("is_delete")
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("brandId");
+
+                    b.HasIndex("categoryId");
+
+                    b.ToTable("brand_category");
                 });
 
             modelBuilder.Entity("Yi.Framework.Model.Models.category", b =>
@@ -56,16 +79,13 @@ namespace Yi.Framework.Model.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("is_parent")
-                        .HasColumnType("int")
-                        .HasComment("是否父类别");
+                        .HasColumnType("int");
 
                     b.Property<string>("name")
-                        .HasColumnType("longtext")
-                        .HasComment("类别名称");
+                        .HasColumnType("longtext");
 
                     b.Property<int>("sort")
-                        .HasColumnType("int")
-                        .HasComment("排序");
+                        .HasColumnType("int");
 
                     b.HasKey("id");
 
@@ -148,90 +168,70 @@ namespace Yi.Framework.Model.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("actual_pay")
-                        .HasColumnType("int")
-                        .HasComment("实付金额。单位:分。如:20007，表示:200元7分");
+                        .HasColumnType("int");
 
                     b.Property<string>("buyer_message")
-                        .HasColumnType("longtext")
-                        .HasComment("买家留言");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("buyer_nick")
-                        .HasColumnType("longtext")
-                        .HasComment("买家昵称");
+                        .HasColumnType("longtext");
 
                     b.Property<int>("buyer_rate")
-                        .HasColumnType("int")
-                        .HasComment("买家是否已经评价,0未评价，1已评价");
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("creat_time")
-                        .HasColumnType("datetime(6)")
-                        .HasComment("订单创建时间");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("invoice_type")
-                        .HasColumnType("int")
-                        .HasComment("发票类型:0无发票1普通发票，2电子发票，3增值税发票");
+                        .HasColumnType("int");
 
                     b.Property<int>("is_delete")
                         .HasColumnType("int");
 
                     b.Property<int>("payment_type")
-                        .HasColumnType("int")
-                        .HasComment("支付类型，1、在线支付，2、货到付款");
+                        .HasColumnType("int");
 
                     b.Property<int>("post_fee")
-                        .HasColumnType("int")
-                        .HasComment("邮费。单位:分。如:20007，表示:200元7分");
+                        .HasColumnType("int");
 
                     b.Property<string>("promotion_ids")
-                        .HasColumnType("longtext")
-                        .HasComment("promotion_ids");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("receiver")
-                        .HasColumnType("longtext")
-                        .HasComment("收货人");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("receiver_address")
-                        .HasColumnType("longtext")
-                        .HasComment("收获地址（街道、住址等详细地址）");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("receiver_city")
-                        .HasColumnType("longtext")
-                        .HasComment("收获地址（市）");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("receiver_district")
-                        .HasColumnType("longtext")
-                        .HasComment("收获地址（区/县）");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("receiver_mobile")
-                        .HasColumnType("longtext")
-                        .HasComment("收货人手机");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("receiver_state")
-                        .HasColumnType("longtext")
-                        .HasComment("收获地址（省）");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("receiver_zip")
-                        .HasColumnType("longtext")
-                        .HasComment("收货人邮编");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("shipping_code")
-                        .HasColumnType("longtext")
-                        .HasComment("物流单号");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("shipping_name")
-                        .HasColumnType("longtext")
-                        .HasComment("物流名称");
+                        .HasColumnType("longtext");
 
                     b.Property<int?>("skuid")
                         .HasColumnType("int");
 
                     b.Property<int>("source_type")
-                        .HasColumnType("int")
-                        .HasComment("订单来源：1:app端，2：pc端，3：M端，4：微信端，5：手机qq端");
+                        .HasColumnType("int");
 
                     b.Property<int>("total_pay")
-                        .HasColumnType("int")
-                        .HasComment("总金额，单位为分");
+                        .HasColumnType("int");
 
                     b.HasKey("id");
 
@@ -272,42 +272,34 @@ namespace Yi.Framework.Model.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("crate_time")
-                        .HasColumnType("datetime(6)")
-                        .HasComment("创建时间");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("enable")
-                        .HasColumnType("int")
-                        .HasComment("是否有效，0无效，1有效");
+                        .HasColumnType("int");
 
                     b.Property<string>("images")
-                        .HasColumnType("longtext")
-                        .HasComment("商品的图片，多个图片以‘,’分割");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("indexes")
-                        .HasColumnType("longtext")
-                        .HasComment("特有规格属性在spu属性模板中的对应下标组合");
+                        .HasColumnType("longtext");
 
                     b.Property<int>("is_delete")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("last_update_time")
-                        .HasColumnType("datetime(6)")
-                        .HasComment("最后更新时间");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("own_spec")
-                        .HasColumnType("longtext")
-                        .HasComment("sku的特有规格参数键值对，json格式，反序列化时请使用linkedHashMap，保证有序");
+                        .HasColumnType("longtext");
 
                     b.Property<int>("price")
-                        .HasColumnType("int")
-                        .HasComment("销售价格，单位为分");
+                        .HasColumnType("int");
 
                     b.Property<int?>("spuid")
                         .HasColumnType("int");
 
                     b.Property<string>("title")
-                        .HasColumnType("longtext")
-                        .HasComment("商品标题");
+                        .HasColumnType("longtext");
 
                     b.HasKey("id");
 
@@ -329,8 +321,7 @@ namespace Yi.Framework.Model.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("name")
-                        .HasColumnType("longtext")
-                        .HasComment("规格组名称");
+                        .HasColumnType("longtext");
 
                     b.HasKey("id");
 
@@ -349,34 +340,28 @@ namespace Yi.Framework.Model.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("generic")
-                        .HasColumnType("int")
-                        .HasComment("是否是sku通用属性，true或false");
+                        .HasColumnType("int");
 
                     b.Property<int>("is_delete")
                         .HasColumnType("int");
 
                     b.Property<string>("name")
-                        .HasColumnType("longtext")
-                        .HasComment("参数名");
+                        .HasColumnType("longtext");
 
                     b.Property<int>("numeric")
-                        .HasColumnType("int")
-                        .HasComment("是否是数字类型参数，true或false");
+                        .HasColumnType("int");
 
                     b.Property<int>("searching")
-                        .HasColumnType("int")
-                        .HasComment("是否用于搜索过滤，true或false");
+                        .HasColumnType("int");
 
                     b.Property<string>("segments")
-                        .HasColumnType("longtext")
-                        .HasComment("数值类型参数，如果需要搜索，则添加分段间隔值，如CPU频率间隔：0.5-1.0");
+                        .HasColumnType("longtext");
 
                     b.Property<int?>("spec_Groupid")
                         .HasColumnType("int");
 
                     b.Property<string>("unit")
-                        .HasColumnType("longtext")
-                        .HasComment("数字类型参数的单位，非数字类型可以为空");
+                        .HasColumnType("longtext");
 
                     b.HasKey("id");
 
@@ -397,34 +382,28 @@ namespace Yi.Framework.Model.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("crate_time")
-                        .HasColumnType("datetime(6)")
-                        .HasComment("创建时间");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("is_delete")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("last_update_time")
-                        .HasColumnType("datetime(6)")
-                        .HasComment("最后更新时间");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("saleable")
-                        .HasColumnType("int")
-                        .HasComment("是否上架");
+                        .HasColumnType("int");
 
                     b.Property<int?>("spu_Detailid")
                         .HasColumnType("int");
 
                     b.Property<string>("sub_title")
-                        .HasColumnType("longtext")
-                        .HasComment("子标题");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("title")
-                        .HasColumnType("longtext")
-                        .HasComment("标题");
+                        .HasColumnType("longtext");
 
                     b.Property<int>("valid")
-                        .HasColumnType("int")
-                        .HasComment("是否有效");
+                        .HasColumnType("int");
 
                     b.HasKey("id");
 
@@ -442,27 +421,22 @@ namespace Yi.Framework.Model.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("after_service")
-                        .HasColumnType("longtext")
-                        .HasComment("售后服务");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("description")
-                        .HasColumnType("longtext")
-                        .HasComment("描述");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("generic_spec")
-                        .HasColumnType("longtext")
-                        .HasComment("通用规格参数数据");
+                        .HasColumnType("longtext");
 
                     b.Property<int>("is_delete")
                         .HasColumnType("int");
 
                     b.Property<string>("packing_list")
-                        .HasColumnType("longtext")
-                        .HasComment("包装清单");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("special_spec")
-                        .HasColumnType("longtext")
-                        .HasComment("特有规格参数及可选值信息，json格式");
+                        .HasColumnType("longtext");
 
                     b.HasKey("id");
 
@@ -479,19 +453,16 @@ namespace Yi.Framework.Model.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("seckill_stock")
-                        .HasColumnType("int")
-                        .HasComment("可秒杀库存");
+                        .HasColumnType("int");
 
                     b.Property<int>("seckill_total")
-                        .HasColumnType("int")
-                        .HasComment("秒杀总数量");
+                        .HasColumnType("int");
 
                     b.Property<int?>("skuid")
                         .HasColumnType("int");
 
                     b.Property<int>("stock_count")
-                        .HasColumnType("int")
-                        .HasComment("库存数量");
+                        .HasColumnType("int");
 
                     b.HasKey("id");
 
@@ -564,21 +535,6 @@ namespace Yi.Framework.Model.Migrations
                     b.ToTable("visit");
                 });
 
-            modelBuilder.Entity("brandcategory", b =>
-                {
-                    b.Property<int>("brandsid")
-                        .HasColumnType("int");
-
-                    b.Property<int>("categoriesid")
-                        .HasColumnType("int");
-
-                    b.HasKey("brandsid", "categoriesid");
-
-                    b.HasIndex("categoriesid");
-
-                    b.ToTable("brandcategory");
-                });
-
             modelBuilder.Entity("categoryspu", b =>
                 {
                     b.Property<int>("categoriesid")
@@ -592,6 +548,25 @@ namespace Yi.Framework.Model.Migrations
                     b.HasIndex("spusid");
 
                     b.ToTable("categoryspu");
+                });
+
+            modelBuilder.Entity("Yi.Framework.Model.Models.brand_category", b =>
+                {
+                    b.HasOne("Yi.Framework.Model.Models.brand", "brand")
+                        .WithMany("categories")
+                        .HasForeignKey("brandId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Yi.Framework.Model.Models.category", "category")
+                        .WithMany("brands")
+                        .HasForeignKey("categoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("brand");
+
+                    b.Navigation("category");
                 });
 
             modelBuilder.Entity("Yi.Framework.Model.Models.category", b =>
@@ -689,21 +664,6 @@ namespace Yi.Framework.Model.Migrations
                     b.Navigation("sku");
                 });
 
-            modelBuilder.Entity("brandcategory", b =>
-                {
-                    b.HasOne("Yi.Framework.Model.Models.brand", null)
-                        .WithMany()
-                        .HasForeignKey("brandsid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Yi.Framework.Model.Models.category", null)
-                        .WithMany()
-                        .HasForeignKey("categoriesid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("categoryspu", b =>
                 {
                     b.HasOne("Yi.Framework.Model.Models.category", null)
@@ -721,11 +681,15 @@ namespace Yi.Framework.Model.Migrations
 
             modelBuilder.Entity("Yi.Framework.Model.Models.brand", b =>
                 {
+                    b.Navigation("categories");
+
                     b.Navigation("spus");
                 });
 
             modelBuilder.Entity("Yi.Framework.Model.Models.category", b =>
                 {
+                    b.Navigation("brands");
+
                     b.Navigation("chidrens");
 
                     b.Navigation("spec_Groups");
