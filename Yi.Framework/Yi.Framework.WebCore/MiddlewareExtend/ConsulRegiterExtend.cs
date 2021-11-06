@@ -30,7 +30,7 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
             {
                 var consulRegisterOption = Appsettings.app<ConsulRegisterOption>("ConsulRegisterOption");
 
-                var consulClientOption = Appsettings.app<ConsulClientOption>("ConsulRegisterOption");
+                var consulClientOption = Appsettings.app<ConsulClientOption>("ConsulClientOption");
                 using (ConsulClient client = new ConsulClient(c =>
                  {
                      c.Address = new Uri($"http://{consulClientOption.IP}:{consulClientOption.Port}/");
