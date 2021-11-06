@@ -16,16 +16,22 @@ export default {
             method: 'post',
         })
     },
-    register(username, password, email, code) {
+    register(username, password, phone, code) {
         return myaxios({
             url: `/Account/register?code=${code}`,
             method: 'post',
-            data: { username, password, email }
+            data: { username, password, phone }
         })
     },
     email(emailAddress) {
         return myaxios({
             url: `/Account/email?emailAddress=${emailAddress}`,
+            method: 'post',
+        })
+    },
+    SendSMS(smsAddress) {
+        return myaxios({
+            url: `/Account/SendSMS?SMSAddress=${smsAddress}`,
             method: 'post',
         })
     },

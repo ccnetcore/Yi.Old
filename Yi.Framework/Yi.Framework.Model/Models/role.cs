@@ -13,5 +13,6 @@ namespace Yi.Framework.Model.Models
 
 
         public List<menu> menus { get; set; }
+        public List<user> users { get; set; }
     }
 }

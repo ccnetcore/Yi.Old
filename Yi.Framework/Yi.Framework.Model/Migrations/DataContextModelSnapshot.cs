@@ -44,9 +44,6 @@ namespace Yi.Framework.Model.Migrations
                     b.Property<int?>("mouldid")
                         .HasColumnType("int");
 
-                    b.Property<int?>("roleid")
-                        .HasColumnType("int");
-
                     b.Property<string>("router")
                         .HasColumnType("longtext");
 
@@ -58,8 +55,6 @@ namespace Yi.Framework.Model.Migrations
                     b.HasIndex("menuid");
 
                     b.HasIndex("mouldid");
-
-                    b.HasIndex("roleid");
 
                     b.ToTable("menu");
                 });
@@ -99,12 +94,7 @@ namespace Yi.Framework.Model.Migrations
                     b.Property<string>("role_name")
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("userid")
-                        .HasColumnType("int");
-
                     b.HasKey("id");
-
-                    b.HasIndex("userid");
 
                     b.ToTable("role");
                 });
@@ -142,8 +132,8 @@ namespace Yi.Framework.Model.Migrations
                     b.Property<string>("password")
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("phone")
-                        .HasColumnType("int");
+                    b.Property<string>("phone")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("username")
                         .HasColumnType("longtext");
@@ -173,6 +163,36 @@ namespace Yi.Framework.Model.Migrations
                     b.ToTable("visit");
                 });
 
+            modelBuilder.Entity("menurole", b =>
+                {
+                    b.Property<int>("menusid")
+                        .HasColumnType("int");
+
+                    b.Property<int>("rolesid")
+                        .HasColumnType("int");
+
+                    b.HasKey("menusid", "rolesid");
+
+                    b.HasIndex("rolesid");
+
+                    b.ToTable("menurole");
+                });
+
+            modelBuilder.Entity("roleuser", b =>
+                {
+                    b.Property<int>("rolesid")
+                        .HasColumnType("int");
+
+                    b.Property<int>("usersid")
+                        .HasColumnType("int");
+
+                    b.HasKey("rolesid", "usersid");
+
+                    b.HasIndex("usersid");
+
+                    b.ToTable("roleuser");
+                });
+
             modelBuilder.Entity("Yi.Framework.Model.Models.menu", b =>
                 {
                     b.HasOne("Yi.Framework.Model.Models.menu", null)
@@ -183,33 +203,42 @@ namespace Yi.Framework.Model.Migrations
                         .WithMany()
                         .HasForeignKey("mouldid");
 
-                    b.HasOne("Yi.Framework.Model.Models.role", null)
-                        .WithMany("menus")
-                        .HasForeignKey("roleid");
-
                     b.Navigation("mould");
                 });
 
-            modelBuilder.Entity("Yi.Framework.Model.Models.role", b =>
+            modelBuilder.Entity("menurole", b =>
                 {
+                    b.HasOne("Yi.Framework.Model.Models.menu", null)
+                        .WithMany()
+                        .HasForeignKey("menusid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Yi.Framework.Model.Models.role", null)
+                        .WithMany()
+                        .HasForeignKey("rolesid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("roleuser", b =>
+                {
+                    b.HasOne("Yi.Framework.Model.Models.role", null)
+                        .WithMany()
+                        .HasForeignKey("rolesid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Yi.Framework.Model.Models.user", null)
-                        .WithMany("roles")
-                        .HasForeignKey("userid");
+                        .WithMany()
+                        .HasForeignKey("usersid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Yi.Framework.Model.Models.menu", b =>
                 {
                     b.Navigation("children");
-                });
-
-            modelBuilder.Entity("Yi.Framework.Model.Models.role", b =>
-                {
-                    b.Navigation("menus");
-                });
-
-            modelBuilder.Entity("Yi.Framework.Model.Models.user", b =>
-                {
-                    b.Navigation("roles");
                 });
 #pragma warning restore 612, 618
         }

@@ -50,7 +50,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpPut]
         public  Result UpdateSetting(SettingDto settingDto)
         {
-            var setDto = Common.Helper.JsonHelper.ObjToStr<SettingDto>(settingDto);
+            var setDto = Common.Helper.JsonHelper.ObjToStr(settingDto);
 
            _cacheClientDB.Set(RedisConst.key, setDto);
             return Result.Success();

@@ -15,10 +15,10 @@ namespace Yi.Framework.WebCore.Init
         {
             var setDto = Common.Helper.JsonHelper.ObjToStr(new SettingDto()
             {
-                ImageList_key =new List<string> { "默认图片", "默认图片" },
-                InitRole_key = "普通用户",
-                Title_key = "YiFramework",
-                InitIcon_key = "默认头像"
+                ImageList =new List<string> { "默认图片", "默认图片" },
+                InitRole = "普通用户",
+                Title = "YiFramework",
+                InitIcon = "默认头像"
             });
             if (_cacheClientDB.Get<SettingDto>(RedisConst.key)==null)
             {

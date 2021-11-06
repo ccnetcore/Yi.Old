@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Yi.Framework.Model.Migrations
@@ -69,12 +70,29 @@ namespace Yi.Framework.Model.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     address = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    phone = table.Column<int>(type: "int", nullable: true),
+                    phone = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     is_delete = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_user", x => x.id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "visit",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    time = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    num = table.Column<int>(type: "int", nullable: false),
+                    is_delete = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_visit", x => x.id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -193,6 +211,9 @@ namespace Yi.Framework.Model.Migrations
 
             migrationBuilder.DropTable(
                 name: "roleuser");
+
+            migrationBuilder.DropTable(
+                name: "visit");
 
             migrationBuilder.DropTable(
                 name: "menu");

@@ -18,7 +18,7 @@ namespace Yi.Framework.Model.Models
         public int? age { get; set; }
         public string introduction { get; set; }
         public string address { get; set; }
-        public int? phone { get; set; }
+        public string phone { get; set; }
         
 
         public List<role> roles { get; set; }

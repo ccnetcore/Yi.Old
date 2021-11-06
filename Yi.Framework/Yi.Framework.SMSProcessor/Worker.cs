@@ -25,7 +25,7 @@ namespace Yi.Framework.SMSProcessor
             {
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
                 _logger.LogInformation($"Worker appsetting ConsulClientOption:Ip={this._IConfiguration["ConsulClientOption:Ip"]}");
-                await Task.Delay(1000, stoppingToken);
+                await Task.Delay(100000, stoppingToken);
             }
         }
     }
