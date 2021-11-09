@@ -24,7 +24,7 @@ namespace Yi.Framework.ApiMicroservice
                 .ConfigureAppConfiguration((hostBuilderContext, configurationBuilder) =>
                 {
                     configurationBuilder.AddCommandLine(args);
-                    configurationBuilder.AddJsonFile("appsettings.json", optional: true, reloadOnChange: false);
+                    configurationBuilder.AddJsonFileService();
                     #region 
                     //Apollo≈‰÷√
                     #endregion

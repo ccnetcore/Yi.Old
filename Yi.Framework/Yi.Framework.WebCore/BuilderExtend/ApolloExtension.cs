@@ -27,8 +27,6 @@ namespace Yi.Framework.WebCore.BuilderExtend
             {
                 var apolloBuilder = builder.AddApollo(root.GetSection("apollo")).AddDefault();
 
-
-
                 foreach (var item in NameSpace)
                 {
                     apolloBuilder.AddNamespace(item, ConfigFileFormat.Json);
