@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Autofac.Extras.DynamicProxy;
 using Castle.DynamicProxy;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.EntityFrameworkCore;
@@ -36,11 +37,11 @@ namespace Yi.Framework.WebCore.Utility
 
             containerBuilder.RegisterType<DbContextFactory>().As<IDbContextFactory>().InstancePerDependency().EnableInterfaceInterceptors();
 
+            containerBuilder.RegisterType< HttpContextAccessor>().As<IHttpContextAccessor>().SingleInstance();
 
-            
 
 
-///反射注入服务层及接口层     
+            ///反射注入服务层及接口层     
             var assemblysServices = GetDll( "Yi.Framework.Service.dll");
             containerBuilder.RegisterAssemblyTypes(assemblysServices)
                      .AsImplementedInterfaces()

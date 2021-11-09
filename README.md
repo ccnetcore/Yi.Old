@@ -19,6 +19,8 @@
 
 **Yi.Vue**：Vue2.0配合CC.Yi.Framework使用前端项目（正在更新）
 
+**分支：ec**：基于Yi.Framework微服务电商项目（同步更新）
+
 ****
 #### 支持:
 

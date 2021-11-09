@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Search\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="T4DataContext.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
