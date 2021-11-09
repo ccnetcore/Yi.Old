@@ -338,5 +338,5 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
-Yi.Framework/Yi.Framework.ApiMicroservice/YIDB.db-shm
-Yi.Framework/Yi.Framework.ApiMicroservice/appsettings.json
+
+appsettings.json
