@@ -49,16 +49,16 @@ namespace Yi.Framework.ElasticSearchProcessor
                     //【判断增删改，es进行相应的操作】
                     //switch (spuCQRSQueueModel.CQRSType)
                     //{
-                        //case (int)SPUCQRSQueueModelType.Insert:
-                        //case (int)SPUCQRSQueueModelType.Update:
-                        //    {
-                        //        Goods goods = this._ISearchService.GetGoodsBySpuId(spuCQRSQueueModel.SpuId);
-                        //        this._IElasticSearchService.InsertOrUpdata<Goods>(goods);
-                        //        break;
-                        //    }
-                        //case (int)SPUCQRSQueueModelType.Delete:
-                        //    this._IElasticSearchService.Delete<Goods>(spuCQRSQueueModel.SpuId.ToString());
-                        //    break;
+                    //    case (int)SPUCQRSQueueModelType.Insert:
+                    //    case (int)SPUCQRSQueueModelType.Update:
+                    //        {
+                    //            Goods goods = this._ISearchService.GetGoodsBySpuId(spuCQRSQueueModel.SpuId);
+                    //            this._IElasticSearchService.InsertOrUpdata<Goods>(goods);
+                    //            break;
+                    //        }
+                    //    case (int)SPUCQRSQueueModelType.Delete:
+                    //        this._IElasticSearchService.Delete<Goods>(spuCQRSQueueModel.SpuId.ToString());
+                    //        break;
                     //    default:
                     //        throw new Exception("wrong spuCQRSQueueModel.CQRSType");
                     //}

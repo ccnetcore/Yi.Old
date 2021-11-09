@@ -13,7 +13,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Yi.Framework.Common.IOCOptions;
 using Yi.Framework.Common.Models;
+using Yi.Framework.Common.QueueModel;
 using Yi.Framework.Core;
+using Yi.Framework.Interface;
 
 namespace Yi.Framework.ElasticSearchProcessor
 {
@@ -25,13 +27,15 @@ namespace Yi.Framework.ElasticSearchProcessor
         private readonly ElasticSearchInvoker _elasticSearchInvoker;
         private readonly IOptionsMonitor<ElasticSearchOptions> _ElasticSearchOptions = null;
 
-        public WarmupESIndexWorker(ILogger<WarmupESIndexWorker> logger, RabbitMQInvoker rabbitMQInvoker, IConfiguration configuration, ElasticSearchInvoker elasticSearchInvoker, IOptionsMonitor<ElasticSearchOptions> optionsMonitor)
+        private readonly ISearchService _searchService;
+        public WarmupESIndexWorker(ILogger<WarmupESIndexWorker> logger, RabbitMQInvoker rabbitMQInvoker, IConfiguration configuration, ElasticSearchInvoker elasticSearchInvoker, IOptionsMonitor<ElasticSearchOptions> optionsMonitor, ISearchService searchService)
         {
             this._logger = logger;
             this._RabbitMQInvoker = rabbitMQInvoker;
             this._configuration = configuration;
             this._elasticSearchInvoker = elasticSearchInvoker;
             this._ElasticSearchOptions = optionsMonitor;
+            this._searchService=searchService;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -44,14 +48,14 @@ namespace Yi.Framework.ElasticSearchProcessor
             HttpClient _HttpClient = new HttpClient();
             this._RabbitMQInvoker.RegistReciveAction(rabbitMQConsumerModel, message =>
             {
-                //SKUWarmupQueueModel skuWarmupQueueModel = JsonConvert.DeserializeObject<SKUWarmupQueueModel>(message);
+                SKUWarmupQueueModel skuWarmupQueueModel = JsonConvert.DeserializeObject<SKUWarmupQueueModel>(message);
                 //【得到消息队列模型】
                 #region 先删除Index---新建Index---再建立全部数据索引
                 {
                     try
                     {
                         this._elasticSearchInvoker.DropIndex(this._ElasticSearchOptions.CurrentValue.IndexName);
-                        //this._ISearchService.ImpDataBySpu();
+                        this._searchService.ImpDataBySpu();
                         //【触发es数据导入服务】
                         this._logger.LogInformation($"{nameof(WarmupESIndexWorker)}.InitAll succeed");
                         return true;

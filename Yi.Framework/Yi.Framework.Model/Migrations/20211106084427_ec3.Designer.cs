@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Yi.Framework.Model;
 
 namespace Yi.Framework.Model.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20211106084427_ec3")]
+    partial class ec3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -101,6 +103,9 @@ namespace Yi.Framework.Model.Migrations
                     b.Property<int?>("mouldid")
                         .HasColumnType("int");
 
+                    b.Property<int?>("roleid")
+                        .HasColumnType("int");
+
                     b.Property<string>("router")
                         .HasColumnType("longtext");
 
@@ -112,6 +117,8 @@ namespace Yi.Framework.Model.Migrations
                     b.HasIndex("menuid");
 
                     b.HasIndex("mouldid");
+
+                    b.HasIndex("roleid");
 
                     b.ToTable("menu");
                 });
@@ -250,7 +257,12 @@ namespace Yi.Framework.Model.Migrations
                     b.Property<string>("role_name")
                         .HasColumnType("longtext");
 
+                    b.Property<int?>("userid")
+                        .HasColumnType("int");
+
                     b.HasKey("id");
+
+                    b.HasIndex("userid");
 
                     b.ToTable("role");
                 });
@@ -523,8 +535,8 @@ namespace Yi.Framework.Model.Migrations
                     b.Property<string>("password")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("phone")
-                        .HasColumnType("longtext");
+                    b.Property<int?>("phone")
+                        .HasColumnType("int");
 
                     b.Property<string>("username")
                         .HasColumnType("longtext");
@@ -584,36 +596,6 @@ namespace Yi.Framework.Model.Migrations
                     b.ToTable("categoryspu");
                 });
 
-            modelBuilder.Entity("menurole", b =>
-                {
-                    b.Property<int>("menusid")
-                        .HasColumnType("int");
-
-                    b.Property<int>("rolesid")
-                        .HasColumnType("int");
-
-                    b.HasKey("menusid", "rolesid");
-
-                    b.HasIndex("rolesid");
-
-                    b.ToTable("menurole");
-                });
-
-            modelBuilder.Entity("roleuser", b =>
-                {
-                    b.Property<int>("rolesid")
-                        .HasColumnType("int");
-
-                    b.Property<int>("usersid")
-                        .HasColumnType("int");
-
-                    b.HasKey("rolesid", "usersid");
-
-                    b.HasIndex("usersid");
-
-                    b.ToTable("roleuser");
-                });
-
             modelBuilder.Entity("Yi.Framework.Model.Models.category", b =>
                 {
                     b.HasOne("Yi.Framework.Model.Models.category", null)
@@ -631,6 +613,10 @@ namespace Yi.Framework.Model.Migrations
                         .WithMany()
                         .HasForeignKey("mouldid");
 
+                    b.HasOne("Yi.Framework.Model.Models.role", null)
+                        .WithMany("menus")
+                        .HasForeignKey("roleid");
+
                     b.Navigation("mould");
                 });
 
@@ -639,6 +625,13 @@ namespace Yi.Framework.Model.Migrations
                     b.HasOne("Yi.Framework.Model.Models.sku", null)
                         .WithMany("orders")
                         .HasForeignKey("skuid");
+                });
+
+            modelBuilder.Entity("Yi.Framework.Model.Models.role", b =>
+                {
+                    b.HasOne("Yi.Framework.Model.Models.user", null)
+                        .WithMany("roles")
+                        .HasForeignKey("userid");
                 });
 
             modelBuilder.Entity("Yi.Framework.Model.Models.sku", b =>
@@ -728,36 +721,6 @@ namespace Yi.Framework.Model.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("menurole", b =>
-                {
-                    b.HasOne("Yi.Framework.Model.Models.menu", null)
-                        .WithMany()
-                        .HasForeignKey("menusid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Yi.Framework.Model.Models.role", null)
-                        .WithMany()
-                        .HasForeignKey("rolesid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("roleuser", b =>
-                {
-                    b.HasOne("Yi.Framework.Model.Models.role", null)
-                        .WithMany()
-                        .HasForeignKey("rolesid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Yi.Framework.Model.Models.user", null)
-                        .WithMany()
-                        .HasForeignKey("usersid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Yi.Framework.Model.Models.brand", b =>
                 {
                     b.Navigation("spus");
@@ -777,6 +740,11 @@ namespace Yi.Framework.Model.Migrations
                     b.Navigation("children");
                 });
 
+            modelBuilder.Entity("Yi.Framework.Model.Models.role", b =>
+                {
+                    b.Navigation("menus");
+                });
+
             modelBuilder.Entity("Yi.Framework.Model.Models.sku", b =>
                 {
                     b.Navigation("orders");
@@ -790,6 +758,11 @@ namespace Yi.Framework.Model.Migrations
             modelBuilder.Entity("Yi.Framework.Model.Models.spu", b =>
                 {
                     b.Navigation("skus");
+                });
+
+            modelBuilder.Entity("Yi.Framework.Model.Models.user", b =>
+                {
+                    b.Navigation("roles");
                 });
 #pragma warning restore 612, 618
         }
