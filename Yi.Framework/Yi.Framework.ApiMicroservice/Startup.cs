@@ -71,6 +71,11 @@ namespace Yi.Framework.ApiMicroservice
             services.AddRabbitMQService();
 
             #region
+            //ElasticSeach服务配置
+            #endregion
+            services.AddElasticSeachService();
+
+            #region
             //短信服务配置
             #endregion
             services.AddSMSService();
