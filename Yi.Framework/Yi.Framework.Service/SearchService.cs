@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Yi.Framework.Core;
 using Yi.Framework.Interface;
 using Yi.Framework.Model.Models;
 using Yi.Framework.Model.Search;
@@ -12,9 +13,11 @@ namespace Yi.Framework.Service
     public class SearchService : ISearchService
     {
         private IGoodsService _goodsService;
-        public SearchService(IGoodsService goodsService)
+        private ElasticSearchInvoker _elasticSearchInvoker ;
+        public SearchService(IGoodsService goodsService, ElasticSearchInvoker elasticSearchInvoker)
         {
             _goodsService = goodsService;
+            _elasticSearchInvoker = elasticSearchInvoker;
         }
         public void ImpDataBySpu()
         {
@@ -48,7 +51,7 @@ namespace Yi.Framework.Service
                     }
                 }
                 // 存入es,先留着，不写
-                //_elasticSearchService.Send(goodsList);
+                _elasticSearchInvoker.Send(goodsList);
                 page++;
             } while (size == 100);
         }
