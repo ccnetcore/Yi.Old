@@ -10,6 +10,7 @@ namespace Yi.Framework.Interface
 {
     public interface IGoodsService
     {
-        PageResult<spu> QuerySpuByPage(int page, int rows, string key, bool? saleable);
+        PageResult<spu> QuerySpuByPage(int page, int rows, string key, int? saleable);
+        List<spec_param> SpecParam(category _category, int generic);
     }
 }

@@ -49,5 +49,7 @@ namespace Yi.Framework.Model.Models
         public int invoice_type { get; set; }
         [Comment("订单来源：1:app端，2：pc端，3：M端，4：微信端，5：手机qq端")]
         public int source_type { get; set; }
+        [Comment("sku")]
+        public sku sku { get;}
     }
 }

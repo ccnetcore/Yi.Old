@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,9 +18,9 @@ namespace Yi.Framework.Model.Models
         public int is_parent { get; set; }
         [Comment("子类别")] 
         public List<category> chidrens { get; set; }
-        [Comment("品牌")] 
+        [Comment("品牌")]
         public List<brand> brands { get; set; }
-        [Comment("spu")] 
+        [Comment("spu")]
         public List<spu> spus { get; set; }
         [Comment("规格组")] 
         public List<spec_group> spec_Groups { get; set; }

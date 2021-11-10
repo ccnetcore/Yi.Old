@@ -14,7 +14,7 @@ namespace Yi.Framework.Model.Models
         [Comment("商品的图片，多个图片以‘,’分割")]
         public string images { get; set; }
         [Comment("销售价格，单位为分")]
-        public int price { get; set; }
+        public double price { get; set; }
         [Comment("特有规格属性在spu属性模板中的对应下标组合")]
         public string indexes { get; set; }
         [Comment("是否有效，0无效，1有效")]
@@ -27,6 +27,8 @@ namespace Yi.Framework.Model.Models
         public DateTime last_update_time { get; set; }
         [Comment("spu")]
         public spu spu { get; set; }
+        [Comment("specParam")]
+        public spec_param specParam { get; set; }    
         [Comment("订单")]
         public List<order> orders { get; set; }
     }

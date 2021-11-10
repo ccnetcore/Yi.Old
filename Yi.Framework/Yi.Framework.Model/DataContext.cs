@@ -42,14 +42,18 @@ namespace Yi.Framework.Model
                     case DbConst.Sqlite:
                         optionsBuilder.UseSqlite(_connStr); break;
                     case DbConst.Sqlserver:
-                        optionsBuilder.UseSqlServer(_connStr);break;
+                        optionsBuilder.UseSqlServer(_connStr); break;
                     case DbConst.Oracle:
-                        optionsBuilder.UseOracle(_connStr);break;
+                        optionsBuilder.UseOracle(_connStr); break;
                     default:
-                        Console.WriteLine("错误！请确保你选择了正确的数据库！");break;
+                        Console.WriteLine("错误！请确保你选择了正确的数据库！"); break;
                 }
             }
         }
-
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.Entity<spu>().HasOne<category>().WithMany(u => u.spus);
+        }
     }
 }

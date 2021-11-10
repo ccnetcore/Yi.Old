@@ -11,6 +11,10 @@ namespace Yi.Framework.Model.Search
         public int totalPages; //总页数
         public List<T> rows; // 每页显示的数据集合
 
+        public PageResult()
+        {
+        }
+
         public PageResult(long total, List<T> rows)
         {
             this.total = total;
