@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31515.178
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BackGround", "BackGround", "{D6B44435-EAFA-4D55-90D0-3AF80485FB83}"
 EndProject
@@ -43,7 +43,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.PageDetail", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.Job", "Yi.Framework.Task\Yi.Framework.Job.csproj", "{F1C990DD-32C3-4F02-83B0-6E52B18B0B17}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Framework.SMSProcessor", "Yi.Framework.SMSProcessor\Yi.Framework.SMSProcessor.csproj", "{7C58FB7C-9AB5-47CF-ACEB-B784CF820E7E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.SMSProcessor", "Yi.Framework.SMSProcessor\Yi.Framework.SMSProcessor.csproj", "{7C58FB7C-9AB5-47CF-ACEB-B784CF820E7E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Framework.SearchMicroservice", "Yi.Framework.SearchMicroservice\Yi.Framework.SearchMicroservice.csproj", "{EA39B321-0386-474D-9F63-033F4C3F2357}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -115,6 +117,10 @@ Global
 		{7C58FB7C-9AB5-47CF-ACEB-B784CF820E7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C58FB7C-9AB5-47CF-ACEB-B784CF820E7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C58FB7C-9AB5-47CF-ACEB-B784CF820E7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA39B321-0386-474D-9F63-033F4C3F2357}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA39B321-0386-474D-9F63-033F4C3F2357}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA39B321-0386-474D-9F63-033F4C3F2357}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA39B321-0386-474D-9F63-033F4C3F2357}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -136,6 +142,7 @@ Global
 		{637501E2-A32E-485C-8680-ED863D1793C2} = {026D2797-07D1-4BA5-8070-50CDE0258C59}
 		{F1C990DD-32C3-4F02-83B0-6E52B18B0B17} = {9ABAF6B1-6C02-498A-90A2-ABC1140CF89A}
 		{7C58FB7C-9AB5-47CF-ACEB-B784CF820E7E} = {D6B44435-EAFA-4D55-90D0-3AF80485FB83}
+		{EA39B321-0386-474D-9F63-033F4C3F2357} = {026D2797-07D1-4BA5-8070-50CDE0258C59}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1ED77A6E-377F-4EEF-A3D0-D65C94657DAF}

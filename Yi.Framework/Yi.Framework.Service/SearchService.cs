@@ -146,9 +146,90 @@ namespace Yi.Framework.Service
             catch (Exception ex)
             {
 
-                throw;
+               throw new Exception(ex.Message);
             }
 
         }
+
+        public SearchResult<Goods> GetData(SearchRequest searchRequest)
+        {
+            //先通过ES分词查询，得到一个goodslist
+            List<Goods> GoodsList=new List<Goods>();
+            throw new NotImplementedException();
+        }
+        //下面这个方法为源来方法：
+        //        public SearchResult<Goods> GetData(SearchRequest searchRequest)
+        //{
+
+        //    var client = _elasticSearchService.GetElasticClient();
+        //    var list = client.Search<Goods>(s => s
+        //        .From((searchRequest.getPage() - 1) * searchRequest.getSize())
+        //        .Size(searchRequest.getSize())
+        //        .Query(q => q
+        //             .Match(m => m
+        //                .Field(f => f.all)
+        //                .Query(searchRequest.key)
+        //             )
+        //        )).Documents.ToList();
+
+        //    var total = client.Search<Goods>(s => s
+        //        .Query(q => q
+        //             .Match(m => m
+        //                .Field(f => f.all)
+        //                .Query(searchRequest.key)
+        //             )
+        //        )).Documents.Count();
+
+        //    var cid3s = list.Select(m => m.cid3).Distinct().ToList();
+        //    var brandIds = list.Select(m => m.brandId).Distinct().ToList();
+
+        //    List<TbCategory> tbCategories = _categoryService.QueryCategoryByIds(cid3s);
+        //    List<TbBrand> tbBrands = _brandService.QueryBrandByIds(brandIds);
+
+        //    List<Dictionary<string, object>> specs = null;
+
+        //    if (tbCategories != null && tbCategories.Count == 1)
+        //    {
+        //        specs = HandleSpecs(tbCategories[0].Id, list);
+        //    }
+        //    foreach (var item in list)
+        //    {
+        //        item.specs = null;
+        //    }
+        //    int page = total % searchRequest.getSize() == 0 ? total / searchRequest.getSize() : (total / searchRequest.getSize()) + 1;
+        //    return new SearchResult<Goods>(total, page, list, tbCategories, tbBrands, specs);
+        //}
+
+        //private List<Dictionary<string, object>> HandleSpecs(long id, List<Goods> goods)
+        //{
+        //    List<Dictionary<string, object>> specs = new List<Dictionary<string, object>>();
+
+        //    //查询可过滤的规格参数
+
+        //    List<TbSpecParam> tbSpecParams = _specService.QuerySpecParams(null, id, true, null);
+        //    //基本查询条件
+        //    foreach (TbSpecParam param in tbSpecParams)
+        //    {
+        //        //聚合
+        //        string name = param.Name;
+        //        // 如果对keyword类型的字符串进行搜索必须是精确匹配terms
+        //        //queryBuilder.addAggregation(AggregationBuilders.terms(name).field("specs." + name + ".keyword"));
+        //        Dictionary<string, object> map = new Dictionary<string, object>();
+        //        map.Add("k", name);
+        //        var dicspec = goods.Select(m => m.specs).Where(m => m.Keys.Contains(name));
+
+        //        var options = new List<string>();
+        //        foreach (var item in dicspec)
+        //        {
+        //            options.Add(item[name].ToString());
+        //        }
+        //        map.Add("options", options.Distinct().ToList());
+
+        //        specs.Add(map);
+        //    }
+        //    return specs;
+        //}
+
+
     }
 }
