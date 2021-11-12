@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Yi.Framework.Model.Search;
+using Yi.Framework.Model.Models;
 
 namespace Yi.Framework.Interface
 {
-   public interface ISearchService
+    public partial interface IBrandService:IBaseService<brand>
     {
-         void ImpDataBySpu();
-       SearchResult<Goods> GetData(SearchRequest searchRequest);
+        Task<List<brand>> GetByIds(List<int> ids);
     }
 }

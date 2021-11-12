@@ -19,7 +19,5 @@ namespace Yi.Framework.Model.Models
         public string packing_list { get; set; }
         [Comment("售后服务")]
         public string after_service { get; set; }
-        [Comment("规格参数")]
-        public spec_param spec { get; set; }
     }
 }

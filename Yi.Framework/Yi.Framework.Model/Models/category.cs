@@ -20,8 +20,6 @@ namespace Yi.Framework.Model.Models
         public List<category> chidrens { get; set; }
         [Comment("品牌")]
         public List<brand> brands { get; set; }
-        [Comment("spu")]
-        public List<spu> spus { get; set; }
         [Comment("规格组")] 
         public List<spec_group> spec_Groups { get; set; }
         [Comment("规格")] 

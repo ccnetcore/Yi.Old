@@ -9,8 +9,8 @@ using Yi.Framework.Model;
 namespace Yi.Framework.Model.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20211110081524_ec5")]
-    partial class ec5
+    [Migration("20211111123723_EC1")]
+    partial class EC1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -294,6 +294,9 @@ namespace Yi.Framework.Model.Migrations
                         .HasColumnType("double")
                         .HasComment("销售价格，单位为分");
 
+                    b.Property<int?>("specParamid")
+                        .HasColumnType("int");
+
                     b.Property<int?>("spuid")
                         .HasColumnType("int");
 
@@ -302,6 +305,8 @@ namespace Yi.Framework.Model.Migrations
                         .HasComment("商品标题");
 
                     b.HasKey("id");
+
+                    b.HasIndex("specParamid");
 
                     b.HasIndex("spuid");
 
@@ -471,12 +476,7 @@ namespace Yi.Framework.Model.Migrations
                         .HasColumnType("longtext")
                         .HasComment("特有规格参数及可选值信息，json格式");
 
-                    b.Property<int?>("specid")
-                        .HasColumnType("int");
-
                     b.HasKey("id");
-
-                    b.HasIndex("specid");
 
                     b.ToTable("spu_detail");
                 });
@@ -650,9 +650,15 @@ namespace Yi.Framework.Model.Migrations
 
             modelBuilder.Entity("Yi.Framework.Model.Models.sku", b =>
                 {
+                    b.HasOne("Yi.Framework.Model.Models.spec_param", "specParam")
+                        .WithMany()
+                        .HasForeignKey("specParamid");
+
                     b.HasOne("Yi.Framework.Model.Models.spu", "spu")
                         .WithMany("skus")
                         .HasForeignKey("spuid");
+
+                    b.Navigation("specParam");
 
                     b.Navigation("spu");
                 });
@@ -712,15 +718,6 @@ namespace Yi.Framework.Model.Migrations
                     b.Navigation("cid3");
 
                     b.Navigation("spu_Detail");
-                });
-
-            modelBuilder.Entity("Yi.Framework.Model.Models.spu_detail", b =>
-                {
-                    b.HasOne("Yi.Framework.Model.Models.spec_param", "spec")
-                        .WithMany()
-                        .HasForeignKey("specid");
-
-                    b.Navigation("spec");
                 });
 
             modelBuilder.Entity("Yi.Framework.Model.Models.stock", b =>
