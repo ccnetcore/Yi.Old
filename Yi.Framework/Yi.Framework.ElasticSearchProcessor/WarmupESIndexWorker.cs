@@ -11,6 +11,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Yi.Framework.Common.Const;
 using Yi.Framework.Common.IOCOptions;
 using Yi.Framework.Common.Models;
 using Yi.Framework.Common.QueueModel;
@@ -42,8 +43,8 @@ namespace Yi.Framework.ElasticSearchProcessor
         {
             RabbitMQConsumerModel rabbitMQConsumerModel = new RabbitMQConsumerModel()
             {
-                ExchangeName = RabbitMQExchangeQueueName.SKUWarmup_Exchange,
-                QueueName = RabbitMQExchangeQueueName.SKUWarmup_Queue_ESIndex
+                ExchangeName = RabbitConst.GoodsWarmup_Exchange,
+                QueueName = RabbitConst.GoodsWarmup_Queue_Send
             };
             HttpClient _HttpClient = new HttpClient();
             this._RabbitMQInvoker.RegistReciveAction(rabbitMQConsumerModel, message =>

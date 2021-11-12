@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Yi.Framework.Common.Const;
 using Yi.Framework.Common.Models;
+using Yi.Framework.Core;
 using Yi.Framework.Interface;
 using Yi.Framework.Model.Search;
 
@@ -9,9 +11,11 @@ namespace Yi.Framework.SearchMicroservice.Controllers
     public class SearchController : ControllerBase
     {
         private ISearchService _searchService;
-        public SearchController(ISearchService searchService)
+        private RabbitMQInvoker _rabbitMQInvoker;
+        public SearchController(ISearchService searchService,RabbitMQInvoker rabbitMQInvoker)
         {
             _searchService = searchService;
+            _rabbitMQInvoker = rabbitMQInvoker;
         }
         [Route("page")]
         [HttpPost]
@@ -22,14 +26,17 @@ namespace Yi.Framework.SearchMicroservice.Controllers
             return Result.Success().SetData(searchResult);
         }
 
-        //测试单元使用
-        //[Route("ImpData")]
-        //[HttpGet]
-        //public void ImpData()
-        //{
-        //    _searchService.ImpDataBySpu();
-        //}
-
-
+        //测试用
+        [Route("InitEs")]
+        [HttpGet]
+        public Result InitEs()
+        {
+            _rabbitMQInvoker.Send(new Common.IOCOptions.RabbitMQConsumerModel()
+            {
+                ExchangeName = RabbitConst.GoodsWarmup_Exchange,
+                QueueName = RabbitConst.GoodsWarmup_Queue_Send
+            },"true") ;
+            return Result.Success();
+        }
     }
 }

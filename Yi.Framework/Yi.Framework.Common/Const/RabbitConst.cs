@@ -11,5 +11,11 @@ namespace Yi.Framework.Common.Const
         private const string prefix = "Yi.Framework.";
         public const  string SMS_Exchange = prefix+"SMS.Exchange";
         public const  string SMS_Queue_Send = prefix+ "SMS.Queue.Send";
+
+
+        public const string GoodsWarmup_Exchange = prefix + "GoodsWarmup.Exchange";
+        public const string GoodsWarmup_Queue_Send = prefix + "GoodsWarmup.Queue.Send";
+
+        
     }
 }
