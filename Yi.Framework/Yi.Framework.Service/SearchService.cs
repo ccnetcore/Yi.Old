@@ -18,7 +18,7 @@ namespace Yi.Framework.Service
         private IGoodsService _goodsService;
         private ICategoryService _categoryService;
         private IBrandService _brandService;
-        private ElasticSearchInvoker _elasticSearchInvoker ;
+        private ElasticSearchInvoker _elasticSearchInvoker;
         public SearchService(IGoodsService goodsService, ElasticSearchInvoker elasticSearchInvoker, IBrandService brandService, ICategoryService categoryService, IDbContextFactory DbFactory) : base(DbFactory)
         {
             _goodsService = goodsService;
@@ -62,10 +62,10 @@ namespace Yi.Framework.Service
                 page++;
             } while (size == 100);
         }
-       
+
         private Goods BuildGoods(spu spu)
         {
-          var _spu=  _DbRead.Set<spu>().Include(u => u.cid1).Include(u => u.cid2).Include(u => u.cid3).Include(u => u.spu_Detail).Include(u => u.brand).Include(u => u.skus).Where(u =>u.id==spu.id&& u.is_delete ==(short)Common.Enum.DelFlagEnum.Normal).FirstOrDefault();
+            var _spu = _DbRead.Set<spu>().Include(u => u.cid1).Include(u => u.cid2).Include(u => u.cid3).Include(u => u.spu_Detail).Include(u => u.brand).Include(u => u.skus).Where(u => u.id == spu.id && u.is_delete == (short)Common.Enum.DelFlagEnum.Normal).FirstOrDefault();
             Goods goods = new();
             goods.brand = _spu.brand;
             goods.cid1 = _spu.cid1;
@@ -149,7 +149,7 @@ namespace Yi.Framework.Service
             catch (Exception ex)
             {
 
-               throw new Exception(ex.Message);
+                throw new Exception(ex.Message);
             }
 
         }
@@ -157,68 +157,17 @@ namespace Yi.Framework.Service
         public SearchResult<Goods> GetData(SearchRequest searchRequest)
         {
             //先通过ES分词查询，得到一个goodslist
-            List<Goods> GoodsList=new List<Goods>();
+            List<Goods> GoodsList = new List<Goods>();
             SearchResult<Goods> searchResult = new()
             {
                 total = 100,
                 specs = GoodsList.Select(u => u.specs).ToList(),
                 brands = GoodsList.Select(u => u.brand).ToList(),
                 categories = GoodsList.Select(u => u.cid3).ToList(),
-                rows=GoodsList,
-                totalPages=GoodsList.Count%2==0?GoodsList.Count/100:GoodsList.Count / 100+1               
+                rows = GoodsList,
+                totalPages = GoodsList.Count % 2 == 0 ? GoodsList.Count / 100 : GoodsList.Count / 100 + 1
             };
-            return searchResult;         
+            return searchResult;
         }
-//        var cid3s = GoodsList.Select(u => u.cid3).Distinct().ToList();
-//        var brandIds = GoodsList.Select(u => u.brand).Distinct().ToList();
-//        List<int> cids = new();
-//        List<int> bids = new();
-//        cid3s.ForEach(u => { cids.Add(u.id); });
-//            brandIds.ForEach(u => { bids.Add(u.id); });
-//List<category> categories = await _categoryService.GetByIds(cids);
-//List<brand> brands = await _brandService.GetByIds(bids);
-//List<Dictionary<string, object>> specs = null;
-
-//if (categories != null && categories.Count == 1)
-//{
-//    //specs = HandleSpecs(categories[0].id, GoodsList);
-//}
-//foreach (var item in GoodsList)
-//{
-//    item.specs = null;
-//}
-//int page = total % searchRequest.getSize() == 0 ? total / searchRequest.getSize() : (total / searchRequest.getSize()) + 1;
-//return new SearchResult<Goods>(total, page, GoodsList, categories, brands, specs);
-        //private List<Dictionary<string, object>> HandleSpecs(long id, List<Goods> goods)
-        //{
-        //    List<Dictionary<string, object>> specs = new();
-
-        //    //查询可过滤的规格参数
-
-        //    List<spec_param> tbSpecParams = _goodsService.(null, id, true, null);
-        //    //基本查询条件
-        //    foreach (spec_param param in tbSpecParams)
-        //    {
-        //        //聚合
-        //        string name = param.name;
-        //        // 如果对keyword类型的字符串进行搜索必须是精确匹配terms
-        //        //queryBuilder.addAggregation(AggregationBuilders.terms(name).field("specs." + name + ".keyword"));
-        //        Dictionary<string, object> map = new();
-        //        map.Add("k", name);
-        //        var dicspec = goods.Select(m => m.specs).Where(m => m.Keys.Contains(name));
-
-        //        var options = new List<string>();
-        //        foreach (var item in dicspec)
-        //        {
-        //            options.Add(item[name].ToString());
-        //        }
-        //        map.Add("options", options.Distinct().ToList());
-
-        //        specs.Add(map);
-        //    }
-        //    return specs;
-        //}
-
-
     }
-    }
+}

@@ -9,8 +9,8 @@ using Yi.Framework.Model;
 namespace Yi.Framework.Model.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20211111123723_EC1")]
-    partial class EC1
+    [Migration("20211112181817_yi-1")]
+    partial class yi1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

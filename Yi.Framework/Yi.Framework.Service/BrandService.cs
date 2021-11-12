@@ -11,7 +11,7 @@ namespace Yi.Framework.Service
 {
     public partial class BrandService:BaseService<brand>, IBrandService
     {
-        public async Task<List<brand>> GetBrandsByIds(List<int> ids)
+        public async Task<List<brand>> GetByIds(List<int> ids)
         {
             return await _DbRead.Set<brand>().Where(u => ids.Contains(u.id)).ToListAsync();
         }
