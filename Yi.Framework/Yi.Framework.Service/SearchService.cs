@@ -16,12 +16,15 @@ namespace Yi.Framework.Service
     public class SearchService : BaseService<spu>, ISearchService
     {
         private IGoodsService _goodsService;
-
+        private ICategoryService _categoryService;
+        private IBrandService _brandService;
         private ElasticSearchInvoker _elasticSearchInvoker ;
-        public SearchService(IGoodsService goodsService, ElasticSearchInvoker elasticSearchInvoker, IDbContextFactory DbFactory) : base(DbFactory)
+        public SearchService(IGoodsService goodsService, ElasticSearchInvoker elasticSearchInvoker, IBrandService brandService, ICategoryService categoryService, IDbContextFactory DbFactory) : base(DbFactory)
         {
             _goodsService = goodsService;
             _elasticSearchInvoker = elasticSearchInvoker;
+            _categoryService = categoryService;
+            _brandService = brandService;
         }
         public void ImpDataBySpu()
         {
@@ -63,7 +66,7 @@ namespace Yi.Framework.Service
         private Goods BuildGoods(spu spu)
         {
           var _spu=  _DbRead.Set<spu>().Include(u => u.cid1).Include(u => u.cid2).Include(u => u.cid3).Include(u => u.spu_Detail).Include(u => u.brand).Include(u => u.skus).Where(u =>u.id==spu.id&& u.is_delete ==(short)Common.Enum.DelFlagEnum.Normal).FirstOrDefault();
-            Goods goods = new Goods();
+            Goods goods = new();
             goods.brand = _spu.brand;
             goods.cid1 = _spu.cid1;
             goods.cid2 = _spu.cid2;
@@ -155,66 +158,52 @@ namespace Yi.Framework.Service
         {
             //先通过ES分词查询，得到一个goodslist
             List<Goods> GoodsList=new List<Goods>();
-            throw new NotImplementedException();
+            SearchResult<Goods> searchResult = new()
+            {
+                total = 100,
+                specs = GoodsList.Select(u => u.specs).ToList(),
+                brands = GoodsList.Select(u => u.brand).ToList(),
+                categories = GoodsList.Select(u => u.cid3).ToList(),
+                rows=GoodsList,
+                totalPages=GoodsList.Count%2==0?GoodsList.Count/100:GoodsList.Count / 100+1               
+            };
+            return searchResult;         
         }
-        //下面这个方法为源来方法：
-        //        public SearchResult<Goods> GetData(SearchRequest searchRequest)
-        //{
+//        var cid3s = GoodsList.Select(u => u.cid3).Distinct().ToList();
+//        var brandIds = GoodsList.Select(u => u.brand).Distinct().ToList();
+//        List<int> cids = new();
+//        List<int> bids = new();
+//        cid3s.ForEach(u => { cids.Add(u.id); });
+//            brandIds.ForEach(u => { bids.Add(u.id); });
+//List<category> categories = await _categoryService.GetByIds(cids);
+//List<brand> brands = await _brandService.GetByIds(bids);
+//List<Dictionary<string, object>> specs = null;
 
-        //    var client = _elasticSearchService.GetElasticClient();
-        //    var list = client.Search<Goods>(s => s
-        //        .From((searchRequest.getPage() - 1) * searchRequest.getSize())
-        //        .Size(searchRequest.getSize())
-        //        .Query(q => q
-        //             .Match(m => m
-        //                .Field(f => f.all)
-        //                .Query(searchRequest.key)
-        //             )
-        //        )).Documents.ToList();
-
-        //    var total = client.Search<Goods>(s => s
-        //        .Query(q => q
-        //             .Match(m => m
-        //                .Field(f => f.all)
-        //                .Query(searchRequest.key)
-        //             )
-        //        )).Documents.Count();
-
-        //    var cid3s = list.Select(m => m.cid3).Distinct().ToList();
-        //    var brandIds = list.Select(m => m.brandId).Distinct().ToList();
-
-        //    List<TbCategory> tbCategories = _categoryService.QueryCategoryByIds(cid3s);
-        //    List<TbBrand> tbBrands = _brandService.QueryBrandByIds(brandIds);
-
-        //    List<Dictionary<string, object>> specs = null;
-
-        //    if (tbCategories != null && tbCategories.Count == 1)
-        //    {
-        //        specs = HandleSpecs(tbCategories[0].Id, list);
-        //    }
-        //    foreach (var item in list)
-        //    {
-        //        item.specs = null;
-        //    }
-        //    int page = total % searchRequest.getSize() == 0 ? total / searchRequest.getSize() : (total / searchRequest.getSize()) + 1;
-        //    return new SearchResult<Goods>(total, page, list, tbCategories, tbBrands, specs);
-        //}
-
+//if (categories != null && categories.Count == 1)
+//{
+//    //specs = HandleSpecs(categories[0].id, GoodsList);
+//}
+//foreach (var item in GoodsList)
+//{
+//    item.specs = null;
+//}
+//int page = total % searchRequest.getSize() == 0 ? total / searchRequest.getSize() : (total / searchRequest.getSize()) + 1;
+//return new SearchResult<Goods>(total, page, GoodsList, categories, brands, specs);
         //private List<Dictionary<string, object>> HandleSpecs(long id, List<Goods> goods)
         //{
-        //    List<Dictionary<string, object>> specs = new List<Dictionary<string, object>>();
+        //    List<Dictionary<string, object>> specs = new();
 
         //    //查询可过滤的规格参数
 
-        //    List<TbSpecParam> tbSpecParams = _specService.QuerySpecParams(null, id, true, null);
+        //    List<spec_param> tbSpecParams = _goodsService.(null, id, true, null);
         //    //基本查询条件
-        //    foreach (TbSpecParam param in tbSpecParams)
+        //    foreach (spec_param param in tbSpecParams)
         //    {
         //        //聚合
-        //        string name = param.Name;
+        //        string name = param.name;
         //        // 如果对keyword类型的字符串进行搜索必须是精确匹配terms
         //        //queryBuilder.addAggregation(AggregationBuilders.terms(name).field("specs." + name + ".keyword"));
-        //        Dictionary<string, object> map = new Dictionary<string, object>();
+        //        Dictionary<string, object> map = new();
         //        map.Add("k", name);
         //        var dicspec = goods.Select(m => m.specs).Where(m => m.Keys.Contains(name));
 
@@ -232,4 +221,4 @@ namespace Yi.Framework.Service
 
 
     }
-}
+    }

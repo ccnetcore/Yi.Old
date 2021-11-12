@@ -50,10 +50,7 @@ namespace Yi.Framework.Model
                 }
             }
         }
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            base.OnModelCreating(builder);
-            builder.Entity<spu>().HasOne<category>().WithMany(u => u.spus);
-        }
+        
+        
     }
 }

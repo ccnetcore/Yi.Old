@@ -8,8 +8,9 @@ namespace Yi.Framework.Model.Search
 { 
     public class SearchRequest
     {
-        public static readonly int DEFAULT_PAGE = 1;
-        public static readonly int DEFAULT_SIZE = 20;
+         
+        private const  int DEFAULT_PAGE = 1;
+        private const  int DEFAULT_SIZE = 20;
         public string key { get; set; }
         public int page { get; set; }
         //排序字段

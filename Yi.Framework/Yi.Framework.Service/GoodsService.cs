@@ -26,7 +26,7 @@ namespace Yi.Framework.Service
         }
         public List<spec_param> SpecParam(category _category, int generic)
         {
-            return _DbRead.Set<spec_param>().Include(u => u.spu_Detail).Include(u => u.category).Where(u => u.category == _category && u.generic == generic).ToList();
+            return _DbRead.Set<spec_param>().Include(u => u.category).Where(u => u.category == _category && u.generic == generic).ToList();
 
         }
     }

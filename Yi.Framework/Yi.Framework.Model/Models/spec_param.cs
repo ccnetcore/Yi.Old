@@ -25,6 +25,5 @@ namespace Yi.Framework.Model.Models
         public spec_group spec_Group { get; set; }
         [Comment("类别")]
         public category category { get; set; }
-        public spu_detail spu_Detail { get; set; }
     }
 }

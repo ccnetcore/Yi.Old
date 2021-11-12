@@ -13,6 +13,11 @@ namespace Yi.Framework.Model.Search
         public List<category> categories = new List<category>();
         //规格参数过滤条件
         public List<Dictionary<string, object>> specs = new List<Dictionary<string, object>>();
+
+        public SearchResult()
+        {
+        }
+
         public SearchResult(long total,
                        int totalPage,
                        List<Goods> items,
