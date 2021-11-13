@@ -24,6 +24,10 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
             //数据库配置
             #endregion
             services.AddTransient<DbContext, DataContext>();
+            #region
+            //数据库工厂配置
+            #endregion
+            services.AddTransient<IDbContextFactory, DbContextFactory>();
             return services;
         }
 

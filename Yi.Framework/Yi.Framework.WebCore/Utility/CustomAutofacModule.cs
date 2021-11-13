@@ -35,7 +35,7 @@ namespace Yi.Framework.WebCore.Utility
         protected override void Load(ContainerBuilder containerBuilder)
         {
 
-            containerBuilder.RegisterType<DbContextFactory>().As<IDbContextFactory>().InstancePerDependency().EnableInterfaceInterceptors();
+
 
             containerBuilder.RegisterType< HttpContextAccessor>().As<IHttpContextAccessor>().SingleInstance();
 

@@ -42,15 +42,17 @@ namespace Yi.Framework.ElasticSearchProcessor
 
                   IConfiguration configuration = services.BuildServiceProvider().GetRequiredService<IConfiguration>();
 
-                    services.AddSingleton(new Appsettings(configuration));
+                services.AddIocService(configuration);
 
                   services.AddHostedService<Worker>();
                   services.AddHostedService<InitESIndexWorker>();
                   services.AddHostedService<WarmupESIndexWorker>();
-                  services.AddScoped<ISearchService, SearchService>();
                   services.AddElasticSeachService();
                   services.AddRabbitMQService();
- 
+                  services.AddDbService();
+                  services.AddScoped<ISearchService, SearchService>();
+                  services.AddScoped<IGoodsService, GoodsService>();
+                 
                     #region Consul
                     //services.Configure<ConsulClientOption>(configuration.GetSection("ConsulClientOption"));
                     //services.AddTransient<AbstractConsulDispatcher, PollingDispatcher>();

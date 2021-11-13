@@ -112,11 +112,6 @@ namespace Yi.Framework.ApiMicroservice
             app.UseErrorHandlingService();
 
             #region
-            //静态文件注入
-            #endregion
-            //app.UseStaticFiles();
-
-            #region
             //HttpsRedirection注入
             #endregion
             app.UseHttpsRedirection();

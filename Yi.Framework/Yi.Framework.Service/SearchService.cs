@@ -16,15 +16,11 @@ namespace Yi.Framework.Service
     public class SearchService : BaseService<spu>, ISearchService
     {
         private IGoodsService _goodsService;
-        private ICategoryService _categoryService;
-        private IBrandService _brandService;
         private ElasticSearchInvoker _elasticSearchInvoker;
-        public SearchService(IGoodsService goodsService, ElasticSearchInvoker elasticSearchInvoker, IBrandService brandService, ICategoryService categoryService, IDbContextFactory DbFactory) : base(DbFactory)
+        public SearchService(IGoodsService goodsService, ElasticSearchInvoker elasticSearchInvoker, IDbContextFactory DbFactory) : base(DbFactory)
         {
             _goodsService = goodsService;
             _elasticSearchInvoker = elasticSearchInvoker;
-            _categoryService = categoryService;
-            _brandService = brandService;
         }
         public void ImpDataBySpu()
         {
@@ -63,9 +59,8 @@ namespace Yi.Framework.Service
             } while (size == 100);
         }
 
-        private Goods BuildGoods(spu spu)
+        private Goods BuildGoods(spu _spu)
         {
-            var _spu = _DbRead.Set<spu>().Include(u => u.cid1).Include(u => u.cid2).Include(u => u.cid3).Include(u => u.spu_Detail).Include(u => u.brand).Include(u => u.skus).Where(u => u.id == spu.id && u.is_delete == (short)Common.Enum.DelFlagEnum.Normal).FirstOrDefault();
             Goods goods = new();
             goods.brand = _spu.brand;
             goods.cid1 = _spu.cid1;
@@ -82,31 +77,36 @@ namespace Yi.Framework.Service
             //获取特有规格参数
             Dictionary<long, List<string>> specialSpec = JsonConvert.DeserializeObject<Dictionary<long, List<string>>>(_spu.spu_Detail.special_spec);
             //对规格进行遍历，并封装spec，其中spec的key是规格参数的名称，值是商品详情中的值
-            specParam.ForEach(u =>
-            {
-                //key是规格参数的名称
-                string key = u.name;
-                object value = "";
+            //specParam.ForEach(u =>
+            //{
+            //    //key是规格参数的名称
+            //    string key = u.name;
+            //    object value = "";
 
-                if (u.generic == 1)
-                {
-                    //参数是通用属性，通过规格参数的ID从商品详情存储的规格参数中查出值
-                    value = genericSpec[u.id];
-                    if (u.numeric == 1)
-                    {
-                        //参数是数值类型，处理成段，方便后期对数值类型进行范围过滤
-                        value = ChooseSegment(value.ToString(), u);
-                    }
-                }
-                else
-                {
-                    //参数不是通用类型
-                    value = specialSpec[u.id];
-                }
-                value ??= "其他";
-                //存入map
-                goods.specs.Add(key, value);
-            });
+            //    //if (u.generic == 1)
+            //    //{
+            //    //    //参数是通用属性，通过规格参数的ID从商品详情存储的规格参数中查出值
+            //    //    if (!genericSpec.TryGetValue(u.id, out string p))
+            //    //    {
+            //    //        return;
+            //    //    }
+
+            //    //    value = genericSpec[u.id];
+            //    //    if (u.numeric == 1)
+            //    //    {
+            //    //        //参数是数值类型，处理成段，方便后期对数值类型进行范围过滤
+            //    //        value = ChooseSegment(value.ToString(), u);
+            //    //    }
+            //    //}
+            //    //else
+            //    //{
+            //    //    //参数不是通用类型
+            //    //    //value = specialSpec[u.id];
+            //    //}
+            //    value ??= "其他";
+            //    //存入map
+            //    goods.specs.Add(key, value);
+            //});
             return goods;
         }
         private static string ChooseSegment(string value, spec_param p)
@@ -180,12 +180,12 @@ namespace Yi.Framework.Service
 
             SearchResult<Goods> searchResult = new()
             {
-                total = 100,
-                specs = GoodsList.Select(u => u.specs).ToList(),
-                brands = GoodsList.Select(u => u.brand).ToList(),
-                categories = GoodsList.Select(u => u.cid3).ToList(),
+                total = total,
+                specs = GoodsList.Select(u => u.specs).Distinct().ToList(),
+                brands = GoodsList.Select(u => u.brand).Distinct().ToList(),
+                categories = GoodsList.Select(u => u.cid3).Distinct().ToList(),
                 rows = GoodsList,
-                totalPages = GoodsList.Count % 2 == 0 ? GoodsList.Count / 100 : GoodsList.Count / 100 + 1
+                totalPages = GoodsList.Count % 2 == 0 ? GoodsList.Count / total : GoodsList.Count / total + 1
             };
             return searchResult;
         }

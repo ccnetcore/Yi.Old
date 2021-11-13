@@ -17,6 +17,7 @@ namespace Yi.Framework.Core
         {
             _elasticSearchOptions = optionsMonitor.CurrentValue;
             var settings = new ConnectionSettings(new Uri(_elasticSearchOptions.Url)).DefaultIndex(this._elasticSearchOptions.IndexName);
+            settings.BasicAuthentication(_elasticSearchOptions.UserName,_elasticSearchOptions.PassWord);
             Client = new ElasticClient(settings);
         }
         private ElasticClient Client;

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Yi.Framework.Common.Const;
 using Yi.Framework.Common.Models;
+using Yi.Framework.Common.QueueModel;
 using Yi.Framework.Core;
 using Yi.Framework.Interface;
 using Yi.Framework.Model.Search;
@@ -35,7 +36,7 @@ namespace Yi.Framework.SearchMicroservice.Controllers
             {
                 ExchangeName = RabbitConst.GoodsWarmup_Exchange,
                 QueueName = RabbitConst.GoodsWarmup_Queue_Send
-            },"true") ;
+            }, Common.Helper.JsonHelper.ObjToStr( new SKUWarmupQueueModel() { Warmup=true})) ;
             return Result.Success();
         }
     }

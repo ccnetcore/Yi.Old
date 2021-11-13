@@ -11,6 +11,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Yi.Framework.Interface;
+using Yi.Framework.Service;
 using Yi.Framework.WebCore.MiddlewareExtend;
 using Yi.Framework.WebCore.Utility;
 
@@ -28,11 +30,15 @@ namespace Yi.Framework.SearchMicroservice
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddIocService(Configuration);
             services.AddCorsService();
             services.AddControllers();
+            services.AddSwaggerService<Program>();
             services.AddRabbitMQService();
             services.AddElasticSeachService();
             services.AddDbService();
+            services.AddScoped<ISearchService, SearchService>();
+            services.AddScoped<IGoodsService, GoodsService>();
 
         }
 
@@ -44,7 +50,7 @@ namespace Yi.Framework.SearchMicroservice
             {
                 app.UseDeveloperExceptionPage();
             }
-            
+            app.UseCorsService();
             app.UseHttpsRedirection();
             app.UseSwaggerService();
             app.UseRouting();
