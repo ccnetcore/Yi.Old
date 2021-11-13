@@ -4,6 +4,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
+using Yi.Framework.Interface;
+using Yi.Framework.Service;
 using Yi.Framework.WebCore;
 using Yi.Framework.WebCore.BuilderExtend;
 using Yi.Framework.WebCore.MiddlewareExtend;
@@ -40,24 +42,15 @@ namespace Yi.Framework.ElasticSearchProcessor
 
                   IConfiguration configuration = services.BuildServiceProvider().GetRequiredService<IConfiguration>();
 
-                    #region
-                    //Ioc配置
-                    #endregion
                     services.AddSingleton(new Appsettings(configuration));
 
                   services.AddHostedService<Worker>();
                   services.AddHostedService<InitESIndexWorker>();
                   services.AddHostedService<WarmupESIndexWorker>();
-                  #region 服务注入
-                  //services.Configure<MySqlConnOptions>(configuration.GetSection("MysqlConn"));
-
-
-                  #region
-                  //RabbitMQ服务配置
-                  #endregion
+                  services.AddScoped<ISearchService, SearchService>();
+                  services.AddElasticSeachService();
                   services.AddRabbitMQService();
-                    #endregion
-
+ 
                     #region Consul
                     //services.Configure<ConsulClientOption>(configuration.GetSection("ConsulClientOption"));
                     //services.AddTransient<AbstractConsulDispatcher, PollingDispatcher>();

@@ -156,8 +156,28 @@ namespace Yi.Framework.Service
 
         public SearchResult<Goods> GetData(SearchRequest searchRequest)
         {
-            //先通过ES分词查询，得到一个goodslist
-            List<Goods> GoodsList = new List<Goods>();
+            var client = _elasticSearchInvoker.GetElasticClient();
+            var GoodsList = client.Search<Goods>(s => s
+                .From((searchRequest.getPage() - 1) * searchRequest.getSize())
+                .Size(searchRequest.getSize())
+                .Query(q => q
+                     .Match(m => m
+                        .Field(f => f.all)
+                        .Query(searchRequest.key)
+                     )
+                )).Documents.ToList();
+
+            var total = client.Search<Goods>(s => s
+                .Query(q => q
+                     .Match(m => m
+                        .Field(f => f.all)
+                        .Query(searchRequest.key)
+                     )
+                )).Documents.Count();
+
+
+
+
             SearchResult<Goods> searchResult = new()
             {
                 total = 100,
