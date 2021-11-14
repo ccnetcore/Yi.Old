@@ -71,42 +71,58 @@ namespace Yi.Framework.Service
             goods.price = _spu.skus.Select(u => u.price).ToHashSet();
             goods.all = _spu.brand.name + ',' + _spu.cid1.name + ',' + _spu.cid2.name + ',' + _spu.cid3.name + ',' + _spu.title;
             goods.skus = _spu.skus;
-            var specParam = _goodsService.SpecParam(_spu.cid3, 1);//得到该商品有的所有规程参数，name为规程参数名，id为规格参数id，下面的通用规格与特殊规格加起来等于这个
-            //获取通用规格参数
+            var specParam = _goodsService.SpecParam(_spu.cid3);//得到该商品有的所有规程参数，name为规程参数名，id为规格参数id，下面的通用规格与特殊规格加起来等于这个
+            //获取通用规格参
             Dictionary<long, string> genericSpec = JsonConvert.DeserializeObject<Dictionary<long, string>>(_spu.spu_Detail.generic_spec);
             //获取特有规格参数
             Dictionary<long, List<string>> specialSpec = JsonConvert.DeserializeObject<Dictionary<long, List<string>>>(_spu.spu_Detail.special_spec);
             //对规格进行遍历，并封装spec，其中spec的key是规格参数的名称，值是商品详情中的值
-            specParam.ForEach(u =>
+
+            foreach (var item in genericSpec)
             {
-                //key是规格参数的名称
-                string key = u.name;
-                object value = "";
+               var name= specParam.Where(u => u.id == item.Key).Select(u => u.name).FirstOrDefault();
+                goods.specs.Add(name, item.Value);
+            }
 
-                if (u.generic == 1)
-                {
-                    //参数是通用属性，通过规格参数的ID从商品详情存储的规格参数中查出值
-                    if (!genericSpec.TryGetValue(u.id, out string p))
-                    {
-                        return;
-                    }
+            foreach (var item in specialSpec)
+            {
+                var name = specParam.Where(u => u.id == item.Key).Select(u => u.name).FirstOrDefault();
+                goods.specs.Add(name, item.Value);
+            }
 
-                    value = genericSpec[u.id];
-                    if (u.numeric == 1)
-                    {
-                        //参数是数值类型，处理成段，方便后期对数值类型进行范围过滤
-                        value = ChooseSegment(value.ToString(), u);
-                    }
-                }
-                else
-                {
-                    //参数不是通用类型
-                    //value = specialSpec[u.id];
-                }
-                value ??= "其他";
-                //存入map
-                goods.specs.Add(key, value);
-            });
+
+
+
+            //specParam.ForEach(u =>
+            //{
+            //    //key是规格参数的名称
+            //    string key = u.name;
+            //    object value = "";
+
+            //    if (u.generic == 1)
+            //    {
+            //        //参数是通用属性，通过规格参数的ID从商品详情存储的规格参数中查出值
+            //        if (!genericSpec.TryGetValue(u.id, out string p))
+            //        {
+            //            return;
+            //        }
+
+            //        value = genericSpec[u.id];
+            //        if (u.numeric == 1)
+            //        {
+            //            //参数是数值类型，处理成段，方便后期对数值类型进行范围过滤
+            //            value = ChooseSegment(value.ToString(), u);
+            //        }
+            //    }
+            //    else
+            //    {
+            //        //参数不是通用类型
+            //        //value = specialSpec[u.id];
+            //    }
+            //    value ??= "其他";
+            //    //存入map
+            //    goods.specs.Add(key, value);
+            //});
             return goods;
         }
         private static string ChooseSegment(string value, spec_param p)
@@ -175,7 +191,10 @@ namespace Yi.Framework.Service
                      )
                 )).Documents.Count();
 
-
+            if (total == 0)
+            {
+                return null;
+            }
 
 
             SearchResult<Goods> searchResult = new()
@@ -185,7 +204,7 @@ namespace Yi.Framework.Service
                 brands = GoodsList.Select(u => u.brand).Distinct().ToList(),
                 categories = GoodsList.Select(u => u.cid3).Distinct().ToList(),
                 rows = GoodsList,
-                totalPages = GoodsList.Count % 2 == 0 ? GoodsList.Count / total : GoodsList.Count / total + 1
+                totalPages =  GoodsList.Count % 2 == 0 ? GoodsList.Count / total : GoodsList.Count / total + 1
             };
             return searchResult;
         }

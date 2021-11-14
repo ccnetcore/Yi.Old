@@ -8,10 +8,8 @@ using Yi.Framework.Model.Search;
 
 namespace Yi.Framework.Interface
 {
-    public interface IGoodsService
+   public interface IPageDetailService
     {
-        Goods GetGoodsBySpuId(long spuId);
-        PageResult<spu> QuerySpuByPage(int page, int rows, string key, int? saleable);
-        List<spec_param> SpecParam(category _category);
+         Goods loadModel(long spuId);
     }
 }

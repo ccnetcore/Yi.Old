@@ -10,15 +10,15 @@ namespace Yi.Framework.PageDetail.Controllers
 {
     public class PageDetaiController : Controller
     {
-        private IUserService _IUserService;
-        public PageDetaiController(IUserService IUserService)
+        private IGoodsService _goodsService;
+        public PageDetaiController(IGoodsService goodsService)
         {
-            _IUserService = IUserService;
+            _goodsService = goodsService;
         }
         [Route("/item/{id}.html")]
         public IActionResult Index(int id)
         {
-            var htmlmodel = _IUserService.GetEntityById(id);
+            var htmlmodel =_goodsService.GetGoodsBySpuId(id);
             return View(htmlmodel);
         }
     }

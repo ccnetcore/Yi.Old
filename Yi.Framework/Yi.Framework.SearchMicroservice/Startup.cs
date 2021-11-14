@@ -13,6 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Yi.Framework.Interface;
 using Yi.Framework.Service;
+using Yi.Framework.WebCore.BuilderExtend;
 using Yi.Framework.WebCore.MiddlewareExtend;
 using Yi.Framework.WebCore.Utility;
 
@@ -32,7 +33,7 @@ namespace Yi.Framework.SearchMicroservice
         {
             services.AddIocService(Configuration);
             services.AddCorsService();
-            services.AddControllers();
+            services.AddControllers().AddJsonFileService();
             services.AddSwaggerService<Program>();
             services.AddRabbitMQService();
             services.AddElasticSeachService();

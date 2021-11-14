@@ -13,6 +13,8 @@ namespace Yi.Framework.Model.Search
         private const  int DEFAULT_SIZE = 20;
         public string key { get; set; }
         public int page { get; set; }
+
+        public int size { get; set; }
         //排序字段
         public string sortBy { get; set; }
         //是否降序
@@ -32,7 +34,12 @@ namespace Yi.Framework.Model.Search
 
         public int getSize()
         {
-            return DEFAULT_SIZE;
+            if (size == 0)
+            {
+                return DEFAULT_SIZE;
+            }
+            // 获取页码时做一些校验，不能小于1
+            return Math.Max(DEFAULT_SIZE, size);
         }
 
 
