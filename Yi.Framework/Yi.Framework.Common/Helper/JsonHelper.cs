@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Text.Json;
 
@@ -6,8 +7,21 @@ namespace Yi.Framework.Common.Helper
 {
     public class JsonHelper
     {
-
-
+        /// <summary>
+        /// 循环引用对象转字符串，自动会忽略掉循环引用
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static string ObjTStrLoop(object obj )
+        {
+           return JsonConvert.SerializeObject(obj, new JsonSerializerSettings() { ReferenceLoopHandling = ReferenceLoopHandling.Ignore });
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public static string ObjToStr<T>(T obj)
         {
            return Newtonsoft.Json.JsonConvert.SerializeObject(obj);
@@ -28,7 +42,7 @@ namespace Yi.Framework.Common.Helper
             string result = String.Empty;
             try
             {
-                JsonSerializer.Serialize("");
+                System.Text.Json.JsonSerializer.Serialize("");
                 System.Runtime.Serialization.Json.DataContractJsonSerializer serializer =
                 new System.Runtime.Serialization.Json.DataContractJsonSerializer(typeof(T));
                 using (System.IO.MemoryStream ms = new System.IO.MemoryStream())

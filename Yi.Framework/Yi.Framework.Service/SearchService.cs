@@ -77,36 +77,36 @@ namespace Yi.Framework.Service
             //获取特有规格参数
             Dictionary<long, List<string>> specialSpec = JsonConvert.DeserializeObject<Dictionary<long, List<string>>>(_spu.spu_Detail.special_spec);
             //对规格进行遍历，并封装spec，其中spec的key是规格参数的名称，值是商品详情中的值
-            //specParam.ForEach(u =>
-            //{
-            //    //key是规格参数的名称
-            //    string key = u.name;
-            //    object value = "";
+            specParam.ForEach(u =>
+            {
+                //key是规格参数的名称
+                string key = u.name;
+                object value = "";
 
-            //    //if (u.generic == 1)
-            //    //{
-            //    //    //参数是通用属性，通过规格参数的ID从商品详情存储的规格参数中查出值
-            //    //    if (!genericSpec.TryGetValue(u.id, out string p))
-            //    //    {
-            //    //        return;
-            //    //    }
+                if (u.generic == 1)
+                {
+                    //参数是通用属性，通过规格参数的ID从商品详情存储的规格参数中查出值
+                    if (!genericSpec.TryGetValue(u.id, out string p))
+                    {
+                        return;
+                    }
 
-            //    //    value = genericSpec[u.id];
-            //    //    if (u.numeric == 1)
-            //    //    {
-            //    //        //参数是数值类型，处理成段，方便后期对数值类型进行范围过滤
-            //    //        value = ChooseSegment(value.ToString(), u);
-            //    //    }
-            //    //}
-            //    //else
-            //    //{
-            //    //    //参数不是通用类型
-            //    //    //value = specialSpec[u.id];
-            //    //}
-            //    value ??= "其他";
-            //    //存入map
-            //    goods.specs.Add(key, value);
-            //});
+                    value = genericSpec[u.id];
+                    if (u.numeric == 1)
+                    {
+                        //参数是数值类型，处理成段，方便后期对数值类型进行范围过滤
+                        value = ChooseSegment(value.ToString(), u);
+                    }
+                }
+                else
+                {
+                    //参数不是通用类型
+                    //value = specialSpec[u.id];
+                }
+                value ??= "其他";
+                //存入map
+                goods.specs.Add(key, value);
+            });
             return goods;
         }
         private static string ChooseSegment(string value, spec_param p)
