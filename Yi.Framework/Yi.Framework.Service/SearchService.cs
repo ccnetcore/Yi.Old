@@ -46,6 +46,7 @@ namespace Yi.Framework.Service
                         Goods g = GoodsBuild.BuildGoods(spu,_goodsService);
                         //spec=g.specs;
                         // 处理好的数据添加到集合中
+                        g.cid3.spec_Params = null;
                         goodsList.Add(g);
 
                     }

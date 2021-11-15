@@ -27,8 +27,10 @@ namespace Yi.Framework.PageDetail
             //Swagger∑˛ŒÒ≈‰÷√
             #endregion
             services.AddSwaggerService<Program>("Yi.Framework.OcelotGateway.PageDetail");
-
+            services.AddDbService();
             services.AddScoped<IUserService,UserService>();
+            services.AddScoped<ISearchService, SearchService>();
+            services.AddScoped<IGoodsService, GoodsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -23,7 +23,7 @@ namespace Yi.Framework.Core
             goods.createTime = _spu.crate_time;
             goods.subtitle = _spu.sub_title;
             goods.price = _spu.skus.Select(u => u.price).ToHashSet();
-            goods.all = _spu.brand.name + ',' + _spu.cid1.name + ',' + _spu.cid2.name + ',' + _spu.cid3.name + ',' + _spu.title;
+            goods.all = _spu.brand.name +','+ _spu.cid3.name + ',' + _spu.title;
             goods.skus = _spu.skus;
             var specParam = _goodsService.SpecParam(_spu.cid3);//得到该商品有的所有规程参数，name为规程参数名，id为规格参数id，下面的通用规格与特殊规格加起来等于这个
             //获取通用规格参
