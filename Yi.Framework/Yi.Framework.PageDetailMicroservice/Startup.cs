@@ -1,23 +1,12 @@
-using Autofac;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Yi.Framework.Interface;
 using Yi.Framework.Service;
-using Yi.Framework.WebCore.BuilderExtend;
 using Yi.Framework.WebCore.MiddlewareExtend;
-using Yi.Framework.WebCore.Utility;
 
-namespace Yi.Framework.SearchMicroservice
+namespace Yi.Framework.PageDetail
 {
     public class Startup
     {
@@ -32,16 +21,15 @@ namespace Yi.Framework.SearchMicroservice
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddIocService(Configuration);
-            services.AddCorsService();
-            services.AddControllers().AddJsonFileService();
-            services.AddSwaggerService<Program>();
-            services.AddElasticSeachService();
-            services.AddDbService();
-            services.AddScoped<ISearchService, SearchService>();
-            services.AddScoped<IGoodsService, GoodsService>();
 
+            services.AddControllersWithViews();
+            #region
+            //Swagger服务配置
+            #endregion
+            services.AddSwaggerService<Program>("Yi.Framework.OcelotGateway.PageDetail");
+
+            services.AddScoped<IUserService,UserService>();
         }
-
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -49,14 +37,21 @@ namespace Yi.Framework.SearchMicroservice
             //if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                #region
+                //Swagger服务注入
+                #endregion
+                app.UseSwaggerService();
             }
-            app.UseCorsService();
+
             app.UseHttpsRedirection();
-            app.UseSwaggerService();
+
             app.UseRouting();
 
             app.UseAuthorization();
-
+            #region
+            //开启静态化中间件
+            #endregion
+            app.UseStaticPageServer();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Yi.Framework.Common.IOCOptions;
 
 namespace Yi.Framework.WebCore.MiddlewareExtend
 {
@@ -15,7 +16,7 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
     public class StaticPageExtension
     {
         private readonly RequestDelegate _next;
-        private string _directoryPath = @"D:/cc-yi/";
+        private string _directoryPath ="";
         private bool _supportDelete = false;
         private bool _supportWarmup = false;
 
@@ -148,9 +149,14 @@ namespace Yi.Framework.WebCore.MiddlewareExtend
         /// <param name="supportDelete">是否支持删除</param>
         /// <param name="supportClear">是否支持全量删除</param>
         /// <returns></returns>
-        public static IApplicationBuilder UseStaticPageMiddleware(this IApplicationBuilder app, string directoryPath, bool supportDelete, bool supportClear)
+        public static IApplicationBuilder UseStaticPageServer(this IApplicationBuilder app)
         {
-            return app.UseMiddleware<StaticPageExtension>(directoryPath, supportDelete, supportClear);
+            if (Appsettings.appBool("StaticPage_Enabled"))
+            {
+                var option = Appsettings.app<StaticPageOption>("StaticPageOption");
+                return app.UseMiddleware<StaticPageExtension>(option.Dir, option.Delete, option.Clear);
+            }
+           return app;   
         }
     }
 }

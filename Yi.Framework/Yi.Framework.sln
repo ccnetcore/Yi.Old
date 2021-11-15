@@ -39,13 +39,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.ElasticSearchP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.MSUnitTest", "Yi.Framework.MSUnitTest\Yi.Framework.MSUnitTest.csproj", "{531255B3-9669-4BC1-B4E5-A0C6E0540F0D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.PageDetail", "Yi.Framework.PageDetail\Yi.Framework.PageDetail.csproj", "{637501E2-A32E-485C-8680-ED863D1793C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.PageDetailMicroservice", "Yi.Framework.PageDetailMicroservice\Yi.Framework.PageDetailMicroservice.csproj", "{637501E2-A32E-485C-8680-ED863D1793C2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.Job", "Yi.Framework.Task\Yi.Framework.Job.csproj", "{F1C990DD-32C3-4F02-83B0-6E52B18B0B17}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.SMSProcessor", "Yi.Framework.SMSProcessor\Yi.Framework.SMSProcessor.csproj", "{7C58FB7C-9AB5-47CF-ACEB-B784CF820E7E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Framework.SearchMicroservice", "Yi.Framework.SearchMicroservice\Yi.Framework.SearchMicroservice.csproj", "{EA39B321-0386-474D-9F63-033F4C3F2357}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.SearchMicroservice", "Yi.Framework.SearchMicroservice\Yi.Framework.SearchMicroservice.csproj", "{EA39B321-0386-474D-9F63-033F4C3F2357}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

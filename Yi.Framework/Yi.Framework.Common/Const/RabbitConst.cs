@@ -16,6 +16,7 @@ namespace Yi.Framework.Common.Const
         public const string GoodsWarmup_Exchange = prefix + "GoodsWarmup.Exchange";
         public const string GoodsWarmup_Queue_Send = prefix + "GoodsWarmup.Queue.Send";
 
-        
+        public const string PageWarmup_Exchange = prefix + "PageWarmup.Exchange";
+        public const string PageWarmup_Queue_Send = prefix + "PageWarmup.Queue.Send";
     }
 }

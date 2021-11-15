@@ -12,11 +12,9 @@ namespace Yi.Framework.SearchMicroservice.Controllers
     public class SearchController : ControllerBase
     {
         private ISearchService _searchService;
-        private RabbitMQInvoker _rabbitMQInvoker;
-        public SearchController(ISearchService searchService,RabbitMQInvoker rabbitMQInvoker)
+        public SearchController(ISearchService searchService)
         {
             _searchService = searchService;
-            _rabbitMQInvoker = rabbitMQInvoker;
         }
         [Route("page")]
         [HttpPost]
@@ -25,19 +23,6 @@ namespace Yi.Framework.SearchMicroservice.Controllers
             SearchResult<Goods> searchResult = _searchService.GetData(searchRequest);
 
             return Result.Success().SetData(searchResult);
-        }
-
-        //测试用
-        [Route("InitEs")]
-        [HttpGet]
-        public Result InitEs()
-        {
-            _rabbitMQInvoker.Send(new Common.IOCOptions.RabbitMQConsumerModel()
-            {
-                ExchangeName = RabbitConst.GoodsWarmup_Exchange,
-                QueueName = RabbitConst.GoodsWarmup_Queue_Send
-            }, Common.Helper.JsonHelper.ObjToStr( new SKUWarmupQueueModel() { Warmup=true})) ;
-            return Result.Success();
         }
     }
 }
