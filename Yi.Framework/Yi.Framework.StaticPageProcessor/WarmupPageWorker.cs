@@ -44,8 +44,8 @@ namespace Yi.Framework.StaticPageProcessor
             HttpClient _HttpClient = new HttpClient();
             this._RabbitMQInvoker.RegistReciveAction(rabbitMQConsumerModel, message =>
             {
-              string realUrl=  this._IConsulDispatcher.GetAddress(this._configuration["DetailPageUrl"]);
-
+              //string realUrl=  this._IConsulDispatcher.GetAddress(this._configuration["DetailPageUrl"]);
+                string realUrl = this._configuration["DetailPageUrl"];
                 SKUWarmupQueueModel skuWarmupQueueModel = JsonConvert.DeserializeObject<SKUWarmupQueueModel>(message);
                 #region œ»ClearAll
                 {
