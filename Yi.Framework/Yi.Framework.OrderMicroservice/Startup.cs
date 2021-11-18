@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Yi.Framework.orderMicroservice
+namespace Yi.Framework.OrderMicroservice
 {
     public class Startup
     {

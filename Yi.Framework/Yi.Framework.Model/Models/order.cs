@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace Yi.Framework.Model.Models
 {
-    public class order : baseModel<int>
+    public class order : baseModel<string>
     {
         [Comment("总金额，单位为分")]
-        public int total_pay { get; set; }
+        public double? total_pay { get; set; }
         [Comment("实付金额。单位:分。如:20007，表示:200元7分")]
-        public int actual_pay { get; set; }
+        public double? actual_pay { get; set; }
         [Comment("支付类型，1、在线支付，2、货到付款")]
         public int payment_type { get; set; }
         [Comment("邮费。单位:分。如:20007，表示:200元7分")]
-        public int post_fee { get; set; }
+        public int? post_fee { get; set; }
         [Comment("promotion_ids")]
         public string promotion_ids { get; set; }
         [Comment("订单创建时间")]
@@ -30,7 +30,7 @@ namespace Yi.Framework.Model.Models
         [Comment("买家昵称")]
         public string buyer_nick { get; set; }
         [Comment("买家是否已经评价,0未评价，1已评价")]
-        public int buyer_rate { get; set; }
+        public int? buyer_rate { get; set; }
         [Comment("收获地址（省）")]
         public string receiver_state { get; set; }
         [Comment("收获地址（市）")]
@@ -46,10 +46,10 @@ namespace Yi.Framework.Model.Models
         [Comment("收货人")]
         public string receiver { get; set; }
         [Comment("发票类型:0无发票1普通发票，2电子发票，3增值税发票")]
-        public int invoice_type { get; set; }
+        public int? invoice_type { get; set; }
         [Comment("订单来源：1:app端，2：pc端，3：M端，4：微信端，5：手机qq端")]
-        public int source_type { get; set; }
+        public int? source_type { get; set; }
         [Comment("sku")]
-        public sku sku { get;}
+        public sku sku { get; set; }
     }
 }

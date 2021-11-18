@@ -87,7 +87,7 @@ namespace Yi.Framework.Service
         {
             public OrderService(IDbContextFactory DbFactory):base(DbFactory){ }
 
-            public async Task<bool> DelListByUpdateAsync(List<int> _ids)
+            public async Task<bool> DelListByUpdateAsync(List<string> _ids)
             {
                 var orderList = await GetEntitiesAsync(u=>_ids.Contains(u.id));
                 orderList.ToList().ForEach(u => u.is_delete = (short)Common.Enum.DelFlagEnum.Deleted);

@@ -10,6 +10,7 @@ using System;
 using Yi.Framework.Common.IOCOptions;
 using Yi.Framework.Core;
 using Yi.Framework.Core.ConsulExtend;
+using Yi.Framework.WebCore.BuilderExtend;
 
 namespace Yi.Framework.StaticPageProcessor
 {
@@ -25,12 +26,11 @@ namespace Yi.Framework.StaticPageProcessor
                             .ConfigureAppConfiguration((hostBuilderContext, configurationBuilder) =>
                             {
                                 configurationBuilder.AddCommandLine(args);
-                                configurationBuilder.AddJsonFile("appsettings.json", optional: true, reloadOnChange: false);
-                                configurationBuilder.AddJsonFile("configuration.json", optional: false, reloadOnChange: true);
+                                configurationBuilder.AddJsonFileService();
                                 #region 
                                 //Apollo配置
                                 #endregion
-                                //configurationBuilder.AddApolloService("Yi");
+                                configurationBuilder.AddApolloService("Yi");
                             })
                             .ConfigureLogging(loggingBuilder =>
                             {

@@ -34,7 +34,7 @@ namespace Yi.Framework.Interface
         
         public partial interface IOrderService:IBaseService<order>
         {
-         Task<bool> DelListByUpdateAsync(List<int> _ids);
+         Task<bool> DelListByUpdateAsync(List<string> _ids);
         Task<IEnumerable<order>> GetAllEntitiesTrueAsync();
         }
         

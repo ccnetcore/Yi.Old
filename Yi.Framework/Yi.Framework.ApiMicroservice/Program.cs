@@ -28,7 +28,7 @@ namespace Yi.Framework.ApiMicroservice
                     #region 
                     //ApolloÅäÖÃ
                     #endregion
-                    configurationBuilder.AddApolloService("Yi");
+                    configurationBuilder.AddApolloService("yi");
                 })
                 .ConfigureLogging(loggingBuilder =>
                 {

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Yi.Framework.WebCore.BuilderExtend;
 
 namespace Yi.Framework.SearchMicroservice
 {
@@ -17,10 +18,22 @@ namespace Yi.Framework.SearchMicroservice
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
+            Host.CreateDefaultBuilder(args) 
+            .ConfigureAppConfiguration((hostBuilderContext, configurationBuilder) =>
+  {
+            configurationBuilder.AddCommandLine(args);
+            configurationBuilder.AddJsonFileService();
+            #region 
+            //ApolloÅäÖÃ
+            #endregion
+            configurationBuilder.AddApolloService("Yi");
+        })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+
+                  
                 });
+        
     }
 }

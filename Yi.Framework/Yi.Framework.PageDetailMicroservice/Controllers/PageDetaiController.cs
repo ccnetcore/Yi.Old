@@ -10,18 +10,19 @@ using Yi.Framework.Core;
 using Yi.Framework.Interface;
 using Yi.Framework.Model.Models;
 
-namespace Yi.Framework.PageDetail.Controllers
+namespace Yi.Framework.PageDetailMicroservice.Controllers
 {
+    [ApiController]
+    
     public class PageDetaiController : Controller
     {
         private IGoodsService _goodsService;
-        private RabbitMQInvoker _rabbitMQInvoker;
-        public PageDetaiController(IGoodsService goodsService, RabbitMQInvoker rabbitMQInvoker)
+        public PageDetaiController(IGoodsService goodsService)
         {
             _goodsService = goodsService;
-            _rabbitMQInvoker = rabbitMQInvoker;
         }
         [Route("/item/{id}.html")]
+        [HttpGet]
         public IActionResult Index(int id)
         {
             var htmlmodel =_goodsService.GetGoodsBySpuId(id);

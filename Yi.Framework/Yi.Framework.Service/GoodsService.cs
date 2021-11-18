@@ -15,7 +15,6 @@ namespace Yi.Framework.Service
     public class GoodsService :BaseService<spu>,  IGoodsService
     {
         short Normal = (short)Common.Enum.DelFlagEnum.Normal;
-        private IGoodsService _goodsService;
         public GoodsService(IDbContextFactory DbFactory) : base(DbFactory)
         {
             _DbFactory = DbFactory;
@@ -23,8 +22,8 @@ namespace Yi.Framework.Service
 
         public Goods GetGoodsBySpuId(int spuId)
         {
-            var _spu = _DbRead.Set<spu>().Where(u => u.id == spuId).FirstOrDefault();
-           return GoodsBuild.BuildGoods(_spu, _goodsService);
+            var _spu = _DbRead.Set<spu>().Include(u => u.cid3).Include(u => u.spu_Detail).Include(u => u.brand).Include(u => u.skus).Where(u => u.id == spuId).FirstOrDefault();
+           return GoodsBuild.BuildGoods(_spu, this);
         }
 
         public PageResult<spu> QuerySpuByPage(int page, int rows, string key, int? saleable)
@@ -44,5 +43,11 @@ namespace Yi.Framework.Service
             return _DbRead.Set<spec_param>().Where(u => u.category.id == _category.id ).ToList();
 
         }
+
+        public List<sku> QuerySkuById(List<long> skuId)
+        {
+            return _DbRead.Set<sku>().Where(u=>skuId.Contains(u.id)).ToList();
+        }
+
     }
 }

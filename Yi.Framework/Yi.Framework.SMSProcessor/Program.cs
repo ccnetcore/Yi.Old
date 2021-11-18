@@ -11,6 +11,7 @@ using Yi.Framework.Common.IOCOptions;
 using Yi.Framework.Core;
 using Yi.Framework.Core.ConsulExtend;
 using Yi.Framework.WebCore;
+using Yi.Framework.WebCore.BuilderExtend;
 using Yi.Framework.WebCore.MiddlewareExtend;
 
 namespace Yi.Framework.SMSProcessor
@@ -27,8 +28,13 @@ namespace Yi.Framework.SMSProcessor
                             .ConfigureAppConfiguration((hostBuilderContext, configurationBuilder) =>
                             {
                                 configurationBuilder.AddCommandLine(args);
-                                configurationBuilder.AddJsonFile("appsettings.json", optional: true, reloadOnChange: false);
+                                //configurationBuilder.AddJsonFile("appsettings.json", optional: true, reloadOnChange: false);
                                 //configurationBuilder.AddJsonFile("configuration.json", optional: false, reloadOnChange: true);
+                                configurationBuilder.AddJsonFileService();
+                                #region 
+                                //Apollo配置
+                                #endregion
+                                configurationBuilder.AddApolloService("Yi");
                                 #region 
                                 //Apollo配置
                                 #endregion

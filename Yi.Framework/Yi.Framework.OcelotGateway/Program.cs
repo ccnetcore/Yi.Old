@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Yi.Framework.WebCore.BuilderExtend;
 
 namespace Yi.Framework.OcelotGateway
 {
@@ -21,12 +22,13 @@ namespace Yi.Framework.OcelotGateway
                 .ConfigureAppConfiguration((hostBuilderContext, configurationBuilder) =>
                 {
                     configurationBuilder.AddCommandLine(args);
-                    configurationBuilder.AddJsonFile("appsettings.json", optional: true, reloadOnChange: false);
-                    configurationBuilder.AddJsonFile("configuration.json", optional: false, reloadOnChange: true);
+                    //configurationBuilder.AddJsonFile("appsettings.json", optional: true, reloadOnChange: false);
+                    //configurationBuilder.AddJsonFile("configuration.json", optional: false, reloadOnChange: true);
+                    configurationBuilder.AddJsonFileService();
                     #region 
                     //ApolloÅäÖÃ
                     #endregion
-                    //configurationBuilder.AddApolloService("Yi");
+                    configurationBuilder.AddApolloService("Yi");
                 })
                 .ConfigureLogging(loggingBuilder =>
                 {

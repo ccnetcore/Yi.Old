@@ -6,7 +6,7 @@ using Yi.Framework.Interface;
 using Yi.Framework.Service;
 using Yi.Framework.WebCore.MiddlewareExtend;
 
-namespace Yi.Framework.PageDetail
+namespace Yi.Framework.PageDetailMicroservice
 {
     public class Startup
     {
@@ -21,14 +21,12 @@ namespace Yi.Framework.PageDetail
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddIocService(Configuration);
-
+            services.AddSwaggerService<Program>();
             services.AddControllersWithViews();
-            #region
-            //Swagger服务配置
-            #endregion
-            services.AddSwaggerService<Program>("Yi.Framework.OcelotGateway.PageDetail");
+            services.AddCorsService(); 
+            services.AddDbService();
+            services.AddScoped<IGoodsService,GoodsService>();
 
-            services.AddScoped<IUserService,UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -37,21 +35,21 @@ namespace Yi.Framework.PageDetail
             //if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                #region
-                //Swagger服务注入
-                #endregion
-                app.UseSwaggerService();
+           
             }
-
+            app.UseCorsService();
             app.UseHttpsRedirection();
-
+            #region
+            //Swagger服务注入
+            #endregion
+            app.UseSwaggerService();
             app.UseRouting();
-
+            app.UseStaticPageServer();
             app.UseAuthorization();
             #region
             //开启静态化中间件
             #endregion
-            app.UseStaticPageServer();
+            //app.UseStaticPageServer();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

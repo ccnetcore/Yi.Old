@@ -11,7 +11,7 @@ namespace Yi.Framework.WebCore.BuilderExtend
     {
         public static void AddJsonFileService(this IConfigurationBuilder builder, params string[] JsonFile)
         {
-            if (JsonFile==null)
+            if (JsonFile.Length==0)
             {
                 string[] myJsonFile = new string[] { "appsettings.json", "configuration.json" };
                 foreach (var item in myJsonFile)

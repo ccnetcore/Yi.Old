@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Yi.Framework.orderMicroservice.Controllers
+namespace Yi.Framework.OrderMicroservice.Controllers
 {
     [ApiController]
     [Route("[controller]")]

@@ -1,6 +1,6 @@
 using System;
 
-namespace Yi.Framework.orderMicroservice
+namespace Yi.Framework.OrderMicroservice
 {
     public class WeatherForecast
     {

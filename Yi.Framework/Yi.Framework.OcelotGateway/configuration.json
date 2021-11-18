@@ -35,6 +35,12 @@
 
 //*****************************Ocelot+Consul********************************
 {
+  "Apollo": {
+    "AppId": "Yi.Framework.OcelotGateway",
+    "Env": "DEV",
+    "MetaServer": "http://192.168.2.168:8080",
+    "ConfigServer": [ "http://192.168.2.168:8080" ]
+  },
   "Routes": [
     {
       "UpstreamPathTemplate": "api/api/{url}", //上游请求地址--网关

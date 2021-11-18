@@ -6,8 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Yi.Framework.WebCore.BuilderExtend;
 
-namespace Yi.Framework.PageDetail
+namespace Yi.Framework.PageDetailMicroservice
 {
     public class Program
     {
@@ -21,12 +22,11 @@ namespace Yi.Framework.PageDetail
   .ConfigureAppConfiguration((hostBuilderContext, configurationBuilder) =>
   {
       configurationBuilder.AddCommandLine(args);
-      configurationBuilder.AddJsonFile("appsettings.json", optional: true, reloadOnChange: false);
-      configurationBuilder.AddJsonFile("configuration.json", optional: false, reloadOnChange: true);
+      configurationBuilder.AddJsonFileService();
       #region 
       //ApolloÅäÖÃ
       #endregion
-      //configurationBuilder.AddApolloService("Yi");
+      configurationBuilder.AddApolloService("Yi");
   })
                 .ConfigureLogging(loggingBuilder =>
                 {

@@ -20,6 +20,7 @@ namespace Yi.Framework.AuthenticationCenter
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+
                     webBuilder.UseStartup<Startup>();
                 });
     }

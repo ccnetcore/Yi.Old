@@ -13,5 +13,6 @@ namespace Yi.Framework.Interface
         Goods GetGoodsBySpuId(int spuId);
         PageResult<spu> QuerySpuByPage(int page, int rows, string key, int? saleable);
         List<spec_param> SpecParam(category _category);
+        List<sku> QuerySkuById(List<long> skuId);
     }
 }

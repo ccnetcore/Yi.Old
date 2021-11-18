@@ -25,11 +25,10 @@ namespace Yi.Framework.ElasticSearchProcessor
                           {
                               configurationBuilder.AddCommandLine(args);
                               configurationBuilder.AddJsonFileService();
-                              //configurationBuilder.AddJsonFile("configuration.json", optional: false, reloadOnChange: true);
                               #region 
                               //Apollo配置
                               #endregion
-                              //configurationBuilder.AddApolloService("Yi");
+                              configurationBuilder.AddApolloService("Yi");
                           })
                           .ConfigureLogging(loggingBuilder =>
                           {
