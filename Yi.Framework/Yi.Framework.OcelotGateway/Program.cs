@@ -22,8 +22,6 @@ namespace Yi.Framework.OcelotGateway
                 .ConfigureAppConfiguration((hostBuilderContext, configurationBuilder) =>
                 {
                     configurationBuilder.AddCommandLine(args);
-                    //configurationBuilder.AddJsonFile("appsettings.json", optional: true, reloadOnChange: false);
-                    //configurationBuilder.AddJsonFile("configuration.json", optional: false, reloadOnChange: true);
                     configurationBuilder.AddJsonFileService();
                     #region 
                     //Apollo≈‰÷√

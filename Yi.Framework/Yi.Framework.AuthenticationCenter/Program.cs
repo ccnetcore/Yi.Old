@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Yi.Framework.WebCore.BuilderExtend;
 
 namespace Yi.Framework.AuthenticationCenter
 {
@@ -18,6 +19,16 @@ namespace Yi.Framework.AuthenticationCenter
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+           .ConfigureAppConfiguration((hostBuilderContext, configurationBuilder) =>
+           {
+               configurationBuilder.AddCommandLine(args);
+               configurationBuilder.AddJsonFileService();
+               #region 
+               //ApolloÅäÖÃ
+               #endregion
+               configurationBuilder.AddApolloService("Yi");
+           })
+            .ConfigureLogging(u=>u.AddLog4Net())
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
 

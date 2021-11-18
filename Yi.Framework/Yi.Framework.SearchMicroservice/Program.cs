@@ -28,6 +28,7 @@ namespace Yi.Framework.SearchMicroservice
             #endregion
             configurationBuilder.AddApolloService("Yi");
         })
+            .ConfigureLogging(u=>u.AddLog4Net())
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();

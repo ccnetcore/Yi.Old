@@ -20,4 +20,12 @@
     <ProjectReference Include="..\Yi.Framework.WebCore\Yi.Framework.WebCore.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Log4net.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
