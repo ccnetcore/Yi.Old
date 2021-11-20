@@ -11,8 +11,7 @@ namespace Yi.Framework.Interface
     public interface IGoodsService
     {
         Goods GetGoodsBySpuId(int spuId);
-        PageResult<spu> QuerySpuByPage(int page, int rows, string key, int? saleable);
-        List<spec_param> SpecParam(category _category);
+        PageResult<spu> QuerySpuByPage(int page, int rows, string key);
         List<sku> QuerySkuById(List<long> skuId);
     }
 }

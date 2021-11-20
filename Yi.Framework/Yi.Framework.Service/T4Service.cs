@@ -11,42 +11,6 @@ using Yi.Framework.Model.ModelFactory;
 namespace Yi.Framework.Service
 {
            
-        public partial class BrandService:BaseService<brand>,IBrandService 
-        {
-            public BrandService(IDbContextFactory DbFactory):base(DbFactory){ }
-
-            public async Task<bool> DelListByUpdateAsync(List<int> _ids)
-            {
-                var brandList = await GetEntitiesAsync(u=>_ids.Contains(u.id));
-                brandList.ToList().ForEach(u => u.is_delete = (short)Common.Enum.DelFlagEnum.Deleted);
-                return await UpdateListAsync(brandList);
-            }
-
-            public async Task<IEnumerable<brand>> GetAllEntitiesTrueAsync()
-            {
-                return await GetEntitiesAsync(u=> u.is_delete == (short)Common.Enum.DelFlagEnum.Normal);
-            }
-
-        }
-        
-        public partial class CategoryService:BaseService<category>,ICategoryService 
-        {
-            public CategoryService(IDbContextFactory DbFactory):base(DbFactory){ }
-
-            public async Task<bool> DelListByUpdateAsync(List<int> _ids)
-            {
-                var categoryList = await GetEntitiesAsync(u=>_ids.Contains(u.id));
-                categoryList.ToList().ForEach(u => u.is_delete = (short)Common.Enum.DelFlagEnum.Deleted);
-                return await UpdateListAsync(categoryList);
-            }
-
-            public async Task<IEnumerable<category>> GetAllEntitiesTrueAsync()
-            {
-                return await GetEntitiesAsync(u=> u.is_delete == (short)Common.Enum.DelFlagEnum.Normal);
-            }
-
-        }
-        
         public partial class MenuService:BaseService<menu>,IMenuService 
         {
             public MenuService(IDbContextFactory DbFactory):base(DbFactory){ }
@@ -87,7 +51,7 @@ namespace Yi.Framework.Service
         {
             public OrderService(IDbContextFactory DbFactory):base(DbFactory){ }
 
-            public async Task<bool> DelListByUpdateAsync(List<string> _ids)
+            public async Task<bool> DelListByUpdateAsync(List<int> _ids)
             {
                 var orderList = await GetEntitiesAsync(u=>_ids.Contains(u.id));
                 orderList.ToList().ForEach(u => u.is_delete = (short)Common.Enum.DelFlagEnum.Deleted);
@@ -137,42 +101,6 @@ namespace Yi.Framework.Service
 
         }
         
-        public partial class Spec_groupService:BaseService<spec_group>,ISpec_groupService 
-        {
-            public Spec_groupService(IDbContextFactory DbFactory):base(DbFactory){ }
-
-            public async Task<bool> DelListByUpdateAsync(List<int> _ids)
-            {
-                var spec_groupList = await GetEntitiesAsync(u=>_ids.Contains(u.id));
-                spec_groupList.ToList().ForEach(u => u.is_delete = (short)Common.Enum.DelFlagEnum.Deleted);
-                return await UpdateListAsync(spec_groupList);
-            }
-
-            public async Task<IEnumerable<spec_group>> GetAllEntitiesTrueAsync()
-            {
-                return await GetEntitiesAsync(u=> u.is_delete == (short)Common.Enum.DelFlagEnum.Normal);
-            }
-
-        }
-        
-        public partial class Spec_paramService:BaseService<spec_param>,ISpec_paramService 
-        {
-            public Spec_paramService(IDbContextFactory DbFactory):base(DbFactory){ }
-
-            public async Task<bool> DelListByUpdateAsync(List<int> _ids)
-            {
-                var spec_paramList = await GetEntitiesAsync(u=>_ids.Contains(u.id));
-                spec_paramList.ToList().ForEach(u => u.is_delete = (short)Common.Enum.DelFlagEnum.Deleted);
-                return await UpdateListAsync(spec_paramList);
-            }
-
-            public async Task<IEnumerable<spec_param>> GetAllEntitiesTrueAsync()
-            {
-                return await GetEntitiesAsync(u=> u.is_delete == (short)Common.Enum.DelFlagEnum.Normal);
-            }
-
-        }
-        
         public partial class SpuService:BaseService<spu>,ISpuService 
         {
             public SpuService(IDbContextFactory DbFactory):base(DbFactory){ }
@@ -185,24 +113,6 @@ namespace Yi.Framework.Service
             }
 
             public async Task<IEnumerable<spu>> GetAllEntitiesTrueAsync()
-            {
-                return await GetEntitiesAsync(u=> u.is_delete == (short)Common.Enum.DelFlagEnum.Normal);
-            }
-
-        }
-        
-        public partial class Spu_detailService:BaseService<spu_detail>,ISpu_detailService 
-        {
-            public Spu_detailService(IDbContextFactory DbFactory):base(DbFactory){ }
-
-            public async Task<bool> DelListByUpdateAsync(List<int> _ids)
-            {
-                var spu_detailList = await GetEntitiesAsync(u=>_ids.Contains(u.id));
-                spu_detailList.ToList().ForEach(u => u.is_delete = (short)Common.Enum.DelFlagEnum.Deleted);
-                return await UpdateListAsync(spu_detailList);
-            }
-
-            public async Task<IEnumerable<spu_detail>> GetAllEntitiesTrueAsync()
             {
                 return await GetEntitiesAsync(u=> u.is_delete == (short)Common.Enum.DelFlagEnum.Normal);
             }
