@@ -25,7 +25,6 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         {
             _logger = logger;
             _userService = userService;
-            _logger.LogError("发现错误测试");
         }
 
         /// <summary>
