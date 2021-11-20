@@ -10,6 +10,6 @@ namespace Yi.Framework.Interface
 {
     public partial interface IOrderService:IBaseService<order>
     {
-        order CreateOrder(OrderDto orderDto,user _user);
+        Task<order> CreateOrder(OrderDto orderDto,user _user);
     }
 }

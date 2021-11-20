@@ -44,7 +44,7 @@ namespace Yi.Framework.Service
 
         }
 
-        public List<sku> QuerySkuById(List<long> skuId)
+        public List<sku> QuerySkuByIds(List<long> skuId)
         {
             return _DbRead.Set<sku>().Where(u=>skuId.Contains(u.id)).ToList();
         }
