@@ -18,21 +18,14 @@ namespace Yi.Framework.Service
         {
             _goodsService = goodsService;
         }
-        public order CreateOrder(OrderDto orderDto, user _user)
+        public async Task< order> CreateOrder(OrderDto orderDto)
         {
-            order _order=new();
-           
+            order _order=new();         
             _order.id =(int) Common.Helper.StringHelper.GetGuidToLongID();
             _order.creat_time = DateTime.Now;
-            Dictionary<long, int> car = orderDto.carts.ToDictionary(u => u.skuId, u => u.num);
-            List<sku> skus=_goodsService.QuerySkuById(car.Keys.ToList());
-            if (skus.Count <= 0)
-            {
-                throw new Exception("查询的商品信息不存在");
-            }
-           
-            _order.sku = skus[0];
-            return _order;
+            _order.sku =await _DbRead.Set<sku>().Where(u=>u.id==orderDto.carts.skuId).FirstOrDefaultAsync();
+           await AddAsync(_order);
+            return _order;           
         }       
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using Yi.Framework.Common.Models;
 using Yi.Framework.DTOModel;
 using Yi.Framework.Interface;
@@ -10,16 +11,21 @@ namespace Yi.Framework.OrderMicroservice.Controllers
     [ApiController]
     public class OrderController : Controller
     {
-        private IOrderService _orderService;
+        private IStockService  _stockService;
+        private IOrderService _orderService;    
+        public OrderController(IStockService stockService, IOrderService orderService)
+        {
+            _orderService = orderService;
+            _stockService = stockService;
+        }
         [HttpPost]
         [Route("/api/order/create")]
         [TypeFilter(typeof(CustomAction2CommitFilterAttribute))]//避免重复提交
-        public Result CreateOrder(OrderDto orderDto)
+        public async Task< Result> CreateOrder(OrderDto orderDto)
         {
-            user _user = new user();
-            var orderId = _orderService.CreateOrder(orderDto, _user);
-            return Result.Success().SetData(orderId);
-
+            var order =await _orderService.CreateOrder(orderDto);
+            await _stockService.Destocking(order.id);
+            return Result.Success();
             //CreateOrder做三件事
             //1:创建一个订单，注意有多个商品（购物车）  2：减少库存，这里先别做，用cap   3：清空购物车先别做用消息队列 4：死信队列，先别做
         }
