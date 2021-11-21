@@ -30,10 +30,9 @@ namespace Yi.Framework.Service
             _rabbitMQInvoker = rabbitMQInvoker; 
             _logger = logger;   
         }
-        public async Task<order> CreateOrder(OrderDto orderDto, user _user)
+        public async Task< order> CreateOrder(OrderDto orderDto)
         {
-            order _order=new();
-           
+            order _order=new();         
             _order.id =(int) Common.Helper.StringHelper.GetGuidToLongID();
             _order.creat_time = DateTime.Now;
             Dictionary<long, int> car = orderDto.carts.ToDictionary(u => u.skuId, u => u.num);
