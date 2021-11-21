@@ -9,6 +9,10 @@
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.1.0" />
     <PackageReference Include="Autofac.Extras.DynamicProxy" Version="6.0.0" />
     <PackageReference Include="Com.Ctrip.Framework.Apollo.Configuration" Version="2.4.1.1" />
+    <PackageReference Include="DotNetCore.CAP" Version="5.2.0" />
+    <PackageReference Include="DotNetCore.CAP.Dashboard" Version="5.2.0" />
+    <PackageReference Include="DotNetCore.CAP.MySql" Version="5.2.0" />
+    <PackageReference Include="DotNetCore.CAP.RabbitMQ" Version="5.2.0" />
     <PackageReference Include="IGeekFan.AspNetCore.Knife4jUI" Version="0.0.11" />
     <PackageReference Include="log4net.Kafka.Core" Version="1.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Abstractions" Version="2.2.0" />

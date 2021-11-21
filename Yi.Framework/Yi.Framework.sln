@@ -47,7 +47,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.SMSProcessor",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.SearchMicroservice", "Yi.Framework.SearchMicroservice\Yi.Framework.SearchMicroservice.csproj", "{EA39B321-0386-474D-9F63-033F4C3F2357}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Framework.OrderMicroservice", "Yi.Framework.orderMicroservice\Yi.Framework.OrderMicroservice.csproj", "{45D80451-8CEA-4AE4-A0A5-5B8E15C77F2C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.OrderMicroservice", "Yi.Framework.orderMicroservice\Yi.Framework.OrderMicroservice.csproj", "{45D80451-8CEA-4AE4-A0A5-5B8E15C77F2C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yi.Framework.StockMicroservice", "Yi.Framework.StockMicroservice\Yi.Framework.StockMicroservice.csproj", "{D13E8D19-D60C-4ED1-8192-8E2F9A9B5DAE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yi.Framework.OrderProcessor", "Yi.Framework.OrderProcessor\Yi.Framework.OrderProcessor.csproj", "{EE2BB473-F7BB-4629-AB35-69B8E0F2D165}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -127,6 +131,14 @@ Global
 		{45D80451-8CEA-4AE4-A0A5-5B8E15C77F2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45D80451-8CEA-4AE4-A0A5-5B8E15C77F2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45D80451-8CEA-4AE4-A0A5-5B8E15C77F2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D13E8D19-D60C-4ED1-8192-8E2F9A9B5DAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D13E8D19-D60C-4ED1-8192-8E2F9A9B5DAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D13E8D19-D60C-4ED1-8192-8E2F9A9B5DAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D13E8D19-D60C-4ED1-8192-8E2F9A9B5DAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE2BB473-F7BB-4629-AB35-69B8E0F2D165}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE2BB473-F7BB-4629-AB35-69B8E0F2D165}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE2BB473-F7BB-4629-AB35-69B8E0F2D165}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE2BB473-F7BB-4629-AB35-69B8E0F2D165}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -150,6 +162,8 @@ Global
 		{7C58FB7C-9AB5-47CF-ACEB-B784CF820E7E} = {D6B44435-EAFA-4D55-90D0-3AF80485FB83}
 		{EA39B321-0386-474D-9F63-033F4C3F2357} = {026D2797-07D1-4BA5-8070-50CDE0258C59}
 		{45D80451-8CEA-4AE4-A0A5-5B8E15C77F2C} = {026D2797-07D1-4BA5-8070-50CDE0258C59}
+		{D13E8D19-D60C-4ED1-8192-8E2F9A9B5DAE} = {026D2797-07D1-4BA5-8070-50CDE0258C59}
+		{EE2BB473-F7BB-4629-AB35-69B8E0F2D165} = {D6B44435-EAFA-4D55-90D0-3AF80485FB83}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1ED77A6E-377F-4EEF-A3D0-D65C94657DAF}

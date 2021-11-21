@@ -18,5 +18,17 @@ namespace Yi.Framework.Common.Const
 
         public const string PageWarmup_Exchange = prefix + "PageWarmup.Exchange";
         public const string PageWarmup_Queue_Send = prefix + "PageWarmup.Queue.Send";
+
+        public const string Order_Stock_Decrease_Exchange = prefix + "Order_Stock_Decrease_Exchange";
+        public const string Order_Stock_Decrease_Queue = prefix + "Order_Stock_Decrease_Queue";
+
+        public const string Order_Stock_Resume_Exchange = prefix + "Order_Stock_Resume_Exchange";
+        public const string Order_Stock_Resume_Queue = prefix + "Order_Stock_Resume_Queue";
+
+        public const string OrderCreate_Delay_Exchange = prefix + "OrderCreate_Delay_Exchange";
+        public const string OrderCreate_Delay_Queue = prefix + "OrderCreate_Delay_Queue";
+
+
+        
     }
 }

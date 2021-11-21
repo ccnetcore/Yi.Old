@@ -7,6 +7,10 @@
   <ItemGroup>
     <PackageReference Include="AlibabaCloud.SDK.Dysmsapi20170525" Version="2.0.6" />
     <PackageReference Include="Consul" Version="1.6.10.3" />
+    <PackageReference Include="DotNetCore.CAP" Version="5.2.0" />
+    <PackageReference Include="DotNetCore.CAP.Dashboard" Version="5.2.0" />
+    <PackageReference Include="DotNetCore.CAP.MySql" Version="5.2.0" />
+    <PackageReference Include="DotNetCore.CAP.RabbitMQ" Version="5.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.11" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />

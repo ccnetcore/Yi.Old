@@ -1,10 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DotNetCore.CAP;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Yi.Framework.Common.Const;
+using Yi.Framework.Core;
 using Yi.Framework.DTOModel;
 using Yi.Framework.Interface;
 using Yi.Framework.Model.ModelFactory;
@@ -15,9 +19,16 @@ namespace Yi.Framework.Service
     public partial class OrderService:BaseService<order>,IOrderService
     {
         private IGoodsService _goodsService;
-        public OrderService(IGoodsService goodsService,IDbContextFactory db):base(db)
+        private  ICapPublisher _iCapPublisher;
+        private CacheClientDB _cacheClientDB;
+        private RabbitMQInvoker _rabbitMQInvoker;
+        private readonly ILogger<OrderService> _logger;
+        public OrderService(ILogger<OrderService> logger, CacheClientDB cacheClientDB ,RabbitMQInvoker rabbitMQInvoker  ,IGoodsService goodsService,IDbContextFactory db):base(db)
         {
             _goodsService = goodsService;
+            _cacheClientDB = cacheClientDB; 
+            _rabbitMQInvoker = rabbitMQInvoker; 
+            _logger = logger;   
         }
         public async Task<order> CreateOrder(OrderDto orderDto, user _user)
         {
@@ -37,21 +48,21 @@ namespace Yi.Framework.Service
             await AddAsync(_order);
             IDbContextTransaction trans = null;
 
-
             try
             {
                 #region 数据库拆分后--分布式事务
-                trans = _DbFactory.ConnWriteOrRead(Common.Enum.WriteAndReadEnum.Write).Database.BeginTransaction(this._iCapPublisher, autoCommit: false);
-                this._iCapPublisher.Publish(name: RabbitMQExchangeQueueName.Order_Stock_Decrease,
+                trans = _Db.Database.BeginTransaction(this._iCapPublisher, autoCommit: false);
+                this._iCapPublisher.Publish(name: RabbitConst.Order_Stock_Decrease_Queue,
                     contentObj: new OrderCartDto()
                     {
-                        Carts = orderDto.carts,
-                        OrderId = order.OrderId
+                        Carts= orderDto.carts,
+                        OrderId= _order.id
+
                     }, headers: null);
-                this._orangeContext.SaveChanges();
+                this._Db.SaveChanges();
                 foreach (var skuIdNum in car)
                 {
-                    string key = $"{Common.Const.RedisConst.keyOrden}";
+                    string key = $"{RedisConst.keyOrden}{skuIdNum.Key}";
                     if (!this._cacheClientDB.ContainsKey(key))
                     {
                         throw new Exception("库存在Redis不存在,需要初始化");
@@ -80,39 +91,31 @@ namespace Yi.Framework.Service
                 trans.Dispose();
             }
 
-
-
-
-            #region 异步清理购物车+延时取消任务+确认订单支付状态任务
+         
             {
-                //删除购物车中已经下单的商品数据, 采用异步mq的方式通知购物车系统删除已购买的商品，传送商品ID和用户ID---模拟操作失败
+
                 try
                 {
-                    var orderCreateQueueModel = new OrderCreateQueueModel()
+                    var orderCreateQueueModel = new OrderCartDto()
                     {
-                        OrderId = order.OrderId,
-                        UserId = userInfo.id,
-                        SkuIdList = skuNumMap.Keys.ToList(),
-                        TryTime = 0,
-                        OrderType = OrderCreateQueueModel.OrderTypeEnum.Normal
+                        Carts = orderDto.carts,
+                        OrderId = _order.id
                     };
-                    string message = JsonConvert.SerializeObject(orderCreateQueueModel);
-                    //发布清理购物车任务
-                    this._RabbitMQInvoker.Send(new RabbitMQConsumerModel() { ExchangeName = RabbitMQExchangeQueueName.OrderCreate_Exchange, QueueName = RabbitMQExchangeQueueName.OrderCreate_Queue_CleanCart }, message);
+                    string message = Common.Helper.JsonHelper.ObjToStr(orderCreateQueueModel);
+               
 
                     //this._RabbitMQInvoker.SendDelay(RabbitMQExchangeQueueName.OrderCreate_Delay_Exchange, message, 60 * 30);
                     //发布延时关闭订单任务
-                    this._RabbitMQInvoker.SendDelay(RabbitMQExchangeQueueName.OrderCreate_Delay_Exchange, message, 30);
+                    this._rabbitMQInvoker.SendDelay(RabbitConst.OrderCreate_Delay_Exchange, message, 30);
 
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e);
-                    this._logger.LogError($"发送异步购物车清理消息失败，OrderId={order.OrderId}，UserId={userInfo.id}");
+                    this._logger.LogError($"消息失败，OrderId={_order.id}");
                 }
             }
             #endregion
-
 
 
             return _order;

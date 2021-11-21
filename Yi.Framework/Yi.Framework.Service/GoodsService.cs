@@ -26,23 +26,17 @@ namespace Yi.Framework.Service
            return GoodsBuild.BuildGoods(_spu, this);
         }
 
-        public PageResult<spu> QuerySpuByPage(int page, int rows, string key)
+        public PageResult<spu> QuerySpuByPage(int page, int rows)
         {
             var spuList = _DbRead.Set<spu>().Include(u => u.skus).Where(u => u.is_delete == Normal).OrderByDescending(u => u.crate_time).Skip((page - 1) * rows).Take(rows).ToList();
             var totalPages = spuList.Count % 2 == 0 ? spuList.Count / rows : spuList.Count / rows + 1;
             
             return new PageResult<spu>() { rows = spuList, total = spuList.Count, totalPages = totalPages };
         }
-        public List<spec_param> SpecParam(category _category)
-        {
-            return _DbRead.Set<spec_param>().Where(u => u.category.id == _category.id ).ToList();
-
-        }
 
         public List<sku> QuerySkuByIds(List<long> skuId)
         {
             return _DbRead.Set<sku>().Where(u=>skuId.Contains(u.id)).ToList();
         }
-
     }
 }

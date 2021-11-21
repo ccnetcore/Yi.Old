@@ -11,9 +11,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Yi.Framework.WebCore.MiddlewareExtend;
 
-namespace Yi.Framework.OrderMicroservice
+namespace Yi.Framework.StockMicroservice
 {
     public class Startup
     {
@@ -31,9 +30,8 @@ namespace Yi.Framework.OrderMicroservice
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Yi.Framework.orderMicroservice", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Yi.Framework.StockMicroservice", Version = "v1" });
             });
-            services.AddCAPService<Startup>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,7 +41,7 @@ namespace Yi.Framework.OrderMicroservice
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Yi.Framework.orderMicroservice v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Yi.Framework.StockMicroservice v1"));
             }
 
             app.UseHttpsRedirection();
