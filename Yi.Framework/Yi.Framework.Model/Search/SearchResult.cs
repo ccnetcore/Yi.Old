@@ -9,10 +9,7 @@ namespace Yi.Framework.Model.Search
 {
     public class SearchResult<Goods> : PageResult<Goods>
     {
-        public List<brand> brands = new List<brand>();
-        public List<category> categories = new List<category>();
-        //规格参数过滤条件
-        public List<Dictionary<string, object>> specs = new List<Dictionary<string, object>>();
+        public List<string> titles = new ();
 
         public SearchResult()
         {
@@ -21,15 +18,11 @@ namespace Yi.Framework.Model.Search
         public SearchResult(long total,
                        int totalPage,
                        List<Goods> items,
-                       List<category> categories,
-                       List<brand> brands,
-                       List<Dictionary<string, object>> specs) : base
-            (total, items)
+                       List<string> titles
+                      ) : base(total, items)
         {
 
-            this.categories = categories;
-            this.brands = brands;
-            this.specs = specs;
+            this.titles = titles;
         }
 
     }

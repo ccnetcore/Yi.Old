@@ -35,18 +35,16 @@ namespace Yi.Framework.Service
             {
                 List<Goods> goodsList = new List<Goods>();
                 // 上架商品
-                PageResult<spu> result = _goodsService.QuerySpuByPage(page, rows, null, 1);
+                PageResult<spu> result = _goodsService.QuerySpuByPage(page, rows, null);
                 List<spu> spus = result.rows;
                 size = spus.Count;
-                //Dictionary<string,object> spec = new ();
                 foreach (var spu in spus)
                 {
                     try
                     {
                         Goods g = GoodsBuild.BuildGoods(spu,_goodsService);
-                        //spec=g.specs;
+                        
                         // 处理好的数据添加到集合中
-                        g.cid3.spec_Params = null;
                         goodsList.Add(g);
 
                     }
@@ -57,9 +55,7 @@ namespace Yi.Framework.Service
                     }
                 }
 
-                //var str=Common.Helper.JsonHelper.ObjTStrLoop(goodsList);
-                //var obj=Common.Helper.JsonHelper.StrToObj<List<Goods>>(str);
-                //obj.ForEach(g =>g.specs=spec);
+                
                 // 存入es,先留着，不写
                 _elasticSearchInvoker.Send(goodsList);
                 page++;
@@ -77,7 +73,7 @@ namespace Yi.Framework.Service
                 .Size(searchRequest.getSize())
                 .Query(q => q
                      .Match(m => m
-                        .Field(f => f.all)
+                        .Field(f => f.title)
                         .Query(searchRequest.key)
                      )
                 )).Documents.ToList();
@@ -85,7 +81,7 @@ namespace Yi.Framework.Service
             var total = client.Search<Goods>(s => s
                 .Query(q => q
                      .Match(m => m
-                        .Field(f => f.all)
+                        .Field(f => f.title)
                         .Query(searchRequest.key)
                      )
                 )).Documents.Count();
@@ -99,9 +95,7 @@ namespace Yi.Framework.Service
             SearchResult<Goods> searchResult = new()
             {
                 total = total,
-                specs = GoodsList.Select(u => u.specs).Distinct().ToList(),
-                brands = GoodsList.Select(u => u.brand).Distinct().ToList(),
-                categories = GoodsList.Select(u => u.cid3).Distinct().ToList(),
+                titles = GoodsList.Select(u => u.title).Distinct().ToList(),              
                 rows = GoodsList,
                 totalPages =  GoodsList.Count % 2 == 0 ? GoodsList.Count / total : GoodsList.Count / total + 1
             };

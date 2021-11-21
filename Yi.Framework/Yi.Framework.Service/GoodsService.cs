@@ -22,20 +22,15 @@ namespace Yi.Framework.Service
 
         public Goods GetGoodsBySpuId(int spuId)
         {
-            var _spu = _DbRead.Set<spu>().Include(u => u.cid3).Include(u => u.spu_Detail).Include(u => u.brand).Include(u => u.skus).Where(u => u.id == spuId).FirstOrDefault();
+            var _spu = _DbRead.Set<spu>().Include(u => u.skus).Where(u => u.id == spuId).FirstOrDefault();
            return GoodsBuild.BuildGoods(_spu, this);
         }
 
-        public PageResult<spu> QuerySpuByPage(int page, int rows, string key, int? saleable)
+        public PageResult<spu> QuerySpuByPage(int page, int rows, string key)
         {
-            var spuList = _DbRead.Set<spu>().Include(u=>u.cid3).Include(u => u.spu_Detail).Include(u => u.brand).Include(u => u.skus).Where(u => u.saleable == saleable && u.is_delete == Normal).OrderByDescending(u => u.last_update_time).Skip((page - 1) * rows).Take(rows).ToList();
+            var spuList = _DbRead.Set<spu>().Include(u => u.skus).Where(u => u.is_delete == Normal).OrderByDescending(u => u.crate_time).Skip((page - 1) * rows).Take(rows).ToList();
             var totalPages = spuList.Count % 2 == 0 ? spuList.Count / rows : spuList.Count / rows + 1;
-            spuList.ForEach(u => 
-            {
-                u.brand.categories = null;
-                u.brand.spus = null;
-               
-            });
+            
             return new PageResult<spu>() { rows = spuList, total = spuList.Count, totalPages = totalPages };
         }
         public List<spec_param> SpecParam(category _category)
