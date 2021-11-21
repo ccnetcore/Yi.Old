@@ -32,8 +32,14 @@ namespace Yi.Framework.Service
             var totalPages = spuList.Count % 2 == 0 ? spuList.Count / rows : spuList.Count / rows + 1;
             
             return new PageResult<spu>() { rows = spuList, total = spuList.Count, totalPages = totalPages };
-        }       
-        public List<sku> QuerySkuById(List<long> skuId)
+        }
+        public List<spec_param> SpecParam(category _category)
+        {
+            return _DbRead.Set<spec_param>().Where(u => u.category.id == _category.id ).ToList();
+
+        }
+
+        public List<sku> QuerySkuByIds(List<long> skuId)
         {
             return _DbRead.Set<sku>().Where(u=>skuId.Contains(u.id)).ToList();
         }

@@ -14,6 +14,7 @@ namespace Yi.Framework.Common.Const
         public const string key = "YiFramework:data";
 
         public const string keyCode = "YiFramework:code";
+        public const string keyOrden = "YiFramework:orden";
         ///// <summary>
         ///// 初始化角色名
         ///// </summary>
