@@ -18,14 +18,12 @@ namespace Yi.Framework.Service
 {
     public partial class OrderService:BaseService<order>,IOrderService
     {
-        private IGoodsService _goodsService;
         private  ICapPublisher _iCapPublisher;
         private CacheClientDB _cacheClientDB;
         private RabbitMQInvoker _rabbitMQInvoker;
         private readonly ILogger<OrderService> _logger;
-        public OrderService(ILogger<OrderService> logger, CacheClientDB cacheClientDB ,RabbitMQInvoker rabbitMQInvoker  ,IGoodsService goodsService,IDbContextFactory db):base(db)
+        public OrderService(ILogger<OrderService> logger, CacheClientDB cacheClientDB ,RabbitMQInvoker rabbitMQInvoker,IDbContextFactory db):base(db)
         {
-            _goodsService = goodsService;
             _cacheClientDB = cacheClientDB; 
             _rabbitMQInvoker = rabbitMQInvoker; 
             _logger = logger;   
@@ -34,22 +32,14 @@ namespace Yi.Framework.Service
         {
             order _order=new();         
             _order.id =(int) Common.Helper.StringHelper.GetGuidToLongID();
-            _order.creat_time = DateTime.Now;
-            Dictionary<long, int> car = orderDto.carts.ToDictionary(u => u.skuId, u => u.num);
-            List<sku> skus=_goodsService.QuerySkuByIds(car.Keys.ToList());
-            if (skus.Count <= 0)
-            {
-                throw new Exception("查询的商品信息不存在");
-            }
-           
-            _order.sku = skus[0];
+            _order.creat_time = DateTime.Now; 
+            _order.sku =await _DbRead.Set<sku>().FindAsync( orderDto.carts.skuId);
 
             await AddAsync(_order);
             IDbContextTransaction trans = null;
-
             try
             {
-                #region 数据库拆分后--分布式事务
+                #region 数据库拆分后--分布式事务--减少库存
                 trans = _Db.Database.BeginTransaction(this._iCapPublisher, autoCommit: false);
                 this._iCapPublisher.Publish(name: RabbitConst.Order_Stock_Decrease_Queue,
                     contentObj: new OrderCartDto()
@@ -58,21 +48,20 @@ namespace Yi.Framework.Service
                         OrderId= _order.id
 
                     }, headers: null);
-                this._Db.SaveChanges();
-                foreach (var skuIdNum in car)
-                {
-                    string key = $"{RedisConst.keyOrden}{skuIdNum.Key}";
+                this._Db.SaveChanges();             
+                
+                    string key = $"{RedisConst.keyOrden}{orderDto.carts.skuId}";
                     if (!this._cacheClientDB.ContainsKey(key))
                     {
                         throw new Exception("库存在Redis不存在,需要初始化");
                     }
-                    else if (this._cacheClientDB.DecrementValueBy(key, skuIdNum.Value) < 0)
+                    else if (this._cacheClientDB.DecrementValueBy(key, orderDto.carts.num) < 0)
                     {
-                        this._cacheClientDB.IncrementValueBy(key, skuIdNum.Value);//订单失败恢复回去
+                        this._cacheClientDB.IncrementValueBy(key, orderDto.carts.num);//订单失败恢复回去
                         throw new Exception("库存在Redis不足,需要检查");
                     }
                     ////需要多项同时减少，支持多key，需要Lua TODO
-                }
+              
                 trans.Commit();
                 Console.WriteLine("数据库业务数据已经插入,操作完成");
             }
@@ -92,7 +81,6 @@ namespace Yi.Framework.Service
 
          
             {
-
                 try
                 {
                     var orderCreateQueueModel = new OrderCartDto()

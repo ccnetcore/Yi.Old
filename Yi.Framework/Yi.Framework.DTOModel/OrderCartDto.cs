@@ -12,6 +12,6 @@ namespace Yi.Framework.DTOModel
     public class OrderCartDto
     {
         public long OrderId { get; set; }
-        public List<CartDto> Carts { get; set; }// 订单详情
+        public CartDto Carts { get; set; }// 订单详情
     }
 }

@@ -1,54 +1,47 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Yi.Framework.Common.Const;
+using Yi.Framework.Core;
 using Yi.Framework.DTOModel;
+using Yi.Framework.Interface;
 
 namespace Yi.Framework.Service
 {
-    public partial class StockService
+    public partial class StockService: IStockService
     {
-
+             
         /// <summary>
         /// 恢复库存，以订单为单位
         /// </summary>
         /// <param name="spu"></param>
-        public void ResumeStock(List<CartDto> cartDtos, long orderId)
+        public void ResumeStock(CartDto cartDtos, long orderId, object _cacheClientDB)
         {
+           CacheClientDB cacheClientDB =(CacheClientDB)_cacheClientDB;
             IDbContextTransaction trans = null;
             try
             {
-                trans = this._orangeStockContext.Database.BeginTransaction();
-                if (!this._orangeStockContext.Set<TbStockLog>().Any(l => l.OrderId == orderId && l.StockStatus == (int)TbStockLogEnum.StockStatus.Normal))
-                {
-                    Console.WriteLine("订单需要恢复的库存流水不存在");//可以细致处理
-                    return;
-                }
-
-                foreach (CartDto cartDto in cartDtos)
-                {
-                    int count = _orangeStockContext.Database.ExecuteSqlRaw($"update tb_stock set stock = stock + {cartDto.num} where sku_id = {cartDto.skuId}");
+                trans = _Db.Database.BeginTransaction();
+      
+              
+                    int count = _Db.Database.ExecuteSqlRaw($"update tb_stock set stock = stock + {cartDtos.num} where sku_id = {cartDtos.skuId}");
                     if (count != 1)
                     {
                         throw new Exception("恢复库存失败");
                     }
-                    int countLog = _orangeStockContext.Database.ExecuteSqlRaw($"update tb_stock_log set stock_status ={(int)TbStockLogEnum.StockStatus.Backoff} where sku_id = {cartDto.skuId} and order_id={orderId} and stock_status={(int)TbStockLogEnum.StockStatus.Normal}");
-                    if (countLog != 1)
-                    {
-                        throw new Exception("恢复库存失败");
-                    }
-                }
+              
                 trans.Commit();
 
-                foreach (CartDto cartDto in cartDtos)
-                {
+                    
                     #region 增加Redis库存
-                    string key = $"{RedisConst.keyOrden}{cartDto.skuId}";
-                    this._cacheClientDB.IncrementValueBy(key, cartDto.num);
+                    string key = $"{RedisConst.keyOrden}{cartDtos.skuId}";
+                    cacheClientDB.IncrementValueBy(key, cartDtos.num);
                     #endregion
-                }
+           
 
             }
             catch (Exception ex)
@@ -70,32 +63,21 @@ namespace Yi.Framework.Service
         /// 减少库存
         /// </summary>
         /// <param name="cartDtos"></param>
-        public void DecreaseStock(List<CartDto> cartDtos, long orderId)
+        public void DecreaseStock(CartDto cartDtos, long orderId)
         {
             IDbContextTransaction trans = null;
             try
             {
 
-                trans = this._orangeStockContext.Database.BeginTransaction();
-                foreach (CartDto cartDto in cartDtos)
-                {
-                    int count = _orangeStockContext.Database.ExecuteSqlRaw($"update tb_stock set stock = stock - {cartDto.num} where sku_id = {cartDto.skuId} and stock >= {cartDto.num}");
+                trans = _Db.Database.BeginTransaction();
+
+                    int count = _Db.Database.ExecuteSqlRaw($"update tb_stock set stock = stock - {cartDtos.num} where sku_id = {cartDtos.skuId} and stock >= {cartDtos.num}");
                     if (count != 1)
                     {
                         throw new Exception("扣减库存失败");
                     }
-                    TbStockLog tbStockLog = new TbStockLog()
-                    {
-                        SeckillNum = 0,
-                        SkuId = cartDto.skuId,
-                        OrderId = orderId,
-                        OrderNum = cartDto.num,
-                        StockStatus = (int)TbStockLogEnum.StockStatus.Normal,
-                        StockType = (int)TbStockLogEnum.StockType.Decrease
-                    };
-                    this._orangeStockContext.Set<TbStockLog>().Add(tbStockLog);
-                }
-                this._orangeStockContext.SaveChanges();
+
+                _Db.SaveChanges();
                 trans.Commit();
             }
             catch (Exception ex)
@@ -113,6 +95,6 @@ namespace Yi.Framework.Service
             }
         }
 
-
+       
     }
 }
