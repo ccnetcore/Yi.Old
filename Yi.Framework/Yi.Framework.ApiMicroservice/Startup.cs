@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Yi.Framework.Core;
 using Yi.Framework.Model.ModelFactory;
+using Yi.Framework.WebCore.BuilderExtend;
 using Yi.Framework.WebCore.MiddlewareExtend;
 using Yi.Framework.WebCore.Utility;
 
@@ -38,7 +39,7 @@ namespace Yi.Framework.ApiMicroservice
             #endregion
             services.AddControllers(optios=> {
                 //optios.Filters.Add(typeof(CustomExceptionFilterAttribute));
-            });
+            }).AddJsonFileService();
 
             #region
             //Swagger∑˛ŒÒ≈‰÷√
