@@ -28,7 +28,7 @@ namespace Yi.Framework.Service
                 trans = _Db.Database.BeginTransaction();
       
               
-                    int count = _Db.Database.ExecuteSqlRaw($"update tb_stock set stock = stock + {cartDtos.num} where sku_id = {cartDtos.skuId}");
+                    int count = _Db.Database.ExecuteSqlRaw($"update stock set stock_count = stock_count + {cartDtos.num} where skuid = {cartDtos.skuId}");
                     if (count != 1)
                     {
                         throw new Exception("恢复库存失败");
@@ -71,7 +71,7 @@ namespace Yi.Framework.Service
 
                 trans = _Db.Database.BeginTransaction();
 
-                    int count = _Db.Database.ExecuteSqlRaw($"update tb_stock set stock = stock - {cartDtos.num} where sku_id = {cartDtos.skuId} and stock >= {cartDtos.num}");
+                    int count = _Db.Database.ExecuteSqlRaw($"update stock set stock_count = stock_count - {cartDtos.num} where skuid = {cartDtos.skuId} and stock_count >= {cartDtos.num}");
                     if (count != 1)
                     {
                         throw new Exception("扣减库存失败");
