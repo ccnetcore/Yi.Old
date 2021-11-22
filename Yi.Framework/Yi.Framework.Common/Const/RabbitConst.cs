@@ -26,7 +26,7 @@ namespace Yi.Framework.Common.Const
         public const string Order_Stock_Resume_Queue = prefix + "Order_Stock_Resume_Queue";
 
         public const string OrderCreate_Delay_Exchange = prefix + "OrderCreate_Delay_Exchange";
-        public const string OrderCreate_Delay_Queue = prefix + "OrderCreate_Delay_Queue";
+        public const string OrderCreate_Delay_Queue = prefix + "OrderCreate_Delay_Queue_CancelOrder";
 
 
         

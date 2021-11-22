@@ -11,6 +11,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Yi.Framework.Interface;
+using Yi.Framework.Service;
+using Yi.Framework.WebCore.BuilderExtend;
 using Yi.Framework.WebCore.MiddlewareExtend;
 
 namespace Yi.Framework.OrderMicroservice
@@ -27,29 +30,55 @@ namespace Yi.Framework.OrderMicroservice
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-            services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Yi.Framework.orderMicroservice", Version = "v1" });
-            });
+            #region
+            //Ioc配置
+            #endregion
+            services.AddIocService(Configuration);
+            services.AddControllers().AddJsonFileService();
+            #region
+            //Swagger服务配置
+            #endregion
+            services.AddSwaggerService<Program>();
+            #region
+            //跨域服务配置
+            #endregion
+            services.AddCorsService();
+            #region
+            //数据库配置
+            #endregion
+            services.AddDbService();
+            #region
+            //Redis服务配置
+            #endregion
+            services.AddRedisService();
+            #region
+            //RabbitMQ服务配置
+            #endregion
+            services.AddRabbitMQService();
             services.AddCAPService<Startup>();
+            services.AddTransient<IOrderService, OrderService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
+            //if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Yi.Framework.orderMicroservice v1"));
+                #region
+                //Swagger服务注入
+                #endregion
+                app.UseSwaggerService();
             }
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
+            #region
+            //跨域服务注入
+            #endregion
+            app.UseCorsService();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

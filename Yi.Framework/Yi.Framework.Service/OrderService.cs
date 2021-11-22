@@ -22,8 +22,9 @@ namespace Yi.Framework.Service
         private CacheClientDB _cacheClientDB;
         private RabbitMQInvoker _rabbitMQInvoker;
         private readonly ILogger<OrderService> _logger;
-        public OrderService(ILogger<OrderService> logger, CacheClientDB cacheClientDB ,RabbitMQInvoker rabbitMQInvoker,IDbContextFactory db):base(db)
+        public OrderService(ICapPublisher iCapPublisher, ILogger<OrderService> logger, CacheClientDB cacheClientDB ,RabbitMQInvoker rabbitMQInvoker,IDbContextFactory db):base(db)
         {
+            _iCapPublisher = iCapPublisher;
             _cacheClientDB = cacheClientDB; 
             _rabbitMQInvoker = rabbitMQInvoker; 
             _logger = logger;   
@@ -33,14 +34,14 @@ namespace Yi.Framework.Service
             order _order=new();         
             _order.id =(int) Common.Helper.StringHelper.GetGuidToLongID();
             _order.creat_time = DateTime.Now; 
-            _order.sku =await _DbRead.Set<sku>().FindAsync( orderDto.carts.skuId);
+            _order.sku =await _DbRead.Set<sku>().FindAsync( (int)orderDto.carts.skuId);
 
             await AddAsync(_order);
             IDbContextTransaction trans = null;
             try
             {
                 #region 数据库拆分后--分布式事务--减少库存
-                trans = _Db.Database.BeginTransaction(this._iCapPublisher, autoCommit: false);
+                trans = _Db.Database.BeginTransaction(_iCapPublisher, autoCommit: false);
                 this._iCapPublisher.Publish(name: RabbitConst.Order_Stock_Decrease_Queue,
                     contentObj: new OrderCartDto()
                     {
@@ -50,7 +51,7 @@ namespace Yi.Framework.Service
                     }, headers: null);
                 this._Db.SaveChanges();             
                 
-                    string key = $"{RedisConst.keyOrden}{orderDto.carts.skuId}";
+                    string key = $"{RedisConst.keyOrden}:{orderDto.carts.skuId}";
                     if (!this._cacheClientDB.ContainsKey(key))
                     {
                         throw new Exception("库存在Redis不存在,需要初始化");
@@ -93,7 +94,7 @@ namespace Yi.Framework.Service
 
                     //this._RabbitMQInvoker.SendDelay(RabbitMQExchangeQueueName.OrderCreate_Delay_Exchange, message, 60 * 30);
                     //发布延时关闭订单任务
-                    this._rabbitMQInvoker.SendDelay(RabbitConst.OrderCreate_Delay_Exchange, message, 30);
+                    this._rabbitMQInvoker.SendDelay(RabbitConst.OrderCreate_Delay_Exchange, message,10*60);
 
                 }
                 catch (Exception e)
@@ -106,6 +107,51 @@ namespace Yi.Framework.Service
 
 
             return _order;
-        }       
+        }
+
+
+        public async Task<bool> CloseOrder(int orderId)
+        {
+            var skuIdList =await this._Db.Set<order>().Where(od => od.id == orderId).Include(u=>u.sku). Select(od => new
+            {
+                skuId = od.sku.id,
+                num = od.num
+            }).ToListAsync();
+
+            IDbContextTransaction trans = null;
+            try
+            {
+                #region 数据库拆分后--分布式事务
+                trans = this._Db.Database.BeginTransaction(this._iCapPublisher, autoCommit: false);
+                this._iCapPublisher.Publish(name: RabbitConst.Order_Stock_Resume_Queue,
+                    contentObj: new OrderCartDto()
+                    {
+                        Carts = skuIdList.Select(sku => new CartDto()
+                        {
+                            skuId = sku.skuId,
+                            num = sku.num
+                        }).ToList(),
+                        OrderId = orderId
+                    }, headers: null);
+                this._Db.SaveChanges();
+                Console.WriteLine("数据库业务数据已经插入,操作完成");
+                trans.Commit();
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                if (trans != null)
+                {
+                    trans.Rollback();
+                    Console.WriteLine(ex.ToString());
+                }
+                throw;
+            }
+            finally
+            {
+                trans.Dispose();
+            }
+            return true;
+        }
     }
 }

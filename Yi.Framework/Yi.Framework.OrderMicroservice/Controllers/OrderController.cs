@@ -20,11 +20,11 @@ namespace Yi.Framework.OrderMicroservice.Controllers
         }
         [HttpPost]
         [Route("/api/order/create")]
-        [TypeFilter(typeof(CustomAction2CommitFilterAttribute))]//避免重复提交
+        //[TypeFilter(typeof(CustomAction2CommitFilterAttribute))]//避免重复提交
         public async Task< Result> CreateOrder(OrderDto orderDto)
         {
-            await _orderService.CreateOrder(orderDto);
-            return Result.Success();
+             var data  =await _orderService.CreateOrder(orderDto);
+            return Result.Success().SetData(data);
             //CreateOrder做三件事
             //1:创建一个订单，注意有多个商品（购物车）  2：减少库存，这里先别做，用cap   4：死信队列，先别做
         }

@@ -2,10 +2,27 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <DocumentationFile>D:\CC.Yi\CC.Yi\Yi.Framework\Yi.Framework.OrderMicroservice\SwaggerDoc.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>1701;1702;CS1591</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <NoWarn>1701;1702;CS1591</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Yi.Framework.Service\Yi.Framework.Service.csproj" />
     <ProjectReference Include="..\Yi.Framework.WebCore\Yi.Framework.WebCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="SwaggerDoc.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

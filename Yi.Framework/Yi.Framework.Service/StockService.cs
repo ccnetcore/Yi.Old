@@ -9,10 +9,11 @@ using Yi.Framework.Common.Const;
 using Yi.Framework.Core;
 using Yi.Framework.DTOModel;
 using Yi.Framework.Interface;
+using Yi.Framework.Model.Models;
 
 namespace Yi.Framework.Service
 {
-    public partial class StockService: IStockService
+    public partial class StockService: BaseService<stock>, IStockService
     {
              
         /// <summary>
@@ -38,7 +39,7 @@ namespace Yi.Framework.Service
 
                     
                     #region 增加Redis库存
-                    string key = $"{RedisConst.keyOrden}{cartDtos.skuId}";
+                    string key = $"{RedisConst.keyOrden}:{cartDtos.skuId}";
                     cacheClientDB.IncrementValueBy(key, cartDtos.num);
                     #endregion
            

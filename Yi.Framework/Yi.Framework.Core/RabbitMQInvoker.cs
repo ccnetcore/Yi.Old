@@ -173,7 +173,7 @@ namespace Yi.Framework.Core
             {
                 try
                 {
-                    string delayExchangeName = "ZhaoxiMSA_DelayExchange";
+                    string delayExchangeName = "Yi.Framework.DelayExchange";
 
                     //普通交换器
                     channel.ExchangeDeclare(delayExchangeName, "fanout", true, false, null);
@@ -182,8 +182,8 @@ namespace Yi.Framework.Core
                     args.Add("x-message-ttl", delaySecond * 1000);//TTL 毫秒
                     args.Add("x-dead-letter-exchange", targetExchangeName);//DLX
                     args.Add("x-dead-letter-routing-key", "routingkey");//routingKey
-                    channel.QueueDeclare("ZhaoxiMSA_DelayQueue", true, false, false, args);
-                    channel.QueueBind(queue: "ZhaoxiMSA_DelayQueue",
+                    channel.QueueDeclare("Yi.Framework.DelayQueue", true, false, false, args);
+                    channel.QueueBind(queue: "Yi.Framework.DelayQueue",
                         exchange: delayExchangeName,
                         routingKey: string.Empty,
                         arguments: null);

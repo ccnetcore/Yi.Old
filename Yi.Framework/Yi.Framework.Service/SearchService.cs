@@ -35,7 +35,7 @@ namespace Yi.Framework.Service
             {
                 List<Goods> goodsList = new List<Goods>();
                 // 上架商品
-                PageResult<spu> result = _goodsService.QuerySpuByPage(page, rows, null);
+                PageResult<spu> result = _goodsService.QuerySpuByPage(page, rows);
                 List<spu> spus = result.rows;
                 size = spus.Count;
                 foreach (var spu in spus)

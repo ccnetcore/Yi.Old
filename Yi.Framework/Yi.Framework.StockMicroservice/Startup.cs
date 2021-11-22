@@ -11,6 +11,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Yi.Framework.Interface;
+using Yi.Framework.Service;
+using Yi.Framework.WebCore.BuilderExtend;
+using Yi.Framework.WebCore.MiddlewareExtend;
 
 namespace Yi.Framework.StockMicroservice
 {
@@ -26,28 +30,30 @@ namespace Yi.Framework.StockMicroservice
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-            services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Yi.Framework.StockMicroservice", Version = "v1" });
-            });
+            services.AddIocService(Configuration);
+            services.AddControllers().AddJsonFileService(); ;
+            services.AddSwaggerService<Program>();
+            services.AddCorsService();
+            services.AddDbService();
+            services.AddRedisService();
+            services.AddRabbitMQService();
+            services.AddCAPService<Startup>();
+            services.AddTransient<IStockService, StockService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
+            //if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Yi.Framework.StockMicroservice v1"));
+                app.UseSwaggerService();
             }
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseCorsService();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

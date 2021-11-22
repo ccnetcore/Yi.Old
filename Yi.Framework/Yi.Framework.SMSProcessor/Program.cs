@@ -28,17 +28,8 @@ namespace Yi.Framework.SMSProcessor
                             .ConfigureAppConfiguration((hostBuilderContext, configurationBuilder) =>
                             {
                                 configurationBuilder.AddCommandLine(args);
-                                //configurationBuilder.AddJsonFile("appsettings.json", optional: true, reloadOnChange: false);
-                                //configurationBuilder.AddJsonFile("configuration.json", optional: false, reloadOnChange: true);
                                 configurationBuilder.AddJsonFileService();
-                                #region 
-                                //Apollo配置
-                                #endregion
                                 configurationBuilder.AddApolloService("Yi");
-                                #region 
-                                //Apollo配置
-                                #endregion
-                                //configurationBuilder.AddApolloService("Yi");
                             })
                             .ConfigureLogging(loggingBuilder =>
                             {
@@ -51,32 +42,12 @@ namespace Yi.Framework.SMSProcessor
 
                     IConfiguration configuration = services.BuildServiceProvider().GetRequiredService<IConfiguration>();
 
-                    #region
-                    //Ioc配置
-                    #endregion
                     services.AddSingleton(new Appsettings(configuration));
                     services.AddHostedService<Worker>();
                     services.AddHostedService<SendWorker>();
-
-                    #region 服务注入
-                    //services.Configure<MySqlConnOptions>(configuration.GetSection("MysqlConn"));
-
-
-                    #region
-                    //RabbitMQ服务配置
-                    #endregion
                     services.AddRabbitMQService();
-                    #endregion
-
-                    #region
-                    //短信服务配置
-                    #endregion
+                    services.AddDbService();
                     services.AddSMSService();
-
-                    #region Consul
-                    //services.Configure<ConsulClientOption>(configuration.GetSection("ConsulClientOption"));
-                    //services.AddTransient<AbstractConsulDispatcher, PollingDispatcher>();
-                    #endregion
 
                 });
     }

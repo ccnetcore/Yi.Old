@@ -48,7 +48,6 @@ namespace Yi.Framework.ElasticSearchProcessor
                   services.AddHostedService<WarmupESIndexWorker>();
                   services.AddElasticSeachService();
                   services.AddRabbitMQService();
-                  services.AddDbService();
                   services.AddScoped<ISearchService, SearchService>();
                   services.AddScoped<IGoodsService, GoodsService>();
                  
