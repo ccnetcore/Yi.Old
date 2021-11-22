@@ -6,7 +6,8 @@
 
 [English](README-en.md) | 简体中文
 
-[![sdk](https://img.shields.io/badge/sdk-5.0.1-d.svg)](#) [![License MIT](https://img.shields.io/badge/license-Apache-blue.svg?style=flat-square)](https://github.com/ccnetcore/Yi/master/LICENSE) [![star this repo](https://githubbadges.com/star.svg?user=ccnetcore&repo=Yi&style=flat-square)](https://github.com/ccnetcore/Yi)[![fork this repo](https://githubbadges.com/fork.svg?user=ccnetcore&repo=Yi&style=flat-square)](https://github.com/ccnetcore/Yi/fork)
+![sdk](https://img.shields.io/badge/sdk-5.0.1-d.svg)![License MIT](https://img.shields.io/badge/license-Apache-blue.svg?style=flat-square)
+
 ****
 #### 简介:
 **中文：意框架**
@@ -19,7 +20,7 @@
 
 **Yi.Vue**：Vue2.0配合CC.Yi.Framework使用前端项目（正在更新）
 
-**分支：ec**：基于Yi.Framework微服务电商项目（同步更新）
+**分支：ec**：实战项目！基于Yi.Framework微服务千万级并发电商项目DEMO（同步更新）
 
 ****
 #### 支持:
@@ -27,6 +28,7 @@
 - [x] 完全支持单体应用架构
 - [x] 完全支持分布式应用架构
 - [x] 完全支持微服务架构
+- [ ] 即将支持网格服务架构（我们将在后续版本加入dapr）
 
 ****
 #### 软件架构:
@@ -41,12 +43,21 @@
 
 **组件**：EFcore、Autofac、Castle、Swagger、Log4Net、Redis、RabbitMq、ES、Quartz.net、T4
 
+**分布式**：CAP、Lock
+
 **微服务**：Consul、Ocelot、IdentityService、Apollo、Docker、Jenkins、Nginx、K8s、ELK、Polly
 
 **封装**：Json处理模块，滑动验证码模块，base64图片处理模块，异常捕捉模块、邮件处理模块、linq封装模块、随机数模块、统一接口模块、基于策略的jwt验证、过滤器、数据库连接、跨域、初始化种子数据、Base32、Console输出、日期处理、文件传输、html筛选、http请求、ip过滤、md5加密、Rsa加密、序列化、雪花算法、字符串处理、编码处理、地址处理、xml处理、心跳检查
 
 ****
 #### 支持模块:
+
+大致如图：
+
+![image](https://user-images.githubusercontent.com/68722157/142923071-2fa524eb-e833-4143-a926-51566e56e889.png)
+![image](https://user-images.githubusercontent.com/68722157/142923150-ebe1b538-c3fc-42dd-bea8-83e10e0f819a.png)
+![image](https://user-images.githubusercontent.com/68722157/142923529-e4fbb2f6-def1-4702-b9da-5adbd22f0a2f.png)
+
 
 - [x] 支持`DDD领域驱动设计`进行分层，支持微服务扩展
 - [x] 支持采用`异步`开发awit/async
@@ -65,14 +76,18 @@
 - [x] 支持`consul`健康检查
 - [x] 支持`RabbitMQ`消息队列
 - [x] 支持`Redis`多级缓存 
-- [x] 支持Ocelot`网关，路由、服务聚合、服务发现、认证、鉴权、限流、熔断、缓存、Header头传递
+- [x] 支持`Ocelot`网关，路由、服务聚合、服务发现、认证、鉴权、限流、熔断、缓存、Header头传递
 - [x] 支持`Apollo`全局配置中心;
 - [x] 支持`docker`镜像制作
 - [x] 支持页面`静态化处理`，将动态页面生成静态页面
-- [x] 支持Quartz.net任务调度，实现任意接口被调度
-- [ ] 支持ELK
-- [ ] 支持IdentityService4`
-- [ ] 支持Es分词查询
+- [x] 支持`Quartz.net`任务调度，实现任意接口被调度
+- [x] 支持`ELK`，log4net+kafka+es+logstach+kibana
+- [x] 支持`IdentityService4`授权中心
+- [x] 支持`Es`分词查询
+- [x] 支持多级`缓存`
+- [x] 支持`CAP`分布式事务，mysql+rabbitMq
+- [ ] 支持Docker+k8s部署
+- [ ] 支持Jenkins+CI/CD
 - [ ] 支持微信支付
 
 ****
@@ -87,6 +102,12 @@
 - Domain：领域层
 - Infrastructure：实例层
 - MicroServiceInstance：服务层
+
+
+另外，**分支ec电商**目录结构：
+
+![image](https://user-images.githubusercontent.com/68722157/142923703-9c56cd4c-2201-4933-9b26-dcb3f9f2d1b8.png)
+
 
 ****
 #### 安装教程:
@@ -119,6 +140,8 @@
 
 QQ：454313500
 
+官方网址：正在建设
+
 ****
 #### FQA:
 
@@ -137,3 +160,8 @@ QQ：454313500
 问4：这个框架的针对人群是哪些人？适合所有人吗？
 
 答4：并不是适合所有人，应该算适合需要有一定基础的开发人员，当然，如果你是大神，你完全可以将这个框架改进！
+
+问5：花如此多的精力制作这个框架，是为了什么？是为了赚钱吗？和目前主流的abp等框架比，又有什么意义呢？
+
+答5：不说什么大话，制作这个框架主要原因是为了自己使用以及其他的参考学习，和钱可是半点关系没有哦。abp确实非常优秀，但和我们意框架其实并不冲突，使用场景是不一样的。说不定即将出意框架abp分支呢~~~
+
