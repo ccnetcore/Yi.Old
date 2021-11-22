@@ -79,6 +79,11 @@ namespace Yi.Framework.ApiMicroservice
             //短信服务配置
             #endregion
             services.AddSMSService();
+
+            #region
+            //CAP服务配置
+            #endregion
+            services.AddCAPService<Program>();
         }
 
         #region Autofac容器注入
