@@ -35,7 +35,7 @@ namespace Yi.Framework.Service
             _order.id =(int) Common.Helper.StringHelper.GetGuidToLongID();
             _order.creat_time = DateTime.Now; 
             _order.sku =await _DbRead.Set<sku>().FindAsync( (int)orderDto.carts.skuId);
-
+            _order.num = orderDto.carts.num;
             await AddAsync(_order);
             IDbContextTransaction trans = null;
             try
@@ -130,7 +130,7 @@ namespace Yi.Framework.Service
                         {
                             skuId = sku.skuId,
                             num = sku.num
-                        }).ToList(),
+                        }).FirstOrDefault(),
                         OrderId = orderId
                     }, headers: null);
                 this._Db.SaveChanges();

@@ -230,6 +230,7 @@ namespace Yi.Framework.Model.Migrations
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     creat_time = table.Column<DateTime>(type: "datetime(6)", nullable: false, comment: "订单创建时间"),
+                    num = table.Column<int>(type: "int", nullable: false, comment: "数量"),
                     skuid = table.Column<int>(type: "int", nullable: true),
                     is_delete = table.Column<int>(type: "int", nullable: false)
                 },

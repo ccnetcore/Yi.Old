@@ -15,8 +15,7 @@ namespace Yi.Framework.OrderMicroservice.Controllers
         private IOrderService _orderService;    
         public OrderController( IOrderService orderService)
         {
-            _orderService = orderService;
-           
+            _orderService = orderService;          
         }
         [HttpPost]
         [Route("/api/order/create")]

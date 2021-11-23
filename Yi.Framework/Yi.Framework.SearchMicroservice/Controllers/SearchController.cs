@@ -16,7 +16,7 @@ namespace Yi.Framework.SearchMicroservice.Controllers
         {
             _searchService = searchService;
         }
-        [Route("page")]
+        [Route("api/search/page")]
         [HttpPost]
         public Result Search(SearchRequest searchRequest)
         {

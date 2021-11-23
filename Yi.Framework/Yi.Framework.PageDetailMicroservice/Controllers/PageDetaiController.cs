@@ -21,7 +21,7 @@ namespace Yi.Framework.PageDetailMicroservice.Controllers
         {
             _goodsService = goodsService;
         }
-        [Route("/item/{id}.html")]
+        [Route("api/item/{id}.html")]
         [HttpGet]
         public IActionResult Index(int id)
         {

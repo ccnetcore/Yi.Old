@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -20,6 +20,14 @@
     <ProjectReference Include="..\Yi.Framework.Model\Yi.Framework.Model.csproj" />
     <ProjectReference Include="..\Yi.Framework.Service\Yi.Framework.Service.csproj" />
     <ProjectReference Include="..\Yi.Framework.WebCore\Yi.Framework.WebCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="configuration.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
