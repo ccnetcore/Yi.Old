@@ -14,7 +14,11 @@ namespace Yi.Framework.Model.Models
         public DateTime creat_time { get; set; }     
         [Comment("sku")]
         public sku sku { get; set; }
+<<<<<<< Updated upstream
         [Comment("数量")]
+=======
+
+>>>>>>> Stashed changes
         public int num { get; set; }
     }
 }
