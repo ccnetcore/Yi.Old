@@ -1,11 +1,11 @@
 {
-<<<<<<< Updated upstream
+
   "apollo": {
     "AppId": "OcelotGateway",
     "Env": "DEV",
     "MetaServer": "http://119.91.207.67:18080",
     "ConfigServer": [ "http://119.91.207.67:18080" ]
-=======
+  },
   "Routes": [
     {
       "UpstreamPathTemplate": "/search/{url}", //上游请求地址--网关
@@ -50,7 +50,6 @@
       "DownstreamPathTemplate": "/swagger/v1/swagger.json", //服务地址--url变量
       "DownstreamScheme": "http"
     },
-
     {
       "UpstreamPathTemplate": "/order/{url}", //上游请求地址--网关
       "UpstreamHttpMethod": [ "Get", "Post", "Put", "PATCH", "Delete", "Options" ],
@@ -91,12 +90,12 @@
       "Port": 8500,
       "Type": "Consul" //由Consul提供服务发现, 每次请求去consul
     }
-    //,
-    //"RateLimitOptions": {
-    //  "QuotaExceededMessage": "你的请求过于频繁，请稍后再试！", // 当请求过载被截断时返回的消息
-    //  "HttpStatusCode": 666 // 当请求过载被截断时返回的http status
-    //  //"ClientIdHeader": "client_id" // 用来识别客户端的请求头，默认是 ClientId
-    //}
->>>>>>> Stashed changes
+    ,
+    "RateLimitOptions": {
+      "QuotaExceededMessage": "你的请求过于频繁，请稍后再试！", // 当请求过载被截断时返回的消息
+      "HttpStatusCode": 666 // 当请求过载被截断时返回的http status
+      //"ClientIdHeader": "client_id" // 用来识别客户端的请求头，默认是 ClientId
+    }
+
   }
 }
