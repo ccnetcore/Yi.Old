@@ -29,7 +29,7 @@ namespace Yi.Framework.SMSProcessor
                             {
                                 configurationBuilder.AddCommandLine(args);
                                 configurationBuilder.AddJsonFileService();
-                                configurationBuilder.AddApolloService("Yi");
+                                configurationBuilder.AddApolloService("yi");
                             })
                             .ConfigureLogging(loggingBuilder =>
                             {

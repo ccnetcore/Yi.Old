@@ -24,7 +24,7 @@ namespace Yi.Framework.OrderProcessor
                             {
                                 configurationBuilder.AddCommandLine(args);
                                 configurationBuilder.AddJsonFileService();
-                                configurationBuilder.AddApolloService("Yi");
+                                configurationBuilder.AddApolloService("yi");
                             })
                             .ConfigureLogging(loggingBuilder =>
                             {

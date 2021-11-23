@@ -26,7 +26,7 @@ namespace Yi.Framework.OcelotGateway
                     #region 
                     //ApolloÅäÖÃ
                     #endregion
-                    configurationBuilder.AddApolloService("Yi");
+                    configurationBuilder.AddApolloService("yi");
                 })
                 .ConfigureLogging(loggingBuilder =>
                 {

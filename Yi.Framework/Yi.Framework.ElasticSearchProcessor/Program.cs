@@ -28,7 +28,7 @@ namespace Yi.Framework.ElasticSearchProcessor
                               #region 
                               //Apollo配置
                               #endregion
-                              configurationBuilder.AddApolloService("Yi");
+                              configurationBuilder.AddApolloService("yi");
                           })
                           .ConfigureLogging(loggingBuilder =>
                           {

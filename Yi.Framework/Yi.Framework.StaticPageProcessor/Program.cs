@@ -30,7 +30,7 @@ namespace Yi.Framework.StaticPageProcessor
                                 #region 
                                 //Apollo配置
                                 #endregion
-                                configurationBuilder.AddApolloService("Yi");
+                                configurationBuilder.AddApolloService("yi");
                             })
                             .ConfigureLogging(loggingBuilder =>
                             {

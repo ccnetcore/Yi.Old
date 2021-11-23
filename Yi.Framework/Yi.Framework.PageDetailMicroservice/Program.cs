@@ -19,24 +19,21 @@ namespace Yi.Framework.PageDetailMicroservice
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-  .ConfigureAppConfiguration((hostBuilderContext, configurationBuilder) =>
-  {
-      configurationBuilder.AddCommandLine(args);
-      configurationBuilder.AddJsonFileService();
-      #region 
-      //ApolloÅäÖÃ
-      #endregion
-      configurationBuilder.AddApolloService("Yi");
-  })
-                .ConfigureLogging(loggingBuilder =>
-                {
-                    loggingBuilder.AddFilter("System", Microsoft.Extensions.Logging.LogLevel.Warning);
-                    loggingBuilder.AddFilter("Microsoft", Microsoft.Extensions.Logging.LogLevel.Warning);
-                    loggingBuilder.AddLog4Net();
-                })
+            .ConfigureAppConfiguration((hostBuilderContext, configurationBuilder) =>
+            {
+                configurationBuilder.AddCommandLine(args);
+                configurationBuilder.AddJsonFileService();
+                #region 
+                //ApolloÅäÖÃ
+                #endregion
+                configurationBuilder.AddApolloService("yi");
+            })
+            .ConfigureLogging(u => u.AddLog4Net())
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>().UseUrls("http://*:7007");
+
+
                 });
     }
 }

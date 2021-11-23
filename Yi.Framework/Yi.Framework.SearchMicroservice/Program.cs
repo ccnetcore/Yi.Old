@@ -18,23 +18,23 @@ namespace Yi.Framework.SearchMicroservice
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args) 
+            Host.CreateDefaultBuilder(args)
             .ConfigureAppConfiguration((hostBuilderContext, configurationBuilder) =>
   {
-            configurationBuilder.AddCommandLine(args);
-            configurationBuilder.AddJsonFileService();
-            #region 
-            //ApolloÅäÖÃ
-            #endregion
-            configurationBuilder.AddApolloService("Yi");
-        })
-            .ConfigureLogging(u=>u.AddLog4Net())
+      configurationBuilder.AddCommandLine(args);
+      configurationBuilder.AddJsonFileService();
+      #region 
+      //ApolloÅäÖÃ
+      #endregion
+      configurationBuilder.AddApolloService("yi");
+  })
+            .ConfigureLogging(u => u.AddLog4Net())
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
 
-                  
+
                 });
-        
+
     }
 }

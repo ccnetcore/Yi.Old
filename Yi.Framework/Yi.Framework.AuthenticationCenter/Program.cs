@@ -26,7 +26,7 @@ namespace Yi.Framework.AuthenticationCenter
                #region 
                //ApolloÅäÖÃ
                #endregion
-               configurationBuilder.AddApolloService("Yi");
+               configurationBuilder.AddApolloService("yi");
            })
             .ConfigureLogging(u=>u.AddLog4Net())
                 .ConfigureWebHostDefaults(webBuilder =>
