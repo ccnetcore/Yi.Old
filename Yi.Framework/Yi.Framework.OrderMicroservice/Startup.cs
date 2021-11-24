@@ -68,17 +68,16 @@ namespace Yi.Framework.OrderMicroservice
                 #region
                 //Swagger服务注入
                 #endregion
-                app.UseSwaggerService();
+                app.UseSwaggerService(new Common.Models.SwaggerModel("v1/swagger.json", "OrderMicroservice"));
             }
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
-            #region
-            //跨域服务注入
-            #endregion
+           
             app.UseCorsService();
+            app.UseHealthCheckMiddleware();
+            app.UseConsulService(); 
             app.UseAuthorization();
             app.UseConsulService();
             app.UseHealthCheckMiddleware();

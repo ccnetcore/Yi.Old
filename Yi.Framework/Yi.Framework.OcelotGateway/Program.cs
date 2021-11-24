@@ -36,7 +36,7 @@ namespace Yi.Framework.OcelotGateway
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>().UseUrls("http://*:7200");
+                    webBuilder.UseStartup<Startup>();
                 });
     }
 }

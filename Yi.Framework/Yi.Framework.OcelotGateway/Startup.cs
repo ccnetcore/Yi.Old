@@ -18,6 +18,7 @@ using Yi.Framework.Common.Models;
 using Ocelot.Cache.CacheManager;
 using Yi.Framework.WebCore.MiddlewareExtend;
 using Ocelot.Provider.Polly;
+using Yi.Framework.WebCore;
 
 namespace Yi.Framework.OcelotGateway
 {
@@ -33,26 +34,27 @@ namespace Yi.Framework.OcelotGateway
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddSingleton(new Appsettings(Configuration));
             services.AddControllers();
-            #region
-            //跨域服务配置
-            #endregion
-            services.AddCorsService();
-
-            #region
-            //网关服务配置
-            #endregion
-            services.AddOcelot().AddConsul().AddCacheManager(x =>{x.WithDictionaryHandle();}).AddPolly();
+            //#region
+            ////跨域服务配置
+            //#endregion
+            //services.AddCorsService();
 
             #region
             //Swagger服务配置
             #endregion
-            services.AddSwaggerService<Program>("Yi.Framework.OcelotGateway");
+            services.AddSwaggerService<Program>("OcelotGateway");
+            //#region
+            ////Jwt鉴权配置
+            //#endregion
+            //services.AddJwtService();
+
             #region
-            //Jwt鉴权配置
+            //网关服务配置
             #endregion
-            services.AddJwtService();
+            services.AddOcelot().AddConsul().AddCacheManager(x => { x.WithDictionaryHandle(); }).AddPolly();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,21 +62,17 @@ namespace Yi.Framework.OcelotGateway
         {
             //if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
-                #region
-                //Swagger服务注入
-                #endregion
-                app.UseSwaggerService(new SwaggerModel("api/api/swagger/v1/swagger.json","API服务"), new SwaggerModel("api/item/swagger/v1/swagger.json", "静态页服务"));
-            }
-            #region
-            //网关服务注入
-            #endregion
-            app.UseOcelot();
 
-            #region
-            //鉴权注入
-            #endregion
-            app.UseAuthentication();
+                app.UseSwaggerService(
+    new SwaggerModel("orden/v1/swagger.json", "订单服务")
+    //new SwaggerModel("v1/swagger.json", "搜索服务"),
+    //new SwaggerModel("v1/swagger.json", "搜索服务"),
+    //new SwaggerModel("v1/swagger.json", "静态页服务")
+    );
+                app.UseOcelot();
+
+
+            }
         }
     }
 }
