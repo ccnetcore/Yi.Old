@@ -94,7 +94,7 @@ namespace Yi.Framework.Service
 
                     //this._RabbitMQInvoker.SendDelay(RabbitMQExchangeQueueName.OrderCreate_Delay_Exchange, message, 60 * 30);
                     //发布延时关闭订单任务
-                    this._rabbitMQInvoker.SendDelay(RabbitConst.OrderCreate_Delay_Exchange, message,10*60);
+                    this._rabbitMQInvoker.SendDelay(RabbitConst.OrderCreate_Delay_Exchange, message,10);
 
                 }
                 catch (Exception e)

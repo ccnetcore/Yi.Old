@@ -80,7 +80,8 @@ namespace Yi.Framework.OrderMicroservice
             #endregion
             app.UseCorsService();
             app.UseAuthorization();
-
+            app.UseConsulService();
+            app.UseHealthCheckMiddleware();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

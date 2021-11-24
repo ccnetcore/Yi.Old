@@ -42,9 +42,9 @@ namespace Yi.Framework.ElasticSearchProcessor
                   IConfiguration configuration = services.BuildServiceProvider().GetRequiredService<IConfiguration>();
 
                 services.AddIocService(configuration);
-
+                  services.AddDbService();
                   services.AddHostedService<Worker>();
-                  services.AddHostedService<InitESIndexWorker>();
+          
                   services.AddHostedService<WarmupESIndexWorker>();
                   services.AddElasticSeachService();
                   services.AddRabbitMQService();

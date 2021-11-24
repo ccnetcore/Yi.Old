@@ -45,11 +45,13 @@ namespace Yi.Framework.PageDetailMicroservice
             app.UseSwaggerService();
             app.UseRouting();
             app.UseStaticPageServer();
-            app.UseAuthorization();
+            app.UseAuthorization(); 
+            app.UseConsulService();
+            app.UseHealthCheckMiddleware();
             #region
             //开启静态化中间件
             #endregion
-            //app.UseStaticPageServer();
+            app.UseStaticPageServer();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

@@ -56,6 +56,8 @@ namespace Yi.Framework.SearchMicroservice
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseConsulService();
+            app.UseHealthCheckMiddleware();
 
             app.UseEndpoints(endpoints =>
             {

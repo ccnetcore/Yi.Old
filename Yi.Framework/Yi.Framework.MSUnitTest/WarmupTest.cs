@@ -21,17 +21,6 @@ namespace Yi.Framework.MSUnitTest
         }
 
         [TestMethod]
-        public void mytest()
-        {
-            Console.WriteLine("成功运行程序！");
-        }
-        [TestMethod]
-        public void mytest2()
-        {
-            Console.WriteLine("成功运行程序！");
-        }
-
-        [TestMethod]
         public void WarmupEs()
         {
             RabbitMQInvoker rabbitMQInvoker = new RabbitMQInvoker("118.195.191.41");

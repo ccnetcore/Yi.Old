@@ -55,6 +55,8 @@ namespace Yi.Framework.StockMicroservice
             app.UseRouting();
             app.UseCorsService();
             app.UseAuthorization();
+            app.UseConsulService();
+            app.UseHealthCheckMiddleware();
 
             app.UseEndpoints(endpoints =>
             {
