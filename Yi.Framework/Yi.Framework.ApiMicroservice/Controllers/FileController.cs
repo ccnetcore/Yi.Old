@@ -13,7 +13,7 @@ using Yi.Framework.WebCore;
 
 namespace Yi.Framework.ApiMicroservice.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    [Route("api/yi/[controller]/[action]")]
     [ApiController]
     public class FileController : ControllerBase
     {

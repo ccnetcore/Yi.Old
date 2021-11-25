@@ -14,7 +14,7 @@ using Yi.Framework.WebCore;
 
 namespace Yi.Framework.ApiMicroservice.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    [Route("api/yi/[controller]/[action]")]
     [ApiController]
     [Authorize]
     public class RoleController : ControllerBase

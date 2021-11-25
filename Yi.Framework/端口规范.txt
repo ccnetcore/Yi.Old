@@ -1,8 +1,0 @@
-Yi.Framework.OcelotGateway 19000
-Yi.Framework.SearchMicroservice 19001
-Yi.Framework.PageDetailMicroservice 19002
-Yi.Framework.OrderMicroservice 19003
-Yi.Framework.StockMicroservice 19004
-Yi.Framework.ElasticSearchProcessor 0
-Yi.Framework.OrderProcessor 0
-Yi.Framework.StaticPageProcessor 0

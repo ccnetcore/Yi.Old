@@ -17,7 +17,7 @@ using Yi.Framework.Model.Models;
 namespace Yi.Framework.ApiMicroservice.Controllers
 {
     [ApiController]
-    [Route("api/[controller]/[action]")]
+    [Route("api/yi/[controller]/[action]")]
     public class JobController : Controller
     {
         private readonly ILogger<JobController> _logger;

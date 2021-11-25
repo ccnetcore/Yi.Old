@@ -4,7 +4,7 @@ module.exports = {
         'vuetify'
     ],
     devServer: {
-        port: 6789,
+        port: 19000,
         open: true,
         https: false,
         host: "localhost",

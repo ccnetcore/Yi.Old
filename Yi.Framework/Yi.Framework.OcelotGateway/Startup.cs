@@ -64,10 +64,12 @@ namespace Yi.Framework.OcelotGateway
             {
 
                 app.UseSwaggerService(
-    new SwaggerModel("orden/v1/swagger.json", "订单服务")
-    //new SwaggerModel("v1/swagger.json", "搜索服务"),
-    //new SwaggerModel("v1/swagger.json", "搜索服务"),
-    //new SwaggerModel("v1/swagger.json", "静态页服务")
+                     new SwaggerModel("api/v1/swagger.json", "api服务"),
+    new SwaggerModel("order/v1/swagger.json", "订单服务"),
+    new SwaggerModel("search/v1/swagger.json", "搜索服务"),
+    new SwaggerModel("item/v1/swagger.json", "静态页服务"),
+    new SwaggerModel("stock/v1/swagger.json", "库存服务")
+   
     );
                 app.UseOcelot();
 

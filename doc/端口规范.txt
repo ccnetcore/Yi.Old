@@ -1,0 +1,28 @@
+Yi.Framework.OcelotGateway 19000
+Yi.Framework.SearchMicroservice 19001
+Yi.Framework.PageDetailMicroservice 19002
+Yi.Framework.OrderMicroservice 19003
+Yi.Framework.StockMicroservice 19004
+Yi.Framework.ApiMicroservice 19005
+Yi.Framework.ElasticSearchProcessor 0
+Yi.Framework.OrderProcessor 0
+Yi.Framework.StaticPageProcessor 0
+Yi.Framework.SMSProcessor 0
+
+
+dotnet Yi.Framework.OcelotGateway.dll --urls="http://*:19000"
+dotnet Yi.Framework.OrderMicroservice.dll --urls="http://*:19003"
+dotnet Yi.Framework.PageDetailMicroservice.dll --urls="http://*:19002"
+dotnet Yi.Framework.StockMicroservice.dll --urls="http://*:19004"
+dotnet Yi.Framework.SearchMicroservice.dll --urls="http://*:19001"
+dotnet Yi.Framework.ApiMicroservice.dll --urls="http://*:19005"
+
+
+docker run -d -p 1900:20000 --name yi.bbs -v /home/yi.bbs/docker/CC.Yi.API/appsettings.json:/app/appsettings.json -v /home/yi.bbs/docker/CC.Yi.API/wwwroot:/app/wwwroot yi.bbs
+
+docker build -f ./Yi.Framework.ApiMicroservice/Dockerfile -t apims ./
+docker build -f ./Yi.Framework.OcelotGateway/Dockerfile -t ogms ./
+docker build -f ./Yi.Framework.PageDetailMicroservice/Dockerfile -t pagems ./
+docker build -f ./Yi.Framework.StockMicroservice/Dockerfile -t stockms ./
+docker build -f ./Yi.Framework.SearchMicroservice/Dockerfile -t searchms ./
+docker build -f ./Yi.Framework.OrderMicroservice/Dockerfile -t orderms ./

@@ -20,7 +20,7 @@ using Yi.Framework.WebCore;
 namespace Yi.Framework.ApiMicroservice.Controllers
 {
     [ApiController]
-    [Route("api/[controller]/[action]")]
+    [Route("api/yi/[controller]/[action]")]
     public class AccountController : Controller
     {
         private readonly ILogger<UserController> _logger;
