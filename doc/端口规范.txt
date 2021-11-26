@@ -6,7 +6,6 @@ Yi.Framework.StockMicroservice 19004
 Yi.Framework.ApiMicroservice 19005
 Yi.Framework.ElasticSearchProcessor 0
 Yi.Framework.OrderProcessor 0
-Yi.Framework.StaticPageProcessor 0
 Yi.Framework.SMSProcessor 0
 
 
@@ -20,9 +19,18 @@ dotnet Yi.Framework.ApiMicroservice.dll --urls="http://*:19005"
 
 docker run -d -p 1900:20000 --name yi.bbs -v /home/yi.bbs/docker/CC.Yi.API/appsettings.json:/app/appsettings.json -v /home/yi.bbs/docker/CC.Yi.API/wwwroot:/app/wwwroot yi.bbs
 
-docker build -f ./Yi.Framework.ApiMicroservice/Dockerfile -t apims ./
-docker build -f ./Yi.Framework.OcelotGateway/Dockerfile -t ogms ./
-docker build -f ./Yi.Framework.PageDetailMicroservice/Dockerfile -t pagems ./
-docker build -f ./Yi.Framework.StockMicroservice/Dockerfile -t stockms ./
-docker build -f ./Yi.Framework.SearchMicroservice/Dockerfile -t searchms ./
-docker build -f ./Yi.Framework.OrderMicroservice/Dockerfile -t orderms ./
+
+
+docker build -f ./Yi.Framework.ApiMicroservice/Dockerfile -t ccnetcore/apims:1.0v ./
+docker build -f ./Yi.Framework.OcelotGateway/Dockerfile -t ccnetcore/ogms:1.0v ./
+docker build -f ./Yi.Framework.PageDetailMicroservice/Dockerfile -t ccnetcore/pagems:1.0v ./
+docker build -f ./Yi.Framework.StockMicroservice/Dockerfile -t ccnetcore/stockms:1.0v ./
+docker build -f ./Yi.Framework.SearchMicroservice/Dockerfile -t ccnetcore/searchms:1.0v ./
+docker build -f ./Yi.Framework.OrderMicroservice/Dockerfile -t ccnetcore/orderms:1.0v ./
+docker build -f ./Yi.Framework.SMSProcessor/Dockerfile -t ccnetcore/smspc:1.0v ./
+docker build -f ./Yi.Framework.OrderProcessor/Dockerfile -t ccnetcore/orderpc:1.0v ./
+docker build -f ./Yi.Framework.ElasticSearchProcessor/Dockerfile -t ccnetcore/espc:1.0v ./
+
+docker tag apims ccnetcore/apims:1.0v
+
+docker push ccnetcore/apims:1.0v
