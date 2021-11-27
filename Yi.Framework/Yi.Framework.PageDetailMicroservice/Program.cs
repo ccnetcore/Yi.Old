@@ -31,7 +31,7 @@ namespace Yi.Framework.PageDetailMicroservice
             .ConfigureLogging(u => u.AddLog4Net())
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>().UseUrls("http://*:7007");
+                    webBuilder.UseStartup<Startup>();
 
 
                 });
