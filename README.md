@@ -6,7 +6,7 @@
 
 [English](README-en.md) | 简体中文
 
-![sdk](https://img.shields.io/badge/sdk-5.0.1-d.svg)![License MIT](https://img.shields.io/badge/license-Apache-blue.svg?style=flat-square)
+![sdk](https://img.shields.io/badge/sdk-6.0.1-d.svg)![License MIT](https://img.shields.io/badge/license-Apache-blue.svg?style=flat-square)
 
 ****
 #### 简介:
