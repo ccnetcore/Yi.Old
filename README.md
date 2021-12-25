@@ -1,7 +1,7 @@
 
  
 <h1 align="center"><img align="left" height="100px" src="https://user-images.githubusercontent.com/68722157/138828506-f58b7c57-5e10-4178-8f7d-5d5e12050113.png"> Yi框架-一个紧跟时代的.NetCore开源框架</h1>
-<h1 align="center">基于.NET5+Vue快速开发框架</h1>
+<h1 align="center">基于.NET6+Vue快速开发框架</h1>
 <h4 align="center">意义为了开发更简易</h4>
 
 [English](README-en.md) | 简体中文
@@ -14,15 +14,34 @@
 
 **CC.Yi.Old**：.Net5早期三层单体架构（已被CC.Yi取代）
 
-**CC.Yi**:.Net5经典三层WebApi单体应用架构
+**CC.Yi**:.Net5经典极简三层WebApi单体应用架构
 
-**Yi.Framework**:.Net5DDD领域驱动设计分层微服务架构（正在更新）
+**Yi.Framework.Net5**:.Net5 DDD领域驱动设计分层微服务架构
+
+**Yi.Framework.Net6**:.Net6 DDD领域驱动设计分层微服务架构（正在更新）
 
 **Yi.Vue**：Vue2.0配合CC.Yi.Framework使用前端项目（正在更新）
 
-**分支：ec**：实战项目！基于Yi.Framework微服务千万级并发电商项目DEMO（同步更新）
+**分支：ec**：**Yi.Framework.Net5+vue2.0** 实战项目！基于 Yi.Framework.Net5 微服务千万级并发电商项目DEMO（同步更新）
+
+**分支：erp**：**Yi.Framework.Net6+vue2.0** 实战项目！基于 Yi.Framework6 云管理系统项目DEMO（同步更新）
 
 ****
+
+#### 演示地址：
+
+废话少说直接上地址，**请不要**更改里面的数据
+
+API服务： [yi.ccnetcore.com](yi.ccnetcore.com)     管理员账号：admin 、 123
+
+![image](https://user-images.githubusercontent.com/68722157/147379813-f18b8e28-5c7f-4cd1-a93a-8ba3028424b1.png)
+
+
+网关地址：[gate.ccnetcore.com/swagger](gate.ccnetcore.com/swagger)
+
+![image](https://user-images.githubusercontent.com/68722157/147379797-0f8fb455-d072-414d-a9d7-ad717dd34357.png)
+
+
 #### 支持:
 
 - [x] 完全支持单体应用架构
@@ -33,7 +52,7 @@
 ****
 #### 软件架构:
 
-**架构**：后端.NET5(.NetCore 5)、前端Vue（2.0）
+**架构**：后端.NET6(Asp.NetCore 6)与.NET5(Asp.NetCore 5)、前端Vue（2.0）
 
 **关系型数据库**：mysql、sql server、sqlite、oracle
 
@@ -86,9 +105,10 @@
 - [x] 支持`Es`分词查询
 - [x] 支持多级`缓存`
 - [x] 支持`CAP`分布式事务，mysql+rabbitMq
-- [ ] 支持Docker+k8s部署
-- [ ] 支持Jenkins+CI/CD
-- [ ] 支持微信支付
+- [x] 支持`Docker+k8s`部署
+- [x] 支持`Jenkins+CI/CD`
+- [ ] 支持`autoMapper`模块映射
+- [ ] 支持`微信支付`（没账号）
 
 ****
 #### 目录结构:
@@ -125,7 +145,7 @@
 ****
 #### 感谢人员：
 
-**国内.Net行业领头人中鼎鼎有名的微软MVP**： Eleven神、哲学的老张
+**国内.Net行业领头人中**： Eleven神、哲学的老张
 
 **核心开发人员**：
 
@@ -155,7 +175,7 @@ QQ：454313500
 
 问3：以后会持续更新下去吗？
 
-答3：一定会的，我们的标题是 一个紧跟时代的.Netcore开源框架 ，如果有我们比较感兴趣的技术，我们一定会加入进来，例如：.Net6 。
+答3：一定会的，我们的标题是 一个紧跟时代的.Netcore开源框架 ，如果有我们比较感兴趣的技术，我们一定会加入进来，例如：.Net6 。（已更新）
 
 问4：这个框架的针对人群是哪些人？适合所有人吗？
 
@@ -163,5 +183,9 @@ QQ：454313500
 
 问5：花如此多的精力制作这个框架，是为了什么？是为了赚钱吗？和目前主流的abp等框架比，又有什么意义呢？
 
-答5：不说什么大话，制作这个框架主要原因是为了自己使用以及其他的参考学习，和钱可是半点关系没有哦。abp确实非常优秀，但和我们意框架其实并不冲突，使用场景是不一样的。说不定即将出意框架abp分支呢~~~
+答5：不说什么大话，制作这个框架主要原因是为了自己使用以及其他的参考学习。abp确实非常优秀，但和我们意框架其实并不冲突，使用场景是不一样的。
+
+问6：为何不出版一个详细的说明书呢？
+
+答5：应该不会了，代码都是基于Asp.Netcore框架，适用于新手不用造轮子，整个框架较为简单，阅读源码后，基本能自定义改造使用了，过难也已经封装完毕，别忘了，其意义是为了开发更加简易！
 
