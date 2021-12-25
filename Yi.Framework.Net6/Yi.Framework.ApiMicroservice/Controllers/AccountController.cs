@@ -16,6 +16,7 @@ using Yi.Framework.DTOModel;
 using Yi.Framework.Interface;
 using Yi.Framework.Model.Models;
 using Yi.Framework.WebCore;
+using Yi.Framework.WebCore.Mapper;
 
 namespace Yi.Framework.ApiMicroservice.Controllers
 {
@@ -46,11 +47,12 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <summary>
         /// 登录方法，要返回data:{user,token} token
         /// </summary>
-        /// <param name="_user"></param>
+        /// <param name="login"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<Result> Login(user _user)
+        public async Task<Result> Login(loginDto login)
         {
+           var _user= MapperHelper.Map<user, loginDto>(login);
             var user_data = await _userService.Login(_user);
             if (user_data == null)
             {
