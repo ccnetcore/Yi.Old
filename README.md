@@ -32,12 +32,12 @@
 
 废话少说直接上地址，**请不要**更改里面的数据
 
-API服务： [yi.ccnetcore.com](yi.ccnetcore.com)     管理员账号：admin 、 123
+API服务： [yi.ccnetcore.com](http://yi.ccnetcore.com)     管理员账号：admin 、 123
 
 ![image](https://user-images.githubusercontent.com/68722157/147379813-f18b8e28-5c7f-4cd1-a93a-8ba3028424b1.png)
 
 
-网关地址：[gate.ccnetcore.com/swagger](gate.ccnetcore.com/swagger)
+网关地址：[gate.ccnetcore.com/swagger](http://gate.ccnetcore.com/swagger)
 
 ![image](https://user-images.githubusercontent.com/68722157/147379797-0f8fb455-d072-414d-a9d7-ad717dd34357.png)
 
