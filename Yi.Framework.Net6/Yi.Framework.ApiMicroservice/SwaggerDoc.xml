@@ -4,11 +4,11 @@
         <name>Yi.Framework.ApiMicroservice</name>
     </assembly>
     <members>
-        <member name="M:Yi.Framework.ApiMicroservice.Controllers.AccountController.Login(Yi.Framework.Model.Models.user)">
+        <member name="M:Yi.Framework.ApiMicroservice.Controllers.AccountController.Login(Yi.Framework.DTOModel.loginDto)">
             <summary>
             登录方法，要返回data:{user,token} token
             </summary>
-            <param name="_user"></param>
+            <param name="login"></param>
             <returns></returns>
         </member>
         <member name="M:Yi.Framework.ApiMicroservice.Controllers.AccountController.Logout">
