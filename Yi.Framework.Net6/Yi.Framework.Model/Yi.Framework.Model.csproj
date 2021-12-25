@@ -1,0 +1,59 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="T4DataContext.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>T4DataContext.tt</DependentUpon>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="NEST" Version="7.16.0" />
+    <PackageReference Include="Oracle.EntityFrameworkCore" Version="6.21.4" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Yi.Framework.Common\Yi.Framework.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="T4DaraContext.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>T4DaraContext.cs</LastGenOutput>
+    </None>
+    <None Update="T4DataContext.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>T4DataContext.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="T4DaraContext.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>T4DaraContext.tt</DependentUpon>
+    </Compile>
+    <Compile Update="T4DataContext.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>T4DataContext.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+</Project>

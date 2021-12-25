@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="6.3.0" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
+    <PackageReference Include="Autofac.Extras.DynamicProxy" Version="6.0.0" />
+    <PackageReference Include="Com.Ctrip.Framework.Apollo.Configuration" Version="2.5.0" />
+    <PackageReference Include="DotNetCore.CAP" Version="5.2.0" />
+    <PackageReference Include="DotNetCore.CAP.Dashboard" Version="5.2.0" />
+    <PackageReference Include="DotNetCore.CAP.MySql" Version="5.2.0" />
+    <PackageReference Include="DotNetCore.CAP.RabbitMQ" Version="5.2.0" />
+    <PackageReference Include="IGeekFan.AspNetCore.Knife4jUI" Version="0.0.11" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Formatters.Json" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="6.0.0" />
+    <PackageReference Include="Quartz.AspNetCore" Version="3.3.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Yi.Framework.Core\Yi.Framework.Core.csproj" />
+    <ProjectReference Include="..\Yi.Framework.DTOModel\Yi.Framework.DTOModel.csproj" />
+    <ProjectReference Include="..\Yi.Framework.Model\Yi.Framework.Model.csproj" />
+  </ItemGroup>
+
+</Project>

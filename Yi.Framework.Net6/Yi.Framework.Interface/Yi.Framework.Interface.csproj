@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="T4Service.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="T4Iservice.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>T4Iservice.tt</DependentUpon>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Yi.Framework.Model\Yi.Framework.Model.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="T4IService.tt">
+      <LastGenOutput>T4Iservice.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="T4IService.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>T4IService.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+</Project>
