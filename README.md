@@ -107,7 +107,7 @@ API服务： [yi.ccnetcore.com](http://yi.ccnetcore.com)     管理员账号：a
 - [x] 支持`CAP`分布式事务，mysql+rabbitMq
 - [x] 支持`Docker+k8s`部署
 - [x] 支持`Jenkins+CI/CD`
-- [ ] 支持`autoMapper`模块映射
+- [x] 支持`AutoMapper`模块映射
 - [ ] 支持`微信支付`（没账号）
 
 ****
