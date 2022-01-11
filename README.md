@@ -24,7 +24,7 @@
 
 **分支：ec**：**Yi.Framework.Net5+vue2.0** 实战项目！基于 Yi.Framework.Net5 微服务千万级并发电商项目DEMO（同步更新）
 
-**分支：erp**：**Yi.Framework.Net6+vue2.0** 实战项目！基于 Yi.Framework6 云管理系统项目DEMO（同步更新）
+**分支：erp**：**Yi.Framework.Net6+vue2.0** 实战项目！基于 Yi.Framework.Net6 云管理系统项目DEMO（同步更新）
 
 ****
 
@@ -108,6 +108,7 @@ API服务： [yi.ccnetcore.com](http://yi.ccnetcore.com)     管理员账号：a
 - [x] 支持`Docker+k8s`部署
 - [x] 支持`Jenkins+CI/CD`
 - [x] 支持`AutoMapper`模块映射
+- [x] 支持`权限点对点`模式
 - [ ] 支持`微信支付`（没账号）
 
 ****
