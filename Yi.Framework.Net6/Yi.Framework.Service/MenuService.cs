@@ -66,7 +66,10 @@ namespace Yi.Framework.Service
                 var m = u.menus.Where(u => u.is_delete == Normal).ToList();
                 menuList = menuList.Union(m).ToList();
             });
-            return menuList;
+
+            var menuIds=menuList.Select(u => u.id).ToList();
+
+            return await _DbRead.Set<menu>().Include(u => u.mould).Where(u => menuIds.Contains(u.id)).ToListAsync();
         }
 
     }

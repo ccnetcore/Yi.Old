@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Yi.Framework.DTOModel;
 using Yi.Framework.Model.Models;
 
 namespace Yi.Framework.Interface
@@ -67,5 +68,19 @@ namespace Yi.Framework.Interface
         /// <returns></returns>
         Task<List<menu>> GetAxiosByRouter(string router,int userId, List<int> menuIds);
 
+
+        /// <summary>
+        /// 将登录用户的api保存的redis中
+        /// </summary>
+        /// <param name="_user"></param>
+        /// <returns></returns>
+        public bool SaveUserApi(int userId, List<menuDto> menus);
+
+        /// <summary>
+        /// 通过用户id得到redis中菜单列表
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public List<int> GetCurrentMenuInfo(int userId);
     }
 }

@@ -14,6 +14,8 @@ namespace Yi.Framework.Common.Const
         public const string key = "YiFramework:data";
 
         public const string keyCode = "YiFramework:code";
+
+        public const string userMenusApi = "YiFramework:userMenusApi";
         ///// <summary>
         ///// 初始化角色名
         ///// </summary>

@@ -28,5 +28,13 @@ namespace Yi.Framework.WebCore.Mapper
             IMapper mapper = new AutoMapper.Mapper(config);
             return  mapper.Map<Source, Target>(source);
         }
+        public static List<Target> MapList<Target, Source>(List<Source> source)
+        {
+            var cfg = new MapperConfigurationExpression();
+            cfg.CreateMap<Source, Target>();
+            var config = new MapperConfiguration(cfg);
+            IMapper mapper = new AutoMapper.Mapper(config);
+            return mapper.Map<List<Source>, List<Target>>(source);
+        }
     }
 }

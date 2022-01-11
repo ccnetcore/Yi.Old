@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Yi.Framework.Core\Yi.Framework.Core.csproj" />
+    <ProjectReference Include="..\Yi.Framework.DTOModel\Yi.Framework.DTOModel.csproj" />
     <ProjectReference Include="..\Yi.Framework.Interface\Yi.Framework.Interface.csproj" />
     <ProjectReference Include="..\Yi.Framework.Model\Yi.Framework.Model.csproj" />
   </ItemGroup>

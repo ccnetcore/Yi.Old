@@ -37,10 +37,11 @@ namespace Yi.Framework.Core
             claims.Add(new Claim(JwtRegisteredClaimNames.Exp, $"{new DateTimeOffset(DateTime.Now.AddMinutes(30)).ToUnixTimeSeconds()}"));
             claims.Add(new Claim(ClaimTypes.Name, _user.user.username));
             claims.Add(new Claim(ClaimTypes.Sid, _user.user.id.ToString()));
-            foreach (var k in _user?.menuIds)
-            {
-                claims.Add(new Claim("menuIds",k.id.ToString()));
-            }
+            //现在不存放在jwt中，而存放在redis中
+            //foreach (var k in _user?.menuIds)
+            //{
+            //    claims.Add(new Claim("menuIds",k.id.ToString()));
+            //}
             foreach (var k in _user.user.roles)
             {
                 claims.Add(new Claim(ClaimTypes.Role, k.role_name));

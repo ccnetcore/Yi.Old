@@ -16,6 +16,7 @@ using Yi.Framework.DTOModel;
 using Yi.Framework.Interface;
 using Yi.Framework.Model.Models;
 using Yi.Framework.WebCore;
+using Yi.Framework.WebCore.AuthorizationPolicy;
 using Yi.Framework.WebCore.Mapper;
 
 namespace Yi.Framework.ApiMicroservice.Controllers
@@ -32,7 +33,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         private CacheClientDB _cacheClientDB;
         private IRoleService _roleService;
         private IHttpContextAccessor _httpContext;
-        public AccountController(ILogger<UserController> logger, IUserService userService, IMenuService menuService,RabbitMQInvoker rabbitMQInvoker,CacheClientDB cacheClientDB, IRoleService roleService, IHttpContextAccessor httpContext)
+        public AccountController(ILogger<UserController> logger, IUserService userService, IMenuService menuService, RabbitMQInvoker rabbitMQInvoker, CacheClientDB cacheClientDB, IRoleService roleService, IHttpContextAccessor httpContext)
         {
             _logger = logger;
             _userService = userService;
@@ -52,18 +53,20 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpPost]
         public async Task<Result> Login(loginDto login)
         {
-           var _user= MapperHelper.Map<user, loginDto>(login);
+            var _user = MapperHelper.Map<user, loginDto>(login);
             var user_data = await _userService.Login(_user);
             if (user_data == null)
             {
                 return Result.Error("该用户不存在");
             }
             var menuList = await _menuService.GetTopMenuByUserId(user_data.id);
-            if ( user_data!=null)
-            {               
-                var token = MakeJwt.app(new jwtUser() {user=user_data,menuIds= menuList});
-
+            if (user_data != null)
+            {
+                var token = MakeJwt.app(new jwtUser() { user = user_data, menuIds = menuList });
                 JobModel.visitNum += 1;
+                //同时要将api路径放置到redis中
+                var menuDto = MapperHelper.MapList<menuDto,menu>(menuList);
+                _userService.SaveUserApi(user_data.id, menuDto);
                 return Result.Success().SetData(new { user = new { user_data.id, user_data.username, user_data.introduction, user_data.icon, user_data.nick }, token });
             }
             return Result.Error();
@@ -73,6 +76,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// 不用写，单纯制作日志
         /// </summary>
         /// <returns></returns>
+
         [HttpPost]
         public Result Logout()
         {
@@ -88,17 +92,17 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpPost]
         public async Task<Result> Register(user _user, string code)
         {
-            _user.username=_user.username.Trim();
-            if(string.IsNullOrEmpty(_user.username))
-            code = code.Trim();
+            _user.username = _user.username.Trim();
+            if (string.IsNullOrEmpty(_user.username))
+                code = code.Trim();
 
-             string trueCode=  _cacheClientDB.Get<string>(RedisConst.keyCode + _user.phone);
+            string trueCode = _cacheClientDB.Get<string>(RedisConst.keyCode + _user.phone);
             if (code == trueCode)
             {
                 //设置默认头像
                 var setting = JsonHelper.StrToObj<SettingDto>(_cacheClientDB.Get<string>(RedisConst.key));
                 _user.icon = setting.InitIcon;
-                _user.ip = _httpContext.HttpContext.Request.Headers["X-Real-IP"].FirstOrDefault();//通过上下文获取ip
+                _user.ip = _httpContext.HttpContext?.Request.Headers["X-Real-IP"].FirstOrDefault();//通过上下文获取ip
                 //设置默认角色
                 if (string.IsNullOrEmpty(setting.InitRole))
                 {
@@ -120,7 +124,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <param name="SMSAddress"></param>
         /// <returns></returns>
         [HttpPost]
-        public async  Task<Result> SendSMS(string SMSAddress)
+        public async Task<Result> SendSMS(string SMSAddress)
         {
             if (string.IsNullOrEmpty(SMSAddress))
             {
@@ -131,15 +135,15 @@ namespace Yi.Framework.ApiMicroservice.Controllers
             {
                 SMSQueueModel sMSQueueModel = new SMSQueueModel();
                 sMSQueueModel.phone = SMSAddress;
-                sMSQueueModel.code =RandomHelper.GenerateCheckCodeNum(6);
+                sMSQueueModel.code = RandomHelper.GenerateCheckCodeNum(6);
 
                 //10分钟过期
-                _cacheClientDB.Set(RedisConst.keyCode+sMSQueueModel.phone, sMSQueueModel.code, TimeSpan.FromMinutes(10));
+                _cacheClientDB.Set(RedisConst.keyCode + sMSQueueModel.phone, sMSQueueModel.code, TimeSpan.FromMinutes(10));
 
                 _rabbitMQInvoker.Send(new Common.IOCOptions.RabbitMQConsumerModel() { ExchangeName = RabbitConst.SMS_Exchange, QueueName = RabbitConst.SMS_Queue_Send }, JsonHelper.ObjToStr(sMSQueueModel));
                 return Result.Success("发送短信成功，10分钟后过期，请留意短信接收");
             }
-                return Result.Error("该号码已被注册");
+            return Result.Error("该号码已被注册");
         }
 
         /// <summary>
@@ -179,11 +183,11 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpPut]
         [Authorize]
         public async Task<Result> ChangePassword(ChangePwdDto pwdDto)
-        {          
+        {
             var user_data = await _userService.GetUserById(pwdDto.user.id);
             string msg = "修改成功";
-            if (! string.IsNullOrEmpty( pwdDto.newPassword))
-            {               
+            if (!string.IsNullOrEmpty(pwdDto.newPassword))
+            {
                 if (user_data.password == pwdDto.user.password)
                 {
 
@@ -195,7 +199,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
                     user_data.address = pwdDto.user.address;
                     user_data.nick = pwdDto.user.nick;
 
-                    
+
                     await _userService.UpdateAsync(user_data);
                     user_data.password = null;
                     return Result.Success(msg);
@@ -219,6 +223,6 @@ namespace Yi.Framework.ApiMicroservice.Controllers
 
             return Result.Success(msg);
         }
-     
+
     }
 }

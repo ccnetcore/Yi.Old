@@ -67,6 +67,10 @@ builder.Services.AddCorsService();
 #endregion
 builder.Services.AddJwtService();
 #region
+//ÊÚÈ¨ÅäÖÃ
+#endregion
+builder.Services.AddAuthorizationService();
+#region
 //Êı¾İ¿âÅäÖÃ
 #endregion
 builder.Services.AddDbService();
