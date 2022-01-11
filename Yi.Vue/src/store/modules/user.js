@@ -18,9 +18,9 @@ const state = { //状态
     ],
     images: [
         'https://z3.ax1x.com/2021/05/09/gJadhD.jpg',
-        'https://z3.ax1x.com/2021/05/09/gJadhD2.jpg',
-        'https://z3.ax1x.com/2021/05/09/gJadhD3.jpg',
-        'https://z3.ax1x.com/2021/05/09/gJadhD4.jpg',
+        'https://s4.ax1x.com/2022/01/11/7eT9kn.jpg',
+        'https://s4.ax1x.com/2022/01/11/7eTCYq.jpg',
+        'https://s4.ax1x.com/2022/01/11/7eTSTs.jpg',
     ],
     notifications: [],
     rtl: false
