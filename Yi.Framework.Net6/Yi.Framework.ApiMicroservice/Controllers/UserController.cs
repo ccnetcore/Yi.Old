@@ -10,6 +10,7 @@ using Yi.Framework.DTOModel;
 using Yi.Framework.Interface;
 using Yi.Framework.Model.Models;
 using Yi.Framework.WebCore;
+using Yi.Framework.WebCore.AuthorizationPolicy;
 
 namespace Yi.Framework.ApiMicroservice.Controllers
 {
@@ -31,6 +32,8 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// 查
         /// </summary>
         /// <returns></returns>
+
+        [Authorize(PolicyName.Menu)]
         [HttpGet]
         public async Task<Result> GetUser()
         {
@@ -43,6 +46,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <param name="_user"></param>
         /// <returns></returns>
         [HttpPut]
+        [Authorize(PolicyName.Menu)]
         public async Task<Result> UpdateUser(user _user)
         {
             await _userService.UpdateAsync(_user);
@@ -56,6 +60,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <param name="_ids"></param>
         /// <returns></returns>
         [HttpDelete]
+        [Authorize(PolicyName.Menu)]
         public async Task<Result> DelListUser(List<int> _ids)
         {
             await _userService.DelListByUpdateAsync(_ids);
@@ -68,6 +73,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         /// <param name="_user"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authorize(PolicyName.Menu)]
         public async Task<Result> AddUser(user _user)
         {
             await _userService.AddAsync(_user);
@@ -109,7 +115,7 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpGet]
         public async Task<Result> GetMenuByHttpUser()
         {
-         HttpContext.GetCurrentUserInfo(out var allMenuIds);
+            var allMenuIds= _userService.GetCurrentMenuInfo(HttpContext.GetCurrentUserInfo().id);
             return Result.Success().SetData(await _userService.GetMenuByHttpUser(allMenuIds));
         }
 
@@ -121,8 +127,8 @@ namespace Yi.Framework.ApiMicroservice.Controllers
         [HttpGet]
         public async Task<Result> GetAxiosByRouter(string router)
         {
-            
-            var _user = HttpContext.GetCurrentUserInfo(out List<int> menuIds);
+            var _user = HttpContext.GetCurrentUserInfo();
+            var menuIds = _userService.GetCurrentMenuInfo(_user.id);
             if (menuIds == null)
             {
                 return Result.Error();

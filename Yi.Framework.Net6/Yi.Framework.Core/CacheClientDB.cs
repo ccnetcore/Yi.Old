@@ -1040,9 +1040,14 @@ namespace Yi.Framework.Core
 
 		public bool SetEntryInHash<T>(string hashId, string key, T value)
 		{
+
 			return this.TryCatch<bool>(() => this.client.SetEntryInHash(hashId, key, TextExtensions.SerializeToString<T>(value)), hashId);
 		}
-
+		public bool SetEntryInHash<T>(string hashId, string key, T value, TimeSpan expiresIn)
+		{
+			
+			return this.TryCatch<bool>(() =>  this.client.SetEntryInHash(hashId, key, TextExtensions.SerializeToString<T>(value)), hashId);
+		}
 		public T GetValueFromHash<T>(string hashId, string key)
 		{
 			return this.TryCatch<T>(() => JsonSerializer.DeserializeFromString<T>(this.client.GetValueFromHash(hashId, key)), hashId);

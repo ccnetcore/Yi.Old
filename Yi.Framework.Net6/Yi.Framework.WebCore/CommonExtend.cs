@@ -26,6 +26,7 @@ namespace Yi.Framework.WebCore
 
         /// <summary>
         /// 基于HttpContext,当前鉴权方式解析，获取用户信息
+        /// 现在使用redis作为缓存，不需要将菜单存放至jwt中了
         /// </summary>
         /// <param name="httpContext"></param>
         /// <returns></returns>
